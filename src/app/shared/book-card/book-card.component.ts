@@ -7,7 +7,7 @@ import { ReadingRoomsService } from 'src/app/core/reading-rooms.service';
   selector: 'app-book-card',
   templateUrl: './book-card.component.html',
   styleUrls: ['./book-card.component.scss'],
-  styles:[':root{width:"width";heiht:"height"}']
+ 
 })
 export class BookCardComponent implements OnInit {
   @Input() book:Book=new Book();
