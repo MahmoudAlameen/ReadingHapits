@@ -1,0 +1,46 @@
+nav
+{
+    margin: 0px !important;
+    background-color: rgb(181, 194, 196) !important;
+    position:sticky;
+    z-index:10;
+    width:100%
+
+}
+ul li
+{
+    font-weight: bold;
+    font-size: 1.7rem;
+    margin-left: 10px;
+    font-weight: bolder !important;
+
+
+} 
+button span
+{
+   background-color: rgb(35, 39, 54);
+}
+.navbar-brand 
+{
+
+    font-size: 2.5rem;
+    color:rgb(15, 11, 54);
+    font-weight: bold;
+    margin-left: 20px;
+}
+ul li a , ul li span
+{
+    color:rgb(21, 21, 51) !important;
+    font-weight: bold;
+
+}
+@media screen and (max-width:700px)
+{
+    nav
+    {
+        position: fixed;
+        width:fit-content
+    }
+}
+
+

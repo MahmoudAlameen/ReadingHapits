@@ -1,0 +1,11 @@
+<section  (click)="navigateTOReadingRoom(readingRoom.id)" (mouseover)="overlayStyle(overlay)" (mouseleave)="removeOverlay(overlay)" id="room" class="readingRoom">
+    <div id="overlay"  #overlay> </div>
+    <h2 class="head">{{readingRoom.name}}</h2>
+    <div class="books">
+        <app-book-card *ngFor="let book of readingRoom.books" [book]="book"></app-book-card>
+    </div>
+    <footer>
+        <em>عدد الكتب: {{readingRoom.books.length}}</em>
+        <em>عدد المقالات :{{readingRoom.articles.length}}</em>
+    </footer>
+</section>

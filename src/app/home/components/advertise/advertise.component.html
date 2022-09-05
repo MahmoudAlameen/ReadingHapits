@@ -1,0 +1,11 @@
+<section class="advertise">
+    <div class="circle">
+        <img [src]="circledImg"/>
+    </div>
+    <div class="articles" >
+        <div class="message hidden" *ngFor="let msg of Messages">
+            <h1>{{msg.head}}</h1>
+           <p>{{msg.message}}</p> 
+        </div>
+    </div>
+</section>

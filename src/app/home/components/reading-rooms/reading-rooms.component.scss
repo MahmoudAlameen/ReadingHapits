@@ -1,0 +1,26 @@
+.readingRoomsContainer
+{
+    display:flex;
+    flex-direction: column;
+    width:100%;
+    gap:20px;
+    align-items: center;
+    // background: linear-gradient(0deg, rgb(134, 167, 134) 0%, rgba(0,13,60,1) 100%);
+
+    
+}
+.head
+{
+    text-align: center;
+    font-weight: bold;
+    font-size: 3rem !important;
+
+}
+.readingRooms
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap:20px
+}

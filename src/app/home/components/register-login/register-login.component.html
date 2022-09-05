@@ -1,0 +1,68 @@
+<section class="container container-fluid">
+    <form class="loginForm"  #loginForm="ngForm" (ngSubmmit)="postData()">
+        <div class="form-group">
+            <label>:  اسم المستخدم  </label>
+            <input type="text" required [class.is-invalid]="userName.invalid && userName.touched" [(ngModel)]="logedUser.userName" name="userName" #userName="ngModel"  class="form-control">
+            <small class="text-danger" *ngIf="userName.invalid && userName.touched">Name is required</small>
+        </div>
+        <div class="form-group">
+            <label>:  كلمه السر </label>
+            <input type="password" required [class.is-invalid]="password.invalid && password.touched" [(ngModel)]="logedUser.password" name="password" #password="ngModel"  class="form-control">
+            <small class="text-danger" *ngIf="password.invalid && password.touched">Name is required</small>
+        </div>
+         <input class="submit" type="submit" value="تسجيل دخول">
+    </form>
+
+    <button (click)="openRegisterForm()" >تسجيل حساب</button>
+
+    <form class="registerForm" #registerForm="ngForm"  *ngIf="register"  (ngSubmmit)="registerStudent()">
+        <div class="form-group">
+            <label>: اسم الطالب  </label>
+            <input type="text" required [class.is-invalid]="name.invalid && name.touched" #name="ngModel" [(ngModel)]="registeredUser.name" class="form-control"/>
+            <small class="text-danger" *ngIf="name.invalid && name.touched"> name is required</small>
+        </div>
+        <div class="form-group">
+            <label>: الايميل  </label>
+            <input type="email" required [class.is-invalid]="name.invalid && name.touched" #email="ngModel" [(ngModel)]="registeredUser.email" class="form-control"/>
+            <small class="text-danger" *ngIf="email.invalid && email.touched"> email is required</small>
+        </div>
+        <div class="form-group">
+            <label>العمر</label>
+            <input type="number" required [class.is-invalid]="age.invalid && age.touched" #age="ngModel" [(ngModel)]="registeredUser.age" class="form-control"/>
+            <small *ngIf="age.invalid && age.touched"></small>
+        </div>
+        <div class="form-group">
+            <label>النوع</label>
+            <select name="gender" [(ngModel)]="registeredUser.gender" required #gender="ngModel" [class.is-invalid]="gender.invalid  && gender.touched" class="form-control">
+                <option value="male">`ذكر</option>
+                <option value="female">انثى</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>المدرسه</label>
+            <select (change)="validateSchool(school.value)" name="school" [(ngModel)]="registeredUser.school" #school="ngModel" [class.is-invalid]="school.touched && schoolHasError" required class="form-control">
+                <option value="school"></option>
+                <option  *ngFor="let school of schools">
+                    {{school}}
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>البلد</label>
+            <select (change)="validateCountry(country.value)" name="country" [(ngModel)]="registeredUser.country" #country="ngModel" [class.is-invalid]="country.touched && countryHasError" required class="form-control">
+                <option value="country">البلد</option>
+                <option  *ngFor="let country of countries">
+                    {{country}}
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>المحافظه</label>
+            <input type="text" #governate="ngModel" required [(ngModel)]="registeredUser.governate" name="governate" [class.is-invalid]="governate.invalid && governate.touched" class="form-control"/>
+            <small class="text-danger" *ngIf="governate.invalid && governate.touched">governate is required</small>
+        </div>
+        <input type="submit" class="btn btn-success" [disabled]="registerForm.form.invalid || countryHasError || schoolHasError" value="تسجيل"/>
+
+
+    </form>
+</section>

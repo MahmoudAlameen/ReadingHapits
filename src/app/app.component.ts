@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Book } from './classes/Book';
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ReadingHapits';
+  book:number=1
+  width:string="200px"
+  height:string="200px"
+  
 }

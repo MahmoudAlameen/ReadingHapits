@@ -1,0 +1,111 @@
+.readingRoom
+{
+    width:100%;
+    margin:auto;
+    background: linear-gradient(to  left bottom , rgb(46, 59, 57),rgb(186, 239, 241),rgb(242, 247, 246));
+    color:black;
+    height: 100%;
+}
+.head,h2
+{
+    width:100%;
+    text-align: center;
+    margin:auto;
+}
+.content
+{
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    border-top: solid rgb(32, 96, 112) 10px !important;
+    height:100%;
+    min-height:500px;
+
+
+}
+.left
+{
+    width:25%;
+    border-right:solid rgb(32, 96, 112) 10px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    overflow:auto;
+
+}
+.left button
+{
+    background-color: rgb(9, 54, 59);
+    color: white;
+    font-weight: bold;
+    padding-block: 10px;
+    padding-inline: 20px;
+    font-size: 1.7rem;
+}
+.dropdown-menu
+{
+    background-color: rgb(65, 119, 119);
+    font-size: 1.7rem;
+    color:white !important
+}
+.dropdown-menu li a
+{
+    color:white !important
+}
+.dropdown-menu li  :hover
+{
+    background-color: rgb(22, 44, 48) !important;
+}
+
+
+.right
+{
+    width:75%
+}
+.books
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap:20px
+}
+
+@keyframes rotateOnXY
+{
+    0%
+    {
+        transform: rotateX(0deg)
+    }
+  10%,50%
+    {
+        transform:rotatex(360deg)
+    
+    }
+    60%
+    {
+        transform: rotateY((0deg));
+
+    }
+    70%,100%
+    {
+        transform: rotateY(360deg);
+    }
+
+    
+  
+}
+.rotateOnXY
+{
+    animation: rotateOnXY 10s infinite linear
+
+}
+.input-group 
+{
+    margin: auto;
+    margin-top: 10px;
+    width:300px
+}
+
+
