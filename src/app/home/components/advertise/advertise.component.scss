@@ -142,6 +142,18 @@ display:none
 }
 
 
+@media  screen and (max-width:900px) {
+    .message
+    {
+        font-size: 2rem !important;
+    }
+    .advertise
+    {
+        height:230px
+    }
+    
+}
+
 @media  screen and (max-width:600px) {
     .advertise
     {
@@ -153,8 +165,8 @@ display:none
     }
     .circle
     {
-        height: 150px;
-        width:30%;
+        height: 100px;
+        width:21%;
         animation: circleRotateZ infinite 5s linear;
     }
     .message

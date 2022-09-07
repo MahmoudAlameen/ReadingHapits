@@ -24,9 +24,12 @@
                   <i class="fas fa-search"></i>
                 </span>
             </div>
-            <h2>الكتب</h2>
+            <h2>
+                الكتب
+            </h2>
+           
             <div class="books">
-                <app-book-card  [width]="bookCardWidth" [height]="bookCardHeight" [book]="book"  *ngFor="let book of readingRoom.books"></app-book-card>
+                <app-book-card class="book" [width]="bookCardWidth" [height]="bookCardHeight" [book]="book"  *ngFor="let book of readingRoom.books"></app-book-card>
             </div>
         </div>
     </div>

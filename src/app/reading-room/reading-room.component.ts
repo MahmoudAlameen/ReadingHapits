@@ -6,13 +6,14 @@ import { ReadingRoomsService } from '../core/reading-rooms.service';
 @Component({
   selector: 'app-reading-room',
   templateUrl: './reading-room.component.html',
-  styleUrls: ['./reading-room.component.scss']
+  styleUrls: ['./reading-room.component.scss'],
+
 })
 export class ReadingRoomComponent implements OnInit {
   @Input() roomId:number =0
   readingRoom:ReadingRoom=new ReadingRoom()
-  bookCardWidth:string="200px";
-  bookCardHeight:string="200px";
+  bookCardWidth:string="150px";
+  bookCardHeight:string="150px";
 
   constructor(private router:Router,private readingRoomService:ReadingRoomsService) {
    

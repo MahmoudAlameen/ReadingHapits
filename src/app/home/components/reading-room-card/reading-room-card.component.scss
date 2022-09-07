@@ -47,7 +47,7 @@ footer
     align-items: center;
     width:100%;
     font-weight: bold;
-    font-size: 1.2rem mpo !important;
+    font-size: 1.2rem  !important;
 }
 #overlay
 {
@@ -76,5 +76,19 @@ footer
     transform: scale(1.2,1.2);
 
     box-shadow: 1px 1px 1px gray;
+}
+
+@media screen and (max-width:900px)
+{
+    .head
+    {
+        font-size: 2.3rem;
+    }
+    .readingRoom
+    {
+        width:250px;
+        gap:20px;
+        padding-block: 10px;
+    }
 }
 

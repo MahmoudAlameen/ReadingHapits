@@ -10,29 +10,35 @@
 }
 .loginForm
 {
-    width:300px;
-    align-self:flex-end;
+    align-self:center;
     display: flex;
     flex-direction: column;
-    align-items: center
+    align-items: center;
+    background: linear-gradient(to  left bottom , rgb(88, 105, 105),rgb(90, 109, 110),rgb(177, 189, 186));;
+    padding:20px;
+    padding-inline: 80px;
+    border-radius: 10%;
+    border: solid rgb(211, 224, 226) 0.5px;  //blanchedalmond
+ 
+
 }
 .registerForm
 {
     background: linear-gradient(to  left bottom , rgb(88, 105, 105),rgb(90, 109, 110),rgb(177, 189, 186));
 
     align-self: center;
-    width:500px;
+    width:40%;
     display: flex;
     flex-direction: column;
-    align-items: center
+    align-items: center;
 }
 .registerForm >div
 {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
-    width:70%;
    margin-inline: auto;
+   width:80%;
    margin-top: 20px;
     
 
@@ -69,8 +75,68 @@ button
     font-weight: bold;
     font-size: 1.7rem;
 }
+
 label
 {
     font-weight: bold;
     font-size:1.7rem
+}
+
+
+
+@media screen and (max-width:600px)
+{
+    .loginForm
+    {
+        padding:10px;
+        padding-inline: 20px;
+    }
+    label
+    {
+        font-size: 1.4rem;
+    }
+    .registerForm
+    {
+        width:80%
+    }
+    .registerForm >div
+    {
+        width:95%
+    }
+    .registerForm select, .registerForm input
+    {
+        max-width: 150px;
+        max-height: 25px;
+    }
+}
+@media screen and (max-width:1080px) and (min-width:900px)
+{
+    .registerForm
+    {
+        width:45%
+    }
+    .registerForm >div
+    {
+        width:90%
+    }
+}
+@media screen and (max-width:900px ) and (min-width:600px)
+{
+    .loginForm
+    {
+        padding:10px;
+        padding-inline: 50px;
+    }
+    .registerForm
+    {
+        width:60%;
+    }
+    .registerForm >div
+    {
+        width: 90%;
+    }
+    .registerForm input , .registerForm select
+    {
+        max-width: 200px;
+    }
 }
