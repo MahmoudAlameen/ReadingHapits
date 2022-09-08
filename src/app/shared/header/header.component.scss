@@ -2,28 +2,15 @@ nav
 {
     margin: 0px !important;
     background-color: rgb(181, 194, 196) !important;
-    position:sticky;
+    position:fixed;
     z-index:10;
     width:100%;
-    
-
 }
-// #myNavbar
-// {
-//     display:flex;
-//     flex-direction: row;
-//     justify-content: space-between;
-// }
-
 
 ul li
 {
-    font-weight: bold;
     font-size: 1.7rem;
     margin-left: 10px;
-    font-weight: bolder !important;
-
-
 } 
 button span
 {
@@ -31,7 +18,6 @@ button span
 }
 .navbar-brand 
 {
-
     font-size: 2.5rem;
     color:rgb(15, 11, 54);
     font-weight: bold;
@@ -40,13 +26,10 @@ button span
 ul li a , ul li span
 {
     color:rgb(21, 21, 51) !important;
-    font-weight: bold;
-
+    font-weight: bolder !important;
 }
 @media screen and (max-width:1100px)
 {
-
-
     .nav li
     {
         margin:0px;
@@ -60,8 +43,6 @@ ul li a , ul li span
     padding:5px
  }
  
-
-    
 
 }
 

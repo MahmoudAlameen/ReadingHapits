@@ -7,3 +7,15 @@ main
     display:flex;
     flex-direction: column;
 }
+.outlet
+{
+    margin-top: 52px;
+}
+
+@media screen and (max-width:600px)
+{
+    .outlet
+    {
+        margin-top: 0px;
+    }
+}

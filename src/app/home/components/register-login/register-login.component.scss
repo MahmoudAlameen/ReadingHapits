@@ -1,6 +1,8 @@
 .container
 {
     width:100%;
+    height:100%;
+    min-height: 490px;
     color:white;
     display: flex;
     flex-direction: column;
@@ -25,7 +27,6 @@
 .registerForm
 {
     background: linear-gradient(to  left bottom , rgb(88, 105, 105),rgb(90, 109, 110),rgb(177, 189, 186));
-
     align-self: center;
     width:40%;
     display: flex;
@@ -105,8 +106,8 @@ label
     }
     .registerForm select, .registerForm input
     {
-        max-width: 150px;
-        max-height: 25px;
+        max-width: 170px;
+        max-height: 50px;
     }
 }
 @media screen and (max-width:1080px) and (min-width:900px)

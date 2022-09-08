@@ -26,10 +26,11 @@ export class AdvertiseComponent implements OnInit {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
     var msgs:HTMLCollection= document.getElementsByClassName("message");
-
-    setTimeout(()=>this.startMessagesTimer(msgs),1)
+    setTimeout(()=>this.startMessagesTimer(msgs),0)
     
   }
+
+
 
   startMessagesTimer(msgs:HTMLCollection)
   {

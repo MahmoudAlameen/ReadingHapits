@@ -4,7 +4,7 @@
 }
 #myCarousel
 {
-    margin:auto !important
+    margin:auto !important;
 }
 #carusalItems
 {
@@ -17,5 +17,6 @@
 .item img
 {
     margin:auto;
+    min-height:500px;
     max-height: 550px;
 }

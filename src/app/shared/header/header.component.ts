@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) {
+    this.hidenavbar();
+    this.startNavigation();
+   }
 
   ngOnInit(): void {
+    document.addEventListener("click",this.hidenavbar)
   }
 
   hidenavbar()
@@ -18,11 +23,21 @@ export class HeaderComponent implements OnInit {
     if(nav!=null)
     {
       nav.classList.remove("in")
-
     }
-      
-    
-
   }
+  startNavigation()
+  {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+          
+        this.hidenavbar();
+        // Show progress spinner or progress bar
+          //console.log('Route change detected');
+      }
+      
+  })
 
+  
+
+}
 }

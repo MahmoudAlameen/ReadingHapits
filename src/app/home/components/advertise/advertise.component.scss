@@ -12,6 +12,7 @@
     justify-content: space-between;
     height: 300px;
     border-bottom: groove rgb(255, 255, 255) 5px;
+    position: relative;
 }
 .circle
 {
@@ -140,7 +141,21 @@
 {
 display:none
 }
-
+.logo
+{
+    position: absolute;
+    top:5px;
+    right:5px;
+    font-size: 2.5rem;
+    font-weight: bolder;
+    color: rgb(222, 242, 247);
+    word-spacing: 4px;
+    letter-spacing: 2px;
+     -webkit-transform: scale(2, 1);
+     -moz-transform: scale(2, 1);
+     -o-transform: scale(2, 1);
+     transform: scale(1, 1.5);
+}
 
 @media  screen and (max-width:900px) {
     .message
@@ -165,8 +180,8 @@ display:none
     }
     .circle
     {
-        height: 100px;
-        width:21%;
+        height: 150px;
+        width:150px;
         animation: circleRotateZ infinite 5s linear;
     }
     .message
@@ -175,6 +190,10 @@ display:none
         animation: anim2 10s infinite;
         font-size:1.5rem;
 
+    }
+    .logo
+    {
+        display:none;
     }
 
 @keyframes anim2
