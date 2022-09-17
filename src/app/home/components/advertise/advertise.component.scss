@@ -208,12 +208,12 @@ display:none
     {
         height: 150px;
         width:150px;
-        animation: circleRotateZ infinite 5s linear;
+       // animation: circleRotateZ infinite 5s linear;
     }
     .message
     {
-        transform: translateX(200px);
-        animation: anim2 10s infinite;
+        //transform: translateX(200px);
+       // animation: anim2 10s infinite;
         font-size:1.5rem;
 
     }

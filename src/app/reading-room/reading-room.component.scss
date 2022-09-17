@@ -142,14 +142,16 @@ input[type=search]
     .roomNavbar
     {
         flex-direction: column;
-        gap:10px
+        gap:10px;
+        margin-top: 5px;
     }
 
     .roomContent
     {
         flex-direction: column;
         border-top: none !important;
-        padding-inline:0px
+        padding-inline:0px;
+        margin-top: 140px;
     }
     .btnNav
     {
