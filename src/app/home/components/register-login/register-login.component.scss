@@ -32,7 +32,7 @@
     //background: linear-gradient(to  left bottom , rgb(88, 105, 105),rgb(90, 109, 110),rgb(177, 189, 186));
     background-color: rgb(160, 146, 190) !important;;
     align-self: center;
-    width:40%;
+    width:600px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,7 +51,7 @@
 }
 .registerForm input,.registerForm select 
 {
-    max-width:250px
+    max-width:300px
 }
 
 
@@ -90,7 +90,7 @@ label
 
 
 
-@media screen and (max-width:600px)
+@media screen and (max-width:700px)
 {
     .loginForm
     {
@@ -103,29 +103,19 @@ label
     }
     .registerForm
     {
-        width:80%
+        width:90%
     }
     .registerForm >div
     {
-        width:95%
+        width:100%
     }
     .registerForm select, .registerForm input
     {
-        max-width: 170px;
+        max-width: 250px;
         max-height: 50px;
     }
 }
-@media screen and (max-width:1080px) and (min-width:900px)
-{
-    .registerForm
-    {
-        width:45%
-    }
-    .registerForm >div
-    {
-        width:90%
-    }
-}
+
 @media screen and (max-width:900px ) and (min-width:600px)
 {
     .loginForm
@@ -133,16 +123,18 @@ label
         padding:10px;
         padding-inline: 50px;
     }
-    .registerForm
+
+}
+@media screen and (max-width:500px) {
+
+    .registerForm div
     {
-        width:60%;
+        width:100%;
+        flex-direction: column;
+        gap:5px;
+        align-items: center;
+        justify-content: center;
     }
-    .registerForm >div
-    {
-        width: 90%;
-    }
-    .registerForm input , .registerForm select
-    {
-        max-width: 200px;
-    }
+
+    
 }
