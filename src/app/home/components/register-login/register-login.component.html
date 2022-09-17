@@ -56,12 +56,7 @@
                 </option>
             </select>
         </div>
-        <div class="form-group">
-            <label>المحافظه</label>
-            <input type="text" #governate="ngModel" required [(ngModel)]="registeredUser.governate" name="governate" [class.is-invalid]="governate.invalid && governate.touched" class="form-control"/>
-            <small class="text-danger" *ngIf="governate.invalid && governate.touched">governate is required</small>
-        </div>
-        <input type="submit" class="btn btn-success" [disabled]="registerForm.form.invalid || countryHasError || schoolHasError" value="تسجيل"/>
+        <input class="submit" type="submit"  [disabled]="registerForm.form.invalid || countryHasError || schoolHasError" value="تسجيل"/>
 
 
     </form>

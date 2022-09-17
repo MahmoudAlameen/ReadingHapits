@@ -9,13 +9,23 @@ import { NavigationStart, Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   constructor(private router:Router) {
-    this.hidenavbar();
-    this.startNavigation();
+
    }
 
   ngOnInit(): void {
-    document.addEventListener("click",this.hidenavbar)
+    this.hidenavbar();
+    this.startNavigation();
+    document.addEventListener("click",()=>
+    {
+
+
+      this.hidenavbar();
+
+    });
+     //this.fireAnchor()
   }
+
+
 
   hidenavbar()
   {
@@ -37,7 +47,26 @@ export class HeaderComponent implements OnInit {
       
   })
 
-  
+}
+
+
+fireAnchor()
+{
+  let anchors=document.getElementsByTagName("a");
+  for(let i=0; i<anchors.length; i++)
+  {
+    anchors[i].addEventListener("click",function(){
+      this.classList.remove("whiteText");
+      this.classList.add("blackText")
+      console.log("anchor clicked...")
+      
+    })
+
+  }
 
 }
+
+
+
+
 }

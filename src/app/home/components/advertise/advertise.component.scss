@@ -2,11 +2,13 @@
 {
     width:100%;
     margin:auto;
+    //background-color: rgb(82, 156, 38);
     // background: linear-gradient(0deg, rgb(134, 167, 134) 0%, rgba(0,13,60,1) 100%);
-    background: linear-gradient(to  right  , rgba(199, 235, 229, 0.5),rgb(77, 130, 133),rgb(26, 126, 126));
+  //  background: linear-gradient(to  right  , rgba(199, 235, 229, 0.5),rgb(77, 130, 133),rgb(26, 126, 126));
 
+   // background-color: rgb(169, 162, 185) !important;;
     display:flex;
-    color:white;
+    color: rgb(9, 19, 65);
     //color:rgb(1, 2, 14);
     align-items: center;
     justify-content: space-between;
@@ -21,7 +23,7 @@
     border-radius: 50%;
     position: relative;
     z-index:1;
-    animation: circleRotateY infinite 5s linear;
+   // animation: circleRotateY infinite 5s linear;
     transition: width 2s;
 }
 .circle img 
@@ -29,6 +31,8 @@
     width:100%;
     height:100%;
     border-radius: 50%;
+    animation-delay: 5s;
+    animation: fadeIn 10s infinite ;
 }
 .circle:hover
 {
@@ -122,21 +126,43 @@
 }
 .message
 {
-    transform: translateX(700px);
+   // transform: translateX(700px);
     width:100%;
     animation-delay: 5s;
-    animation-name: moveMessage;
-    animation-duration: 15s;
-    animation-iteration-count: infinite;
-    animation: anim1 10s infinite;
+   // animation-name: moveMessage;
+    //animation-duration: 15s;
+   //animation-iteration-count: infinite;
+    animation: fadeIn 10s infinite ;   //new animation
+    //animation: anim1 10s infinite;
     transition: transform 5px;
     justify-items: flex-end;
-    visibility: hidden;   
+   // visibility: hidden;   
     font-size: 2.7rem !important;
+    font-weight: bold;
+
     text-align: center; 
     border-radius: 50%;
     position: static;
+    margin:.1.5rem
 }
+.message p, .message h1
+{
+    font-weight: bold;
+}
+.message h1
+{
+    font-size: 3rem !important;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    10%{opacity: 0.5;}
+    20% ,80% { opacity: 1; }
+    85%{opacity: 0.5;}
+    100%{opacity: 0}
+  }
+
+
 .hidden
 {
 display:none

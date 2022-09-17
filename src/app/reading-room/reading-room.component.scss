@@ -1,70 +1,64 @@
 .readingRoom
 {
     width:100%;
-    margin:auto;
-    background: linear-gradient(to  left bottom , rgb(46, 59, 57),rgb(186, 239, 241),rgb(242, 247, 246));
-    color:black;
+    margin:0px;
+   // background: linear-gradient(to  left bottom , rgb(46, 59, 57),rgb(186, 239, 241),rgb(242, 247, 246));
+   //background-color: rgb(196, 187, 218) !important;;
+   color:black;
     height: 100% !important;
 }
-.head,h2
+
+.headRoom
+{
+    background-color: rgb(46, 2, 71);
+    width:100%;
+    z-index: 2;
+    position: fixed;
+    top:50px;
+    padding-top: 20px;
+
+
+}
+.roomNavbar
+{
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+    padding-inline:20px;
+    padding-block:10px;
+    margin-top:15px;
+}
+.contentButtons
+{
+    display: flex;
+    gap:30px
+}
+
+.head
 {
     width:100%;
     text-align: center;
     margin:auto;
+    color:white
 }
-.content
+.roomContent
 {
     width:100%;
     display:flex;
-    flex-direction: row;
-    border-top: solid rgb(32, 96, 112) 10px !important;
-    height:100%;
-    min-height:500px;
-
-
-}
-.left
-{
-    width:25%;
-    border-right:solid rgb(32, 96, 112) 10px !important;
-    display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    border-top: solid rgb(32, 96, 112) 10px !important;
+    min-height:500px;
+    margin-top:100px;
     align-items: center;
-    overflow:auto;
+    padding:20px
 
-}
-.left button
-{
-    background-color: rgb(9, 54, 59);
-    color: white;
-    font-weight: bold;
-    padding-block: 10px;
-    padding-inline: 20px;
-    font-size: 1.7rem;
-}
-.dropdown-menu
-{
-    background-color: rgb(65, 119, 119);
-    font-size: 1.7rem;
-    color:white !important;
-    min-width:200px;
-}
-.dropdown-menu li a
-{
-    color:white !important
-}
-.dropdown-menu li  :hover
-{
-    background-color: rgb(22, 44, 48) !important;
 }
 
 
-.right
-{
-    width:75%
-}
-.books
+.material
 {
     display: flex;
     flex-direction: row;
@@ -72,6 +66,7 @@
     flex-wrap: wrap;
     gap:20px;
     align-items: center;
+    width:100%
     
 }
 
@@ -105,36 +100,75 @@
     animation: rotateOnXY 10s infinite linear
 
 }
-.input-group 
+
+
+.contentButtons button
 {
-    margin: auto;
-    margin-top: 10px;
-    width:300px
+    background-color: aliceblue;
+    padding-inline: 15px;
+    padding-block:5px;
+    font-weight: bold;
+    font-size: 1.7rem;
 }
-@media screen and (max-width:600px)
+.navContainer
 {
-    .content
+    width:100%;
+}
+
+
+
+.btnNav
+{
+    display:none;
+    margin:auto
+}
+input[type=search]
+{
+    height:40px;
+    width:250px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+
+
+@media screen and (max-width:766px)
+{
+
+    .headRoom
+    {
+        top:0px;
+    }
+    .roomNavbar
+    {
+        flex-direction: column;
+        gap:10px
+    }
+
+    .roomContent
     {
         flex-direction: column;
         border-top: none !important;
-
-        
-
-
+        padding-inline:0px
     }
-    .left
+    .btnNav
     {
-    width:100%;
-    border-right:none;
-    flex-direction:row;
-    justify-content: space-around;
-    align-items: center;
-    overflow: visible;
+        display:block
     }
-    .right
+
+    .contentButtons
     {
-        width:100%
+        gap:5px
     }
+    .contentButtons button
+    {
+        padding-block: 5px;
+        padding-inline: 10px;
+        font-weight: bold;
+        font-size: 1.2rem;
+        width:100px
+    }
+
     .books
     {
         justify-content: space-between;
@@ -144,3 +178,45 @@
 }
 
 
+
+// .left
+// {
+//     width:25%;
+//     border-right:solid rgb(32, 96, 112) 10px !important;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-around;
+//     align-items: center;
+//     overflow:auto;
+
+// }
+// .left button
+// {
+//     background-color: rgb(9, 54, 59);
+//     color: white;
+//     font-weight: bold;
+//     padding-block: 10px;
+//     padding-inline: 20px;
+//     font-size: 1.7rem;
+// }
+// .dropdown-menu
+// {
+//     background-color: rgb(65, 119, 119);
+//     font-size: 1.7rem;
+//     color:white !important;
+//     min-width:200px;
+// }
+// .dropdown-menu li a
+// {
+//     color:white !important
+// }
+// .dropdown-menu li  :hover
+// {
+//     background-color: rgb(22, 44, 48) !important;
+// }
+
+
+// .right
+// {
+//     width:75%
+// }

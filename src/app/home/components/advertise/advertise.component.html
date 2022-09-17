@@ -1,10 +1,10 @@
 <section class="advertise">
     <p class="logo">عادات القراءة لدى طلاب المدارس</p>
     <div class="circle ">
-        <img [src]="circledImg"/>
+        <img [src]="img" class="circledImg hidden" [class.hidden]="i!=0" *ngFor="let img of circledImgs; let i=index" />
     </div>
     <div class="articles">
-        <div class="message hidden" *ngFor="let msg of Messages">
+        <div class="message"  [class.hidden]="i!=0" *ngFor="let msg of Messages; let i= index">
             <h1>{{msg.head}}</h1>
            <p>{{msg.message}}</p> 
         </div>

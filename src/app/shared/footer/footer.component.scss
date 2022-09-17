@@ -5,7 +5,7 @@ footer
     flex-direction: column;
     align-items: center;
     gap:30px;
-    background-color:rgb(28, 20, 51);
+    background-color: rgb(52, 47, 63) !important;;
     z-index: -1;
     margin-top: 1px;
     color:white;
@@ -33,6 +33,18 @@ footer
     cursor: pointer;
     transform: scale(1.5,1.5);
     box-shadow: 2px 2px 2px white;
+}
+.header
+{
+    margin-top: 20px;
+}
+.header p
+{
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 25px;
+    text-align: center;
+    width:100%
 }
 @media screen and (max-width:600px)
 {

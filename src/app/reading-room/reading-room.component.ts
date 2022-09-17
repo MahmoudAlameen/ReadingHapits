@@ -14,6 +14,8 @@ export class ReadingRoomComponent implements OnInit {
   readingRoom:ReadingRoom=new ReadingRoom()
   bookCardWidth:string="150px";
   bookCardHeight:string="150px";
+  contentView:string="books";
+  contentHead:string="الكتب"
 
   constructor(private router:Router,private readingRoomService:ReadingRoomsService) {
    
@@ -38,6 +40,11 @@ export class ReadingRoomComponent implements OnInit {
 
     this.router.navigate(["ReadingRoom/article",4])
 
+  }
+
+  opencontentNavBar(event:Event, navbar:HTMLElement)
+  {
+    navbar.classList.toggle("open")
   }
 
 

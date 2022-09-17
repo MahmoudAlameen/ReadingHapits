@@ -1,37 +1,51 @@
-<section class="readingRoom container">
-    <h1 class="head">{{readingRoom.name}}</h1>
-    <div class="content">
-        <div class="left">
-            <div class="dropdown articles">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">المقالات
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li  *ngFor="let article of readingRoom.articles"><a [routerLink]="['/article',article.id]" routerLinkActive="router-link-active" >{{article.name}}</a></li>
-                </ul>
-              </div>
-              <div class="dropdown exams">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">الامتحانات
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li *ngFor="let article of readingRoom.articles"><a [routerLink]="['/article',article.id]" routerLinkActive="router-link-active" >{{article.name}}</a></li>
-                </ul>
-              </div>
+<section class="readingRoom">
+    <div class="headRoom">
+        <h1 class="head">{{readingRoom.name}}</h1>
+        <nav class="roomNavbar">
+            <input type="search"  placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <div class="contentButtons"  #roomNav>
+                  <button (click)="contentView='books'; contentHead='الكتب'">الكتب</button>
+                  <button (click)="contentView='articles';contentHead='المقالات'">المقالات</button>
+                  <button (click)="contentView='exams';contentHead='الامتحانات'">الامتحانات</button>
+            </div>
+        </nav>
+    </div>
+    <div class="roomContent"   [ngSwitch]="contentView">
+        <h2 class="matrialHead titleHead">{{contentHead}}</h2>
+        <div class="material"   *ngSwitchCase="'books'">
+            <app-book-card class="book" [width]="bookCardWidth" [height]="bookCardHeight" [book]="book"  *ngFor="let book of readingRoom.books"></app-book-card>
         </div>
-        <div class="right">
-            <div class="input-group rounded">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                <span class="input-group-text border-0" id="search-addon">
-                  <i class="fas fa-search"></i>
-                </span>
-            </div>
-            <h2>
-                الكتب
-            </h2>
-           
-            <div class="books">
-                <app-book-card class="book" [width]="bookCardWidth" [height]="bookCardHeight" [book]="book"  *ngFor="let book of readingRoom.books"></app-book-card>
-            </div>
+        <div class="material" *ngSwitchCase="'articles'">
+            <app-article-card [article]="article"  *ngFor="let article of readingRoom.articles"></app-article-card>
+        </div>
+        <div class="material"  *ngSwitchCase="'exams'">
+            <div>exam1</div>
+            <div>exam2</div>
+            <div>exam3</div>
         </div>
     </div>
-
 </section>
+
+
+
+
+
+
+
+<!-- 
+<div class="left">
+    <div class="dropdown articles">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">المقالات
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li  *ngFor="let article of readingRoom.articles"><a [routerLink]="['/article',article.id]" routerLinkActive="router-link-active" >{{article.name}}</a></li>
+        </ul>
+      </div>
+      <div class="dropdown exams">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">الامتحانات
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li *ngFor="let article of readingRoom.articles"><a [routerLink]="['/article',article.id]" routerLinkActive="router-link-active" >{{article.name}}</a></li>
+        </ul>
+      </div>
+</div> -->

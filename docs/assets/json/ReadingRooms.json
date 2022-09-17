@@ -40,6 +40,7 @@
     },
     {
         "id":"4",
+           "name":"غرفه علوم الفيزيا",
         "books":[{"name":"spaceX","pagesNumber":"100","exams":[1,2,3],"id":1,"readingRoom":"1","cover":"spacex"}
                  ,{"name":"رياضه1","pagesNumber":"100","exams":[3,4,5],"id":2,"readingRoom":"1","cover":"رياضه1"},
                  {"name":"اللغه العربيه","pagesNumber":"100","exams":[6,7,8],"id":3,"readingRoom":"1","cover":"اللغه _الهربيه"},
@@ -52,6 +53,7 @@
     },
     {
         "id":"5",
+        "name":"غرفه الرياضيات",
         "books":[{"name":"spaceX","pagesNumber":"100","exams":[1,2,3],"id":1,"readingRoom":"1","cover":"spacex"}
                  ,{"name":"رياضه1","pagesNumber":"100","exams":[3,4,5],"id":2,"readingRoom":"1","cover":"رياضه1"},
                  {"name":"اللغه العربيه","pagesNumber":"100","exams":[6,7,8],"id":3,"readingRoom":"1","cover":"اللغه _الهربيه"},

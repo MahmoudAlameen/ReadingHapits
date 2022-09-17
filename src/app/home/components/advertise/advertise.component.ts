@@ -8,7 +8,7 @@ import { IAdvertiseMessages } from 'src/interfaces/advertiseMessages';
   styleUrls: ['./advertise.component.scss']
 })
 export class AdvertiseComponent implements OnInit {
-  circledImg:string="./assets/images/boy.jpg";
+  circledImgs:string[]=["./assets/images/boy.jpg","./assets/images/boy2.jpg"];
   Messages:IAdvertiseMessages[]=[];
   constructor(private advertiseMessages:AdvertiseMessagesService) { 
 
@@ -26,20 +26,25 @@ export class AdvertiseComponent implements OnInit {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
     var msgs:HTMLCollection= document.getElementsByClassName("message");
-    setTimeout(()=>this.startMessagesTimer(msgs),0)
+    var circledImgs:HTMLCollection=document.getElementsByClassName("circledImg");
+    setTimeout(()=>this.startMessagesTimer(msgs,circledImgs),0)
     
   }
 
 
 
-  startMessagesTimer(msgs:HTMLCollection)
+  startMessagesTimer(msgs:HTMLCollection, circledImgs:HTMLCollection)
   {
 
-    let counter=0;
+    let msgsCounter=0;
+    let circledImgsCounter=0;
     setInterval(()=>{
-      msgs[counter].classList.add("hidden");
-      counter=(counter+1)%msgs.length
-      msgs[counter].classList.remove("hidden");
+      msgs[msgsCounter].classList.add("hidden");
+      circledImgs[circledImgsCounter].classList.add("hidden");
+      msgsCounter=(msgsCounter+1)%msgs.length;
+      msgs[msgsCounter].classList.remove("hidden");
+      circledImgsCounter=(circledImgsCounter+1)%circledImgs.length;
+      circledImgs[circledImgsCounter].classList.remove("hidden");
 
       // for(let i=0; i< msgs.length; i++)
       // {

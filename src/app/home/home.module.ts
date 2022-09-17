@@ -10,6 +10,7 @@ import { ReadingRoomCardComponent } from './components/reading-room-card/reading
 import { SharedModule } from '../shared/shared.module';
 import { RegisterLoginComponent } from './components/register-login/register-login.component';
 import { FormsModule } from '@angular/forms';
+import { PlacementTestComponent } from './components/placement-test/placement-test.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FormsModule } from '@angular/forms';
     ReadingRoomsComponent,
     ReadingRoomCardComponent,
     RegisterLoginComponent,
+    PlacementTestComponent,
   ],
   imports: [
     CommonModule,
