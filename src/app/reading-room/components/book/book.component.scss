@@ -1,22 +1,133 @@
-.carousel-inner
+:root
 {
-    margin:auto
+    --bookWidth:400px;
+    --bookHeight:300px;
+    --color: #321122
 }
-#myCarousel
-{
-    margin:auto !important;
-}
-#carusalItems
-{
-    margin:auto !important
-}
-.item
-{
-    margin: auto !important;
-}
-.item img
+
+.book
 {
     margin:auto;
-    min-height:500px;
-    max-height: 550px;
+    margin-top:20px;
+    width:fit-content;
+    margin:auto;
+    width:100%;
+    font-family: sans-serif;
+}
+.book:hover
+{
+    cursor: pointer;
+}
+.bookContent,.cover
+{
+    border:solid black 5px;
+    margin:auto;
+    height:566px
+}
+
+.bookContent
+{
+    width:90%;
+    background-color: white;
+    margin:auto;
+    display: flex;
+    flex-direction: row-reverse;
+}
+.cover
+{
+    width:40%;
+}
+.cover img
+{
+    width:100%;
+    height: 100%;
+}
+
+
+.rightPage, .leftPage
+{
+    text-align: center;
+    width:50%;
+    transform: perspective(800px);
+    background-color: white;
+    border:solid black 2px;
+    display:flex;
+    flex-direction: column;
+    align-items:flex-end;
+    position: relative;
+    padding:20px;
+    font-size: large;
+
+
+}
+.rightPage p, .leftPage p
+{
+    line-height: 30px;
+    word-spacing: 5px;
+    font-style: oblique;
+    text-emphasis:20rem;
+    color:black;
+    font-size: 1.8rem;
+    margin: .0.5rem;
+}
+h3
+{
+    width:100%;
+    text-align: center;
+}
+.rightPage footer ,.leftPage footer
+{
+    position: absolute;
+    bottom:10px;
+    left:50%;
+    margin-top: 20px;
+}
+.rightPage
+{
+    transform-origin: left;
+    border-left:none !important
+}
+.leftPage
+{
+    transform-origin: right;
+    border-right:none !important;
+}
+.bookSlider
+{
+    width:20px;
+    height: 100%;
+    background-color: rgb(17, 17, 17);
+    transform: rotateY(40deg) perspective(800px) ;
+    position: relative;
+    z-index:2
+}
+
+.overlapLeft
+{
+    transform: rotateY(-180deg);
+    transition: transform 1.5s;
+
+
+}
+.overlapRight
+{
+    transform: rotateY(180deg);
+    transition: transform 1.5s;
+    //animation: rotateRight 2s ease-in-out;
+}
+
+@media screen and (max-width:600px)
+{
+    .bookContent
+    {
+        width:100%
+    }
+    .bookSlider
+    {
+        width:10px;
+    }
+    .bookContent,.cover
+    {
+        height:500px
+    }
 }

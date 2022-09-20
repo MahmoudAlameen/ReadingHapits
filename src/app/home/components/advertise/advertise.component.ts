@@ -8,7 +8,7 @@ import { IAdvertiseMessages } from 'src/interfaces/advertiseMessages';
   styleUrls: ['./advertise.component.scss']
 })
 export class AdvertiseComponent implements OnInit {
-  circledImgs:string[]=["./assets/images/boy.jpg","./assets/images/boy2.jpg"];
+  circledImgs:string[]=["./assets/images/advertise/boy.jpg","./assets/images/advertise/boy2.jpg"];
   Messages:IAdvertiseMessages[]=[];
   constructor(private advertiseMessages:AdvertiseMessagesService) { 
 
