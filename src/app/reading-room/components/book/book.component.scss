@@ -13,6 +13,7 @@
     margin:auto;
     width:100%;
     font-family: sans-serif;
+    height: 100%;
 }
 .book:hover
 {
@@ -20,22 +21,27 @@
 }
 .bookContent,.cover
 {
-    border:solid black 5px;
+    
     margin:auto;
     height:566px
 }
-
-.bookContent
+.right
 {
-    width:90%;
-    background-color: white;
-    margin:auto;
-    display: flex;
-    flex-direction: row-reverse;
+    border:solid black 5px;
+    border-left: none;
+    transform-origin: left;
+}
+.left
+{
+    border:solid black 5px;
+    border-right: none;
+    transform-origin: right;
+
 }
 .cover
 {
     width:40%;
+    border:solid black 5px;
 }
 .cover img
 {
@@ -43,24 +49,76 @@
     height: 100%;
 }
 
+.bookContent
+{
+    width:90%;
+    //background-color: white;
+    margin:auto;
+    display: flex;
+    flex-direction: row-reverse;
+    perspective: 1500px;
+}
+.hide
+{
+    display:none !important
+}
 
-.rightPage, .leftPage
+.right,.left
+{
+    position: relative;
+    width:50%;
+    border:solid black 2px;
+    height:100%;
+    perspective: 2000px;
+}
+.right
+{
+    perspective-origin: right;
+
+}
+.left
+{
+    perspective-origin: left;
+}
+
+.rightFlipper,.leftFlipper,.rightPage,.leftPage
 {
     text-align: center;
-    width:50%;
-    transform: perspective(800px);
-    background-color: white;
+    background-color: inherit;
     border:solid black 2px;
     display:flex;
     flex-direction: column;
     align-items:flex-end;
-    position: relative;
+    position: absolute;
+    top:0px;
+    left:0px;
     padding:20px;
     font-size: large;
-
-
+    width:100%;
+    height: 100%;
+    background-color: white;
 }
-.rightPage p, .leftPage p
+.rightFlipper, .leftFlipper
+{
+    //perspective: 1000px !important;
+}
+
+.rightFlipper
+{
+    transform-origin: left;
+    border-left:none !important
+}
+.leftFlipper
+{
+    transform-origin: right;
+    border-right:none !important;
+}
+.rightPage, .leftPage
+{
+    z-index:1
+}
+
+.right p, .left p
 {
     line-height: 30px;
     word-spacing: 5px;
@@ -77,31 +135,22 @@ h3
     width:100%;
     text-align: center;
 }
-.rightPage footer ,.leftPage footer
+.right footer ,.left footer
 {
     position: absolute;
     bottom:10px;
     left:50%;
     margin-top: 20px;
 }
-.rightPage
-{
-    transform-origin: left;
-    border-left:none !important
-}
-.leftPage
-{
-    transform-origin: right;
-    border-right:none !important;
-}
+
 .bookSlider
 {
     width:20px;
     height: 100%;
     background-color: rgb(17, 17, 17);
-    transform: rotateY(40deg) perspective(800px) ;
+    transform: rotateY(40deg) ;
     position: relative;
-    z-index:2
+    z-index:3;
 }
 
 .overlapLeft
@@ -115,7 +164,108 @@ h3
 {
     transform: rotateY(180deg);
     transition: transform 1.5s;
+
     //animation: rotateRight 2s ease-in-out;
+}
+.overlapLeft,.overlapRight,.rotate90,.rotateMinus90
+{
+    transition: transform 1.5s;
+
+}
+
+.hide
+{
+    display :none !important
+}
+.inFront
+{
+    z-index:2
+}
+.inBack
+{
+    z-index:1
+}
+
+
+.rotate90
+{
+    transform: rotateY(90deg);
+    transition: transform 1s;
+   // transform-origin: right !important;
+}
+
+
+.rightCover
+{
+    animation: rightCoverAnim  1.5s;
+
+}
+.leftCover
+{
+    animation: leftCoverAnim  1.5s;
+
+}
+.rotateMinus90
+{
+    transform: rotateY(-90deg);
+    //transform-origin: left !important;
+    transition: transform 1s;
+    
+}
+.rotate180
+{
+    transform: rotateY(-180deg);
+   // transform-origin: left !important;
+    transition: transform 1s;
+}
+// .rotateZero
+// {
+//     transform: rotateY(0deg);
+//     transition: transform 1.5s;
+// }
+
+
+
+@keyframes rightCoverAnim {
+    0%
+    {
+        transform: rotateY(0deg) ;
+        visibility: hidden;
+        transform-style: preserve-3d;
+        transform-origin: left;
+    }
+    1%
+    {
+        transform: rotateY(-90deg);
+        visibility: visible;
+    }
+    100%
+    {
+        transform: rotateY(0deg);
+
+    }
+
+    
+}
+
+@keyframes leftCoverAnim
+{
+    0%
+    {
+        transform: rotateY(0deg);
+        visibility: hidden;
+        transform-origin: right;
+    }
+    1%
+    {
+        transform: rotateY(90deg);
+        visibility: visible;
+    }
+    100%
+    {
+        transform: rotateY(0deg);
+    }
+
 }
 
 @media screen and (max-width:600px)
