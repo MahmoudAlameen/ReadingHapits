@@ -22,7 +22,7 @@
     position: static;
     z-index:3
 }
-.book
+.book,.article
 {
     width:100px;
     height:150px;
@@ -31,7 +31,7 @@
     text-align: center;
     margin-bottom: 20px;
 }
-.books
+.books,.articles
 {
     display: flex;
     flex-direction: row;

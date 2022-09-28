@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EventType, Router } from '@angular/router';
 import { ReadingRoom } from 'src/app/classes/ReadingRoom';
+import { ReadingRoomCard } from 'src/app/classes/ReadingRoomCard';
 import { ReadingRoomsService } from 'src/app/core/reading-rooms.service';
 import { ReadingRoomComponent } from 'src/app/reading-room/reading-room.component';
 
@@ -11,7 +12,7 @@ import { ReadingRoomComponent } from 'src/app/reading-room/reading-room.componen
 })
 export class ReadingRoomCardComponent implements OnInit {
 
- @Input() readingRoom!:ReadingRoom
+ @Input() readingRoomCard!:ReadingRoomCard
   constructor(private router:Router)
   {
   }

@@ -10,6 +10,7 @@ import { IAdvertiseMessages } from 'src/interfaces/advertiseMessages';
 export class AdvertiseComponent implements OnInit {
   circledImgs:string[]=["./assets/images/advertise/boy.jpg","./assets/images/advertise/boy2.jpg"];
   Messages:IAdvertiseMessages[]=[];
+  MessagesInterval:any=1
   constructor(private advertiseMessages:AdvertiseMessagesService) { 
 
 
@@ -27,8 +28,15 @@ export class AdvertiseComponent implements OnInit {
     //Add 'implements AfterViewInit' to the class.
     var msgs:HTMLCollection= document.getElementsByClassName("message");
     var circledImgs:HTMLCollection=document.getElementsByClassName("circledImg");
-    setTimeout(()=>this.startMessagesTimer(msgs,circledImgs),0)
+    setTimeout(()=>this.MessagesInterval=this.startMessagesTimer(msgs,circledImgs),0)
     
+  }
+ 
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    clearInterval(this.MessagesInterval);
+
   }
 
 
@@ -38,24 +46,13 @@ export class AdvertiseComponent implements OnInit {
 
     let msgsCounter=0;
     let circledImgsCounter=0;
-    setInterval(()=>{
+ return   setInterval(()=>{
       msgs[msgsCounter].classList.add("hidden");
       circledImgs[circledImgsCounter].classList.add("hidden");
       msgsCounter=(msgsCounter+1)%msgs.length;
       msgs[msgsCounter].classList.remove("hidden");
       circledImgsCounter=(circledImgsCounter+1)%circledImgs.length;
       circledImgs[circledImgsCounter].classList.remove("hidden");
-
-      // for(let i=0; i< msgs.length; i++)
-      // {
-        
-      //   if(!msgs[i].classList.contains("hidden"))
-      //   {
-      //     msgs[i].classList.add("hidden");
-      //     msgs[(i+1)%(msgs.length)].classList.remove("hidden");
-      //     return;
-      //   }
-      // }
 
     },10000)
   }

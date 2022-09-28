@@ -56,7 +56,7 @@
     margin:auto;
     display: flex;
     flex-direction: row-reverse;
-    perspective: 1500px;
+    perspective: 2000px;
 }
 .hide
 {
@@ -71,15 +71,7 @@
     height:100%;
     perspective: 2000px;
 }
-.right
-{
-    perspective-origin: right;
 
-}
-.left
-{
-    perspective-origin: left;
-}
 
 .rightFlipper,.leftFlipper,.rightPage,.leftPage
 {
@@ -97,16 +89,15 @@
     width:100%;
     height: 100%;
     background-color: white;
+    //perspective: 2000px;
 }
-.rightFlipper, .leftFlipper
-{
-    //perspective: 1000px !important;
-}
+
 
 .rightFlipper
 {
     transform-origin: left;
-    border-left:none !important
+    border-left:none !important;
+   
 }
 .leftFlipper
 {
@@ -150,13 +141,14 @@ h3
     background-color: rgb(17, 17, 17);
     transform: rotateY(40deg) ;
     position: relative;
-    z-index:3;
+    z-index:1;
 }
 
 .overlapLeft
 {
     transform: rotateY(-180deg);
     transition: transform 1.5s;
+    animation: RightToLeft 1.5s linear;
 
 
 }
@@ -164,6 +156,7 @@ h3
 {
     transform: rotateY(180deg);
     transition: transform 1.5s;
+    animation: LeftToRight 1.5s linear;
 
     //animation: rotateRight 2s ease-in-out;
 }
@@ -179,11 +172,7 @@ h3
 }
 .inFront
 {
-    z-index:2
-}
-.inBack
-{
-    z-index:1
+    z-index:5
 }
 
 
@@ -231,7 +220,7 @@ h3
     {
         transform: rotateY(0deg) ;
         visibility: hidden;
-        transform-style: preserve-3d;
+        //transform-style: preserve-3d;
         transform-origin: left;
     }
     1%
@@ -266,6 +255,35 @@ h3
         transform: rotateY(0deg);
     }
 
+}
+
+
+
+@keyframes LeftToRight {
+    from
+    {
+        perspective-origin: left;
+
+    }
+    to
+    {
+        perspective-origin: right;
+
+    }
+    
+}
+@keyframes RightToLeft {
+    from
+    {
+        perspective-origin: right;
+
+    }
+    to
+    {
+        perspective-origin: left;
+
+    }
+    
 }
 
 @media screen and (max-width:600px)
