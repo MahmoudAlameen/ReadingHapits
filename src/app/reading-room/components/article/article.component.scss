@@ -1,21 +1,46 @@
-.carousel-inner
-{
-    margin:auto
-}
-#myCarousel
-{
-    margin:auto !important
-}
-#carusalItems
-{
-    margin:auto !important
-}
-.item
-{
-    margin: auto !important;
-}
-.item img
+.article
 {
     margin:auto;
-    max-height: 550px;
+    background-color: white;
+    border:solid black 2px;
+    border-radius: 5%;
+    margin-top: 20px;
+    width:70%;
+    min-height:700px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:20px;
+    padding:20px;
+}
+.content
+{
+    width:100%;
+    align-items: center;
+    
+}
+p
+{
+    margin:auto;
+    text-align: center;
+}
+button
+{
+    font-weight: bold;
+    padding:10px;
+    font-size:1.5rem;
+    background-color: rgb(63, 49, 47);
+    color:white
+}
+
+@media screen and (max-width:800px) {
+ .article
+ {
+    padding:5px;
+    min-height:600px;
+    margin-top: 10px;
+    width:90%;
+
+ }
+    
 }

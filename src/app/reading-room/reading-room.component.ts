@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReadingRoom } from '../classes/ReadingRoom';
+import { ReadingRoomRepositoryService } from '../core/reading-room-repository.service';
 import { ReadingRoomsService } from '../core/reading-rooms.service';
 
 @Component({
@@ -17,30 +18,28 @@ export class ReadingRoomComponent implements OnInit {
   contentView:string="books";
   contentHead:string="الكتب"
 
-  constructor(private router:Router,private readingRoomService:ReadingRoomsService) {
-   
-    this.getReadingRoom();
-    //console.log(this.router?.getCurrentNavigation()?.extras.state)
-   // this.readingRoom=this.router?.getCurrentNavigation()?.extras.state as ReadingRoom;
-  }
+  constructor(private router:Router,private ReadingRoomRepository:ReadingRoomRepositoryService, private activeRoute:ActivatedRoute) {
+     }
 
   ngOnInit(): void {
 
-  }
-  getReadingRoom()
-  {
-    this.readingRoomService.getReadingRoom(this.roomId).subscribe(
-      room=>this.readingRoom=room,
-      err=>alert(err)
+    this.activeRoute.paramMap.subscribe(
+      param=>
+      {
+        let id=param.get("id");
+        id!=null?this.roomId=parseInt(id):this.roomId=0;
+
+      } 
+    )
+
+    this.ReadingRoomRepository.setActiveReadingRoom(this.roomId);
+    this.ReadingRoomRepository.ActiveReadingRoom.subscribe(
+      room=>this.readingRoom=room
     )
   }
 
-  openArticle(id:number)
-  {
 
-    this.router.navigate(["ReadingRoom/article",4])
 
-  }
 
   opencontentNavBar(event:Event, navbar:HTMLElement)
   {

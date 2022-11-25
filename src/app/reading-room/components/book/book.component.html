@@ -1,14 +1,14 @@
 <section class="book">
   <div #cover class="cover" *ngIf="rightPage < 0"  (click)="overlapPage('open',cover)">
     <img [src]="book.cover" />
-    fdfddf
+    
 
   </div>
 
   <div  class="bookContent" *ngIf="rightPage >= 0">
     <div class="right"  (click)="overlapPage('left',rightFlipper)">
       <div #right class="rightPage"  *ngIf="!openBookAnimation">
-        <p>{{bookPages[rightPage]}}</p>
+        <p>{{bookPages[rightPage].content}}</p>
         <footer>{{rightPage+1}}</footer>
       </div>
       <div #rightFlipper class="rightFlipper"></div>
@@ -16,7 +16,7 @@
     <div  class="bookSlider"></div>
     <div class="left"   (click)="overlapPage('right',leftFlipper)">
       <div #left class="leftPage" *ngIf="!openBookAnimation">
-        <p>{{bookPages[leftPage]}}</p>
+        <p *ngIf="leftPage <bookPages.length">{{bookPages[leftPage].content}}</p>
         <footer>{{leftPage+1}}</footer>
       </div>
       <div #leftFlipper class="leftFlipper"></div>

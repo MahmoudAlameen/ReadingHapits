@@ -1,0 +1,21 @@
+
+[
+    {
+        "id":"1",
+        "number":"1",
+        "type":"text",
+        "articleId":"1"
+    },
+    {
+        "id":"1",
+        "number":"2",
+        "type":"text",
+        "articleId":"1"
+    },
+    {
+        "id":"1",
+        "number":"3",
+        "type":"text",
+        "articleId":"1"
+    }
+]

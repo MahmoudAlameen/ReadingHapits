@@ -1,6 +1,11 @@
 import { animation } from '@angular/animations';
+import { ReadKeyExpr } from '@angular/compiler';
 import { Component, Input, OnInit, SimpleChange } from '@angular/core';
 import { Book } from 'src/app/classes/Book';
+import { BookPage } from 'src/app/classes/BookPage';
+import { ContentService } from 'src/app/core/content.service';
+import { ReadingRoomRepositoryService } from 'src/app/core/reading-room-repository.service';
+import { pageType } from 'src/app/enums/PagType';
 
 @Component({
   
@@ -11,20 +16,42 @@ import { Book } from 'src/app/classes/Book';
 export class BookComponent implements OnInit {
 @Input() bookId!:number;
 book:Book=new Book();
-bookPages:string[]=["5487 حدثنا محمد بن بشار حدثنا عبد الوهاب أخبرنا أيوب عن عكرمة أن رفاعة طلق امرأته فتزوجها عبد الرحمن بن الزبير القرظي قالت عائشة وعليها خمار أخضر فشكت إليها وأرتها خضرة بجلدها فلما جاء رسول الله صلى الله عليه وسلم والنساء ينصر بعضهن بعضا قالت عائشة ما رأيت مثل ما يلقى المؤمنات لجلدها أشد خضرة من ثوبها قال وسمع أنها قد أتت رسول الله صلى الله عليه ","م5487 حدثنا محمد بن بشار حدثنا عبد الوهاب أخبرنا أيوب عن عكرمة أن رفاعة طلق امرأته فتزوجها عبد الرحمن بن الزبير القرظي قالت عائشة وعليها خمار أخضر فشكت إليها وأرتها خضرة بجلدها فلما جاء رسول الله صلى الله عليه وسلم والنساء ينصر بعضهن بع","لم يقع خلاف بين العلماء أن الاسم الكامل للكتاب هو «الجامع المسند الصحيح المختصر من أُمور رسول الله صلى الله عه وسلّم وسننه وأيامه» وأن هذا الاسم هو ما سمّاه به البخاريّ نفسه. ذكر ذلك عدد من العلماء ومنهم ابن خير الإشبيلي وابن الصلاح والقاضي عياض والنووي وابن الملقن وغيرهم. وكان البخاري يذكر الكتاب أحياناً باختصار فيسمّيه: «الصحيح» أو «الجامع الصحيح» وسمّاه بذلك عدد من العلماء منهم ابن الأثير وابن نقطة والحاكم النيسابوري والصفدي والذهبي وابن ماكولا وأبو الوليد الباجي وغيرهم. وقد عُرف الكتاب قديماً وحديثاً على ألسنة الناس والعلماء بِاْسم «صحيح البخاري» وأصبح هذا الاختصار معهوداً معزواً إلى الإمام البخاري للشهرة الواسعة للكتاب ومصنّفه.","وسلم فجاء ومعه ابنان له من غيرها قالت والله ما لي إليه من ذنب إلا أن ما معه ليس بأغنى عني من هذه وأخذت هدبة من ثوبها فقال كذبت والله يا رسول الله إني لأنفضها نفض الأديم ولكنها ناشز تريد رفاعة فقال رسول الله صلى الله عليه وسلم فإن كان ذلك لم تحلي له أو لم تصلحي له حتى يذوق من عسيلتك قال وأبصر معه ابنين له فقال بنوك هؤلاء قال نعم قال هذا الذي تزعمين ما تزعمين","هو أبو عبد الله محمد بن إسماعيل بن إبراهيم بن المغيرة بن بَرْدِزبَه(2) الجعفي البخاري. من أهم علماء الحديث وعلوم الرجال والجرح والتعديل والعلل عند أهل السنة والجماعة، وأحد كبار الحفّاظ(3) الفقهاء ولد في بخارى ليلة الجمعة الثالث عشر من شوال سنة 194 هـ، الموافق 20 يوليو 810 م. وتربّى في بيت علم حيث كان أبوه من العلماء المحدّثين الراحلين في طلب الحديث، وتوفّي والإمام البخاري صغير فنشأ البخاري يتيماً في حجر أمه،","قطعة إنشائية، ذات طول معتدل تُكتب نثراً، وتُهتمُّ بالمظاهر الخارجية للموضوع بطريقة سهلةٍ سريعة، ولا تعنى إلا بالناحية التي تمسُّ الكاتب عن قرب. رأى النور في عصر النهضة الأوروبية، واتخذ مفهومه من محاولات التي أطلق عليها اسم Essais،الفصل (صيد الخاطر) كما عرفه العرب أقدم رائد للمقالة في الآداب العالمية، ذلك أن الفصل في الأدب العربي قد ظهر قبل ظهور مقالات مونتاني إمام هذا الفن غير مدافع بين الأوروبيين، فقد ظهر فن المقالة لأول مرة في فرنسا سنة 1571م، ثم ظهر بعد ذلك ببضع عشرة سنة في كتابات فرانسيس بيكون، ثم أصبحت المقالة منذ ذلك الحين فناً","إن هذا الكتاب حسن الطوية فهو ينبهك منذ البداية إني لا أستهدف من ورائه مقصداً إلا ما ينفع العام والخاص، ولم أرد به خدمتك أو إعلاء ذكرى فإن مواهبي تعجز عن تحقيق مثل هذه الغاية... لقد خصصته لمنفعة الخاصة من أهلي وأصدقائي حتى إذا ما افتقدوني استطاعوا أن يجدوا فيه صورة لطباعي وميولي، فيسترجعوا ذكراي التي خلفتها لهم حيّة كاملة ولو كان هدفي أن أظفر بإعجاب العالم لعملت على إطراء نفسي وإظهارها بطريقة منمّقة ولكني أريد أن أعرف في أبسط صوري الطبيعية العادية دون تكلف ولا تصنع لأني أنا الذي أصوّر نفسي لهذا تبرز مساوئي واضحة وسجيتي على طبيعتها ما سمح لي العرف بذلك."," لَمّا كانت الخواطر تجول في تصفح أشياء تعرض لها، ثم تعرض عنها فتذهب، كان من أولى الأمور حفظ ما يخطر لكي لا ينسى، وقد قال عليه الصلاة والسلام:قيِّدوا العلم بالكتابة. وكم خطر لي شيء فأتشاغل عن إثباته فيذهب، فأتأسف عليه ورأيت في نفسي إنني كلما فتحت بصر التفكر، سنح له من عجائب الغيب ما لم يكن في حساب فانثال عليه من كثيب التفهيم ما لا يجوز التفريط فيه فجعلت هذا الكتاب قيداً –لصيد الخاطر- والله وليّ النفع، إنه قريب مجيب","النهايه"];
-//displayedPage:number=0
+bookPages!:BookPage[];
 leftPage:number=-1;
 rightPage:number=-1;
 rightFlipper!:HTMLElement |null
 leftFlipper!:HTMLElement  |null
 openBookAnimation:boolean=false;
 
-constructor() { }
+constructor(private readingRoomRepository:ReadingRoomRepositoryService,private contentservice:ContentService) { }
 
   ngOnInit(): void {
 
+    this.book=this.readingRoomRepository.getBook(this.bookId);
     this.book.cover="./assets/images/cover.jpg";
+    this.contentservice.getBookPages(this.book.id).subscribe(
+      bookPages=>
+      {
+        console.log(bookPages)
+        let c=0;
+        for(let page of bookPages)
+        {
+          this.contentservice.getFile(page.content,page.type,"bookPage").subscribe(
+            file=>
+            {
+             // this.contentservice.readFile(page,file);
+             page.content=file;
+            },
+            err=>alert(err)
+          )
+
+        }
+        this.bookPages=bookPages;
+      }
+    )
   }
+
+
 
   ngAfterViewChecked(): void {
     //Called after every check of the component's view. Applies to components only.
@@ -44,7 +71,7 @@ constructor() { }
     switch(direction)
     {
       case "right":
-        if(this.leftPage>this.bookPages.length-1)
+        if(this.leftPage>=this.bookPages.length-1)
         {
           this.closeBook();
           //this.overlapAnimation(overlaped,"closeBook");
@@ -53,7 +80,7 @@ constructor() { }
         else
         {
           this.overlapAnimation(overlaped,"right");
-          this.onFilppingStart("right")
+          this.onFlippingStart("right")
           //  setTimeout(()=>
           //  {
           //   this.leftPage+=2;
@@ -72,7 +99,7 @@ constructor() { }
         else
         {
           this.overlapAnimation(overlaped,"left"); 
-          this.onFilppingStart("left");          
+          this.onFlippingStart("left");          
           // setTimeout(()=>
           // {
           //   this.leftPage-=2;
@@ -86,6 +113,7 @@ constructor() { }
         this.openBook();
         break;
     }
+
 
   }
   overlapAnimation(elem:HTMLElement,direction:string)
@@ -141,7 +169,7 @@ constructor() { }
     this.rightPage=-1
   }
 
-  onFilppingStart(direction:string)
+  onFlippingStart(direction:string)
   {
     let page;
     let flipper;
@@ -153,6 +181,7 @@ constructor() { }
         console.log(page);
         console.log(flipper);
         this.moveContent(page,flipper)
+        console.log(this.leftPage)
         this.leftPage+=2;
         break;
       case "left":
