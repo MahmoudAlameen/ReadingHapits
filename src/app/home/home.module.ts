@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { RegisterLoginComponent } from './components/register-login/register-login.component';
 import { FormsModule } from '@angular/forms';
 import { PlacementTestComponent } from './components/placement-test/placement-test.component';
+import { CharactersOnlyValidator } from '../customDirectives/CharactersOnly';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { PlacementTestComponent } from './components/placement-test/placement-te
     ReadingRoomCardComponent,
     RegisterLoginComponent,
     PlacementTestComponent,
+    CharactersOnlyValidator
   ],
   imports: [
     CommonModule,

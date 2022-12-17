@@ -1,11 +1,12 @@
 import { Book } from "./Book"
 import {Article} from "./Article"
 export class ReadingRoomCard
+
 {
-    displayedBooks:Book[];
     id:number;
-    displayedArticles:Article[];
     name:string;
+    displayedBooks:Book[];
+    displayedArticles:Article[];
     booksNumber:number;
     articlesNumber:number;
 

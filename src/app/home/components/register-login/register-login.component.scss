@@ -46,27 +46,36 @@
    margin-inline: auto;
    width:80%;
    margin-top: 20px;
+   flex-wrap: wrap;
     
 
 }
+.registerForm >div p , .registerForm p
+{
+    width:100%;
+    text-align: center;
+    font-weight: bold;
+}
+
 .registerForm input,.registerForm select 
 {
     max-width:300px
 }
 
 
-.form-group 
-{
-    display:flex;
-    flex-direction: column;
-    align-items: flex-end;
-    align-self: stretch;
-}
+// .form-group 
+// {
+//     display:flex;
+//     flex-direction: column;
+//     align-items: flex-end;
+//     align-self: stretch;
+// }
 .submit
 {
     width:100px;
     background-color: rgb(224, 218, 228);
     color: black;
+    margin:auto
 }
 input, select, select option
 {

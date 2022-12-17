@@ -15,40 +15,50 @@
 
     <button (click)="openRegisterForm()" >تسجيل حساب</button>
 
-    <form class="registerForm" #registerForm="ngForm"  *ngIf="register"  (ngSubmmit)="registerStudent()">
-        <div class="form-group">
+    <form class="registerForm" name="registerForm" #registerForm="ngForm"  *ngIf="register"  (ngSubmmit)="registerStudent()">
+        <div class="form-column">
             <label>: اسم الطالب  </label>
-            <input type="text" required [class.is-invalid]="name.invalid && name.touched" #name="ngModel" [(ngModel)]="registeredUser.name" class="form-control"/>
-            <small class="text-danger" *ngIf="name.invalid && name.touched"> name is required</small>
+            <input  type="text" name="name" CharactersOnly required minlength="3"  maxlength="50" [class.is-invalid]="name.invalid && name.touched" #name="ngModel"   [(ngModel)]="registeredUser.name" class="form-control"/>
+            <p class="text-danger"  *ngIf="name.invalid && name.touched">{{errorMessages.name}}</p>
+
         </div>
+
         <div class="form-group">
             <label>: الايميل  </label>
-            <input type="email" required [class.is-invalid]="name.invalid && name.touched" #email="ngModel" [(ngModel)]="registeredUser.email" class="form-control"/>
-            <small class="text-danger" *ngIf="email.invalid && email.touched"> email is required</small>
+            <input type="email" name="email" required email  pattern="[a-z0-9]+@[a-z]+\.[a-z]{2,3}" [class.is-invalid]="email.invalid && email.touched" #email="ngModel" [(ngModel)]="registeredUser.email" class="form-control"/>
+            <p class="text-danger" *ngIf="email.invalid && email.touched"> {{errorMessages.email}}</p>
         </div>
         <div class="form-group">
-            <label>العمر</label>
-            <input type="number" required [class.is-invalid]="age.invalid && age.touched" #age="ngModel" [(ngModel)]="registeredUser.age" class="form-control"/>
-            <small *ngIf="age.invalid && age.touched"></small>
+            <label>:العمر</label>
+            <input type="number" name="age" required min="5" max="100"   [class.is-invalid]="age.invalid && age.touched" #age="ngModel" [(ngModel)]="registeredUser.age" class="form-control"/>
+            <p class="text-danger" *ngIf="age.invalid && age.touched">{{errorMessages.age}}</p>
         </div>
         <div class="form-group">
-            <label>النوع</label>
+            <label>:النوع</label>
             <select name="gender" [(ngModel)]="registeredUser.gender" required #gender="ngModel" [class.is-invalid]="gender.invalid  && gender.touched" class="form-control">
-                <option value="male">`ذكر</option>
+                <option value="male">ذكر</option>
                 <option value="female">انثى</option>
             </select>
         </div>
         <div class="form-group">
-            <label>المدرسه</label>
+            <label>:المدرسه</label>
             <select (change)="validateSchool(school.value)" name="school" [(ngModel)]="registeredUser.school" #school="ngModel" [class.is-invalid]="school.touched && schoolHasError" required class="form-control">
                 <option value="school"></option>
                 <option  *ngFor="let school of schools">
                     {{school}}
                 </option>
+                <option value="enterManually">
+                    ادخل اسم المدرسه يدويا 
+                </option>
             </select>
         </div>
+        <div class="form-group" *ngIf="schoolValueManually">
+            <label>المدرسه</label>
+            <input  type="text"   name="school" placeholder="ادخل اسم المدرسه" CharactersOnly required minlength="3"  maxlength="50" [class.is-invalid]="name.invalid && name.touched" #school="ngModel"   [(ngModel)]="registeredUser.school" class="form-control"/>
+            <p class="text-danger" *ngIf="school.invalid && school.touched"> {{errorMessages.school}}</p>
+        </div>
         <div class="form-group">
-            <label>البلد</label>
+            <label>:البلد</label>
             <select (change)="validateCountry(country.value)" name="country" [(ngModel)]="registeredUser.country" #country="ngModel" [class.is-invalid]="country.touched && countryHasError" required class="form-control">
                 <option value="country">البلد</option>
                 <option  *ngFor="let country of countries">
@@ -56,8 +66,15 @@
                 </option>
             </select>
         </div>
-        <input class="submit" type="submit"  [disabled]="registerForm.form.invalid || countryHasError || schoolHasError" value="تسجيل"/>
-
-
+        <div class="form-group">
+            <label>المحافظه</label>
+            <input type="text" [class.is-valid]="governate.invalid  && governate.touched" required CharactersOnly minlength="3" maxlength="50"  name="governate" [(ngModel)]="registeredUser.governate" #governate="ngModel" class="form-control" />
+            <p class="text-danger" *ngIf="governate.invalid && governate.touched">{{errorMessages.governate}}</p>
+        </div>
+        <div class="form-group">
+            <input class="submit" type="submit" (click)="createAccount()"  [disabled]="registerForm.form.invalid || countryHasError || schoolHasError" value="تسجيل"/>
+            <p class="text-danger" style="display:block" *ngIf="registerForm.form.invalid || countryHasError || schoolHasError">{{errorMessages.all}}</p>
+        </div>
+        
     </form>
 </section>

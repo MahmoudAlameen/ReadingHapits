@@ -10,5 +10,5 @@ export class Student
     country:string="";
     governate:string="";
     password:string="";
-    classRoom:string=""
+   // classRoom:string="";
 }

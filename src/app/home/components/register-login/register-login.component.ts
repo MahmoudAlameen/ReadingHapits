@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Student } from 'src/app/classes/student';
 import { RegisterFormDataService } from 'src/app/core/register-form-data.service';
 import { logedUser } from 'src/interfaces/logedUser';
+import { CharactersOnlyValidator } from 'src/app/customDirectives/CharactersOnly';
+import { UserService } from 'src/app/core/User.Service';
+import { Gender } from 'src/app/enums/gender';
 
 @Component({
   selector: 'app-register-login',
@@ -15,7 +18,18 @@ export class RegisterLoginComponent implements OnInit {
   register:boolean=false;
   schools:string[]=["dssd","dsdsdsd","sdsdsdsd"];
   countries:string[]=[];
-  constructor(private registerFormData:RegisterFormDataService) { }
+  userId  :string=""
+  errorMessages=
+  {
+    all: " اخل كل البيانات المطلوبه بشكل صحيح ثم اضغط على تسجيل الدخول",
+    name:"يجب ان يكون الاسم من 3 الى 50 حرف ",
+    email: "الايميل غير صحيح",
+    age : "يجب ان يكون العمر من 5  الى 100",
+    governate: " اسم المحافظه  يجب ان يكون من 3 الى 50 حرف ",
+    school: "اسم المدرسه غير صحيح"
+
+  }
+  constructor(private registerFormData:RegisterFormDataService, private UserService:UserService) { }
 
   ngOnInit(): void {
     this.getSchools();
@@ -49,25 +63,56 @@ export class RegisterLoginComponent implements OnInit {
   }
 
   schoolHasError:boolean=false;
+  schoolValueManually:boolean=false;
   validateSchool(school:string)
   {
-    if(school="school")
-    this.schoolHasError=false;
+    if(school=="school")
+    {
+      this.schoolHasError=true;
+      this.schoolValueManually=false;
+    }
+    else if(school == "enterManually")
+    {
+      this.schoolValueManually=true;
+      this.schoolHasError=false;
+      this.registeredUser.school=""
+    }
+      
     else
-    this.schoolHasError=true;
+    {
+      this.schoolValueManually=false;
+      this.schoolHasError=false;
+    }
+    console.log(this.schoolValueManually);
   }
   countryHasError:boolean=false;
   validateCountry(country:string)
   {
     if(country=="country")
-     this.countryHasError=false;
+     this.countryHasError=true;
     else
-     this.countryHasError=true; 
+     this.countryHasError=false; 
   }
 
   registerStudent()
   {
     return;
+  }
+
+  createAccount()
+  {
+    this.registeredUser.gender=Gender.male
+    this.UserService.AddUser(this.registeredUser).subscribe(
+      response=>
+      {
+        this.userId=response.UserId
+        alert("account registered successfully");
+
+      } ,
+      err=> alert(err)
+    )
+
+
   }
 
 }
