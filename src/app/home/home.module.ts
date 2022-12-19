@@ -11,7 +11,8 @@ import { SharedModule } from '../shared/shared.module';
 import { RegisterLoginComponent } from './components/register-login/register-login.component';
 import { FormsModule } from '@angular/forms';
 import { PlacementTestComponent } from './components/placement-test/placement-test.component';
-import { CharactersOnlyValidator } from '../customDirectives/CharactersOnly';
+import { PasswordValidator } from '../customDirectives/PasswordValidator';
+import { ValidNameValidator } from '../customDirectives/CharactersOnly';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CharactersOnlyValidator } from '../customDirectives/CharactersOnly';
     ReadingRoomCardComponent,
     RegisterLoginComponent,
     PlacementTestComponent,
-    CharactersOnlyValidator
+    ValidNameValidator,
+    PasswordValidator
   ],
   imports: [
     CommonModule,

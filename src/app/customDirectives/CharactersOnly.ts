@@ -1,10 +1,10 @@
 import { Directive } from "@angular/core";
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn, Validators } from "@angular/forms";
 @Directive({
-    selector: '[CharactersOnly]',
-    providers: [{provide: NG_VALIDATORS, useExisting: CharactersOnlyValidator, multi: true}]
+    selector: '[validName]',
+    providers: [{provide: NG_VALIDATORS, useExisting: ValidNameValidator, multi: true}]
   })
-  export class CharactersOnlyValidator implements Validator
+  export class ValidNameValidator implements Validator
   {
 
     validate(control: AbstractControl): ValidationErrors | null {
@@ -15,7 +15,8 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorF
         for(let i=0; i<value.length;  i++)
         {
             let code=value.charCodeAt(i);
-            if(!((code>=65 && code<=90)|| (code>=97 && code<=122)))
+            console.log(code);
+            if(!((code>=65 && code<=90)|| (code>=97 && code<=122) || (code>=1569 && code<=1610) || code==32))
                       return {er:"name must be characters only"};
             
 

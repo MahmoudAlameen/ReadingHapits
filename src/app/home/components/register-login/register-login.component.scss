@@ -27,6 +27,12 @@
  
 
 }
+.loginForm > div 
+{
+    display :flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
 .registerForm
 {
     //background: linear-gradient(to  left bottom , rgb(88, 105, 105),rgb(90, 109, 110),rgb(177, 189, 186));

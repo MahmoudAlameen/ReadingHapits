@@ -2,6 +2,7 @@ import { HttpBackend, HttpClient } from "@angular/common/http";
 import { core } from "@angular/compiler";
 import { Injectable } from "@angular/core";
 import { catchError, Observable, throwError } from "rxjs";
+import { logedUser } from "src/interfaces/logedUser";
 import { Student } from "../classes/student";
 import { APIService } from "./API.Service";
 
@@ -19,11 +20,20 @@ export class UserService
 
     AddUser(student:Student):Observable<any>
     {
+
         return this.http.post<any>(this.api.AddUser,student).pipe(
             catchError((err)=>
             throwError(()=>err.message))
         )
 
+    }
+
+    LoginUser( loginUser:logedUser)
+    {
+
+        return this.http.post<any>(this.api.UserLogin,loginUser).pipe(
+            catchError((err)=>
+                throwError(()=>err.message)))
     }
 }
 class response

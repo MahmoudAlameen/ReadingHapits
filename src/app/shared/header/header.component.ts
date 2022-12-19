@@ -7,12 +7,22 @@ import { NavigationStart, Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  UserName:string="dfdfdf";
+  islogned:boolean=false;
 
   constructor(private router:Router) {
 
    }
 
   ngOnInit(): void {
+    let userName= sessionStorage.getItem("userId");
+    console.log(userName);
+    if(userName!=null)
+    {
+      this.islogned=true;
+      this.UserName=userName;
+    }
+     
     this.hidenavbar();
     this.startNavigation();
     document.addEventListener("click",()=>

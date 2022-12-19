@@ -2,15 +2,13 @@
     <form class="loginForm"  #loginForm="ngForm" (ngSubmmit)="postData()">
         <div class="form-group">
             <label>:  اسم المستخدم  </label>
-            <input type="text" required [class.is-invalid]="userName.invalid && userName.touched" [(ngModel)]="logedUser.userName" name="userName" #userName="ngModel"  class="form-control">
-            <small class="text-danger" *ngIf="userName.invalid && userName.touched">Name is required</small>
+            <input type="text"  required [class.is-invalid]="userName.invalid && userName.touched" [(ngModel)]="logedUser.email" name="userName" #userName="ngModel"  class="form-control">
         </div>
         <div class="form-group">
             <label>:  كلمه السر </label>
             <input type="password" required [class.is-invalid]="password.invalid && password.touched" [(ngModel)]="logedUser.password" name="password" #password="ngModel"  class="form-control">
-            <small class="text-danger" *ngIf="password.invalid && password.touched">Name is required</small>
         </div>
-         <input class="submit" type="submit" value="تسجيل دخول">
+         <input class="submit"  (click)="loginUser()"  [disabled]="userName.invalid || password.invalid" type="submit" value="تسجيل دخول">
     </form>
 
     <button (click)="openRegisterForm()" >تسجيل حساب</button>
@@ -18,7 +16,7 @@
     <form class="registerForm" name="registerForm" #registerForm="ngForm"  *ngIf="register"  (ngSubmmit)="registerStudent()">
         <div class="form-column">
             <label>: اسم الطالب  </label>
-            <input  type="text" name="name" CharactersOnly required minlength="3"  maxlength="50" [class.is-invalid]="name.invalid && name.touched" #name="ngModel"   [(ngModel)]="registeredUser.name" class="form-control"/>
+            <input  type="text" name="name" validName required minlength="3"  maxlength="50" [class.is-invalid]="name.invalid && name.touched" #name="ngModel"   [(ngModel)]="registeredUser.name" class="form-control"/>
             <p class="text-danger"  *ngIf="name.invalid && name.touched">{{errorMessages.name}}</p>
 
         </div>
@@ -36,8 +34,8 @@
         <div class="form-group">
             <label>:النوع</label>
             <select name="gender" [(ngModel)]="registeredUser.gender" required #gender="ngModel" [class.is-invalid]="gender.invalid  && gender.touched" class="form-control">
-                <option value="male">ذكر</option>
-                <option value="female">انثى</option>
+                <option value=0>ذكر</option>
+                <option value=1>انثى</option>
             </select>
         </div>
         <div class="form-group">
@@ -54,7 +52,7 @@
         </div>
         <div class="form-group" *ngIf="schoolValueManually">
             <label>المدرسه</label>
-            <input  type="text"   name="school" placeholder="ادخل اسم المدرسه" CharactersOnly required minlength="3"  maxlength="50" [class.is-invalid]="name.invalid && name.touched" #school="ngModel"   [(ngModel)]="registeredUser.school" class="form-control"/>
+            <input  type="text"   name="school" placeholder="ادخل اسم المدرسه" validName required minlength="3"  maxlength="50" [class.is-invalid]="name.invalid && name.touched" #school="ngModel"   [(ngModel)]="registeredUser.school" class="form-control"/>
             <p class="text-danger" *ngIf="school.invalid && school.touched"> {{errorMessages.school}}</p>
         </div>
         <div class="form-group">
@@ -68,13 +66,22 @@
         </div>
         <div class="form-group">
             <label>المحافظه</label>
-            <input type="text" [class.is-valid]="governate.invalid  && governate.touched" required CharactersOnly minlength="3" maxlength="50"  name="governate" [(ngModel)]="registeredUser.governate" #governate="ngModel" class="form-control" />
+            <input type="text" [class.is-valid]="governate.invalid  && governate.touched" required validName minlength="3" maxlength="50"  name="governate" [(ngModel)]="registeredUser.governate" #governate="ngModel" class="form-control" />
             <p class="text-danger" *ngIf="governate.invalid && governate.touched">{{errorMessages.governate}}</p>
         </div>
         <div class="form-group">
-            <input class="submit" type="submit" (click)="createAccount()"  [disabled]="registerForm.form.invalid || countryHasError || schoolHasError" value="تسجيل"/>
+            <label>: كلمه السر  </label>
+            <input type="password" name="password" required password  validPassword [class.is-invalid]="password.invalid && password.touched" #password="ngModel" [(ngModel)]="registeredUser.password" class="form-control"/>
+            <p class="text-danger" *ngIf="password.invalid && password.touched"> {{errorMessages.password}}</p>
+        </div>
+        <div class="form-group">
+            <input class="submit" type="submit" (click)="createAccount()"  [disabled]="registerForm.form.invalid || countryHasError || schoolHasError"  value="تسجيل"/>
             <p class="text-danger" style="display:block" *ngIf="registerForm.form.invalid || countryHasError || schoolHasError">{{errorMessages.all}}</p>
         </div>
+
         
     </form>
+
+    
 </section>
+<!---->

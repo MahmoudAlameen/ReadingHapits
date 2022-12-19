@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Student } from 'src/app/classes/student';
 import { RegisterFormDataService } from 'src/app/core/register-form-data.service';
 import { logedUser } from 'src/interfaces/logedUser';
-import { CharactersOnlyValidator } from 'src/app/customDirectives/CharactersOnly';
+import { ValidNameValidator } from 'src/app/customDirectives/CharactersOnly';
 import { UserService } from 'src/app/core/User.Service';
 import { Gender } from 'src/app/enums/gender';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-login',
@@ -13,7 +14,7 @@ import { Gender } from 'src/app/enums/gender';
 })
 export class RegisterLoginComponent implements OnInit {
 
-  logedUser:logedUser={userName:"",password:""};
+  logedUser:logedUser={email:"",password:""};
   registeredUser:Student=new Student();
   register:boolean=false;
   schools:string[]=["dssd","dsdsdsd","sdsdsdsd"];
@@ -26,10 +27,11 @@ export class RegisterLoginComponent implements OnInit {
     email: "الايميل غير صحيح",
     age : "يجب ان يكون العمر من 5  الى 100",
     governate: " اسم المحافظه  يجب ان يكون من 3 الى 50 حرف ",
-    school: "اسم المدرسه غير صحيح"
+    school: "اسم المدرسه غير صحيح",
+    password: ",على الاقل جرف كابيتال و على لاقل حرف صغير و على لاقل رقم واحد يجب ان يحتوى الباسورد على ثمانيه حروف , حروف من اللغه الانجليزيه فقط حرف  "
 
   }
-  constructor(private registerFormData:RegisterFormDataService, private UserService:UserService) { }
+  constructor(private registerFormData:RegisterFormDataService, private UserService:UserService , private router :Router) { }
 
   ngOnInit(): void {
     this.getSchools();
@@ -101,17 +103,45 @@ export class RegisterLoginComponent implements OnInit {
 
   createAccount()
   {
-    this.registeredUser.gender=Gender.male
+
+    console.log(this.registeredUser);
     this.UserService.AddUser(this.registeredUser).subscribe(
       response=>
       {
-        this.userId=response.UserId
-        alert("account registered successfully");
+        if(response.isValid==true)
+        {
+          this.userId=response.UserId
+          alert("تم تسجيل الحساب بنجاح");
+        }
+        if(response.isValid==false)
+          alert(response.errorMessage)
+        
 
       } ,
       err=> alert(err)
     )
 
+  }
+
+  loginUser()
+  {
+
+    this.UserService.LoginUser(this.logedUser).subscribe(
+      response=>
+      {
+        if(!response.isValid)
+        {
+          alert("كلمه السر او الباسورد غير صحيح ");
+        }
+        if(response.isValid)
+        {
+          console.log(response);
+          sessionStorage.setItem("userId",response.model);
+          this.router.navigate(['home'])
+        }
+      },
+      err=> alert(err)
+    )
 
   }
 

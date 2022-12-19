@@ -17,8 +17,10 @@
        <!--- <a class="navbar-brand" href="#">عادات القراءة لدى طلاب المدارس</a> -->
         <!-- class="nav navbar-navt" -->       
         <ul class="nav userNav  navbar-nav navbar-right" >
-          <li class="st"><a class="whiteText" href="#" class="whiteText" ><span class="glyphicon glyphicon-user"></span> Mohmaed999@gmail.com</a></li>
-          <li class="sed"><a [routerLink]="['/login']"  class="whiteText" routerLinkActive="router-link-active"   ><span class="glyphicon glyphicon-log-in"></span> تسجيل دخول</a></li>
+          <li class="st"><a class="whiteText" href="#" class="whiteText" ><span class="glyphicon glyphicon-user"></span>{{UserName}}</a></li>
+          <li class="sed">
+            <a [routerLink]="['/login']"  class="whiteText" routerLinkActive="router-link-active" *ngIf="!islogned"  > تسجيل دخول</a>
+            <a class="whiteText" routerLinkActive="router-link-active"   *ngIf="islogned" ><span class="glyphicon glyphicon-log-in"></span> تسجيل خروج</a></li>
         </ul>
       </div>
   </div>
