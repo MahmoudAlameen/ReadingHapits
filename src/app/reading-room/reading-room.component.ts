@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ReadingRoom } from '../classes/ReadingRoom';
 import { ReadingRoomRepositoryService } from '../core/reading-room-repository.service';
 import { ReadingRoomsService } from '../core/reading-rooms.service';
+import { SessionStorageKeysService } from '../core/SessionStorageKeysService';
+import { SessionStorageService } from '../core/SessionStorageService';
 
 @Component({
   selector: 'app-reading-room',
@@ -12,16 +14,19 @@ import { ReadingRoomsService } from '../core/reading-rooms.service';
 })
 export class ReadingRoomComponent implements OnInit {
   @Input() roomId:number =0
-  readingRoom:ReadingRoom=new ReadingRoom()
+  readingRoom:ReadingRoom =new ReadingRoom()
   bookCardWidth:string="150px";
   bookCardHeight:string="150px";
   contentView:string="books";
-  contentHead:string="الكتب"
+  contentHead:string="الكتب";
+  userId:string="";
 
-  constructor(private router:Router,private ReadingRoomRepository:ReadingRoomRepositoryService, private activeRoute:ActivatedRoute) {
+  constructor(private router:Router,private ReadingRoomRepository:ReadingRoomRepositoryService, 
+    private activeRoute:ActivatedRoute , private SessionStorage: SessionStorageService, private SessionKeys: SessionStorageKeysService) {
      }
 
   ngOnInit(): void {
+    this.userId=this.SessionStorage.getValue(this.SessionKeys.userId)?? "";
 
     this.activeRoute.paramMap.subscribe(
       param=>
@@ -32,13 +37,11 @@ export class ReadingRoomComponent implements OnInit {
       } 
     )
 
-    this.ReadingRoomRepository.setActiveReadingRoom(this.roomId);
+    this.ReadingRoomRepository.setActiveReadingRoom(this.roomId, this.userId);
     this.ReadingRoomRepository.ActiveReadingRoom.subscribe(
-      room=>this.readingRoom=room
+      room=>this.readingRoom=room?? new ReadingRoom()
     )
   }
-
-
 
 
   opencontentNavBar(event:Event, navbar:HTMLElement)

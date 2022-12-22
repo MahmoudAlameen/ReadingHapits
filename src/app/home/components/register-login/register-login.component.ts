@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Student } from 'src/app/classes/student';
 import { RegisterFormDataService } from 'src/app/core/register-form-data.service';
 import { logedUser } from 'src/interfaces/logedUser';
@@ -6,6 +6,9 @@ import { ValidNameValidator } from 'src/app/customDirectives/CharactersOnly';
 import { UserService } from 'src/app/core/User.Service';
 import { Gender } from 'src/app/enums/gender';
 import { Router } from '@angular/router';
+import { SessionStorageKeysService } from 'src/app/core/SessionStorageKeysService';
+import { SessionStorageService } from 'src/app/core/SessionStorageService';
+import { HeaderComponent } from 'src/app/shared/header/header.component';
 
 @Component({
   selector: 'app-register-login',
@@ -19,7 +22,8 @@ export class RegisterLoginComponent implements OnInit {
   register:boolean=false;
   schools:string[]=["dssd","dsdsdsd","sdsdsdsd"];
   countries:string[]=[];
-  userId  :string=""
+  userId  :string="";
+  @ViewChild(HeaderComponent) headerComponent! :HeaderComponent
   errorMessages=
   {
     all: " اخل كل البيانات المطلوبه بشكل صحيح ثم اضغط على تسجيل الدخول",
@@ -31,7 +35,8 @@ export class RegisterLoginComponent implements OnInit {
     password: ",على الاقل جرف كابيتال و على لاقل حرف صغير و على لاقل رقم واحد يجب ان يحتوى الباسورد على ثمانيه حروف , حروف من اللغه الانجليزيه فقط حرف  "
 
   }
-  constructor(private registerFormData:RegisterFormDataService, private UserService:UserService , private router :Router) { }
+  constructor(private registerFormData:RegisterFormDataService, private UserService:UserService , private router :Router,
+    private SessionKeys:SessionStorageKeysService, private SessionStorage: SessionStorageService) { }
 
   ngOnInit(): void {
     this.getSchools();
@@ -136,8 +141,18 @@ export class RegisterLoginComponent implements OnInit {
         if(response.isValid)
         {
           console.log(response);
-          sessionStorage.setItem("userId",response.model);
-          this.router.navigate(['home'])
+         this.SessionStorage.setItem(this.SessionKeys.userId,response.model);
+         this.SessionStorage.setItem( this.SessionKeys.userName,this.logedUser.email);
+        //  if(this.headerComponent)
+        //  {
+        //   this.headerComponent.logoutButton=true;
+        //   this.headerComponent.loginButton=false;
+        //   this.headerComponent.UserName=this.SessionStorage.getValue(this.SessionKeys.userName);
+
+        //  }
+        
+          this.router.navigate(['home']);
+          this.router.navigateByUrl('home').then(()=>window.location.reload())
         }
       },
       err=> alert(err)

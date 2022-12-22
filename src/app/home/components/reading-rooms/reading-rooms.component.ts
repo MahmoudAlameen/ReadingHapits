@@ -9,7 +9,7 @@ import { ReadingRoomsService } from 'src/app/core/reading-rooms.service';
   styleUrls: ['./reading-rooms.component.scss']
 })
 export class ReadingRoomsComponent implements OnInit {
-  readingRoomsCards:ReadingRoomCard[]=[];
+  readingRoomsCards:ReadingRoomCard[] | null=[];
   constructor(private readingRoomService:ReadingRoomsService)
   {
     this.getReadingRooms();
@@ -20,8 +20,8 @@ export class ReadingRoomsComponent implements OnInit {
 
   getReadingRooms()
   {
-    this.readingRoomService.getReadingRooms(12,4,0).subscribe(
-      roomsCards=>this.readingRoomsCards=roomsCards,
+    this.readingRoomService.getReadingRooms(4,0).subscribe(
+      response=>this.readingRoomsCards=response.Model,
       error=>alert(`error during fetching reading rooms fromm API ${error}`)
     )
   }

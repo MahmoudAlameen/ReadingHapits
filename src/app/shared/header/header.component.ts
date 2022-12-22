@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
+import { LogoutService } from 'src/app/core/logoutService';
+import {  SessionStorageKeysService } from 'src/app/core/SessionStorageKeysService';
+import { SessionStorageService } from 'src/app/core/SessionStorageService';
 
 @Component({
   selector: 'app-header',
@@ -7,21 +10,18 @@ import { NavigationStart, Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  UserName:string="dfdfdf";
-  islogned:boolean=false;
+  UserName:string |null="";
+  logoutButton:boolean=false;
+  loginButton:boolean=false;
 
-  constructor(private router:Router) {
+  constructor(private router:Router, private SessionStorage:SessionStorageService, private SessionKeys: SessionStorageKeysService
+    , private LogoutService: LogoutService) {
 
    }
 
   ngOnInit(): void {
-    let userName= sessionStorage.getItem("userId");
-    console.log(userName);
-    if(userName!=null)
-    {
-      this.islogned=true;
-      this.UserName=userName;
-    }
+    this.setUserValues();
+ 
      
     this.hidenavbar();
     this.startNavigation();
@@ -33,6 +33,42 @@ export class HeaderComponent implements OnInit {
 
     });
      //this.fireAnchor()
+  }
+
+  setUserValues()
+  {
+    console.log(sessionStorage);
+    console.log(this.SessionStorage.isExist(this.SessionKeys.userId));
+
+    if(this.SessionStorage.isExist(this.SessionKeys.userId))
+    {
+      console.log("ima there in ")
+
+      this.loginButton=false;
+      this.logoutButton=true;
+      this.UserName= this.SessionStorage.getValue(this.SessionKeys.userName);
+    }
+    else
+    {
+      this.UserName="";
+      this.loginButton= true;
+      this.logoutButton=false;
+    }
+
+  }
+  logout()
+  {
+    this.UserName="";
+    this.loginButton=false;
+    this.logoutButton=false;
+    this.LogoutService.logout();
+
+  }
+  login()
+  {
+    this.loginButton=false;
+    this.loginButton=false;
+    this.router.navigate(['login']);
   }
 
 

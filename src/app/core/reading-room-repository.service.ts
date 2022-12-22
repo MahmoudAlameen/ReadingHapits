@@ -10,14 +10,14 @@ import { ReadingRoomsService } from './reading-rooms.service';
   providedIn: 'root'
 })
 export class ReadingRoomRepositoryService {
-  ActiveReadingRoom:BehaviorSubject<ReadingRoom>=new BehaviorSubject<ReadingRoom>(new ReadingRoom());
+  ActiveReadingRoom:BehaviorSubject<ReadingRoom|null>=new BehaviorSubject<ReadingRoom|null>(new ReadingRoom());
   constructor(private ReadingRoomService:ReadingRoomsService){};
 
   /**setting reading Room */
-  setActiveReadingRoom(roomId:number)
+  setActiveReadingRoom(roomId:number, userId:string)
   {
-    this.ReadingRoomService.getReadingRoom(roomId).subscribe(
-      room=>this.ActiveReadingRoom.next(room),
+    this.ReadingRoomService.getReadingRoom(roomId, userId).subscribe(
+      room=>this.ActiveReadingRoom.next(room.Model),
       err=>alert(err)
     )
 
@@ -25,7 +25,10 @@ export class ReadingRoomRepositoryService {
 
   getBook(bookId:number): Book
   {
-    for (let book of this.ActiveReadingRoom.value.books)
+    let books=this.ActiveReadingRoom.value?.books;
+    if(books==null)
+       books=[];
+    for (let book of books)
     {
       if(book.id==bookId)
        return book;
@@ -34,7 +37,10 @@ export class ReadingRoomRepositoryService {
   }
   getArticle(articleId:number):Article
   {
-    for (let article of this.ActiveReadingRoom.value.articles)
+    let articles=this.ActiveReadingRoom.value?.articles;
+    if(articles ==null)
+      articles=[];
+    for (let article of articles)
     {
       if(article.id==articleId)
        return article;
