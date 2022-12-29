@@ -8,13 +8,13 @@ import { Injectable } from '@angular/core';
 export class APIService
 {
     base:string="https://localhost:7024/";
-    AddUser:string=this.base+"User/AddUser/";
-    UserLogin=this.base+"User/Login";
-    AuthenticateUser=this.base+"User/AuthenticateUser";
-    ReadingRooms=this.base+"ReadingRooms/ReadingRoomsCards";
-    GetReadingRoom=this.base+"ReadingRooms/GetReadingRoom";
-    GetBook=this.base+"Books/Book";
-    GetArticle=this.base+"Article/GetArticle"
+    AddUser:string=this.base+"users/addUser/";
+    UserLogin=this.base+"users/login";
+    AuthenticateUser=this.base+"users/isAuthenticated";
+    ReadingRooms=this.base+"readingRooms/readingRoomsCards";
+    GetReadingRoom=this.base+"readingRooms/getReadingRoom";
+    GetBook=this.base+"books/getBook";
+    GetArticle=this.base+"articles/getArticle"
     constructor()
     {
         

@@ -3,7 +3,7 @@ import {Article} from "./Article"
 export class ReadingRoomCard
 
 {
-    id:number;
+    id:string;
     name:string;
     displayedBooks:Book[];
     displayedArticles:Article[];
@@ -17,6 +17,6 @@ export class ReadingRoomCard
         this.name="";
         this.articlesNumber=0;
         this.booksNumber=0;
-        this.id=0;
+        this.id="";
     }
 }

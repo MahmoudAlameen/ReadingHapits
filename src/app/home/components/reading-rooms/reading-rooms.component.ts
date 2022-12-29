@@ -21,7 +21,10 @@ export class ReadingRoomsComponent implements OnInit {
   getReadingRooms()
   {
     this.readingRoomService.getReadingRooms(4,0).subscribe(
-      response=>this.readingRoomsCards=response.Model,
+      response=>
+      {
+        this.readingRoomsCards=response.modelList;
+      },
       error=>alert(`error during fetching reading rooms fromm API ${error}`)
     )
   }

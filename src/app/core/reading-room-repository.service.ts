@@ -14,10 +14,10 @@ export class ReadingRoomRepositoryService {
   constructor(private ReadingRoomService:ReadingRoomsService){};
 
   /**setting reading Room */
-  setActiveReadingRoom(roomId:number, userId:string)
+  setActiveReadingRoom(roomId:string, userId:string)
   {
     this.ReadingRoomService.getReadingRoom(roomId, userId).subscribe(
-      room=>this.ActiveReadingRoom.next(room.Model),
+      room=>this.ActiveReadingRoom.next(room.model),
       err=>alert(err)
     )
 

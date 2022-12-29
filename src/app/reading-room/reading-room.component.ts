@@ -13,7 +13,7 @@ import { SessionStorageService } from '../core/SessionStorageService';
 
 })
 export class ReadingRoomComponent implements OnInit {
-  @Input() roomId:number =0
+  @Input() roomId:string =""
   readingRoom:ReadingRoom =new ReadingRoom()
   bookCardWidth:string="150px";
   bookCardHeight:string="150px";
@@ -32,7 +32,7 @@ export class ReadingRoomComponent implements OnInit {
       param=>
       {
         let id=param.get("id");
-        id!=null?this.roomId=parseInt(id):this.roomId=0;
+        id!=null?this.roomId=id:this.roomId="";
 
       } 
     )

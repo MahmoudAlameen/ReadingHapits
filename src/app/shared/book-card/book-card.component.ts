@@ -17,7 +17,7 @@ export class BookCardComponent implements OnInit {
   CoverUrl:string;
   constructor(private router:Router, private API :APIService)
    { 
-     this.CoverUrl= API.base + "Books" + this.book.id +"jpg"; 
+     this.CoverUrl= API.base + "Books/Covers/" + this.book.id +this.book.cover+ "jpg"; 
    }
 
   ngOnInit(): void {

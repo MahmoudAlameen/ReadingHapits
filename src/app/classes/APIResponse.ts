@@ -7,10 +7,10 @@ export class APIResponse<T>
 
 export class APIResponseModel<T> extends APIResponse<T>
 {
- public Model : T | null=null
+ public model : T | null=null
     
 }
 export class APIResponseModelList<T> extends APIResponse<T>
 {
-    public Model : T[] |null = null
+    public modelList : T[] |null = null
 }

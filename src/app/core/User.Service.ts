@@ -35,6 +35,12 @@ export class UserService
             catchError((err)=>
                 throwError(()=>err.message)))
     }
+    IsAuthenticated(userId: string):Observable<boolean>
+    {
+        return this.http.get<boolean>(this.api.AuthenticateUser,{params:{userId:userId}}).pipe(
+            catchError((err)=>
+            throwError(()=>err.message)))
+    }
 }
 class response
 {

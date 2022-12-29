@@ -23,7 +23,7 @@ export class ReadingRoomsService {
     )
   
   }
-  getReadingRoom(roomId:number , userId :string):Observable<APIResponseModel<ReadingRoom>>
+  getReadingRoom(roomId:string , userId :string):Observable<APIResponseModel<ReadingRoom>>
   {
     return this.http.get<APIResponseModel<ReadingRoom>>(this.API.GetReadingRoom,{params:{roomId:roomId, userId:userId}}).pipe(
       catchError((err)=>
