@@ -2,8 +2,8 @@ import { pageType } from "../enums/PagType";
 
 export class Page
 {
-    Id:number=0;
+    id:string='00000000-0000-0000-0000-000000000000';
     number:number=0;
     content:string="";
-    type:pageType=pageType.text
+    pageType:pageType=pageType.text
 }

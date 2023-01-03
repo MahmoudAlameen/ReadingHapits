@@ -3,6 +3,7 @@ import { core } from "@angular/compiler";
 import { Injectable } from "@angular/core";
 import { catchError, Observable, throwError } from "rxjs";
 import { logedUser } from "src/interfaces/logedUser";
+import { APIResponseModel } from "../classes/APIResponse";
 import { Student } from "../classes/student";
 import { APIService } from "./API.Service";
 
@@ -34,6 +35,14 @@ export class UserService
         return this.http.post<any>(this.api.UserLogin,loginUser).pipe(
             catchError((err)=>
                 throwError(()=>err.message)))
+    }
+    LogoutUser(userName : string): Observable<APIResponseModel<Boolean>>
+    {
+        let body={userName:userName};
+        return this.http.post<APIResponseModel<Boolean>>(this.api.UserLogout, body).pipe(
+            catchError((err)=>
+            throwError(()=>err.message)))
+
     }
     IsAuthenticated(userId: string):Observable<boolean>
     {

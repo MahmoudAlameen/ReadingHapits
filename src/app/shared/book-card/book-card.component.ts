@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Book } from 'src/app/classes/Book';
 import { APIService } from 'src/app/core/API.Service';
 import { ReadingRoomsService } from 'src/app/core/reading-rooms.service';
+import { BookCardDTO } from 'src/app/DTOs/BookCardDTO';
 
 @Component({
   selector: 'app-book-card',
@@ -11,16 +12,21 @@ import { ReadingRoomsService } from 'src/app/core/reading-rooms.service';
  
 })
 export class BookCardComponent implements OnInit {
-  @Input() book:Book=new Book();
+  @Input() book:BookCardDTO=new BookCardDTO();
   @Input() width:string="100px";
   @Input() height:string="100px";
-  CoverUrl:string;
+  CoverUrl:string='';
   constructor(private router:Router, private API :APIService)
    { 
-     this.CoverUrl= API.base + "Books/Covers/" + this.book.id +this.book.cover+ "jpg"; 
    }
 
   ngOnInit(): void {
+    let imageDelemeters:string[] = this.book.cover.split(',');
+    let filed= imageDelemeters[0].trim();
+    let fileName = imageDelemeters[1].trim();
+    this.CoverUrl= this.API.base + "Books/Covers/" + filed + '/'+ fileName; 
+    console.log(this.CoverUrl);
+
   }
   openBook()
   {

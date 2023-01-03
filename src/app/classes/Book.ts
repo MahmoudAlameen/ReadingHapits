@@ -1,18 +1,12 @@
+import { Level } from "../enums/level";
+import { BookPage } from "./BookPage";
+
 export class Book
 {
-    id:number;
-    name:string;
-    pagesNumber:number;
-    exams:number[];
-    readingRoom:number;
-    cover:string
-    constructor()
-    {
-        this.id=0;
-        this.name="",
-        this.exams=[],
-        this.readingRoom=0,
-        this.cover="",
-        this.pagesNumber=0
-    }
+    id:string='00000000-0000-0000-0000-000000000000';
+    name:string='';
+    level:Level=Level.one;
+    roomId:string='';
+    cover:string='';
+    pages:BookPage[]=[];
 }

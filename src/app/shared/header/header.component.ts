@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
-import { LogoutService } from 'src/app/core/logoutService';
 import {  SessionStorageKeysService } from 'src/app/core/SessionStorageKeysService';
 import { SessionStorageService } from 'src/app/core/SessionStorageService';
+import { UserService } from 'src/app/core/User.Service';
 
 @Component({
   selector: 'app-header',
@@ -14,8 +14,7 @@ export class HeaderComponent implements OnInit {
   logoutButton:boolean=false;
   loginButton:boolean=false;
 
-  constructor(private router:Router, private SessionStorage:SessionStorageService, private SessionKeys: SessionStorageKeysService
-    , private LogoutService: LogoutService) {
+  constructor(private UserService: UserService ,private router:Router, private SessionStorage:SessionStorageService, private SessionKeys: SessionStorageKeysService) {
 
    }
 
@@ -58,10 +57,28 @@ export class HeaderComponent implements OnInit {
   }
   logout()
   {
-    this.UserName="";
-    this.loginButton=false;
-    this.logoutButton=false;
-    this.LogoutService.logout();
+    if(!this.SessionStorage.isExist(this.SessionKeys.userName))
+      return;
+
+    this.UserService.LogoutUser(this.SessionStorage.getValue(this.SessionKeys.userName) as string).subscribe(
+     response=> 
+     {
+       if(response.isValid && response.model)
+       {
+         this.SessionStorage.removeKey(this.SessionKeys.userId);
+         this.SessionStorage.removeKey(this.SessionKeys.userName);
+         this.router.navigate(['login']);    
+         this.UserName="";
+         this.loginButton=false;
+         this.logoutButton=false;
+
+       }
+       else
+         alert(response.errorMessage);
+     },
+    err=> alert(err)
+     )   
+
 
   }
   login()

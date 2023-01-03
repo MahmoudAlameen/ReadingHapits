@@ -11,7 +11,7 @@ import { ReadingRoomRepositoryService } from 'src/app/core/reading-room-reposito
   styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit {
-  @Input() articleId:number=0;
+  @Input() articleId:string='';
   article:Article=new Article();
   articlePages:ArticlePage[]=[];
 
@@ -22,9 +22,9 @@ export class ArticleComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params:ParamMap)=>{
       let id=params.get('id');
       if(id==null)
-        this.articleId=0;
+        this.articleId='';
       else
-        this.articleId=parseInt(id);  
+        this.articleId=id;  
       console.log(this.articleId);  
       this.article=this.readingRoomRepository.getArticle(this.articleId);
       this.getArticleContent();
@@ -38,7 +38,7 @@ export class ArticleComponent implements OnInit {
       {
         for(let page of pages)
         {
-          this.contentService.getFile(page.content,page.type,"articlePage").subscribe(
+          this.contentService.getFile(page.content,page.pageType,"articlePage").subscribe(
             file=>
             {
               //this.contentService.readFile(page,file);

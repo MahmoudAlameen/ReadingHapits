@@ -13,10 +13,10 @@
     <div class="roomContent"   [ngSwitch]="contentView">
         <h2 class="matrialHead titleHead">{{contentHead}}</h2>
         <div class="material"   *ngSwitchCase="'books'">
-            <app-book-card class="book" [width]="bookCardWidth" [height]="bookCardHeight" [book]="book"  *ngFor="let book of readingRoom.books"></app-book-card>
+            <app-book-card class="book" [width]="bookCardWidth" [height]="bookCardHeight" [book]="book"  *ngFor="let book of booksCards"></app-book-card>
         </div>
         <div class="material" *ngSwitchCase="'articles'">
-            <app-article-card [article]="article"  *ngFor="let article of readingRoom.articles"></app-article-card>
+            <app-article-card [article]="article"  *ngFor="let article of articlesCards"></app-article-card>
         </div>
         <div class="material"  *ngSwitchCase="'exams'">
             <div>exam1</div>

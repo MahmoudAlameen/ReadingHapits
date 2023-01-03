@@ -28,6 +28,5 @@ export class ReadingRoomsComponent implements OnInit {
       error=>alert(`error during fetching reading rooms fromm API ${error}`)
     )
   }
-  
 
 }

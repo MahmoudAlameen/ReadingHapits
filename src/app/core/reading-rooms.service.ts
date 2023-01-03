@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Book } from 'src/app/classes/Book';
 import { APIResponseModel, APIResponseModelList } from '../classes/APIResponse';
+import { Article } from '../classes/Article';
 import { ReadingRoom } from '../classes/ReadingRoom';
 import { ReadingRoomCard } from '../classes/ReadingRoomCard';
 import { APIService } from './API.Service';
@@ -29,5 +30,21 @@ export class ReadingRoomsService {
       catchError((err)=>
       throwError(()=>err.message))
     )
+  }
+  getBook(bookId: string , userId: string): Observable<APIResponseModel<Book>>
+  {
+    return this.http.get<APIResponseModel<Book>>(this.API.GetBook, {params:{bookId:bookId , userId : userId}}).pipe(
+      catchError((err)=>
+      throwError(()=>err.message))
+
+    )
+  }
+  getArticle(articleId : string): Observable<APIResponseModel<Article>>
+  {
+    return this.http.get<APIResponseModel<Article>>(this.API.GetArticle, {params:{articleId:articleId}}).pipe(
+      catchError((err)=>
+      throwError(()=>err.message))
+    )
+
   }
 }

@@ -22,8 +22,9 @@ export class ReadingRoomRepositoryService {
     )
 
   }
+  
 
-  getBook(bookId:number): Book
+  getBook(bookId:string): Book
   {
     let books=this.ActiveReadingRoom.value?.books;
     if(books==null)
@@ -35,7 +36,7 @@ export class ReadingRoomRepositoryService {
     }
     return new Book();
   }
-  getArticle(articleId:number):Article
+  getArticle(articleId:string):Article
   {
     let articles=this.ActiveReadingRoom.value?.articles;
     if(articles ==null)

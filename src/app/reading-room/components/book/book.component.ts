@@ -1,10 +1,15 @@
 import { animation } from '@angular/animations';
 import { ReadKeyExpr } from '@angular/compiler';
 import { Component, Input, OnInit, SimpleChange } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Book } from 'src/app/classes/Book';
 import { BookPage } from 'src/app/classes/BookPage';
+import { APIService } from 'src/app/core/API.Service';
 import { ContentService } from 'src/app/core/content.service';
 import { ReadingRoomRepositoryService } from 'src/app/core/reading-room-repository.service';
+import { ReadingRoomsService } from 'src/app/core/reading-rooms.service';
+import { SessionStorageKeysService } from 'src/app/core/SessionStorageKeysService';
+import { SessionStorageService } from 'src/app/core/SessionStorageService';
 import { pageType } from 'src/app/enums/PagType';
 
 @Component({
@@ -14,7 +19,8 @@ import { pageType } from 'src/app/enums/PagType';
   styleUrls: ['./book.component.scss']
 })
 export class BookComponent implements OnInit {
-@Input() bookId!:number;
+@Input() bookId!:string;
+userId:string='';
 book:Book=new Book();
 bookPages!:BookPage[];
 leftPage:number=-1;
@@ -23,32 +29,71 @@ rightFlipper!:HTMLElement |null
 leftFlipper!:HTMLElement  |null
 openBookAnimation:boolean=false;
 
-constructor(private readingRoomRepository:ReadingRoomRepositoryService,private contentservice:ContentService) { }
+constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRepositoryService,private contentservice:ContentService
+  , private ReadingRoomServcie: ReadingRoomsService , private ActiveRoute : ActivatedRoute,
+   private SessioStorage: SessionStorageService, private SessionKeys: SessionStorageKeysService) { }
 
   ngOnInit(): void {
+    this.setup();
+    this.getBook();
+    this.setCover();
+    console.log(this.book.cover);
 
-    this.book=this.readingRoomRepository.getBook(this.bookId);
-    this.book.cover="./assets/images/cover.jpg";
-    this.contentservice.getBookPages(this.book.id).subscribe(
-      bookPages=>
+
+    // this.book=this.readingRoomRepository.getBook(this.bookId);
+    // this.book.cover="./assets/images/cover.jpg";
+    // this.contentservice.getBookPages(this.book.id).subscribe(
+    //   bookPages=>
+    //   {
+    //     console.log(bookPages)
+    //     let c=0;
+    //     for(let page of bookPages)
+    //     {
+    //       this.contentservice.getFile(page.content,page.pageType,"bookPage").subscribe(
+    //         file=>
+    //         {
+    //          // this.contentservice.readFile(page,file);
+    //          page.content=file;
+    //         },
+    //         err=>alert(err)
+    //       )
+
+    //     }
+    //     this.bookPages=bookPages;
+    //   }
+    // )
+  }
+
+  getBook()
+  {
+    this.ReadingRoomServcie.getBook(this.bookId, this.userId).subscribe(
+      response=>
       {
-        console.log(bookPages)
-        let c=0;
-        for(let page of bookPages)
+        if(response.isValid)
         {
-          this.contentservice.getFile(page.content,page.type,"bookPage").subscribe(
-            file=>
-            {
-             // this.contentservice.readFile(page,file);
-             page.content=file;
-            },
-            err=>alert(err)
-          )
-
+          this.book = response.model as Book;
+          this.bookPages= this.book.pages;
+          this.setCover();
         }
-        this.bookPages=bookPages;
+        else
+        {
+          alert(response.errorMessage);
+        }
       }
     )
+
+  }
+
+  setCover()
+  {
+    
+    if(this.book.cover)
+    {
+      let delemeters = this.book.cover.split(',');
+      let fileId= delemeters[0].trim();
+      let fileName = delemeters[1].trim();
+      this.book.cover= this.API.base + "Books/Covers/" + fileId + '/'+ fileName
+    }
   }
 
 
@@ -239,6 +284,22 @@ constructor(private readingRoomRepository:ReadingRoomRepositoryService,private c
       this.resetPages();
     },1000)
 
+  }
+
+  setup()
+  {
+    this.userId=this.SessioStorage.getValue(this.SessionKeys.userId)?? "";
+
+    this.ActiveRoute.paramMap.subscribe(
+      param=>
+      {
+        let id=param.get("id");
+        this.bookId=id?? '00000000-0000-0000-0000-000000000000';
+        console.log(this.bookId);
+        this.getBook();
+
+      } 
+    )
   }
   
 }

@@ -1,10 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReadingRoom } from '../classes/ReadingRoom';
+import { ReadingRoomFactoryService } from '../core/reading-room-factory.ts.service';
 import { ReadingRoomRepositoryService } from '../core/reading-room-repository.service';
 import { ReadingRoomsService } from '../core/reading-rooms.service';
 import { SessionStorageKeysService } from '../core/SessionStorageKeysService';
 import { SessionStorageService } from '../core/SessionStorageService';
+import { ArticleCardDTO } from '../DTOs/ArticleCardDTO';
+import { BookCardDTO } from '../DTOs/BookCardDTO';
 
 @Component({
   selector: 'app-reading-room',
@@ -20,8 +23,10 @@ export class ReadingRoomComponent implements OnInit {
   contentView:string="books";
   contentHead:string="الكتب";
   userId:string="";
+  booksCards : BookCardDTO[]=[];
+  articlesCards : ArticleCardDTO[] = [];
 
-  constructor(private router:Router,private ReadingRoomRepository:ReadingRoomRepositoryService, 
+  constructor( private ReadingRoomFactory: ReadingRoomFactoryService  , private router:Router,private ReadingRoomRepository:ReadingRoomRepositoryService, 
     private activeRoute:ActivatedRoute , private SessionStorage: SessionStorageService, private SessionKeys: SessionStorageKeysService) {
      }
 
@@ -39,7 +44,15 @@ export class ReadingRoomComponent implements OnInit {
 
     this.ReadingRoomRepository.setActiveReadingRoom(this.roomId, this.userId);
     this.ReadingRoomRepository.ActiveReadingRoom.subscribe(
-      room=>this.readingRoom=room?? new ReadingRoom()
+      room=>
+      {
+        this.readingRoom=room?? new ReadingRoom();
+        this.articlesCards = this.ReadingRoomFactory.createArticlesDTOs(this.readingRoom.articles);
+        this.booksCards = this.ReadingRoomFactory.createBooksCardsDTO(this.readingRoom.books); 
+        console.log(this.readingRoom);
+        console.log(this.booksCards);
+        console.log(this.articlesCards);
+      }
     )
   }
 

@@ -38,12 +38,15 @@
     font-size: small;
     text-align: center;
 }
-.cover
+.cover , .replaceCover
 {
     width:100%;
     height:70%
 }
-
+.replaceCover
+{
+    background-color: rgb(235, 235, 235);
+}
 .book:hover
 {
     transition: transform 1s;

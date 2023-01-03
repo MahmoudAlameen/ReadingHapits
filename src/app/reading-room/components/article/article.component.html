@@ -1,6 +1,6 @@
 <section class="article">
   <h1 class="head">{{article.name}}</h1>
-  <div class="content" [ngSwitch]="articlePages[displayedPage].type">
+  <div class="content" [ngSwitch]="articlePages[displayedPage].pageType">
     <p *ngSwitchCase="'text'">{{articlePages[displayedPage].content}}</p>
     <p>{{displayedPage}}</p>
     <img [src]="articlePages[displayedPage].content" *ngSwitchCase="'image'" />

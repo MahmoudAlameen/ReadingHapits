@@ -1,6 +1,7 @@
 <section  (click)="openBook()" class="book" [style.width]="width" [style.height]="height">
     <b class="bookName">{{book.name}}</b>
-    <img class="cover" src="CoverUrl">
+    <img class="cover"   [src]="CoverUrl"  *ngIf="book.cover">
+    <div class="replaceCover" *ngIf="!book.cover" ></div>
     <div class="footer">
         <i>pages No : {{book.pagesNumber}}</i>
     </div>

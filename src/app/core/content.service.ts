@@ -32,13 +32,13 @@ export class ContentService {
   }
 
 
-  getBookPages(bookId:number):Observable<BookPage[]>
+  getBookPages(bookId:string):Observable<BookPage[]>
   {
     let url:string="./assets/json/bookPages.json";
     return this.getPages<BookPage[]>(url,bookId);
 
   }
-  getArticlePages(articleId:number):Observable<ArticlePage[]>
+  getArticlePages(articleId:string):Observable<ArticlePage[]>
   {
     let url:string="./assets/json/articlePages.json";
     return this.http.get<ArticlePage[]>(url).pipe(catchError(     // for test onle
@@ -48,7 +48,7 @@ export class ContentService {
    
     // return this.getPages<ArticlePage[]>(url,articleId); 
   }
-  private getPages<T>(url:string,id:number):Observable<T>
+  private getPages<T>(url:string,id:string):Observable<T>
   {
     return this.http.get<T>(url,{params:{id:id}}).pipe(catchError(
       err=> throwError(()=>err.message)
@@ -58,7 +58,7 @@ export class ContentService {
   public readFile(page:Page,file:Blob)
   {
     let reader=new FileReader();
-    switch(page.type)
+    switch(page.pageType)
     {
       case "text":
         reader.readAsText(file);

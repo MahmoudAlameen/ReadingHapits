@@ -21,7 +21,7 @@ export class ReadingRoomCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.readingRoomCard)
+    console.log(this.readingRoomCard.articlesNumber)
   }
   overlayStyle(overlay:HTMLElement)
   {
