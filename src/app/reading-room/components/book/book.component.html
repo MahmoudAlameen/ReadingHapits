@@ -1,8 +1,8 @@
 <section class="book">
+  <h3 class="bookHead">{{book.name}}</h3>
   <div #cover class="cover" *ngIf="rightPage < 0"  (click)="overlapPage('open',cover)">
-    <img [src]="book.cover" />
-    
-
+    <img [src]="book.cover" *ngIf="book.cover" />
+    <div class="replaceImage" *ngIf="!book.cover"></div>
   </div>
 
   <div  class="bookContent" *ngIf="rightPage >= 0">

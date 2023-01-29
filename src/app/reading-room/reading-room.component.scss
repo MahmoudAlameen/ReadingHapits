@@ -8,6 +8,13 @@
     height: 100% !important;
 }
 
+.discription p
+{
+    color:rgb(5, 28, 39);
+    font-weight: bold;
+    font-size: 1.6rem;
+    
+}
 .headRoom
 {
     background-color: rgb(46, 2, 71);
@@ -108,6 +115,11 @@
     padding-block:5px;
     font-weight: bold;
     font-size: 1.7rem;
+}
+.contentButtons select
+{
+    font-weight: bold;
+    padding: 10px;
 }
 .navContainer
 {

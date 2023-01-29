@@ -106,9 +106,9 @@ export class RegisterLoginComponent implements OnInit {
     return;
   }
 
-  createAccount()
+  createAccount(submit : HTMLInputElement)
   {
-
+    submit.disabled = true;
     console.log(this.registeredUser);
     this.UserService.AddUser(this.registeredUser).subscribe(
       response=>
@@ -117,13 +117,20 @@ export class RegisterLoginComponent implements OnInit {
         {
           this.userId=response.UserId
           alert("تم تسجيل الحساب بنجاح");
+          let email= this.registeredUser.email;
+          let password = this.registeredUser.password;
+          this.clearRegisteForm();
+          this.register=false;
+          this.logedUser.email=email;
+          this.logedUser.password = password;
+
         }
         if(response.isValid==false)
           alert(response.errorMessage)
-        
+        submit.disabled = false;  
 
       } ,
-      err=> alert(err)
+      err=> { alert(err) ; submit.disabled = false}
     )
 
   }
@@ -158,6 +165,10 @@ export class RegisterLoginComponent implements OnInit {
       err=> alert(err)
     )
 
+  }
+  clearRegisteForm()
+  {
+    this.registeredUser= new Student();
   }
 
 }

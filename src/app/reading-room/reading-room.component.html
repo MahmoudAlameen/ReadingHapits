@@ -4,16 +4,29 @@
         <nav class="roomNavbar">
             <input type="search"  placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
             <div class="contentButtons"  #roomNav>
+                 <select #level (change)="setLevel(level)">
+                    <option>كل المستويات</option>
+                    <option value=1>  المستوى الاول </option>
+                    <option value=2>المستوى الثانى</option>
+                    <option value=3>المستوى الثالث</option>
+                  </select>
                   <button (click)="contentView='books'; contentHead='الكتب'">الكتب</button>
                   <button (click)="contentView='articles';contentHead='المقالات'">المقالات</button>
                   <button (click)="contentView='exams';contentHead='الامتحانات'">الامتحانات</button>
+
             </div>
         </nav>
     </div>
     <div class="roomContent"   [ngSwitch]="contentView">
+        <div class="discription">
+            <p>
+                {{readingRoom.discription}}
+            </p>
+            
+        </div>
         <h2 class="matrialHead titleHead">{{contentHead}}</h2>
         <div class="material"   *ngSwitchCase="'books'">
-            <app-book-card class="book" [width]="bookCardWidth" [height]="bookCardHeight" [book]="book"  *ngFor="let book of booksCards"></app-book-card>
+            <app-book-card class="book" [width]="bookCardWidth"    [height]="bookCardHeight" [book]="book"  *ngFor="let book of booksCards"></app-book-card>
         </div>
         <div class="material" *ngSwitchCase="'articles'">
             <app-article-card [article]="article"  *ngFor="let article of articlesCards"></app-article-card>

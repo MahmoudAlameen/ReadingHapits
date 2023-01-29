@@ -75,7 +75,7 @@
             <p class="text-danger" *ngIf="password.invalid && password.touched"> {{errorMessages.password}}</p>
         </div>
         <div class="form-group">
-            <input class="submit" type="submit" (click)="createAccount()"  [disabled]="registerForm.form.invalid || countryHasError || schoolHasError"  value="تسجيل"/>
+            <input class="submit" type="submit" (click)="createAccount(submit)"   #submit [disabled]="registerForm.form.invalid || countryHasError || schoolHasError"  value="تسجيل"/>
             <p class="text-danger" style="display:block" *ngIf="registerForm.form.invalid || countryHasError || schoolHasError">{{errorMessages.all}}</p>
         </div>
 

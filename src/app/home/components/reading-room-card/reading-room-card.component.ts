@@ -16,7 +16,8 @@ import { ReadingRoomComponent } from 'src/app/reading-room/reading-room.componen
 export class ReadingRoomCardComponent implements OnInit {
 
  @Input() readingRoomCard!:ReadingRoomCard
-  constructor(private router:Router , private userService:UserService, private SessionStorage:SessionStorageService, private SessionKeys: SessionStorageKeysService)
+  constructor(private router:Router , private userService:UserService, private SessionStorage:SessionStorageService, private SessionKeys: SessionStorageKeysService
+   , private readingRoomService: ReadingRoomsService)
   {
   }
 
@@ -46,8 +47,21 @@ export class ReadingRoomCardComponent implements OnInit {
     this.userService.IsAuthenticated(userId).subscribe(
       response=>
       {
+
         if(response)
-           this.router.navigate(["/ReadingRoom",roomId]);
+        {
+          this.readingRoomService.visitReadingRoom(userId as string, roomId).subscribe(
+            visitRoomResponse=>
+            {
+              if(visitRoomResponse.isValid)
+                  this.router.navigate(["/ReadingRoom",roomId]);
+             else
+                alert(visitRoomResponse.errorMessage);     
+            }
+            ,
+            err=> alert(err)
+          )
+        }
         else
            this.router.navigate(["/login"]);
 

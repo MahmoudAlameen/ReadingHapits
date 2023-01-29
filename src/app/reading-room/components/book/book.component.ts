@@ -1,7 +1,9 @@
 import { animation } from '@angular/animations';
+import { Time } from '@angular/common';
 import { ReadKeyExpr } from '@angular/compiler';
 import { Component, Input, OnInit, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Timestamp } from 'rxjs';
 import { Book } from 'src/app/classes/Book';
 import { BookPage } from 'src/app/classes/BookPage';
 import { APIService } from 'src/app/core/API.Service';
@@ -28,45 +30,31 @@ rightPage:number=-1;
 rightFlipper!:HTMLElement |null
 leftFlipper!:HTMLElement  |null
 openBookAnimation:boolean=false;
+readTimeStart:string|null=null;
+readTimeEnd:string|null=null;
 
 constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRepositoryService,private contentservice:ContentService
-  , private ReadingRoomServcie: ReadingRoomsService , private ActiveRoute : ActivatedRoute,
+  , private readingRoomService: ReadingRoomsService , private ActiveRoute : ActivatedRoute,
    private SessioStorage: SessionStorageService, private SessionKeys: SessionStorageKeysService) { }
 
+
+   ngOnDestroy()
+   {
+    if(this.readTimeStart== null || this.readTimeEnd == null)
+        return;
+    this.endRead();    
+
+   }
   ngOnInit(): void {
     this.setup();
     this.getBook();
     this.setCover();
-    console.log(this.book.cover);
-
-
-    // this.book=this.readingRoomRepository.getBook(this.bookId);
-    // this.book.cover="./assets/images/cover.jpg";
-    // this.contentservice.getBookPages(this.book.id).subscribe(
-    //   bookPages=>
-    //   {
-    //     console.log(bookPages)
-    //     let c=0;
-    //     for(let page of bookPages)
-    //     {
-    //       this.contentservice.getFile(page.content,page.pageType,"bookPage").subscribe(
-    //         file=>
-    //         {
-    //          // this.contentservice.readFile(page,file);
-    //          page.content=file;
-    //         },
-    //         err=>alert(err)
-    //       )
-
-    //     }
-    //     this.bookPages=bookPages;
-    //   }
-    // )
   }
+  
 
   getBook()
   {
-    this.ReadingRoomServcie.getBook(this.bookId, this.userId).subscribe(
+    this.readingRoomService.getBook(this.bookId, this.userId).subscribe(
       response=>
       {
         if(response.isValid)
@@ -266,9 +254,9 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
       },1500)
 
     },500)
+    this.startRead();
 
   }
-
 
   closeBook()
   {
@@ -283,7 +271,36 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
     {
       this.resetPages();
     },1000)
+    this.endRead();
 
+  }
+  startRead()
+  {
+    let date = new Date();
+    this.readTimeStart= `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  }
+  endRead()
+  {
+    let date= new Date();
+    this.readTimeEnd = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    if(this.readTimeStart == null || this.readTimeEnd == null)
+        return;
+    this.readingRoomService.addBookTimeRead(this.bookId, this.userId, this.readTimeStart as string, this.readTimeEnd as string).subscribe(
+      response=>
+      {
+        if(response.isValid)
+        {
+          
+          alert(`وقت القراءة:${response.model}`);
+          this.readTimeStart=null;
+          this.readTimeEnd= null;
+        }
+        else
+          alert(response.errorMessage)
+      }
+      ,err=> alert(err)
+    )
+    
   }
 
   setup()

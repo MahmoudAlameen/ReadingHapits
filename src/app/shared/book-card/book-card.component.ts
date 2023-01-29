@@ -16,15 +16,22 @@ export class BookCardComponent implements OnInit {
   @Input() width:string="100px";
   @Input() height:string="100px";
   CoverUrl:string='';
-  constructor(private router:Router, private API :APIService)
+  constructor(private router:Router, private API :APIService, private readingRoomService:ReadingRoomsService)
    { 
    }
 
   ngOnInit(): void {
-    let imageDelemeters:string[] = this.book.cover.split(',');
-    let filed= imageDelemeters[0].trim();
-    let fileName = imageDelemeters[1].trim();
-    this.CoverUrl= this.API.base + "Books/Covers/" + filed + '/'+ fileName; 
+    console.log(this.book);
+    this.getPagesNumber();
+    if(this.book.cover)
+    {
+      let imageDelemeters:string[] = this.book.cover.split(',');
+      let filed= imageDelemeters[0].trim();
+      let fileName = imageDelemeters[1].trim();
+      this.CoverUrl= this.API.base + "Books/Covers/" + filed + '/'+ fileName; 
+
+    }
+  
     console.log(this.CoverUrl);
 
   }
@@ -32,5 +39,22 @@ export class BookCardComponent implements OnInit {
   {
     this.router.navigate(["/book",this.book.id])
 
+  }
+
+  getPagesNumber()
+  {
+    this.readingRoomService.getBookPagesNumber(this.book.id).subscribe(
+      response=>
+      {
+        if(response.isValid)
+        {
+          this.book.pagesNumber = response.model as number;
+        }
+        else
+         alert(response.errorMessage)
+      }
+      ,
+      err=> alert(err)
+    )
   }
 }
