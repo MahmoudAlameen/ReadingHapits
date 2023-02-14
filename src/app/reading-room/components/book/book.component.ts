@@ -4,10 +4,12 @@ import { ReadKeyExpr } from '@angular/compiler';
 import { Component, Input, OnInit, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Timestamp } from 'rxjs';
+import { AlertMessage } from 'src/app/classes/AlertMessage';
 import { Book } from 'src/app/classes/Book';
 import { BookPage } from 'src/app/classes/BookPage';
 import { APIService } from 'src/app/core/API.Service';
 import { ContentService } from 'src/app/core/content.service';
+import { CustomAlertService } from 'src/app/core/custom-alert.service';
 import { ReadingRoomRepositoryService } from 'src/app/core/reading-room-repository.service';
 import { ReadingRoomsService } from 'src/app/core/reading-rooms.service';
 import { SessionStorageKeysService } from 'src/app/core/SessionStorageKeysService';
@@ -32,10 +34,12 @@ leftFlipper!:HTMLElement  |null
 openBookAnimation:boolean=false;
 readTimeStart:string|null=null;
 readTimeEnd:string|null=null;
+alertMessage:AlertMessage= new AlertMessage();
 
 constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRepositoryService,private contentservice:ContentService
   , private readingRoomService: ReadingRoomsService , private ActiveRoute : ActivatedRoute,
-   private SessioStorage: SessionStorageService, private SessionKeys: SessionStorageKeysService) { }
+   private SessioStorage: SessionStorageService, private SessionKeys: SessionStorageKeysService
+   ,private customAlert:CustomAlertService) { }
 
 
    ngOnDestroy()
@@ -290,23 +294,31 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
       {
         if(response.isValid)
         {
-          
-          alert(`وقت القراءة:${response.model}`);
+          this.alertMessage.isDisplayed = true;
+          this.alertMessage.message = `وقت القراءة الكلى  ${response.model}`
+          this.customAlert.alert.next(this.alertMessage);
           this.readTimeStart=null;
           this.readTimeEnd= null;
         }
         else
-          alert(response.errorMessage)
+        {
+          this.alertMessage.isDisplayed= true;
+          this.alertMessage.message= `r${response.errorMessage}`;
+          this.customAlert.alert.next(this.alertMessage);
+        }
       }
-      ,err=> alert(err)
+      ,err=>
+      {
+        this.alertMessage.message = `${err}`;
+        this.alertMessage.isDisplayed = true;
+        this.customAlert.alert.next(this.alertMessage);
+      }
     )
-    
   }
 
   setup()
   {
     this.userId=this.SessioStorage.getValue(this.SessionKeys.userId)?? "";
-
     this.ActiveRoute.paramMap.subscribe(
       param=>
       {
@@ -314,9 +326,7 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
         this.bookId=id?? '00000000-0000-0000-0000-000000000000';
         console.log(this.bookId);
         this.getBook();
-
       } 
     )
   }
-  
 }

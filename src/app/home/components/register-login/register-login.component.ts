@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { SessionStorageKeysService } from 'src/app/core/SessionStorageKeysService';
 import { SessionStorageService } from 'src/app/core/SessionStorageService';
 import { HeaderComponent } from 'src/app/shared/header/header.component';
+import { AlertMessage } from 'src/app/classes/AlertMessage';
+import { CustomAlertService } from 'src/app/core/custom-alert.service';
 
 @Component({
   selector: 'app-register-login',
@@ -23,6 +25,7 @@ export class RegisterLoginComponent implements OnInit {
   schools:string[]=["dssd","dsdsdsd","sdsdsdsd"];
   countries:string[]=[];
   userId  :string="";
+  alertMessage:AlertMessage = new AlertMessage();
   @ViewChild(HeaderComponent) headerComponent! :HeaderComponent
   errorMessages=
   {
@@ -36,11 +39,13 @@ export class RegisterLoginComponent implements OnInit {
 
   }
   constructor(private registerFormData:RegisterFormDataService, private UserService:UserService , private router :Router,
-    private SessionKeys:SessionStorageKeysService, private SessionStorage: SessionStorageService) { }
+    private SessionKeys:SessionStorageKeysService, private SessionStorage: SessionStorageService,
+    private customAlert:CustomAlertService) { }
 
   ngOnInit(): void {
     this.getSchools();
     this.getCountries();
+    this.alertMessage.isDisplayed = true;
   }
   postData()
   {
@@ -58,14 +63,22 @@ export class RegisterLoginComponent implements OnInit {
   {
     this.registerFormData.getSchools().subscribe(
       schools=>this.schools=schools,
-      err=>alert(err)
+      err=>
+      {
+        this.alertMessage.message = `${err}`;
+        this.customAlert.alert.next(this.alertMessage);
+      }
     )
   }
   getCountries()
   {
     this.registerFormData.getCountries().subscribe(
       countries=>this.countries=countries,
-      err=>alert(err)
+      err=>
+      {
+        this.alertMessage.message = `${err}`;
+        this.customAlert.alert.next(this.alertMessage);
+      }
     )
   }
 
@@ -115,54 +128,54 @@ export class RegisterLoginComponent implements OnInit {
       {
         if(response.isValid==true)
         {
+          this.alertMessage.message = "تم تسجيل الحساب بنجاح";
+          this.customAlert.alert.next(this.alertMessage);
           this.userId=response.UserId
-          alert("تم تسجيل الحساب بنجاح");
           let email= this.registeredUser.email;
           let password = this.registeredUser.password;
           this.clearRegisteForm();
           this.register=false;
           this.logedUser.email=email;
           this.logedUser.password = password;
-
         }
         if(response.isValid==false)
-          alert(response.errorMessage)
+        {
+          this.alertMessage.message = response.errorMessage;
+          this.customAlert.alert.next(this.alertMessage);
+        }
         submit.disabled = false;  
-
       } ,
-      err=> { alert(err) ; submit.disabled = false}
+      err=> 
+      {
+        this.alertMessage.message = err; 
+        this.customAlert.alert.next(this.alertMessage);
+         submit.disabled = false;
+      }
     )
-
   }
-
   loginUser()
   {
-
     this.UserService.LoginUser(this.logedUser).subscribe(
       response=>
       {
         if(!response.isValid)
         {
-          alert("كلمه السر او الباسورد غير صحيح ");
+          this.alertMessage.message = " كلمه السر او الباسورد غير صحيح ";
+          this.customAlert.alert.next(this.alertMessage);
         }
         if(response.isValid)
         {
-          console.log(response);
          this.SessionStorage.setItem(this.SessionKeys.userId,response.model);
          this.SessionStorage.setItem( this.SessionKeys.userName,this.logedUser.email);
-        //  if(this.headerComponent)
-        //  {
-        //   this.headerComponent.logoutButton=true;
-        //   this.headerComponent.loginButton=false;
-        //   this.headerComponent.UserName=this.SessionStorage.getValue(this.SessionKeys.userName);
-
-        //  }
-        
           this.router.navigate(['home']);
           this.router.navigateByUrl('home').then(()=>window.location.reload())
         }
       },
-      err=> alert(err)
+      err=>
+      {
+        this.alertMessage.message =  err;
+        this.customAlert.alert.next(this.alertMessage);
+      }
     )
 
   }

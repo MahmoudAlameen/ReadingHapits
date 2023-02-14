@@ -1,16 +1,17 @@
 <section class="article">
   <h1 class="head">{{article.name}}</h1>
+
   <div class="content" [ngSwitch]="articlePages[displayedPage].pageType">
-    <div class="articleCover" (click)="openArticle()" *ngIf="!articleOpened">
+    <div class="articleCover close" name="articleCover" id ="articleCover" #articleCover (click)="openArticle(articleCover)" *ngIf="!articleOpened">
       <p> ابداءة  القراءة</p>
     </div>
     <p class="pageNumber">{{displayedPage+1}}</p>
     <p class="pageContent" *ngSwitchCase="'0'">{{articlePages[displayedPage].content}}</p>
     <img class="pageContent" [src]="articlePages[displayedPage].content" *ngSwitchCase="'1'" />
   </div>
-  <div class="navigate">
+  <div class="navigate" *ngIf="readingInProgress">
     <button (click)="flipPage('front')"> <--التالى</button>
     <button (click)="closeArticle()">انها القراءة</button>
     <button (click)="flipPage('back')">السابق --></button>
   </div>
-  </section>
+</section>

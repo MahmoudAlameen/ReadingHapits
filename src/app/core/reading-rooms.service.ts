@@ -72,7 +72,7 @@ export class ReadingRoomsService {
   }
   addArticleTimeRead(articleId:string, studentId: string, readTimeStart:string , readTimeEnd:string):Observable<APIResponseModel<string>>
   {
-    return this.http.post<APIResponseModel<string>>(this.API.addBookTimeRead,{},{params:{bookId:articleId, userId:studentId, readTimeStart:readTimeStart , readTimeEnd:readTimeEnd}}).pipe(
+    return this.http.post<APIResponseModel<string>>(this.API.addArticleTimeRead,{},{params:{articleId:articleId, userId:studentId, readTimeStart:readTimeStart , readTimeEnd:readTimeEnd}}).pipe(
       catchError((err)=>
       throwError(()=>err.message))
     )

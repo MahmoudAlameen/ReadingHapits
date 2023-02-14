@@ -20,9 +20,7 @@ export class ReadingRoomRepositoryService {
       room=>this.ActiveReadingRoom.next(room.model),
       err=>alert(err)
     )
-
   }
-  
 
   getBook(bookId:string): Book
   {
@@ -47,9 +45,5 @@ export class ReadingRoomRepositoryService {
        return article;
     }
     return new Article();
-
   }
-  
-  
-
 }

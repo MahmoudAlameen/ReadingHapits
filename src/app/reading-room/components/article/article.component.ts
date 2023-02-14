@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { AlertMessage } from 'src/app/classes/AlertMessage';
 import { Article } from 'src/app/classes/Article';
 import { ArticlePage } from 'src/app/classes/ArticlePage';
 import { ContentService } from 'src/app/core/content.service';
+import { CustomAlertService } from 'src/app/core/custom-alert.service';
 import { ReadingRoomRepositoryService } from 'src/app/core/reading-room-repository.service';
 import { ReadingRoomsService } from 'src/app/core/reading-rooms.service';
 import { SessionStorageKeysService } from 'src/app/core/SessionStorageKeysService';
@@ -22,9 +24,10 @@ export class ArticleComponent implements OnInit {
   userId:string|null=null;
   displayedPage:number=0;
   articleOpened:boolean = false;
+  readingInProgress:boolean = false;
   constructor( private readingRoomService: ReadingRoomsService ,private readingRoomRepository:ReadingRoomRepositoryService
     ,private contentService:ContentService,private activatedRoute:ActivatedRoute, 
-    private SessionStorage:SessionStorageService, private SessionKeys:SessionStorageKeysService) { }
+    private SessionStorage:SessionStorageService, private SessionKeys:SessionStorageKeysService, private customAlert:CustomAlertService) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params:ParamMap)=>{
@@ -93,8 +96,10 @@ export class ArticleComponent implements OnInit {
       {
         if(response.isValid)
         {
-          
-          alert(`وقت القراءة:${response.model}`);
+          let alertMessage:AlertMessage= new AlertMessage();
+          alertMessage.isDisplayed= true;
+          alertMessage.message = ` وقت القراءة الكلى${response.model}`;
+          this.customAlert.alert.next(alertMessage);
           this.readTimeStart=null;
           this.readTimeEnd= null;
         }
@@ -105,14 +110,22 @@ export class ArticleComponent implements OnInit {
     )
     
   }
-  openArticle()
+  openArticle(articleCover:HTMLElement)
   {
-    this.articleOpened = true;
+    //this.articleOpened = true;
+    articleCover.classList.remove("close");
+    articleCover.classList.add("open");
+    this.readingInProgress = true;
+    this.startRead();
   }
-  closeArticle()
+  async closeArticle()
   {
-    this.articleOpened = false;
+    let articleCover = document.getElementById("articleCover");
+            //this.articleOpened = false;
+    articleCover?.classList.remove("open");
+    articleCover?.classList.add("close");
+    this.readingInProgress = false;
+    this.endRead();
   }
-
 
 }

@@ -1,0 +1,23 @@
+.messageBox
+{
+    width:250px;
+    height:100px;
+    background-color: rgb(16, 154, 16);
+    color:white;
+    position: fixed;
+    top:0px;
+    z-index: 100;
+    left:40%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.messageBox p
+{
+    width:100%;
+    text-align: center;
+    margin-top: 40px;
+    margin: auto;
+    font-weight: bold;
+    font-size: 2rem;
+}
