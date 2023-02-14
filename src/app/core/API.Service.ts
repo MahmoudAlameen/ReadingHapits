@@ -7,7 +7,8 @@ import { Injectable } from '@angular/core';
 )
 export class APIService
 {
-    base:string="https://localhost:7024/";
+    base:string= "http://readinghabits.somee.com/"
+  //  base:string="https://localhost:7024/";
 //  base:string="https://localhost:443/";
 
     AddUser:string=this.base+"users/addUser/";
