@@ -27,7 +27,7 @@ export class CustomAlertComponent implements OnInit {
           setTimeout(() => {
             this.isDisplayed = false;
             this.message = '';
-          }, 5000);
+          }, 3000);
         }
       }
     )
