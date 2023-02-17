@@ -116,23 +116,23 @@
 }
 .rightPage, .leftPage
 {
-    z-index:1
+    z-index:1;
+    overflow: auto;
 }
 
 .right p, .left p
 {
     line-height: 30px;
-    word-spacing: 5px;
+    word-spacing: 2px;
     font-style: oblique;
     text-emphasis:20rem;
     color:black;
-    font-size: 1.8rem;
-    margin: .0.5rem;
+    font-size: 1.6rem;
+    margin:0.5rem;
     overflow:hidden;
     width:100%;
-    height:95%
-
-    
+    height:95%;
+    overflow: auto;
 }
 h3
 {
@@ -162,21 +162,17 @@ h3
     transform: rotateY(-180deg);
     transition: transform 1.5s;
     animation: RightToLeft 1.5s linear;
-
-
 }
 .overlapRight
 {
     transform: rotateY(180deg);
     transition: transform 1.5s;
     animation: LeftToRight 1.5s linear;
-
     //animation: rotateRight 2s ease-in-out;
 }
 .overlapLeft,.overlapRight,.rotate90,.rotateMinus90
 {
     transition: transform 1.5s;
-
 }
 
 .hide
@@ -188,7 +184,6 @@ h3
     z-index:5
 }
 
-
 .rotate90
 {
     transform: rotateY(90deg);
@@ -196,23 +191,19 @@ h3
    // transform-origin: right !important;
 }
 
-
 .rightCover
 {
     animation: rightCoverAnim  1.5s;
-
 }
 .leftCover
 {
     animation: leftCoverAnim  1.5s;
-
 }
 .rotateMinus90
 {
     transform: rotateY(-90deg);
     //transform-origin: left !important;
     transition: transform 1s;
-    
 }
 .rotate180
 {
@@ -298,8 +289,34 @@ h3
     }
     
 }
+@media screen and (max-width:1200px)
+{
+    .bookContent
+    {
+        width:100%
+    }
+    .right p, .left p
+    {
+        width:100%;
+        padding:0px;
+        line-height: 20px;
+    }
+}
+@media screen and (max-width:900px)
+{
+    .bookContent
+    {
+        width:100%
+    }
+    .right p, .left p
+    {
+        font-size: 1.4rem;
+        width:100%;
+        padding:0px;
+    }
+}
 
-@media screen and (max-width:600px)
+@media screen and (max-width:770px)
 {
     .bookContent
     {
@@ -312,5 +329,15 @@ h3
     .bookContent,.cover
     {
         height:500px
+    }
+    .right p, .left p
+    {
+        font-size: 1.3rem;
+        width:100%;
+        padding:0px;
+    }
+    .leftPage , .rightPage
+    {
+        padding:10px
     }
 }

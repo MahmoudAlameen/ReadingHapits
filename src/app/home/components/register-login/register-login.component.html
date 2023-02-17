@@ -64,11 +64,13 @@
                 </option>
             </select>
         </div>
+        <!--
         <div class="form-group">
             <label>المحافظه</label>
             <input type="text" [class.is-valid]="governate.invalid  && governate.touched" required validName minlength="3" maxlength="50"  name="governate" [(ngModel)]="registeredUser.governate" #governate="ngModel" class="form-control" />
             <p class="text-danger" *ngIf="governate.invalid && governate.touched">{{errorMessages.governate}}</p>
         </div>
+    -->
         <div class="form-group">
             <label>: كلمه السر  </label>
             <input type="password" name="password" required password  validPassword [class.is-invalid]="password.invalid && password.touched" #password="ngModel" [(ngModel)]="registeredUser.password" class="form-control"/>

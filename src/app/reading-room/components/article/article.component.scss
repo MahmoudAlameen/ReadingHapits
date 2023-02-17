@@ -17,7 +17,7 @@
     border-radius: 5%;
     width:100%;
     align-items: center;
-    height: 350px;
+    min-height: 350px;
     font-weight: bold;
     position: relative;
     
@@ -46,17 +46,6 @@ button
     flex-direction: row;
     justify-content: space-around;
 }
-
-@media screen and (max-width:800px) {
- .article
- {
-    padding:5px;
-    min-height:600px;
-    margin-top: 10px;
-    width:90%;
- } 
-}
-
 .articleCover
 {
     position: absolute;
@@ -80,7 +69,7 @@ button
     text-align: center;
     margin: auto;
     font-size: 3rem;
-    box-shadow: 5 px 5px 5px black;
+    box-shadow: 5px 5px 5px black;
 }
 .close
 {
@@ -94,3 +83,26 @@ button
 {
     cursor: pointer;
 }
+@media screen and (max-width:760px) {
+ .article
+ {
+    padding:5px;
+    min-height:600px;
+    margin-top: 10px;
+    width:90%;;
+    padding:10px
+ }
+ .pageContent
+ {
+    font-size: 1.2rem;
+ } 
+ .articleCover p
+ {
+    font-size: 1.8rem;
+ }
+ button
+ {
+    font-size:1.2rem;
+ }
+}
+

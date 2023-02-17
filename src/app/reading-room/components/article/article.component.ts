@@ -25,9 +25,12 @@ export class ArticleComponent implements OnInit {
   displayedPage:number=0;
   articleOpened:boolean = false;
   readingInProgress:boolean = false;
+  alertMessage:AlertMessage = new AlertMessage();
+
   constructor( private readingRoomService: ReadingRoomsService ,private readingRoomRepository:ReadingRoomRepositoryService
     ,private contentService:ContentService,private activatedRoute:ActivatedRoute, 
-    private SessionStorage:SessionStorageService, private SessionKeys:SessionStorageKeysService, private customAlert:CustomAlertService) { }
+    private SessionStorage:SessionStorageService, private SessionKeys:SessionStorageKeysService, private customAlert:CustomAlertService,
+    ) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params:ParamMap)=>{
@@ -58,11 +61,15 @@ export class ArticleComponent implements OnInit {
         }
         else
         {
-          alert(response.errorMessage);
+          this.alertMessage.message = `${response.errorMessage}`;
+          this.customAlert.alert.next(this.alertMessage);
         }
-
       },
-      err=> alert(err)
+      err=> 
+      {
+        this.alertMessage.message = `${err}`;
+        this.customAlert.alert.next(this.alertMessage);
+      }
     )
 
   }
@@ -104,15 +111,20 @@ export class ArticleComponent implements OnInit {
           this.readTimeEnd= null;
         }
         else
-          alert(response.errorMessage)
+        {
+          this.alertMessage.message = `${response.errorMessage}`;
+          this.customAlert.alert.next(this.alertMessage);
+        }
       }
-      ,err=> alert(err)
+      ,err=>
+      {
+        this.alertMessage.message = `${err}`;
+        this.customAlert.alert.next(this.alertMessage);
+      }
     )
-    
   }
   openArticle(articleCover:HTMLElement)
   {
-    //this.articleOpened = true;
     articleCover.classList.remove("close");
     articleCover.classList.add("open");
     this.readingInProgress = true;
@@ -127,5 +139,4 @@ export class ArticleComponent implements OnInit {
     this.readingInProgress = false;
     this.endRead();
   }
-
 }

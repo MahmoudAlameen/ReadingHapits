@@ -29,14 +29,13 @@ export class RegisterLoginComponent implements OnInit {
   @ViewChild(HeaderComponent) headerComponent! :HeaderComponent
   errorMessages=
   {
-    all: " اخل كل البيانات المطلوبه بشكل صحيح ثم اضغط على تسجيل الدخول",
+    all: " ادخل كل البيانات المطلوبه بشكل صحيح ثم اضغط على تسجيل الدخول",
     name:"يجب ان يكون الاسم من 3 الى 50 حرف ",
     email: "الايميل غير صحيح",
     age : "يجب ان يكون العمر من 5  الى 100",
     governate: " اسم المحافظه  يجب ان يكون من 3 الى 50 حرف ",
     school: "اسم المدرسه غير صحيح",
     password: ",على الاقل جرف كابيتال و على لاقل حرف صغير و على لاقل رقم واحد يجب ان يحتوى الباسورد على ثمانيه حروف , حروف من اللغه الانجليزيه فقط حرف  "
-
   }
   constructor(private registerFormData:RegisterFormDataService, private UserService:UserService , private router :Router,
     private SessionKeys:SessionStorageKeysService, private SessionStorage: SessionStorageService,
@@ -122,7 +121,6 @@ export class RegisterLoginComponent implements OnInit {
   createAccount(submit : HTMLInputElement)
   {
     submit.disabled = true;
-    console.log(this.registeredUser);
     this.UserService.AddUser(this.registeredUser).subscribe(
       response=>
       {
