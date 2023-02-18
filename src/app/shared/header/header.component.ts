@@ -11,6 +11,7 @@ import { UserService } from 'src/app/core/User.Service';
 })
 export class HeaderComponent implements OnInit {
   UserName:string |null="";
+  FullName: string| null = "";
   logoutButton:boolean=false;
   loginButton:boolean=false;
 
@@ -46,6 +47,7 @@ export class HeaderComponent implements OnInit {
       this.loginButton=false;
       this.logoutButton=true;
       this.UserName= this.SessionStorage.getValue(this.SessionKeys.userName);
+      this.FullName = this.SessionStorage.getValue(this.SessionKeys.name);
     }
     else
     {

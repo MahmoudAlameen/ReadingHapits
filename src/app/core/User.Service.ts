@@ -5,6 +5,7 @@ import { catchError, Observable, throwError } from "rxjs";
 import { logedUser } from "src/interfaces/logedUser";
 import { APIResponseModel } from "../classes/APIResponse";
 import { Student } from "../classes/student";
+import { UserLoginResult } from "../DTOs/UserLoginResult";
 import { APIService } from "./API.Service";
 
 @Injectable(
@@ -29,10 +30,10 @@ export class UserService
 
     }
 
-    LoginUser( loginUser:logedUser)
+    LoginUser(loginUser:logedUser):Observable<APIResponseModel<UserLoginResult>>
     {
 
-        return this.http.post<any>(this.api.UserLogin,loginUser).pipe(
+        return this.http.post<APIResponseModel<UserLoginResult>>(this.api.UserLogin,loginUser).pipe(
             catchError((err)=>
                 throwError(()=>err.message)))
     }

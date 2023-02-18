@@ -163,9 +163,10 @@ export class RegisterLoginComponent implements OnInit {
         }
         if(response.isValid)
         {
-         this.SessionStorage.setItem(this.SessionKeys.userId,response.model);
-         this.SessionStorage.setItem( this.SessionKeys.userName,this.logedUser.email);
-          this.router.navigate(['']).then(()=> window.location.reload());
+         this.SessionStorage.setItem(this.SessionKeys.userId,response.model?.userId as string);
+         this.SessionStorage.setItem( this.SessionKeys.userName, this.logedUser.email);
+         this.SessionStorage.setItem(this.SessionKeys.name , response.model?.name as string);
+         this.router.navigate(['']).then(()=> window.location.reload());
           console.log("hey iam there in home page ... ");
         // this.router.navigateByUrl('home').then(()=>window.location.reload())
         }

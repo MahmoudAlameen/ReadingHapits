@@ -2,7 +2,7 @@
     <div class="headRoom">
         <h1 class="head">{{readingRoom.name}}</h1>
         <nav class="roomNavbar">
-            <input type="search"  placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+          <!--  <input type="search"  placeholder="Search" aria-label="Search" aria-describedby="search-addon" />-->
             <div class="contentButtons"  #roomNav>
                  <select #level (change)="setLevel(level)">
                     <option>كل المستويات</option>
@@ -12,8 +12,7 @@
                   </select>
                   <button (click)="contentView='books'; contentHead='الكتب'">الكتب</button>
                   <button (click)="contentView='articles';contentHead='المقالات'">المقالات</button>
-                  <button (click)="contentView='exams';contentHead='الامتحانات'">الامتحانات</button>
-
+              <!--    <button (click)="contentView='exams';contentHead='الامتحانات'">الامتحانات</button>-->
             </div>
         </nav>
     </div>
@@ -22,7 +21,6 @@
             <p>
                 {{readingRoom.discription}}
             </p>
-            
         </div>
         <h2 class="matrialHead titleHead">{{contentHead}}</h2>
         <div class="material"   *ngSwitchCase="'books'">
@@ -38,27 +36,3 @@
         </div>
     </div>
 </section>
-
-
-
-
-
-
-
-<!-- 
-<div class="left">
-    <div class="dropdown articles">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">المقالات
-        <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-            <li  *ngFor="let article of readingRoom.articles"><a [routerLink]="['/article',article.id]" routerLinkActive="router-link-active" >{{article.name}}</a></li>
-        </ul>
-      </div>
-      <div class="dropdown exams">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">الامتحانات
-        <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-            <li *ngFor="let article of readingRoom.articles"><a [routerLink]="['/article',article.id]" routerLinkActive="router-link-active" >{{article.name}}</a></li>
-        </ul>
-      </div>
-</div> -->
