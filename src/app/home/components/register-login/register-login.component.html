@@ -23,7 +23,7 @@
 
         <div class="form-group">
             <label>: الايميل  </label>
-            <input type="email" name="email" required email  pattern="[a-z0-9]+@[a-z]+\.[a-z]{2,3}" [class.is-invalid]="email.invalid && email.touched" #email="ngModel" [(ngModel)]="registeredUser.email" class="form-control"/>
+            <input type="email" name="email" required email  pattern="[a-z0-9A-Z]+@[a-z]+\.[a-z]{2,3}" [class.is-invalid]="email.invalid && email.touched" #email="ngModel" [(ngModel)]="registeredUser.email" class="form-control"/>
             <p class="text-danger" *ngIf="email.invalid && email.touched"> {{errorMessages.email}}</p>
         </div>
         <div class="form-group">
@@ -42,11 +42,11 @@
             <label>:المدرسه</label>
             <select (change)="validateSchool(school.value)" name="school" [(ngModel)]="registeredUser.school" #school="ngModel" [class.is-invalid]="school.touched && schoolHasError" required class="form-control">
                 <option value="school"></option>
+                <option class="enterSchoolManually" value="enterManually">
+                    ادخل اسم المدرسه يدويا 
+                </option>
                 <option  *ngFor="let school of schools">
                     {{school}}
-                </option>
-                <option value="enterManually">
-                    ادخل اسم المدرسه يدويا 
                 </option>
             </select>
         </div>
