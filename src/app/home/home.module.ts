@@ -31,6 +31,7 @@ import { ValidNameValidator } from '../customDirectives/CharactersOnly';
     CoreModule,
     SharedModule,
     FormsModule,
+    SharedModule
     
   ],
   exports:[AdvertiseComponent,ReadingRoomCardComponent,ReadingRoomsComponent,HomeComponent],

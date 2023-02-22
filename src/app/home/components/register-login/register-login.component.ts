@@ -11,6 +11,7 @@ import { SessionStorageService } from 'src/app/core/SessionStorageService';
 import { HeaderComponent } from 'src/app/shared/header/header.component';
 import { AlertMessage } from 'src/app/classes/AlertMessage';
 import { CustomAlertService } from 'src/app/core/custom-alert.service';
+import { Role } from 'src/app/enums/Role';
 
 @Component({
   selector: 'app-register-login',
@@ -19,7 +20,7 @@ import { CustomAlertService } from 'src/app/core/custom-alert.service';
 })
 export class RegisterLoginComponent implements OnInit {
 
-  logedUser:logedUser={email:"",password:""};
+  logedUser:logedUser={email:"",password:"", role: Role.Student};
   registeredUser:Student=new Student();
   register:boolean=false;
   schools:string[]=["dssd","dsdsdsd","sdsdsdsd"];
@@ -121,6 +122,7 @@ export class RegisterLoginComponent implements OnInit {
   createAccount(submit : HTMLInputElement)
   {
     submit.disabled = true;
+    this.registeredUser.role = Role.Student;
     this.UserService.AddUser(this.registeredUser).subscribe(
       response=>
       {

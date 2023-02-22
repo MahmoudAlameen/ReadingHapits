@@ -1,4 +1,5 @@
 import { Gender } from "../enums/gender";
+import { Role } from "../enums/Role";
 
 export class Student
 {
@@ -10,4 +11,5 @@ export class Student
     governate: string="";
     school: string="";
     password: string="";
+    role:Role=Role.Student
 }

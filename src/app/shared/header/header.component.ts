@@ -69,8 +69,10 @@ export class HeaderComponent implements OnInit {
        {
          this.SessionStorage.removeKey(this.SessionKeys.userId);
          this.SessionStorage.removeKey(this.SessionKeys.userName);
+         this.SessionStorage.removeKey(this.SessionKeys.name)
          this.router.navigate(['login']);    
          this.UserName="";
+         this.FullName = "";
          this.loginButton=false;
          this.logoutButton=false;
 
