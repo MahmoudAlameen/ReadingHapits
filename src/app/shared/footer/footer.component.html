@@ -5,13 +5,18 @@
     </div>
  
     <div class="contactInfo">
-        <a href="https://www.facebook.com" target="_blank"><img src="./assets/images/footer/facebook.jpg"/></a>
-        <a href="https://www.whatsapp.com/" target="_blank" ><img src="./assets/images/footer/whatsapp.jpg"/></a>
-        <a href="https://www.twitter.com/" target="_blank"><img src="./assets/images/footer/twitter.jpg"/></a>
-        <a href="https://www.instagram.com/" target="_blank"><img src="./assets/images/footer/instagram.jpg"/></a>
-        <a href="https://www.phone.com/" target="_blank"><img src="./assets/images/footer/phone.jpg"></a>
-        <a href="https://www.youtube.com/" target="_blank"><img src="./assets/images/footer/youtube.jpg"></a>
-        <a href="https://www.telegram.com/" target="_blank"><img src="./assets/images/footer/telegram.jpg"></a>
+        <a class="phonelink" (click)="openCloseMailBox()">
+            <img src="./assets/images/footer/Gmail_icon_(2020).svg.png"/>
+            <div  class="phoneBox mailBox" *ngIf="mailBox">Abdullatif.Alseyabi@ese.gov.ae</div>
+        </a>
+        <a href="https://wa.me/971503535911?text=" target="_blank" ><img src="./assets/images/footer/whatsapp.jpg"/></a>
+        <a href="https://twitter.com/bHXhZ8EAfHMef4o?t=KxvmC28avEig2v-BQOF2iQ&s=08" target="_blank"><img src="./assets/images/footer/twitter.jpg"/></a>
+        <a class="phonelink " (click)="openClosePhoneBox()"  target="_blank"><img src="./assets/images/footer/phone.jpg">
+            <div  class="phoneBox" *ngIf="phoneBox">+971503535911</div>
+        </a>
+
+        <a href="https://www.youtube.com/@user-zj2ld2jq3z" target="_blank"><img src="./assets/images/footer/youtube.jpg"></a>
+        <a href="https://t.me/+tF19lvlI3uZiOTJk" target="_blank"><img src="./assets/images/footer/telegram.jpg"></a>
     </div>
     <div class="copyRight">
         &copy; this content is saved under copy right

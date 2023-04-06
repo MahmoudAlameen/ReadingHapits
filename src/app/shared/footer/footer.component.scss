@@ -47,6 +47,26 @@ footer
     text-align: center;
     width:100%
 }
+.phoneBox
+{
+    width:200px;
+    padding-block: 10px;
+    box-shadow: gray 2px 2px 2px 2px;
+    border:solid black 2px;
+    position: absolute;
+    top:0px;
+    right:5px;
+    background-color: rgb(22, 22, 53);
+    color:white;
+    text-align:center;
+    z-index: 5;
+}
+.phonelink
+{
+    position: relative;
+    cursor: pointer;
+}
+
 @media screen and (max-width:600px)
 {
     .contactInfo
@@ -57,5 +77,9 @@ footer
     {
         width:40px;
         height: 40px;
+    }
+    .mailBox
+    {
+        right:-200px
     }
 }
