@@ -1,0 +1,80 @@
+[
+    {
+        "id":"1",
+        "name":"غرفه اللغه العربيه",
+        "displayedBooks":[{"name":"spaceX","pagesNumber":"100","exams":[1,2,3],"id":1,"readingRoom":"1","cover":"spacex"}
+                 ,{"name":"رياضه1","pagesNumber":"100","exams":[3,4,5],"id":2,"readingRoom":"1","cover":"رياضه1"},
+                 {"name":"اللغه العربيه","pagesNumber":"100","exams":[6,7,8],"id":3,"readingRoom":"1","cover":"اللغه _الهربيه"},
+                 {"name":"تاريخ","pagesNumber":"100","exams":[9,10,11],"id":4,"readingRoom":"1","cover":"تاريخ"}
+    ],
+        "displayedaArticles":[{"id":"1","name":"علوم الفقه","readingRoom":"1"},
+                    {"id":"2","name":"التاريخ الاسلامى","readingRoom":"1"},
+                    {"id":"3","name":"الفراعنه","readingRoom":"1"}
+                   ],
+         "booksNumber":15,
+         "articlesNumber":20          
+                 
+    },
+    {
+        "id":"2",
+        "name":"غرفه التاريخ",
+        "displayedBooks":[{"name":"spaceX","pagesNumber":"100","exams":[1,2,3],"id":1,"readingRoom":"1","cover":"spacex"}
+                 ,{"name":"رياضه1","pagesNumber":"100","exams":[3,4,5],"id":2,"readingRoom":"1","cover":"رياضه1"},
+                 {"name":"اللغه العربيه","pagesNumber":"100","exams":[6,7,8],"id":3,"readingRoom":"1","cover":"اللغه _الهربيه"},
+                 {"name":"تاريخ","pagesNumber":"100","exams":[9,10,11],"id":4,"readingRoom":"1","cover":"تاريخ"}
+    ],
+        "displayedaArticles":[{"id":"1","name":"علوم الفقه","readingRoom":"1"},
+                    {"id":"2","name":"التاريخ الاسلامى","readingRoom":"1"},
+                    {"id":"3","name":"الفراعنه","readingRoom":"1"}
+                   ],
+                   "booksNumber":10,
+                   "articlesNumber":5  
+    },
+    {
+        "id":"3",
+        "name":"غرفه علوم الفلك",
+        "displayedBooks":[{"name":"spaceX","pagesNumber":"100","exams":[1,2,3],"id":1,"readingRoom":"1","cover":"spacex"}
+                 ,{"name":"رياضه1","pagesNumber":"100","exams":[3,4,5],"id":2,"readingRoom":"1","cover":"رياضه1"},
+                 {"name":"اللغه العربيه","pagesNumber":"100","exams":[6,7,8],"id":3,"readingRoom":"1","cover":"اللغه _الهربيه"},
+                 {"name":"تاريخ","pagesNumber":"100","exams":[9,10,11],"id":4,"readingRoom":"1","cover":"تاريخ"}
+    ],
+        "displayedaArticles":[{"id":"1","name":"علوم الفقه","readingRoom":"1"},
+                    {"id":"2","name":"التاريخ الاسلامى","readingRoom":"1"},
+                    {"id":"3","name":"الفراعنه","readingRoom":"1"}
+                   ],
+                   "booksNumber":40,
+                   "articlesNumber":6 
+    },
+    {
+        "id":"4",
+           "name":"غرفه علوم الفيزيا",
+        "displayedBooks":[{"name":"spaceX","pagesNumber":"100","exams":[1,2,3],"id":1,"readingRoom":"1","cover":"spacex"}
+                 ,{"name":"رياضه1","pagesNumber":"100","exams":[3,4,5],"id":2,"readingRoom":"1","cover":"رياضه1"},
+                 {"name":"اللغه العربيه","pagesNumber":"100","exams":[6,7,8],"id":3,"readingRoom":"1","cover":"اللغه _الهربيه"},
+                 {"name":"تاريخ","pagesNumber":"100","exams":[9,10,11],"id":4,"readingRoom":"1","cover":"تاريخ"}
+    ],
+        "displayedaArticles":[{"id":"1","name":"علوم الفقه","readingRoom":"1"},
+                    {"id":"2","name":"التاريخ الاسلامى","readingRoom":"1"},
+                    {"id":"3","name":"الفراعنه","readingRoom":"1"}
+                   ],
+                   "booksNumber":70,
+                   "articlesNumber":80 
+    },
+    {
+        "id":"5",
+        "name":"غرفه الرياضيات",
+        "displayedBooks":[{"name":"spaceX","pagesNumber":"100","exams":[1,2,3],"id":1,"readingRoom":"1","cover":"spacex"}
+                 ,{"name":"رياضه1","pagesNumber":"100","exams":[3,4,5],"id":2,"readingRoom":"1","cover":"رياضه1"},
+                 {"name":"اللغه العربيه","pagesNumber":"100","exams":[6,7,8],"id":3,"readingRoom":"1","cover":"اللغه _الهربيه"},
+                 {"name":"تاريخ","pagesNumber":"100","exams":[9,10,11],"id":4,"readingRoom":"1","cover":"تاريخ"}
+    ],
+        "displayedaArticles":[{"id":"1","name":"علوم الفقه","readingRoom":"1"},
+                    {"id":"2","name":"التاريخ الاسلامى","readingRoom":"1"},
+                    {"id":"3","name":"الفراعنه","readingRoom":"1"}
+                   ],
+                   "booksNumber":30,
+                   "articlesNumber":8
+    }
+
+
+]
