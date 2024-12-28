@@ -1,0 +1,8 @@
+{
+    "/": {
+      "target": "http://readinghapitsapi.somee.com/", // Backend API URL
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }
+  }
