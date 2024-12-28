@@ -1,2 +1,2 @@
-/api/*    http://readinghapitsapi.somee.com/:splat    200
+/readingRooms/*    http://readinghapitsapi.somee.com/:splat    200
 /*        /index.html                          200
