@@ -1,7 +1,7 @@
 nav
 {
     margin: 0px !important;
-    background-color: rgb(81, 71, 107) !important;
+    background-color: white;  //rgb(81, 71, 107) !important;
     position:fixed;
     z-index:10;
     width:100%;
@@ -35,6 +35,10 @@ ul li a , ul li span
 .blackText
 {
     color:black
+}
+.darkBlue
+{
+    color: #0a3048;
 }
 
 ul li  :hover ,ul li:checked
