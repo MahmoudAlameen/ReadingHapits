@@ -10,9 +10,14 @@ import { ReadingRoomCardComponent } from './components/reading-room-card/reading
 import { SharedModule } from '../shared/shared.module';
 import { RegisterLoginComponent } from './components/register-login/register-login.component';
 import { FormsModule } from '@angular/forms';
-import { PlacementTestComponent } from './components/placement-test/placement-test.component';
 import { PasswordValidator } from '../customDirectives/PasswordValidator';
 import { ValidNameValidator } from '../customDirectives/CharactersOnly';
+import { GlobalAssessmentsVedioComponent } from './components/global-assessments-vedio/global-assessments-vedio.component';
+import { LearningMaterialsComponent } from './components/learning-materials/learning-materials.component';
+import { LearningMaterialCardComponent } from './components/learning-material-card/learning-material-card.component';
+import { InternationalAssessmentCardComponent } from './components/international-assessment-card/international-assessment-card.component';
+import { InternationalAssessmentsComponent } from './components/international-assessments/international-assessments.component';
+import { MainSectionComponent } from './components/main-section/main-section';
 
 @NgModule({
   declarations: [
@@ -21,17 +26,21 @@ import { ValidNameValidator } from '../customDirectives/CharactersOnly';
     ReadingRoomsComponent,
     ReadingRoomCardComponent,
     RegisterLoginComponent,
-    PlacementTestComponent,
     ValidNameValidator,
-    PasswordValidator
+    PasswordValidator,
+    GlobalAssessmentsVedioComponent,
+    LearningMaterialsComponent,
+    LearningMaterialCardComponent,
+    InternationalAssessmentCardComponent,
+    InternationalAssessmentsComponent,
+    MainSectionComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     CoreModule,
     SharedModule,
-    FormsModule,
-    SharedModule
+    FormsModule
     
   ],
   exports:[AdvertiseComponent,ReadingRoomCardComponent,ReadingRoomsComponent,HomeComponent],

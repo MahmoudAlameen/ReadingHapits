@@ -1,24 +1,71 @@
-<footer>
-    <div class="header">
-        <p>معلومات التواصل</p>
-        <p>contact us</p>
-    </div>
- 
-    <div class="contactInfo">
-        <a class="phonelink" (click)="openCloseMailBox()">
-            <img src="./assets/images/footer/Gmail_icon_(2020).svg.png"/>
-            <div  class="phoneBox mailBox" *ngIf="mailBox">Abdullatif.Alseyabi@ese.gov.ae</div>
-        </a>
-        <a href="https://wa.me/971503535911?text=" target="_blank" ><img src="./assets/images/footer/whatsapp.jpg"/></a>
-        <a href="https://twitter.com/bHXhZ8EAfHMef4o?t=KxvmC28avEig2v-BQOF2iQ&s=08" target="_blank"><img src="./assets/images/footer/twitter.jpg"/></a>
-        <a class="phonelink " (click)="openClosePhoneBox()"  target="_blank"><img src="./assets/images/footer/phone.jpg">
-            <div  class="phoneBox" *ngIf="phoneBox">+971503535911</div>
-        </a>
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <section class="section-brand">
+      <header class="heading">
+        <h2 class="text-wrapper">Future Skills</h2>
+      </header>
+      <div class="text-wrapper-container">
+        <p class="empowering-students">Empowering students with knowledge for<br />tomorrow's challenges.</p>
+      </div>
+    </section>
 
-        <a href="https://www.youtube.com/@user-zj2ld2jq3z" target="_blank"><img src="./assets/images/footer/youtube.jpg"></a>
-        <a href="https://t.me/+tF19lvlI3uZiOTJk" target="_blank"><img src="./assets/images/footer/telegram.jpg"></a>
-    </div>
-    <div class="copyRight">
-        &copy; this content is saved under copy right
-    </div>
+    <section class="section-links">
+      <header class="heading">
+        <h3 class="text-wrapper-2">Quick Links</h3>
+      </header>
+      <nav class="list" aria-label="Quick Links">
+        <div class="item" *ngFor="let link of quickLinks">
+          <a [href]="link.url" class="link">
+            <span>{{ link.label }}</span>
+          </a>
+        </div>
+      </nav>
+    </section>
+
+    <section class="section-links">
+      <header class="heading">
+        <h3 class="text-wrapper-7">Legal</h3>
+      </header>
+      <nav class="list" aria-label="Legal Links">
+        <div class="item" *ngFor="let link of legalLinks">
+          <a [href]="link.url" class="link">
+            <span>{{ link.label }}</span>
+          </a>
+        </div>
+      </nav>
+    </section>
+
+    <section class="section-stay-updated">
+      <header class="heading">
+        <h3 class="text-wrapper-10">Stay Updated</h3>
+      </header>
+      <form class="form" (ngSubmit)="onSubscribe($event)" role="form" aria-label="Newsletter Subscription">
+        <div class="input">
+          <label for="email-input" class="sr-only">Enter your email address</label>
+          <input
+            id="email-input"
+            class="email-input-field"
+            placeholder="Enter your email"
+            type="email"
+            name="email"
+            required
+            aria-describedby="email-description"
+          />
+        </div>
+        <button type="submit" class="button" aria-describedby="email-description">
+          <span class="text-wrapper-11">Subscribe</span>
+        </button>
+        <div id="email-description" class="sr-only">Subscribe to our newsletter for updates</div>
+      </form>
+<div class="social-links-container" role="list" aria-label="Social Media Links">
+  <a *ngFor="let social of socialLinks" [href]="social.url" class="social-link" role="listitem" [attr.aria-label]="social.label">
+    <span class="social-icon" aria-hidden="true">{{ social.icon }}</span>
+  </a>
+</div>
+    </section>
+  </div>
+
+  <div class="copyright-section">
+    <p class="p">© {{ currentYear }} Future Skills. All rights reserved.</p>
+  </div>
 </footer>

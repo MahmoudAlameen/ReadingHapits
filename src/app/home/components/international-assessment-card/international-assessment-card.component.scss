@@ -1,0 +1,150 @@
+/* international-assessment-card.component.scss */
+
+:root {
+  --color-dark: #0f1724;
+  --color-gray: #586272;
+  --color-white: #ffffff;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1a6ba8;
+}
+
+.exam-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 452px;
+  background-color: #ffffffe6;
+  border-radius: 14px;
+  border: 1px solid rgba(15, 23, 36, 0.06);
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', sans-serif;
+  min-height: 250px; /* Ensures consistent card height */
+}
+
+.exam-icon-bg {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.exam-icon-placeholder {
+  font-size: 28px; /* Adjust font size to match the original image size */
+  line-height: 1; /* Ensure vertical centering */
+}
+
+/* Theme-specific icon backgrounds */
+.timss .exam-icon-bg {
+  background: linear-gradient(145deg, var(--color-dark) 0%, var(--color-blue-600) 100%);
+}
+
+.pisa .exam-icon-bg {
+  background: linear-gradient(145deg, var(--color-blue-700) 0%, var(--color-blue-500) 100%);
+}
+
+.pirals .exam-icon-bg {
+  background: linear-gradient(145deg, #06b6d4 0%, #60a5fa 100%);
+}
+
+/* Theme-specific icon backgrounds */
+.timss .exam-icon-bg {
+  background: linear-gradient(145deg, var(--color-dark) 0%, var(--color-blue-600) 100%);
+}
+
+.pisa .exam-icon-bg {
+  background: linear-gradient(145deg, var(--color-blue-700) 0%, var(--color-blue-500) 100%);
+}
+
+.pirals .exam-icon-bg {
+  background: linear-gradient(145deg, #06b6d4 0%, #60a5fa 100%);
+}
+
+.exam-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.card-content {
+  flex-grow: 1;
+}
+
+.exam-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin: 0;
+}
+
+.exam-description {
+  font-size: 0.875rem;
+  color: var(--color-gray);
+  line-height: 1.5;
+  margin: 0.5rem 0 1rem;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.tag-item {
+  padding: 6px 12px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 36, 0.06);
+}
+
+.tag-text {
+  font-size: 0.75rem;
+  color: var(--color-gray);
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-primary {
+  padding: 8px 16px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.18);
+  background: linear-gradient(90deg, var(--color-blue-500) 0%, #60a5fa 100%);
+  color: var(--color-white);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: 0.8rem;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.25);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.link-explore {
+  font-size: 0.875rem;
+  color: var(--color-gray);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.link-explore:hover {
+  color: var(--color-blue-500);
+}

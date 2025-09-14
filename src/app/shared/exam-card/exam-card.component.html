@@ -1,0 +1,8 @@
+<div class="exam-card">
+  <h3>{{ exam.title }}</h3>
+  <div class="meta">{{ exam.meta }}</div>
+  <div *ngIf="exam.topScorer" class="top-scorer">
+    <i class="fas fa-medal"></i> {{ exam.topScorer.name }} {{ exam.topScorer.score }}
+  </div>
+  <button (click)="onButtonClick()">{{ exam.buttonText }}</button>
+</div>

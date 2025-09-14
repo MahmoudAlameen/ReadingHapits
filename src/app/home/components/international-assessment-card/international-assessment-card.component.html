@@ -1,0 +1,23 @@
+<article class="exam-card" [ngClass]="exam.theme">
+  <div class="exam-icon-bg">
+    <img class="exam-icon" [src]="exam.iconSrc" [alt]="exam.title + ' icon'" />
+  </div>
+  
+  <div class="card-content">
+    <h2 class="exam-title">{{ exam.title }}</h2>
+    <p class="exam-description">{{ exam.description }}</p>
+    
+    <div class="tag-list" role="list">
+      <div *ngFor="let tag of exam.tags" class="tag-item" role="listitem">
+        <span class="tag-text">{{ tag }}</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card-actions">
+    <button class="btn btn-primary" type="button" (click)="onStartNow()">
+      Start now
+    </button>
+    <a href="#" class="link-explore">Explore syllabus →</a>
+  </div>
+</article>

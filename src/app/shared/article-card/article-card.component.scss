@@ -1,3 +1,4 @@
+/*
 .article
 {
     display:flex;
@@ -25,3 +26,17 @@
     }
     
 }
+*/
+
+///////////////////////
+.article-card {
+  flex: 1 1 250px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 15px;
+  transition: transform 0.3s ease;
+}
+.article-card:hover { transform: translateY(-5px); }
+.article-card h3 { margin: 0 0 10px 0; color: #1d4ed8; font-size: 16px; }
+.article-card p { font-size: 14px; color: #555; }

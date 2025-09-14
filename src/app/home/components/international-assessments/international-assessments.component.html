@@ -1,0 +1,45 @@
+<main class="international-assessments-page">
+  <div class="intro-section">
+    <header class="page-header">
+      <h1 class="heading">
+        <span class="icon">🌍</span> International Exams
+      </h1>
+      <p class="description">
+        Prepare for **PISA**, **TIMSS**, and **PIRLS** using authentic practice items, performance analytics, and guided study paths.
+      </p>
+    </header>
+    
+    <div class="cards-and-features">
+      <section class="exam-cards-container" role="region" aria-label="International Exam Options">
+        <app-international-assessment-card 
+          *ngFor="let exam of exams" 
+          [exam]="exam">
+        </app-international-assessment-card>
+      </section>
+
+      <section class="feature-bar" role="region" aria-label="Platform Features">
+        <div class="feature-item">
+          <div class="feature-icon"><span class="check-icon">✓</span></div>
+          <div class="feature-text">
+            <h3 class="feature-title">Real practice tests</h3>
+            <p class="feature-description">Item pools modeled on released frameworks</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><span class="check-icon">✓</span></div>
+          <div class="feature-text">
+            <h3 class="feature-title">Performance analytics</h3>
+            <p class="feature-description">Strengths, gaps, and time-on-task reports</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><span class="check-icon">✓</span></div>
+          <div class="feature-text">
+            <h3 class="feature-title">Progress tracking</h3>
+            <p class="feature-description">Weekly goals, streaks & badges</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>

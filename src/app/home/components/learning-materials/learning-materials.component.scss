@@ -1,0 +1,80 @@
+/* learning-materials.component.scss */
+.learning-materials-container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-title {
+  font-family: "Poppins", Helvetica;
+  font-weight: 500;
+  font-size: 28px;
+  color: #252641;
+}
+
+.see-all-link {
+  font-family: "Poppins", Helvetica;
+  font-weight: 400;
+  color: #696983;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Responsive styles for the parent container */
+@media (min-width: 1200px) {
+  .cards-container {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-title {
+    margin-bottom: 10px;
+  }
+
+  .cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Inject global styles and font imports */
+/*
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@import url("https://fonts.googleapis.com/css?family=Poppins:500,400|Open+Sans:700");
+
+* {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0px;
+  height: 100%;
+}
+
+button:focus-visible {
+  outline: 2px solid #4a90e2 !important;
+  outline: -webkit-focus-ring-color auto 5px !important;
+}
+  */

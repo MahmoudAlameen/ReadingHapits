@@ -7,6 +7,8 @@ import { BookCardComponent } from './book-card/book-card.component';
 import { SharedRoutingModule } from './sharedRoutingModule';
 import { ArticleCardComponent } from './article-card/article-card.component';
 import { CustomAlertComponent } from './custom-alert/custom-alert.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { ExamCardComponent } from './exam-card/exam-card.component';
 
 
 @NgModule({
@@ -15,13 +17,16 @@ import { CustomAlertComponent } from './custom-alert/custom-alert.component';
     FooterComponent,
     BookCardComponent,
     ArticleCardComponent,
-    CustomAlertComponent
+    CustomAlertComponent,
+    ProgressBarComponent,
+    ExamCardComponent
   ],
   imports: [
     CommonModule,
     CoreModule,
     SharedRoutingModule
   ],
-  exports:[HeaderComponent,FooterComponent, BookCardComponent,ArticleCardComponent, CustomAlertComponent]
+  exports:[HeaderComponent,FooterComponent, BookCardComponent,ArticleCardComponent, CustomAlertComponent, 
+    ProgressBarComponent, ExamCardComponent]
 })
 export class SharedModule { }

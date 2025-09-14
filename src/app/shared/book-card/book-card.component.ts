@@ -1,3 +1,4 @@
+/*
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Book } from 'src/app/classes/Book';
@@ -56,5 +57,24 @@ export class BookCardComponent implements OnInit {
       ,
       err=> alert(err)
     )
+  }
+}
+  */
+ import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-book-card',
+  templateUrl: './book-card.component.html',
+  styleUrls: ['./book-card.component.scss']
+})
+export class BookCardComponent {
+  @Input() book!: { imageUrl: string; title: string };
+
+  constructor() { }
+
+  // Method to handle a book being clicked, e.g., to navigate or open a detail view
+  onBookClick(): void {
+    console.log(`Book "${this.book.title}" was clicked.`);
+    // Here you would add navigation or a modal for the book details.
   }
 }

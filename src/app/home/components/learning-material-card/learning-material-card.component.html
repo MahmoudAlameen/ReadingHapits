@@ -1,0 +1,47 @@
+<article class="learning-material-card" role="article" aria-labelledby="course-title">
+  <img 
+    class="card-image"
+    [src]="material?.coverImage" 
+    [alt]="material?.altText" 
+  />
+  
+  <div class="card-content">
+    <header class="card-header">
+      <h1 class="course-title" id="course-title">{{ material?.title }}</h1>
+      <div class="course-duration" role="complementary" aria-label="Course duration">
+        <span class="icon-clock" aria-hidden="true">🕒</span>
+        <time class="duration-text">{{ material?.duration }}</time>
+      </div>
+    </header>
+    
+    <div class="course-description-container">
+      <p class="course-description">{{ material?.description }}</p>
+    </div>
+    
+    <section class="teachers-info" aria-labelledby="teachers-heading">
+      <div class="teacher-profiles">
+        <div 
+          *ngFor="let teacherImage of material?.teachers?.slice(0, 3)"
+          class="teacher-image" 
+          [style.background-image]="'url(' + teacherImage + ')'"
+          role="img" 
+          aria-label="Teacher profile image"
+        ></div>
+        
+        <div class="teacher-stack" *ngIf="material.teachers.length > 3" > 3">
+          <span class="additional-teachers-count">+{{ material.teachers.length - 3 }}</span>
+        </div>
+      </div>
+      <h2 class="teachers-heading" id="teachers-heading">Teachers</h2>
+    </section>
+  </div>
+  
+  <div class="card-actions">
+    <button class="btn btn-primary" type="button" aria-label="View course details" (click)="onViewDetails(material.id)">
+      View Details
+    </button>
+    <button class="btn btn-secondary" type="button" aria-label="View exams" (click)="onViewExams()">
+      Exams
+    </button>
+  </div>
+</article>

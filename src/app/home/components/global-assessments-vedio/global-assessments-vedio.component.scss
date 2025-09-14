@@ -1,0 +1,148 @@
+.global-assessments-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  color: #1a2b49;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.assessments-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.assessments-header  {
+  text-align: center;
+}
+
+.assessments-header > * , .assessments-footer >
+{
+  font-weight: bold;
+  font-size: medium;
+}
+
+.heading-main {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* Corrected font size and color for the description */
+.description {
+  font-size: clamp(1rem, 2vw, 1.2rem); 
+  color: #333333; /* Darkened for better contrast */
+  line-height: 1.6; /* Increased for better readability */
+}
+
+/* Corrected keyword highlighting */
+.description b {
+  background-color: #ffeb3b;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-weight: 700;
+  color: #1a2b49; /* Darkened text for improved contrast on the highlight */
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.video-player,
+.video-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  font-size: 2rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.play-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.assessments-footer {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.heading-footer {
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* Corrected font size and highlighting for the footer */
+.footer-description {
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  color: #333333; /* Darkened for better contrast */
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.6;
+}
+
+.footer-description b {
+  background-color: #ffeb3b;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-weight: 700;
+  color: #1a2b49;
+}
+
+.cta-button {
+  background-color: #1a2b49;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.cta-button:hover {
+  background-color: #243654;
+  transform: translateY(-2px);
+}
+
+.cta-button:active {
+  transform: translateY(0);
+}
+
+/* Base styles for hiding elements on load */
+.video-player {
+  display: none;
+}

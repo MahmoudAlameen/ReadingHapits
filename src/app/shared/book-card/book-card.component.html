@@ -1,4 +1,5 @@
-<section  (click)="openBook()" class="book" [style.width]="width" [style.height]="height">
+<!--
+<section class="book-card" (click)="openBook()" [style.width]="width" [style.height]="height">
     <b class="bookName">{{book.name}}</b>
     <img class="cover"   [src]="CoverUrl"  *ngIf="book.cover">
     <div class="replaceCover" *ngIf="!book.cover" ></div>
@@ -6,3 +7,8 @@
         <i>pages No : {{book.pagesNumber}}</i>
     </div>
 </section>
+-->
+<div class="book-card" (click)="onBookClick()">
+  <img [src]="book.imageUrl" [alt]="book.title">
+  <h3>{{ book.title }}</h3>
+</div>

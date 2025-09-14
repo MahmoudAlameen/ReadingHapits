@@ -1,0 +1,23 @@
+.progress-container {
+  max-width: 100%;
+  margin: 20px auto 0 auto;
+  text-align: center;
+}
+.progress-bar {
+  width: 100%;
+  background: #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 16px;
+  margin-bottom: 10px;
+}
+.progress-bar-fill {
+  width: 0;
+  height: 100%;
+  background: #0284c7;
+  animation: fillProgress 2s forwards;
+}
+@keyframes fillProgress {
+  0% { width: 0; }
+  100% { width: 100%; }
+}

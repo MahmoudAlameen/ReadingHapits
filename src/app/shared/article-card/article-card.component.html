@@ -1,4 +1,11 @@
+<!--
 <section class="article" [style.width]="width" (click)="openArticle()" [style.height]="height" >
 <p class="articleName">{{article.name}}</p>    
 
 </section>
+
+-->
+<div class="article-card" (click)="onArticleClick()">
+  <h3>{{ article.title }}</h3>
+  <p>{{ article.summary }}</p>
+</div>
