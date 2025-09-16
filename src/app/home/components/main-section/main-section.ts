@@ -4,7 +4,7 @@ import { CommonModule, NgClass } from '@angular/common';
 @Component({
   selector: 'app-main-section',
   templateUrl: './Main-Section.html',
-  styleUrls: ['./Main-Section.scss'],
+  styleUrls: ['./Main-Section.scss', './main-section-tablet.scss', './main-section-mobile.scss'],
 })
 export class MainSectionComponent implements OnInit {
 stats = [

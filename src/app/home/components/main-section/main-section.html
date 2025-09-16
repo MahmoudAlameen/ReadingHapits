@@ -3,7 +3,7 @@
     <!-- Content Section -->
     <div class="content-wrapper">
       <div class="text-content">
-        <h1 class="main-title">Learn a New Skill        <!-- Vector Decoration -->
+        <h1 i18n class="main-title">Learn a New Skill        <!-- Vector Decoration -->
         <img 
           class="vector-decoration" 
           src="https://c.animaapp.com/ASf1wC40/img/main-section-vector-6-1.svg" 
@@ -12,8 +12,8 @@
           <br>Everyday, Anytime, and Anywhere.</h1>
         
         <p class="description">
-          <span class="highlight">1000+</span>
-          <span class="regular-text">
+          <span i18n class="highlight">1000+</span>
+          <span i18n class="regular-text">
             Courses covering all tech domains for you to learn and explore new opportunities. 
             Learn from Industry Experts and land your Dream Job.
           </span>
@@ -21,7 +21,7 @@
 
         <!-- Action Buttons -->
         <div class="action-buttons">
-          <button 
+          <button i18n 
             *ngFor="let button of buttons" 
             class="btn"
             [ngClass]="button.type === 'primary' ? 'btn-primary' : 'btn-secondary'">

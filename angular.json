@@ -5,6 +5,13 @@
   "projects": {
     "ReadingHapits": {
       "projectType": "application",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "ar": "src/locale/messages.ar.xlf",
+          "en": "src/locale/messages.en.xlf"
+        }
+      },
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
@@ -34,7 +41,10 @@
             "scripts": []
           },
           "configurations": {
+              "en": { "localize": ["en"]},
+              "ar": {"localize": ["ar"]},
             "production": {
+              "localize": ["en", "ar"],
               "budgets": [
                 {
                   "type": "initial",
@@ -43,7 +53,7 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
+                  "maximumWarning": "5kb",
                   "maximumError": "4kb"
                 }
               ],
@@ -69,6 +79,12 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
+             "en": {
+              "browserTarget": "ReadingHapits:build:en"
+            },
+            "ar": {
+              "browserTarget": "ReadingHapits:build:ar"
+            },
             "production": {
               "browserTarget": "ReadingHapits:build:production"
             },

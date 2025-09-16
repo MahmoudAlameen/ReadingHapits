@@ -1,0 +1,158 @@
+
+
+/* Tablet Styles */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .content-wrapper {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .text-content {
+    order: 2;
+  }
+
+  .hero-image-wrapper {
+    order: 1;
+  }
+
+  .hero-image-container {
+    max-width: 500px;
+    height: 500px;
+  }
+
+  .background-elements {
+    width: 400px;
+    height: 400px;
+  }
+
+  .circle-bg,
+  .mask-overlay {
+    width: 390px;
+    height: 390px;
+  }
+
+  .hero-image {
+   // width: 450px;
+   width: 170%;
+
+    height: 365px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    justify-items: center;
+  }
+
+  .action-buttons {
+    justify-content: center;
+  }
+
+  .decoration-rock {
+    width: 300px;
+    height: 300px;
+    top: -30px;
+    left: -60px;
+  }
+
+  .decoration-cup {
+    width: 120px;
+    height: 120px;
+    bottom: -30px;
+    right: -50px;
+  }
+
+  .decoration-purple {
+    width: 100px;
+    height: 100px;
+    top: 30px;
+    right: -40px;
+  }
+
+  .decoration-yellow {
+    width: 110px;
+    height: 110px;
+    bottom: 80px;
+    left: -50px;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .learning-section {
+    padding: 1rem 0;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .content-wrapper {
+    gap: 2rem;
+    min-height: auto;
+  }
+
+  .hero-image-container {
+    max-width: 350px;
+    height: 350px;
+
+  }
+
+  .background-elements {
+    width: 300px;
+    height: 300px;
+  }
+
+  .circle-bg,
+  .mask-overlay {
+    width: 290px;
+    height: 290px;
+  }
+
+  .hero-image {
+   // width: 320px;
+    width: 180%;
+    height: 260px;
+    top: -10%;
+
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  /* Hide some decorative elements on mobile for cleaner look */
+  .decoration-purple,
+  .decoration-yellow,
+  .decoration-ellipse-1,
+  .vector-decoration {
+    display: none;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+}
+
