@@ -3,6 +3,7 @@ import { NavigationStart, Router } from '@angular/router';
 import {  SessionStorageKeysService } from 'src/app/core/SessionStorageKeysService';
 import { SessionStorageService } from 'src/app/core/SessionStorageService';
 import { UserService } from 'src/app/core/User.Service';
+import { TranslateService } from '@ngx-translate/core'; 
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,12 @@ export class HeaderComponent implements OnInit {
   logoutButton:boolean=false;
   loginButton:boolean=false;
 
-  constructor(private UserService: UserService ,private router:Router, private SessionStorage:SessionStorageService, private SessionKeys: SessionStorageKeysService) {
+  constructor(
+    private UserService: UserService ,
+    private router:Router, 
+    private SessionStorage:SessionStorageService, 
+    private SessionKeys: SessionStorageKeysService, 
+    private translate: TranslateService) {
 
    }
 
@@ -132,6 +138,13 @@ fireAnchor()
   }
 
 }
+    switchLanguage(lang: string) {
+    this.translate.use(lang);
+
+    // Handle LTR/RTL
+    const htmlTag = document.getElementsByTagName('html')[0] as HTMLHtmlElement;
+    htmlTag.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  }
 
 
 

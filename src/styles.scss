@@ -22,3 +22,10 @@ button:hover, input[type=submit]:hover
     padding: 20px;
     border-radius: 20%
 }
+
+html[dir="rtl"] .regular-text {
+ font-weight: 400;
+ font-size: large;
+}
+
+

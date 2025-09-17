@@ -78,7 +78,9 @@ learning-section {
 
 .regular-text {
   font-weight: 400;
+  background-color: #ffffff;
 }
+
 
 /* Action Buttons */
 .action-buttons {
@@ -128,7 +130,7 @@ learning-section {
   gap: 2rem;
   margin-top: 2rem;
 }
-
+html[dir="ltr"]
 .stat-item {
   text-align: left;
 }
@@ -236,7 +238,6 @@ learning-section {
   bottom: -20px;
   right: -80px;
 }
-
 .decoration-purple {
   width: 120px;
   height: 120px;
@@ -270,7 +271,7 @@ learning-section {
   width: 150px;
   height: 15px;
   top: 40px;
-  left: 130px;
+  left: 140px;
 }
 
 /* Tablet Styles */

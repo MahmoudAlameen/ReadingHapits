@@ -18,6 +18,7 @@ import { LearningMaterialCardComponent } from './components/learning-material-ca
 import { InternationalAssessmentCardComponent } from './components/international-assessment-card/international-assessment-card.component';
 import { InternationalAssessmentsComponent } from './components/international-assessments/international-assessments.component';
 import { MainSectionComponent } from './components/main-section/main-section';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -40,8 +41,8 @@ import { MainSectionComponent } from './components/main-section/main-section';
     HomeRoutingModule,
     CoreModule,
     SharedModule,
-    FormsModule
-    
+    FormsModule,
+    TranslateModule   
   ],
   exports:[AdvertiseComponent,ReadingRoomCardComponent,ReadingRoomsComponent,HomeComponent],
   providers:[]
