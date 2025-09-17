@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {LearningSubjectService} from '../core/learning-subject.service';
 import { IExamCard } from '../DTOs/ILearningSubjectDetails';
+import { ResourceContentType } from 'src/app/enums/resource-content-type'
 
 
 @Component({
@@ -21,14 +22,14 @@ export class LearningSubjectComponent implements OnInit {
   
   // Data for the components
   books = [
-    { imageUrl: 'https://covers.openlibrary.org/b/id/10523363-L.jpg', title: 'Algebra Essentials' },
-    { imageUrl: 'https://covers.openlibrary.org/b/id/10958332-L.jpg', title: 'Geometry Basics' },
-    { imageUrl: 'https://covers.openlibrary.org/b/id/8228691-L.jpg', title: 'Math in Real Life' }
+    { id: "1", imageUrl: 'https://covers.openlibrary.org/b/id/10523363-L.jpg', title: 'Algebra Essentials', resourceContentType: ResourceContentType.textPages},
+    { id : "2", imageUrl: 'https://covers.openlibrary.org/b/id/10958332-L.jpg', title: 'Geometry Basics',resourceContentType: ResourceContentType.textPages },
+    { id: "3", imageUrl: 'https://covers.openlibrary.org/b/id/8228691-L.jpg', title: 'Math in Real Life', resourceContentType: ResourceContentType.textPages }
   ];
 
   articles = [
-    { title: 'Why Algebra Matters', summary: 'Explore the importance of algebra in modern education and how it builds problem-solving skills.' },
-    { title: 'Geometry in Architecture', summary: 'See how geometric concepts are applied in the design of iconic buildings worldwide.' }
+    { id: "1" ,title: 'Why Algebra Matters', summary: 'Explore the importance of algebra in modern education and how it builds problem-solving skills.',resourceContentType: ResourceContentType.textPages },
+    { id: "2", title: 'Geometry in Architecture', summary: 'See how geometric concepts are applied in the design of iconic buildings worldwide.', resourceContentType: ResourceContentType.textPages }
   ];
 
   exams : IExamCard[] = [

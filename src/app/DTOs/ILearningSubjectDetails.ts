@@ -1,3 +1,5 @@
+import { ResourceContentType } from "src/app/enums/resource-content-type";
+
 export interface ILearningSubjectDetails
 {
     title : string;
@@ -14,12 +16,15 @@ export interface IArticleCard
     id : string;
     title : string;
     summary : string;
+    resourceContentType : ResourceContentType
 }
 export interface IBookCard
 {
     id : string;
     imageUrl : string;
     title : string;
+    resourceContentType : ResourceContentType
+
 }
 
 export interface IExamCard
