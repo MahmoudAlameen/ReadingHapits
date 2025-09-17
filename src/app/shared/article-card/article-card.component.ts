@@ -28,6 +28,9 @@ export class ArticleCardComponent implements OnInit {
   */
 
 import { Component, Input } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { IArticleCard } from 'src/app/DTOs/ILearningSubjectDetails';
+import { ResourceContentType } from 'src/app/enums/resource-content-type';
 
 @Component({
   selector: 'app-article-card',
@@ -35,14 +38,19 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./article-card.component.scss']
 })
 export class ArticleCardComponent {
-  @Input() article!: { title: string; summary: string };
+  @Input() article!: IArticleCard;
 
-
-  constructor() { }
+  constructor(private router: Router) { }
 
   // Method to handle an article being clicked
   onArticleClick(): void {
     console.log(`Article "${this.article.title}" was clicked.`);
+    if(this.article.resourceContentType == ResourceContentType.textPages)
+        this.router.navigate(["/article",this.article.id]);
+    else
+        this.router.navigate(["/pdf-preview",this.article.id]);
+
+
     // Add logic to navigate to the full article page.
   }
 }

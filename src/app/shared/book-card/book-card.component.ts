@@ -61,6 +61,10 @@ export class BookCardComponent implements OnInit {
 }
   */
  import { Component, Input } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { BookCardDTO } from 'src/app/DTOs/BookCardDTO';
+import { IBookCard } from 'src/app/DTOs/ILearningSubjectDetails';
+import { ResourceContentType } from 'src/app/enums/resource-content-type';
 
 @Component({
   selector: 'app-book-card',
@@ -68,13 +72,18 @@ export class BookCardComponent implements OnInit {
   styleUrls: ['./book-card.component.scss']
 })
 export class BookCardComponent {
-  @Input() book!: { imageUrl: string; title: string };
+  @Input() book!:IBookCard
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   // Method to handle a book being clicked, e.g., to navigate or open a detail view
   onBookClick(): void {
     console.log(`Book "${this.book.title}" was clicked.`);
+    if(this.book.resourceContentType == ResourceContentType.textPages)
+      this.router.navigate(["/book",this.book.id])
+    else
+      this.router.navigate(["/pdf-preview",this.book.id])
+
     // Here you would add navigation or a modal for the book details.
   }
 }
