@@ -20,8 +20,11 @@ export class AppComponent implements OnInit {
 
 
     // Auto-detect browser language (optional)
+    translate.addLangs(['en', 'ar']);
+    translate.setDefaultLang('en');
+
     const browserLang = translate.getBrowserLang();
-    //translate.use(browserLang?.match(/en|ar/) ? browserLang : 'ar');
+    translate.use(browserLang?.match(/en|ar/) ? browserLang : 'ar');
 
   }
 

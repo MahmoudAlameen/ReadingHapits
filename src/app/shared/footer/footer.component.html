@@ -2,16 +2,16 @@
   <div class="container">
     <section class="section-brand">
       <header class="heading">
-        <h2 class="text-wrapper">Future Skills</h2>
+        <h2 class="text-wrapper">{{'Future Skills' | translate}}</h2>
       </header>
       <div class="text-wrapper-container">
-        <p class="empowering-students">Empowering students with knowledge for<br />tomorrow's challenges.</p>
+        <p class="empowering-students">{{'Empowering students with knowledge for' | translate}}<br />{{'tomorrow\'s challenges.' | translate}}</p>
       </div>
     </section>
 
     <section class="section-links">
       <header class="heading">
-        <h3 class="text-wrapper-2">Quick Links</h3>
+        <h3 class="text-wrapper-2">{{'Quick Links'| translate}}</h3>
       </header>
       <nav class="list" aria-label="Quick Links">
         <div class="item" *ngFor="let link of quickLinks">
@@ -24,7 +24,7 @@
 
     <section class="section-links">
       <header class="heading">
-        <h3 class="text-wrapper-7">Legal</h3>
+        <h3 class="text-wrapper-7">{{'Legal' | translate}}</h3>
       </header>
       <nav class="list" aria-label="Legal Links">
         <div class="item" *ngFor="let link of legalLinks">
@@ -37,11 +37,11 @@
 
     <section class="section-stay-updated">
       <header class="heading">
-        <h3 class="text-wrapper-10">Stay Updated</h3>
+        <h3 class="text-wrapper-10">{{'Stay Updated'| translate}}</h3>
       </header>
       <form class="form" (ngSubmit)="onSubscribe($event)" role="form" aria-label="Newsletter Subscription">
         <div class="input">
-          <label for="email-input" class="sr-only">Enter your email address</label>
+          <label for="email-input" class="sr-only">{{'Enter your email address' | translate}}</label>
           <input
             id="email-input"
             class="email-input-field"
@@ -53,9 +53,9 @@
           />
         </div>
         <button type="submit" class="button" aria-describedby="email-description">
-          <span class="text-wrapper-11">Subscribe</span>
+          <span class="text-wrapper-11">{{'Subscribe' | translate}}</span>
         </button>
-        <div id="email-description" class="sr-only">Subscribe to our newsletter for updates</div>
+        <div id="email-description" class="sr-only">{{'Subscribe to our newsletter for updates' | translate}}</div>
       </form>
 <div class="social-links-container" role="list" aria-label="Social Media Links">
   <a *ngFor="let social of socialLinks" [href]="social.url" class="social-link" role="listitem" [attr.aria-label]="social.label">
@@ -66,6 +66,6 @@
   </div>
 
   <div class="copyright-section">
-    <p class="p">© {{ currentYear }} Future Skills. All rights reserved.</p>
+    <p class="p">© {{ currentYear }} {{'Future Skills. All rights reserved.' | translate}}</p>
   </div>
 </footer>

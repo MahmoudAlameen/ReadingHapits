@@ -130,11 +130,10 @@ learning-section {
   gap: 2rem;
   margin-top: 2rem;
 }
-html[dir="ltr"]
-.stat-item {
-  text-align: left;
+.stat-item
+{
+  align-items: center;
 }
-
 .stat-number {
   font-family: "Outfit", sans-serif;
   font-weight: 700;

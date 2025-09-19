@@ -1,0 +1,30 @@
+{
+     "isValid" : true,
+  "errorMessage" : null,
+  "modelList" : 
+
+[
+  {
+    "title": "TIMSS",
+    "description": "Trends in International Mathematics & Science Study — item sets with data interpretation.",
+    "tags": ["Grade 4 / 8", "Math", "Science"],
+    "iconSrc": "img/vector-2.svg",
+    "theme": "timss"
+  },
+  {
+    "title": "PIRLS",
+    "description": "Progress in International Reading Literacy Study — passages with comprehension and analysis items.",
+    "tags": ["Grade 4", "Reading", "Comprehension"],
+    "iconSrc": "img/vector-3.svg",
+    "theme": "PIRLS"
+  },
+  {
+    "title": "PISA",
+    "description": "Reading, Mathematics, and Science literacy for 15-year-olds — scenario-based tasks & applied problems.",
+    "tags": ["Age 15", "Reading", "Math", "Science"],
+    "iconSrc": "img/image.svg",
+    "theme": "PISA"
+  }
+]
+
+}
