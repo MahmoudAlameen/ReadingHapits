@@ -1,21 +1,20 @@
-<section class="learning-section">
+<section class="learning-section" *ngIf="currentLang">
   <div class="container">
     <!-- Content Section -->
     <div class="content-wrapper">
       <div class="text-content">
-        <h1 class="main-title">Learn a New Skill        <!-- Vector Decoration -->
+        <h1 class="main-title">{{'Learn a New Skill' | translate}}      <!-- Vector Decoration -->
         <img 
           class="vector-decoration" 
           src="https://c.animaapp.com/ASf1wC40/img/main-section-vector-6-1.svg" 
           alt="" 
           aria-hidden="true">
-          <br>Everyday, Anytime, and Anywhere.</h1>
+          <br>{{'Everyday, Anytime, and Anywhere' | translate}}.</h1>
         
         <p class="description">
-          <span class="highlight">1000+</span>
+          <span class="highlight">{{'1000+' | translate}}</span>
           <span class="regular-text">
-            Courses covering all tech domains for you to learn and explore new opportunities. 
-            Learn from Industry Experts and land your Dream Job.
+            {{'Courses covering all tech domains' | translate}}
           </span>
         </p>
 
@@ -34,8 +33,8 @@
           <div 
             *ngFor="let stat of stats" 
             class="stat-item">
-            <div class="stat-number" [style.color]="stat.color">{{ stat.number }}</div>
-            <div class="stat-label" [innerHTML]="stat.label.replace('\n', '<br>')"></div>
+            <div class="stat-number" [style.color]="stat.color">{{ stat.number}}</div>
+            <div class="stat-label" [innerHTML]="stat.label"></div>
           </div>
         </div>
       </div>

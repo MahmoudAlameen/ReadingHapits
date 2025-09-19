@@ -25,15 +25,19 @@
   font-size: medium;
 }
 
-.heading-main {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+.global-assessments-container .assessments-intro .assessments-header .heading-main {
+  font-size: clamp(2rem, 4vw, 4rem);
+  /* Increase size further for testing */
   font-weight: 700;
   margin-bottom: 0.5rem;
+  /* You can also add more margin to separate it further */
+  margin-top: 1rem; 
+  line-height: 1.1; /* Tighter line height for large headers */
 }
 
 /* Corrected font size and color for the description */
-.description {
-  font-size: clamp(1rem, 2vw, 1.2rem); 
+.assessments-header .description {
+  font-size: clamp(1rem, 2vw, 1.7rem); 
   color: #333333; /* Darkened for better contrast */
   line-height: 1.6; /* Increased for better readability */
 }
@@ -98,22 +102,22 @@
   padding: 1rem 0;
 }
 
-.heading-footer {
+.global-assessments-container .assessments-intro .assessments-footer .heading-footer {
   font-size: clamp(1.2rem, 3vw, 1.5rem);
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
 
 /* Corrected font size and highlighting for the footer */
-.footer-description {
-  font-size: clamp(1rem, 2vw, 1.1rem);
+.global-assessments-container .assessments-intro .assessments-footer .footer-description {
+  font-size: clamp(1.5rem, 2vw, 2rem);
   color: #333333; /* Darkened for better contrast */
   max-width: 800px;
   margin: 0 auto 1.5rem;
   line-height: 1.6;
 }
 
-.footer-description b {
+.global-assessments-container .assessments-intro .assessments-footer  .footer-description b {
   background-color: #ffeb3b;
   padding: 2px 5px;
   border-radius: 4px;
@@ -121,13 +125,13 @@
   color: #1a2b49;
 }
 
-.cta-button {
+.assessments-footer .cta-button {
   background-color: #1a2b49;
   color: #fff;
   border: none;
   border-radius: 8px;
   padding: 12px 24px;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 400;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;

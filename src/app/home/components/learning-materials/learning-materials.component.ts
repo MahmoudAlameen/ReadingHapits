@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ILearningSubjectCard } from 'src/app/DTOs/ILearningSubjectCard';
 import { LearningSubjectService } from 'src/app/core/learning-subject.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import { LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-learning-materials',
@@ -8,11 +11,18 @@ import { LearningSubjectService } from 'src/app/core/learning-subject.service';
   styleUrls: ['./learning-materials.component.scss']
 })
 export class LearningMaterialsComponent implements OnInit {
+  private langChangeSub!: Subscription;
 
-  constructor(private learningSubjectService: LearningSubjectService ) { }
+  constructor(private learningSubjectService: LearningSubjectService,
+    private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.getLearningSubjectCards();
+    this.langChangeSub = this.translate.onLangChange.subscribe(
+      (event: LangChangeEvent) => {
+        this.getLearningSubjectCards();
+      }
+    );
   }
 
   learningMaterials : ILearningSubjectCard[] = [

@@ -1,16 +1,16 @@
 <main class="global-assessments-container">
   <article class="assessments-intro">
     <header class="assessments-header">
-      <h1 class="heading-main">Master Global Assessments with Confidence</h1>
+      <h1 class="heading-main">{{'Master Global Assessments with Confidence' | translate}}</h1>
       <p class="description">
-        Unlock your potential in **PISA**, **PIRLS**, and **TIMSS**. Prepare smarter with engaging videos and interactive simulations, exclusively on Future Skills.
+        {{'Unlock your potential in' | translate}}  <b>**PISA**</b>, <b>**PIRLS**</b>, and <b>**TIMSS**</b>. {{'Prepare smarter with engaging videos and interactive simulations, exclusively on Future Skills' | translate}}.
       </p>
     </header>
     <div class="video-wrapper" (click)="playVideo(mainVideo, playButton, videoThumbnail)">
       <video #mainVideo class="video-player" controls preload="none">
         <source [src]="videoUrMp4" type="video/mp4">
         <source [src]="videoUrlOgg" type="video/ogg">
-        Your browser does not support the video tag.
+        {{'Your browser does not support the video tag.' | translate}}
       </video>
       <img #videoThumbnail [src]="thumbnailUrl" alt="Global Assessment Video" class="video-thumbnail" />
       <button #playButton class="play-button" aria-label="Play video about global assessments">▶</button>
@@ -18,12 +18,12 @@
   </article>
 
   <footer class="assessments-footer">
-    <h2 class="heading-footer">Why These Assessments Matter</h2>
+    <h2 class="heading-footer">{{'Why These Assessments Matter' | translate}}</h2>
     <p class="footer-description">
-      **PIRLS**, **PISA**, and **TIMSS** are not just tests; they are a window into your academic strengths. They help shape the future of education and empower you to become a globally competitive student.
+     <b> **PIRLS**</b>, <b>**PISA**</b>, and <b>**TIMSS**</b> {{'are not just tests; they are a window into your academic strengths. They help shape the future of education and empower you to become a globally competitive student.'| translate}}'
     </p>
     <button class="cta-button" type="button">
-      Explore Assessments →
+      {{'Explore Assessments →' | translate}}
     </button>
   </footer>
 </main>

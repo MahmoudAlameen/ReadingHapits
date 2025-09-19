@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-footer',
@@ -28,12 +29,42 @@ quickLinks = [
     { icon: '▶️', label: 'Subscribe to our YouTube channel', url: '#youtube' }
   ];
 
-  constructor(){
+  constructor(private translate: TranslateService) {
     // Get the current year from the Date object and assign it to the property.
     this.currentYear = new Date().getFullYear();
 
    }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+     this.localizeLabels();
+  }
+
+ private localizeLabels(): void {
+    const keys = [
+      ...this.quickLinks.map(l => l.label),
+      ...this.legalLinks.map(l => l.label),
+      ...this.socialLinks.map(l => l.label)
+    ];
+
+    // Use stream instead of get
+    this.translate.stream(keys).subscribe(translations => {
+      this.quickLinks = this.quickLinks.map(link => ({
+        url : link.url,
+        label: translations[link.label] || link.label
+      }));
+
+      console.log(...this.quickLinks)
+      this.legalLinks = this.legalLinks.map(link => ({
+        url : link.url,
+        label: translations[link.label] || link.label
+      }));
+
+      this.socialLinks = this.socialLinks.map(link => ({
+        url : link.url,
+        icon: link.icon,
+        label: translations[link.label] || link.label
+      }));
+    });
+  }
 
   /**
    * Handles the newsletter subscription form submission.

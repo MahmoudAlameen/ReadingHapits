@@ -9,7 +9,7 @@ import { ArticleCardComponent } from './article-card/article-card.component';
 import { CustomAlertComponent } from './custom-alert/custom-alert.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { ExamCardComponent } from './exam-card/exam-card.component';
-
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -19,12 +19,14 @@ import { ExamCardComponent } from './exam-card/exam-card.component';
     ArticleCardComponent,
     CustomAlertComponent,
     ProgressBarComponent,
-    ExamCardComponent
+    ExamCardComponent,
+
   ],
   imports: [
     CommonModule,
     CoreModule,
-    SharedRoutingModule
+    SharedRoutingModule,
+    TranslateModule   
   ],
   exports:[HeaderComponent,FooterComponent, BookCardComponent,ArticleCardComponent, CustomAlertComponent, 
     ProgressBarComponent, ExamCardComponent]

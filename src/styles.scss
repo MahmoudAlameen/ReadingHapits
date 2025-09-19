@@ -22,3 +22,21 @@ button:hover, input[type=submit]:hover
     padding: 20px;
     border-radius: 20%
 }
+// home  => main-section styling for arabic 
+html[dir="rtl"] .regular-text {
+ font-weight: 400;
+ font-size: large;
+}
+//home => international assessments 
+
+html[dir="rtl"] .international-assessments-page .intro-section .cards-and-features .feature-bar .feature-title
+{
+  font-size: clamp(1rem, 5vw, 1.8rem);
+}
+html[dir="rtl"] .international-assessments-page .intro-section .cards-and-features .feature-bar .feature-description
+{
+  font-size: clamp(0.9rem, 5vw, 1.4rem);
+}
+  
+
+

@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { IInternationalAssessmentTypeCard } from 'src/app/DTOs/international-assessment-type-card.interface';
+import { InternationalAssessmentsService } from 'src/app/core/international-assessments.service'; 
+import { LangChangeEvent } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-international-assessments',
@@ -6,7 +12,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./international-assessments.component.scss']
 })
 export class InternationalAssessmentsComponent implements OnInit {
-  exams = [
+  exams!:IInternationalAssessmentTypeCard[];
+  langChangeSub!: Subscription;
+  /*= [
     {
       title: 'TIMSS',
       description: 'Trends in International Mathematics & Science Study — item sets with data interpretation.',
@@ -19,19 +27,52 @@ export class InternationalAssessmentsComponent implements OnInit {
       description: 'Progress in International Reading Literacy Study — passages with comprehension and analysis items.',
       tags: ['Grade 4', 'Reading', 'Comprehension'],
       iconSrc: 'img/vector-3.svg',
-      theme: 'pirals'
+      theme: 'PIRLS'
     },
     {
       title: 'PISA',
       description: 'Reading, Mathematics, and Science literacy for 15-year-olds — scenario-based tasks & applied problems.',
       tags: ['Age 15', 'Reading', 'Math', 'Science'],
       iconSrc: 'img/image.svg',
-      theme: 'pisa'
+      theme: 'PISA'
     },
   ];
+  */
 
-  constructor() { }
+  constructor(private InternationalAssessmentsService : InternationalAssessmentsService,
+    private translate: TranslateService )
+   {
+
+   }
+
+  getInternationalAssessmentsCards()
+  {
+    this.InternationalAssessmentsService.getInternationalAssessmentsTypes().subscribe(
+      response=>
+      {
+        console.log(response);
+        if(response.isValid && response.modelList)
+        {
+          console.log(response.modelList);
+          this.exams = response.modelList;
+        }
+        else
+        {
+          alert(response.errorMessage);
+        }
+      },
+      error=>alert(`error during fetching international assessments from API ${error}`)
+    );
+
+  }
 
   ngOnInit(): void {
+    this.getInternationalAssessmentsCards();
+        this.langChangeSub = this.translate.onLangChange.subscribe(
+          (event: LangChangeEvent) => {
+            this.getInternationalAssessmentsCards();
+          }
+        );
+
   }
 }
