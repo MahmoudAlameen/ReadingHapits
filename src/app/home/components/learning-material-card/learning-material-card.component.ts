@@ -18,7 +18,7 @@ this.router.navigate(['/learning-subject', learningSubjectId]);
 
 onViewExams(): void {
 // Implement view exams logic
-console.log('View exams for:', this.material?.title);
+ this.router.navigate(['/assessments/list'], { queryParams: { selectedSubject: this.material?.id } });
 }
   constructor(private router : Router) { }
 

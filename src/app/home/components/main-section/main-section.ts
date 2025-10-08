@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { CommonModule, NgClass } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-main-section',
   templateUrl: './Main-Section.html',
@@ -13,7 +14,7 @@ export class MainSectionComponent implements OnInit {
   buttons: any[] = [];
   currentLang: string = 'en';
 
-  constructor(private translate: TranslateService) { }
+  constructor(private translate: TranslateService, private router : Router) { }
 
   ngOnInit(): void {
 
@@ -79,5 +80,18 @@ export class MainSectionComponent implements OnInit {
         { text: translations[keys.assessments], type: 'secondary' }
       ];
     });
+  }
+
+  navigateToLearningMaterials()
+  {
+    const element = document.getElementById('learning-subjects');
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+  navigateToAssessments()
+  {
+    console.log("navigate to assessments called")
+    this.router.navigate(['/assessments/list']);
   }
 }

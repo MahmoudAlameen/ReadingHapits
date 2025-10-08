@@ -1,0 +1,26 @@
+<div *ngIf="meta" class="metadata-card">
+            <h2 class="metadata-title">{{ meta.name }}</h2>
+            <hr class="metadata-divider">
+            
+            <div class="metadata-details">
+                <p class="metadata-row">
+                    <span class="metadata-label">Subject:</span>
+                    <span class="metadata-value-primary">{{ meta.subjectName }}</span>
+                </p>
+                <p class="metadata-row">
+                    <span class="metadata-label">Duration:</span>
+                    <span class="metadata-value-danger">{{ meta.durationInMinutes }} Minutes</span>
+                </p>
+                <p class="metadata-row">
+                    <span class="metadata-label">Total Questions:</span>
+                    <span class="metadata-value-primary">{{ questionCount }}</span>
+                </p>
+            </div>
+
+            <button 
+                (click)="onStart.emit()"
+                class="start-button"
+            >
+                Start Assessment
+            </button>
+</div>

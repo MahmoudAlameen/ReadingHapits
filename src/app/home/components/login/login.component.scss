@@ -8,6 +8,7 @@
     flex-direction: column;
     gap:30px;
     padding-inline: 30px;
+    margin-top: 50px;
    // background: linear-gradient(to  left bottom , rgb(13, 59, 51),rgb(74, 98, 100),rgb(177, 189, 186));
    //background-color: rgb(196, 187, 218) !important;;
 
@@ -19,7 +20,7 @@
     flex-direction: column;
     align-items: center;
     //background: linear-gradient(to  left bottom , rgb(88, 105, 105),rgb(90, 109, 110),rgb(177, 189, 186));;
-    background-color: rgb(149, 138, 172) !important;;
+    background-color: rgb(151, 192, 243)!important;;
     padding:20px;
     padding-inline: 80px;
     border-radius: 10%;
@@ -31,12 +32,12 @@
 {
     display :flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
 }
 .registerForm
 {
     //background: linear-gradient(to  left bottom , rgb(88, 105, 105),rgb(90, 109, 110),rgb(177, 189, 186));
-    background-color: rgb(160, 146, 190) !important;;
+    background-color: rgb(146, 165, 190) !important;;
     align-self: center;
     width:600px;
     display: flex;

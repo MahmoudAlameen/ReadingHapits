@@ -43,6 +43,7 @@ export class ReadingRoomComponent implements OnInit {
         let id=param.get("id");
         id!=null?this.roomId=id:this.roomId="";
 
+
       } 
     )
 

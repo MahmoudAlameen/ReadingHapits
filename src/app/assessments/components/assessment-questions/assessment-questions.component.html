@@ -1,0 +1,26 @@
+       <div *ngIf="question" class="question-container">
+            <!-- Question Body (Rendered as trusted HTML) -->
+            <div 
+                [innerHTML]="questionBodyHtml" 
+                class="question-body"
+            ></div>
+
+            <div class="choices-list">
+                <div *ngFor="let choice of question.choices; let i = index" 
+                     (click)="selectChoice(choice.id)"
+                     class="choice-item"
+                     [class.choice-selected]="isSelected(choice.id)"
+                >
+                    <div 
+                        class="choice-radio"
+                        [class.radio-selected]="isSelected(choice.id)"
+                    ></div>
+                    
+                    <!-- Choice Body (Rendered as trusted HTML) -->
+                    <div 
+                        [innerHTML]="sanitizeHtml(choice.bodyHtml)" 
+                        class="choice-text"
+                    ></div>
+                </div>
+            </div>
+</div>

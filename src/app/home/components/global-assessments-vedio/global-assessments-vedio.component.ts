@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-global-assessments-vedio',
@@ -16,7 +17,7 @@ export class GlobalAssessmentsVedioComponent implements OnInit {
   videoUrlOgg: string = "https://www.w3schools.com/html/mov_bbb.ogg";
   thumbnailUrl: string = 'https://c.animaapp.com/RVEF9qVk/img/vedio-section-vedio.png';
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void { }
 
@@ -32,5 +33,11 @@ export class GlobalAssessmentsVedioComponent implements OnInit {
       button.style.display = 'flex';
       video.style.display = 'none';
     });
+  }
+
+  navigateToAssessments()
+  {
+    this.router.navigate(['/assessments/list']);
+
   }
 }

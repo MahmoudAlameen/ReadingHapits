@@ -1,0 +1,133 @@
+  
+      /* --- Status Color Variables (Kept for functional contrast) --- */
+      :host {
+        --color-green-light: #d1fae5; /* Very light green */
+        --color-green-dark: #059669; /* Dark text/button color */
+        --color-red-light: #fee2e2;
+        --color-red-dark: #b91c1c;
+        --color-yellow-light: #fef3c7;
+        --color-yellow-dark: #b45309;
+        
+        display: block;
+      }
+
+      /* Base Card Style (UNIFIED COLOR) */
+      .assessment-card {
+        flex: 1 1 100%; 
+        background-color: #FFFFFF; /* White background for all cards */
+        color: #1f2937; /* Dark card text */
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        border: 1px solid #e5e7eb; /* Light border */
+        transition: transform 0.3s, box-shadow 0.3s;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        min-width: 0; 
+      }
+
+      .assessment-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Responsive Flexbox Sizing for Card (Maintained) */
+      @media (min-width: 640px) {
+        .assessment-card { flex: 0 0 calc(50% - 12px); }
+      }
+      @media (min-width: 1024px) {
+        .assessment-card { flex: 0 0 calc(33.333% - 16px); }
+      }
+      @media (min-width: 1280px) {
+        .assessment-card { flex: 0 0 calc(25% - 18px); }
+      }
+
+      /* Card Inner Content */
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #f3f4f6; /* Very light border */
+      }
+
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        line-height: 1.4;
+        margin: 0;
+        margin-right: 10px;
+        color: #111827; /* Dark title */
+      }
+
+      .status-badge {
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        white-space: nowrap;
+      }
+
+      /* Status Colors (Adjusted to be lighter backgrounds with dark text) */
+      .status-published { background-color: var(--color-green-light); color: var(--color-green-dark); }
+      .status-finished { background-color: var(--color-red-light); color: var(--color-red-dark); }
+      .status-coming-soon { background-color: var(--color-yellow-light); color: var(--color-yellow-dark); }
+
+      /* Details (Pure Flexbox 2x2 layout) */
+      .card-details {
+        display: flex;
+        flex-wrap: wrap; 
+        gap: 8px 16px; 
+        font-size: 0.875rem;
+        margin-bottom: 20px;
+      }
+      
+      .card-details > div {
+        flex: 0 0 calc(50% - 8px); 
+      }
+
+      .detail-label {
+        color: #6b7280; /* Medium gray for labels */
+        display: block;
+      }
+      .detail-value {
+        font-weight: 500;
+        margin-top: 2px;
+        margin-bottom: 0;
+        color: #1f2937; /* Darker value text */
+      }
+
+      /* Take Button */
+      .take-button {
+        margin-top: auto; 
+        width: 100%;
+        padding: 10px 16px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s, box-shadow 0.2s;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .published-btn {
+        background-color: var(--color-green-dark); /* Dark green */
+      }
+      .published-btn:hover {
+        background-color: #047857; /* Slightly darker hover */
+      }
+      .coming-soon-btn {
+        background-color: #d1d5db; /* Light gray */
+        color: #6b7280;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+      .finished-label {
+        background-color: var(--color-red-dark);
+        opacity: 0.9;
+        color: white;
+      }

@@ -1,0 +1,94 @@
+<div class="app-container">
+            <header *ngIf="currentState === 'taking' && assessment" 
+                    class="assessment-header">
+                <div class="header-content">
+                    <!-- Display total questions and answered count -->
+                    <p class="question-info">
+                        Questions Answered: 
+                        <span class="answered-count">{{ Object.keys(answers).length }}</span> / {{ assessment?.questions?.length }}
+                    </p>
+                    
+                    <!-- Timer Display: MM:SS format -->
+                    <div class="timer-display">
+                        <span *ngIf="timeLeft$ | async as time">{{ formatTime(time) }}</span>
+                    </div>
+
+                    <button 
+                        (click)="finishAssessment()"
+                        class="finish-button"
+                    >
+                        Finish Exam
+                    </button>
+                </div>
+            </header>
+
+            <main class="assessment-main">
+                <!-- 1. LOADING STATE (used for initial load AND results calculation) -->
+                <div *ngIf="currentState === 'loading'" class="state-message loading">
+                    <div class="loading-pulse">
+                        {{ examResult ? 'Calculating Exam Results...' : 'Loading Assessment Data...' }}
+                    </div>
+                </div>
+
+                <!-- 2. ERROR STATE (Assessment Blocked/Unavailable) -->
+                <div *ngIf="currentState === 'error'" class="state-message error">
+                    <h2 class="error-title">Access Blocked</h2>
+                    <p class="error-text">It appears you have already started or completed this assessment. Re-entry is prevented.</p>
+                </div>
+
+                <!-- 3. METADATA STATE -->
+                <app-assessment-meta 
+                    *ngIf="currentState === 'meta' && assessment" 
+                    [meta]="assessment.meta" 
+                    [questionCount]="assessment.questions.length"
+                    (onStart)="startAssessment()"
+                ></app-assessment-meta>
+
+                <!-- 4. TAKING ASSESSMENT STATE - All questions visible -->
+                <div *ngIf="currentState === 'taking' && assessment" class="question-flow">
+                    
+                    <!-- Loop through ALL questions using Angular 14 compatible *ngFor -->
+                    <div *ngFor="let question of assessment.questions; let i = index; trackBy: trackById" class="question-wrapper">
+                        <div class="question-number-header">
+                            Question {{ i + 1 }}
+                            <span class="status-chip" 
+                                [class.answered]="answers[question.id]?.selectedChoiceId">
+                                {{ answers[question.id]?.selectedChoiceId ? 'Answered' : 'Unanswered' }}
+                            </span>
+                        </div>
+
+                        <!-- Component selector corrected to app-assessment-question -->
+                        <app-assessment-questions
+                            [question]="question"
+                            [currentAnswer]="answers[question.id] || null"
+                            (onAnswer)="saveAnswer($event)"
+                        ></app-assessment-questions>
+                    </div>
+
+                    <!-- Final Submission Button at the bottom -->
+                    <div class="navigation-controls justify-center">
+                        <button 
+                            (click)="finishAssessment()"
+                            class="nav-button finish-submit-button"
+                        >
+                            Finish & Submit All 
+                            <span class="ml-2 font-mono">({{ Object.keys(answers).length }} / {{ assessment.questions.length }} answered)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 5. FINISHED STATE (Submission Confirmation - brief transition state) -->
+                <div *ngIf="currentState === 'finished'" class="state-message finished">
+                    <h2 class="finished-title">Assessment Submitted!</h2>
+                    <p class="finished-text">Your answers have been successfully submitted. Calculating results...</p>
+                </div>
+                
+                <!-- 6. RESULTS STATE -->
+                <app-assessment-result 
+                    *ngIf="currentState === 'results' && examResult && assessment"
+                    [result]="examResult"
+                    [assessmentName]="assessment.meta.name"
+                    [timeRemainingSeconds]="timeLeft"
+                ></app-assessment-result>
+            </main>
+        </div>

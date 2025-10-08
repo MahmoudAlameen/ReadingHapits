@@ -8,7 +8,7 @@ import { ReadingRoomsComponent } from './components/reading-rooms/reading-rooms.
 import { CoreModule } from '../core/core.module';
 import { ReadingRoomCardComponent } from './components/reading-room-card/reading-room-card.component';
 import { SharedModule } from '../shared/shared.module';
-import { RegisterLoginComponent } from './components/register-login/register-login.component';
+import { LoginComponent} from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { PasswordValidator } from '../customDirectives/PasswordValidator';
 import { ValidNameValidator } from '../customDirectives/CharactersOnly';
@@ -19,6 +19,8 @@ import { InternationalAssessmentCardComponent } from './components/international
 import { InternationalAssessmentsComponent } from './components/international-assessments/international-assessments.component';
 import { MainSectionComponent } from './components/main-section/main-section';
 import { TranslateModule } from '@ngx-translate/core';
+import { RegisterComponent } from './components/register/register.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
     AdvertiseComponent,
     ReadingRoomsComponent,
     ReadingRoomCardComponent,
-    RegisterLoginComponent,
+    LoginComponent,
     ValidNameValidator,
     PasswordValidator,
     GlobalAssessmentsVedioComponent,
@@ -34,7 +36,9 @@ import { TranslateModule } from '@ngx-translate/core';
     LearningMaterialCardComponent,
     InternationalAssessmentCardComponent,
     InternationalAssessmentsComponent,
-    MainSectionComponent
+    MainSectionComponent,
+    RegisterComponent,
+    AboutUsComponent,
   ],
   imports: [
     CommonModule,

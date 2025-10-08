@@ -20,11 +20,16 @@
 
         <!-- Action Buttons -->
         <div class="action-buttons">
+          <button
+            (click)="navigateToLearningMaterials()" 
+            class="btn btn-primary">
+            {{ 'BUTTONS.MATERIALS' | translate }}
+          </button>
           <button 
-            *ngFor="let button of buttons" 
-            class="btn"
-            [ngClass]="button.type === 'primary' ? 'btn-primary' : 'btn-secondary'">
-            {{ button.text }}
+          (click)="navigateToAssessments()" 
+
+            class="btn btn-secondary">
+            {{ 'BUTTONS.ASSESSMENTS' | translate }}
           </button>
         </div>
 

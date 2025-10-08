@@ -1,0 +1,74 @@
+  .metadata-card {
+            background-color: var(--color-card-bg); 
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            max-width: 512px;
+            margin: 0 auto;
+            transition: transform 0.3s;
+        }
+
+        .metadata-card:hover {
+            transform: scale(1.01);
+        }
+
+        .metadata-title {
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 800; /* font-extrabold */
+            color: #4338ca; /* Indigo-700 */
+            margin-bottom: 16px;
+        }
+
+        .metadata-divider {
+            margin-bottom: 24px;
+            border-color: #c7d2fe; /* Indigo-200 */
+        }
+
+        .metadata-details {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            color: #374151; /* Gray-700 */
+        }
+
+        .metadata-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.125rem; /* text-lg */
+        }
+
+        .metadata-label {
+            font-weight: 600; /* font-semibold */
+            color: #6b7280; /* Gray-500 */
+        }
+        
+        .metadata-value-primary {
+            font-weight: 500;
+            color: var(--color-primary);
+        }
+
+        .metadata-value-danger {
+            font-weight: 500;
+            color: var(--color-danger);
+        }
+
+        .start-button {
+            width: 100%;
+            margin-top: 32px;
+            padding: 12px 0;
+            background-color: var(--color-primary);
+            color: white;
+            font-weight: bold;
+            font-size: 1.25rem; /* text-xl */
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4), 0 4px 6px -4px rgba(79, 70, 229, 0.4);
+            transition: background-color 0.3s, transform 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .start-button:hover {
+            background-color: #3730a3; /* Indigo-700 */
+            transform: scale(1.02);
+        }

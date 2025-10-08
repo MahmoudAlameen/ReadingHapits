@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
+  /* Variables */
+        :root {
+            --color-primary: #4f46e5; /* Indigo-600 */
+            --color-secondary: #10b981; /* Green-500 */
+            --color-danger: #ef4444; /* Red-500 */
+            --color-background: #f3f4f6; /* Gray-100 */
+            --color-card-bg: #ffffff; /* White */
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
 body
 {
     height: 100%;

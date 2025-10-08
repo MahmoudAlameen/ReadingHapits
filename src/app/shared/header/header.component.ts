@@ -4,6 +4,7 @@ import {  SessionStorageKeysService } from 'src/app/core/SessionStorageKeysServi
 import { SessionStorageService } from 'src/app/core/SessionStorageService';
 import { UserService } from 'src/app/core/User.Service';
 import { TranslateService } from '@ngx-translate/core'; 
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -11,142 +12,86 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  UserName:string |null="";
-  FullName: string| null = "";
-  logoutButton:boolean=false;
-  loginButton:boolean=false;
 
-  constructor(
-    private UserService: UserService ,
-    private router:Router, 
-    private SessionStorage:SessionStorageService, 
-    private SessionKeys: SessionStorageKeysService, 
-    private translate: TranslateService) {
-
-   }
-
-  ngOnInit(): void {
-    this.setUserValues();
- 
-     
-    this.hidenavbar();
-    this.startNavigation();
-    document.addEventListener("click",()=>
-    {
-
-
-      this.hidenavbar();
-
-    });
-     //this.fireAnchor()
-  }
-
-  setUserValues()
+  constructor(public translate: TranslateService)
   {
-    console.log(sessionStorage);
-    console.log(this.SessionStorage.isExist(this.SessionKeys.userId));
 
-    if(this.SessionStorage.isExist(this.SessionKeys.userId))
-    {
-      console.log("ima there in ")
+  }
+  private translateSub?: Subscription;
 
-      this.loginButton=false;
-      this.logoutButton=true;
-      this.UserName= this.SessionStorage.getValue(this.SessionKeys.userName);
-      this.FullName = this.SessionStorage.getValue(this.SessionKeys.name);
-    }
-    else
-    {
-      this.UserName="";
-      this.loginButton= true;
-      this.logoutButton=false;
+  languageButtonText : string = "EN";
+ // Flag to control the directionality
+  isRtl: boolean = false; 
+  // Mobile menu state
+  isOpen: boolean = false; 
+  
+    readonly navConfig = [
+    { key: 'home', link: 'home' },
+    { key: 'learning materials', link: '#learning-subjects' },
+    { key: 'assessments', link: 'assessments/list' },
+    { key: 'about', link: 'about' },
+  ];
+  // Navigation items data with Arabic translations
+  navItems = [
+    { label: 'Home', link: 'home'},
+    { label: 'learning materials', link: '#learning-subjects' },
+    { label: 'assessments', link: 'assessments' },
+    { label: 'About Us', link: 'about' },
+  ];
+
+  ngOnInit() {
+    this.languageButtonText = this.translate.currentLang === 'ar' ? 'EN' : 'AR';
+    // Set up a listener for window resize to close the menu on desktop
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', this.onResize.bind(this));
     }
 
-  }
-  logout()
-  {
-    if(!this.SessionStorage.isExist(this.SessionKeys.userName))
-      return;
-
-    this.UserService.LogoutUser(this.SessionStorage.getValue(this.SessionKeys.userName) as string).subscribe(
-     response=> 
-     {
-       if(response.isValid && response.model)
-       {
-         this.SessionStorage.removeKey(this.SessionKeys.userId);
-         this.SessionStorage.removeKey(this.SessionKeys.userName);
-         this.SessionStorage.removeKey(this.SessionKeys.name)
-         this.router.navigate(['login']);    
-         this.UserName="";
-         this.FullName = "";
-         this.loginButton=false;
-         this.logoutButton=false;
-
-       }
-       else
-         alert(response.errorMessage);
-     },
-    err=> alert(err)
-     )   
-
-
-  }
-  login()
-  {
-    this.loginButton=false;
-    this.loginButton=false;
-    this.router.navigate(['login']);
+     this.translateSub = this.translate
+      .stream('nav')
+      .subscribe(navTranslations => {
+        this.navItems = this.navConfig.map(item => ({
+          ...item,
+          label: navTranslations[item.key]
+        }));
+      });
   }
 
+  // A trackBy function is necessary when using *ngFor for better performance (A14 practice)
+  trackByLink(index: number, item: { label: string; link: string;}): string {
+    return item.link;
+  }
+
+  // Toggles the mobile menu state
+  toggleMenu(): void {
+    this.isOpen = !this.isOpen;
+  }
+  
 
 
-  hidenavbar()
-  {
-    let nav=document.getElementById("myNavbar");
-    if(nav!=null)
-    {
-      nav.classList.remove("in")
+  switchLanguage(langText: string) {
+  const lang = langText === 'AR' ? 'ar' : 'en';
+ this.translate.use(lang);
+   //  this.isRtl = lang === 'ar';
+
+ // Handle LTR/RTL
+ console.log("switch language hitted")
+
+ const htmlTag = document.getElementsByTagName('html')[0] as HTMLHtmlElement;
+
+ htmlTag.dir = lang === 'ar' ? 'rtl' : 'ltr';
+ this.languageButtonText = lang === 'ar' ? 'EN' : 'AR';
+ console.log(this.translate.currentLang)
+
+ }
+
+
+
+
+  // Automatically closes the mobile menu if the screen size exceeds the desktop breakpoint (768px)
+  onResize(): void {
+    if (window.innerWidth >= 768 && this.isOpen) {
+      this.isOpen = false;
     }
   }
-  startNavigation()
-  {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-          
-        this.hidenavbar();
-        // Show progress spinner or progress bar
-          //console.log('Route change detected');
-      }
-      
-  })
-
 }
 
-
-fireAnchor()
-{
-  let anchors=document.getElementsByTagName("a");
-  for(let i=0; i<anchors.length; i++)
-  {
-    anchors[i].addEventListener("click",function(){
-      this.classList.remove("whiteText");
-      this.classList.add("blackText")
-      console.log("anchor clicked...")
-      
-    })
-
-  }
-
-}
-    switchLanguage(lang: string) {
-    this.translate.use(lang);
-
-    // Handle LTR/RTL
-    const htmlTag = document.getElementsByTagName('html')[0] as HTMLHtmlElement;
-    htmlTag.dir = lang === 'ar' ? 'rtl' : 'ltr';
-  }
-
-
-
-
-}

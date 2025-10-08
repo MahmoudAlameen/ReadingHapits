@@ -1,31 +1,28 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Student } from 'src/app/classes/student';
-import { RegisterFormDataService } from 'src/app/core/register-form-data.service';
-import { logedUser } from 'src/interfaces/logedUser';
-import { ValidNameValidator } from 'src/app/customDirectives/CharactersOnly';
-import { UserService } from 'src/app/core/User.Service';
-import { Gender } from 'src/app/enums/gender';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import { AlertMessage } from 'src/app/classes/AlertMessage';
+import { Student } from 'src/app/classes/student';
+import { CustomAlertService } from 'src/app/core/custom-alert.service';
+import { RegisterFormDataService } from 'src/app/core/register-form-data.service';
 import { SessionStorageKeysService } from 'src/app/core/SessionStorageKeysService';
 import { SessionStorageService } from 'src/app/core/SessionStorageService';
-import { HeaderComponent } from 'src/app/shared/header/header.component';
-import { AlertMessage } from 'src/app/classes/AlertMessage';
-import { CustomAlertService } from 'src/app/core/custom-alert.service';
+import { UserService } from 'src/app/core/User.Service';
 import { Role } from 'src/app/enums/Role';
+import { HeaderComponent } from 'src/app/shared/header/header.component';
 
 @Component({
-  selector: 'app-register-login',
-  templateUrl: './register-login.component.html',
-  styleUrls: ['./register-login.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class RegisterLoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
+  private translationSub?: Subscription;
 
-  logedUser:logedUser={email:"",password:"", role: Role.Student};
   registeredUser:Student=new Student();
-  register:boolean=false;
   schools:string[]=["dssd","dsdsdsd","sdsdsdsd"];
   countries:string[]=[];
-  userId  :string="";
   alertMessage:AlertMessage = new AlertMessage();
   @ViewChild(HeaderComponent) headerComponent! :HeaderComponent
   errorMessages=
@@ -38,26 +35,24 @@ export class RegisterLoginComponent implements OnInit {
     school: "اسم المدرسه غير صحيح",
     password: ",على الاقل جرف كابيتال و على لاقل حرف صغير و على لاقل رقم واحد يجب ان يحتوى الباسورد على ثمانيه حروف , حروف من اللغه الانجليزيه فقط حرف  "
   }
-  constructor(private registerFormData:RegisterFormDataService, private UserService:UserService , private router :Router,
-    private SessionKeys:SessionStorageKeysService, private SessionStorage: SessionStorageService,
-    private customAlert:CustomAlertService) { }
+  constructor(private registerFormData:RegisterFormDataService, 
+    private UserService:UserService , 
+    private customAlert:CustomAlertService,
+  private translateService : TranslateService) { }
 
   ngOnInit(): void {
     this.getSchools();
     this.getCountries();
     this.alertMessage.isDisplayed = true;
+        this.translationSub = this.translateService
+      .stream('errorMessages')
+      .subscribe(messages => {
+        this.errorMessages = messages;
+      });
   }
   postData()
   {
 
-  }
-  openRegisterForm()
-  {
-    console.log(this.register)
-    if(this.register)
-    this.register=false;
-    else
-    this.register=true
   }
   getSchools()
   {
@@ -130,13 +125,9 @@ export class RegisterLoginComponent implements OnInit {
         {
           this.alertMessage.message = "تم تسجيل الحساب بنجاح";
           this.customAlert.alert.next(this.alertMessage);
-          this.userId=response.UserId
           let email= this.registeredUser.email;
           let password = this.registeredUser.password;
           this.clearRegisteForm();
-          this.register=false;
-          this.logedUser.email=email;
-          this.logedUser.password = password;
         }
         if(response.isValid==false)
         {
@@ -152,34 +143,6 @@ export class RegisterLoginComponent implements OnInit {
          submit.disabled = false;
       }
     )
-  }
-  loginUser()
-  {
-    this.UserService.LoginUser(this.logedUser).subscribe(
-      response=>
-      {
-        if(!response.isValid)
-        {
-          this.alertMessage.message = " كلمه السر او الباسورد غير صحيح ";
-          this.customAlert.alert.next(this.alertMessage);
-        }
-        if(response.isValid)
-        {
-         this.SessionStorage.setItem(this.SessionKeys.userId,response.model?.userId as string);
-         this.SessionStorage.setItem( this.SessionKeys.userName, this.logedUser.email);
-         this.SessionStorage.setItem(this.SessionKeys.name , response.model?.name as string);
-         this.router.navigate(['']).then(()=> window.location.reload());
-          console.log("hey iam there in home page ... ");
-        // this.router.navigateByUrl('home').then(()=>window.location.reload())
-        }
-      },
-      err=>
-      {
-        this.alertMessage.message =  err;
-        this.customAlert.alert.next(this.alertMessage);
-      }
-    )
-
   }
   clearRegisteForm()
   {

@@ -1,0 +1,223 @@
+  /* 1. Global Reset & Typography */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    
+    :host {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      color: #374151;
+    }
+
+    /* 2. Main Layout */
+    .main-container {
+      min-height: 100vh;
+      padding: 16px; /* Mobile padding */
+      background: linear-gradient(180deg, #F0F9FF 0%, #E8F5FF 50%, #BAE6FD 100%);
+      display: flex; /* Use flex to center the content wrapper */
+      justify-content: center;
+    }
+
+    .content-wrapper {
+      width: 100%;
+      max-width: 1152px; /* 72rem */
+      margin: 0 auto;
+      background-color: #FFFFFF;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    /* 3. Header Styling */
+    .header {
+      padding: 32px; /* Mobile padding */
+      background-color: #1d4ed8; /* Blue-700 */
+      color: #FFFFFF;
+      text-align: center;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+
+    .main-title {
+      font-size: 2.25rem; /* 36px */
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .slogan {
+      font-size: 1.25rem; /* 20px */
+      font-weight: 300;
+      opacity: 0.9;
+    }
+
+    /* 4. Content Sections */
+    .section-content {
+      padding: 24px; /* Mobile padding */
+    }
+
+    .section-subtitle {
+      font-size: 1.875rem; /* 30px */
+      font-weight: 800;
+      color: #1f2937;
+      text-align: center;
+      margin-bottom: 40px;
+      padding-top: 40px;
+    }
+
+    /* 5. Mission & Vision Cards (Flexbox Grid) */
+    .mission-vision-grid {
+      display: flex;
+      flex-direction: column; /* Stacked on mobile */
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    
+    .card {
+      flex-grow: 1; /* Allow cards to take equal width on desktop */
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+      border-top-width: 4px;
+    }
+    
+    .card-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+
+    /* Mission Card Colors */
+    .card-mission {
+      background-color: #eef2ff; /* Indigo-50 */
+      border-color: #4f46e5; /* Indigo-600 */
+    }
+    .card-title-mission { color: #3730a3; /* Indigo-800 */ }
+    .icon-mission { color: #4f46e5; margin-right: 12px; }
+
+    /* Vision Card Colors */
+    .card-vision {
+      background-color: #f0fff4; /* Green-50 */
+      border-color: #10b981; /* Green-600 */
+    }
+    .card-title-vision { color: #065f46; /* Green-800 */ }
+    .icon-vision { color: #10b981; margin-right: 12px; }
+
+    .card-title-mission, .card-title-vision {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .card-content {
+      line-height: 1.75;
+      color: #4b5563; /* Gray-600 */
+    }
+
+
+    /* 6. Feature Cards (Flexbox Grid) */
+    .feature-section {
+      padding-bottom: 40px;
+    }
+    
+    .feature-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+    }
+
+    .feature-card {
+      width: 100%; /* Default to full width on mobile */
+      padding: 24px;
+      border-radius: 12px;
+      background-color: #FFFFFF;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+      border: 1px solid #f3f4f6;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 16px;
+    }
+    
+    /* Feature Icon Colors */
+    .feature-icon-red { background-color: #fee2e2; color: #dc2626; } /* Red */
+    .feature-icon-yellow { background-color: #fef3c7; color: #d97706; } /* Yellow */
+    .feature-icon-purple { background-color: #f3e8ff; color: #9333ea; } /* Purple */
+    .feature-icon-cyan { background-color: #ccfbf1; color: #06b6d4; } /* Cyan */
+
+    .feature-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 8px;
+    }
+    
+    .feature-content-text {
+        font-size: 0.875rem;
+        color: #6b7280;
+    }
+    
+
+    /* 7. Footer */
+    .footer-callout {
+      padding: 32px;
+      background-color: #f9fafb; /* Gray-100 */
+      text-align: center;
+      border-top: 1px solid #e5e7eb;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+    
+    .footer-text {
+      font-size: 1.125rem;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    /* 8. Media Queries for Responsiveness */
+    
+    /* Tablet/Small Desktop (768px and up) */
+    @media (min-width: 768px) {
+      .main-container {
+        padding: 48px;
+      }
+      .section-content {
+        padding: 40px;
+      }
+      
+      /* Mission/Vision Cards Side-by-Side */
+      .mission-vision-grid {
+        flex-direction: row;
+      }
+      
+      /* Feature Cards - 2 per row */
+      .feature-card {
+        width: calc(50% - 12px); 
+      }
+      
+      .header {
+        padding: 48px;
+      }
+    }
+    
+    /* Large Desktop (1024px and up) */
+    @media (min-width: 1024px) {
+      .section-content {
+        padding: 64px;
+      }
+      /* Feature Cards - 4 per row */
+      .feature-card {
+        width: calc(25% - 18px); /* (100% - 3*24px gap) / 4 */
+      }
+    }

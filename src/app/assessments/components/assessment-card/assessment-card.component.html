@@ -1,0 +1,50 @@
+    <div [class]="'assessment-card type-' + assessment.type.toLowerCase()">
+      <!-- Header & Status (Flexbox: space-between) -->
+      <div class="card-header">
+        <h3 class="card-title">{{ assessment.name }}</h3>
+        <span [class]="'status-badge status-' + assessment.status.toLowerCase().replace(' ', '-')">
+          {{ assessment.status }}
+        </span>
+      </div>
+
+      <!-- Details (Flexbox: wrap for 2x2 layout) -->
+      <div class="card-details">
+        <div>
+          <span class="detail-label">Subject:</span>
+          <p class="detail-value">{{ assessment.subject }}</p>
+        </div>
+        <div>
+          <span class="detail-label">Grade:</span>
+          <p class="detail-value">{{ assessment.grade }}</p>
+        </div>
+        <div>
+          <span class="detail-label">Duration:</span>
+          <p class="detail-value">{{ assessment.durationMinutes }} min</p>
+        </div>
+        <div>
+          <span class="detail-label">Type:</span>
+          <p class="detail-value">{{ assessment.type }}</p>
+        </div>
+      </div>
+
+      <!-- Take Button -->
+      <button
+        *ngIf="assessment.status === AssessmentStatus.Published"
+        (click)="takeClicked.emit(assessment.id)"
+        class="take-button published-btn"
+        title="Start Assessment ID: {{ assessment.id }}"
+      >
+        Take Assessment
+      </button>
+      <button disabled
+        *ngIf="assessment.status === AssessmentStatus.ComingSoon"
+        class="take-button coming-soon-btn"
+      >
+        {{ AssessmentStatus.ComingSoon }}
+      </button>
+      <div *ngIf="assessment.status === AssessmentStatus.Finished"
+        class="take-button finished-label"
+      >
+        Finished
+      </div>
+    </div>

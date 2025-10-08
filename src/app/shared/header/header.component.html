@@ -1,39 +1,99 @@
-<nav class="navbar   navbar-expand-lg navbar-light bg-light ">
-  <div class=" navContainer  container-fluid">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
+    <!-- Header: Fixed at the top, light background, subtle shadow.
+         [ngClass] is used to activate RTL styles when isRtl is true. -->
+    <header class="header-container" [ngClass]="{'rtl-mode': isRtl}">
+      <div class="header-content" [ngClass]="{'rtl-mode': isRtl}">
+        
+        <!-- Logo and Brand Name -->
+        <div class="logo-group">
+          <!-- Logo Circle (Blue) -->
+          <div class="logo-circle">
+            Pr
+          </div>
+          <!-- Brand Name -->
+          <span class="brand-name">
+           {{'Future Skills' | translate}}
+          </span>
+        </div>
+
+        <!-- Language Switcher -->
+
+
+        <!-- Desktop Navigation & Buttons (Visible on medium screens and up via media query) -->
+        <div class="desktop-nav-group">
+          
+          <!-- Nav Link (Using *ngFor for A14 compatibility) -->
+          <a *ngFor="let item of navItems; trackBy: trackByLink"
+             [href]="item.link" 
+             class="nav-link">
+            {{ item.label }}
+          </a>
+
+          <!-- Sign Up Button (Outline) -->
+          <a navi class="signup-btn" routerLink="/register">
+            {{ 'Sign up' | translate}}
+          </a>
+
+          <!-- Sign In Button (Solid) -->
+          <a class="signin-btn" routerLink="/login">
+            {{ 'Sign In' | translate}}
+          </a>
+          <button class="lang-btn"  (click)="switchLanguage(languageButtonText)">{{languageButtonText}}</button>
+
+        </div>
+
+        <!-- Mobile Menu Button (Hamburger/X Icon - Hidden on desktop via media query) -->
+        <button (click)="toggleMenu()" class="menu-button">
+          <!-- Hamburger Icon (Menu) (Using *ngIf for A14 compatibility) -->
+          <ng-container *ngIf="!isOpen">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </ng-container>
+          <!-- Close Icon (X) (Using *ngIf for A14 compatibility) -->
+          <ng-container *ngIf="isOpen">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </ng-container>
         </button>
-    </div>
-            <div>
-  <button (click)="switchLanguage('en')">English</button>
-  <button (click)="switchLanguage('ar')">عربي</button>
-</div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav navbar-left" >     
-          <li  class="active"><a class="darkBlue" href="#"> الصفحه الرئيسيه</a></li>
-          <!-- <li class="ml-auto"><a href="#">الغرف الذكيه</a></li> -->
-          <li><a [routerLink]="['/placementTest']" routerLinkActive="router-link-active"  class="darkBlue">اختبار تحديد المستوى</a></li>
-          <li><a href="#" class="darkBlue">اكثر الغرف استخداما</a></li>
-        </ul>
-       <!--- <a class="navbar-brand" href="#">عادات القراءة لدى طلاب المدارس</a> -->
-        <!-- class="nav navbar-navt" -->       
-        <ul class="nav userNav  navbar-nav navbar-right" >
-          <li class="st"><a class="darkBlue" href="#" class="darkBlue" ><span class="glyphicon glyphicon-user"></span>{{FullName}}</a></li>
-          <li class="sed">
-            <a  (click)="login()" class="darkBlue" routerLinkActive="router-link-active" *ngIf="loginButton"  > تسجيل دخول</a>
-            <a class="darkBlue" routerLinkActive="router-link-active" (click)="logout()"  *ngIf="logoutButton" ><span class="glyphicon glyphicon-log-in"></span>تسجيل خروج </a>
-          </li>
-        </ul>
+
+
       </div>
-  </div>
-</nav> 
+    </header>
 
+    <!-- Mobile Menu Drawer and Overlay -->
+    
+    <!-- Dark Overlay (Click to close menu) (Using *ngIf for A14 compatibility) -->
+    <div *ngIf="isOpen" 
+         class="overlay" 
+         (click)="toggleMenu()">
+    </div>
 
+    <!-- Side Navigation Drawer: uses [ngClass] to control the CSS transform for sliding direction -->
+    <nav class="mobile-nav-drawer"
+         [ngClass]="{
+            'rtl-mode': isRtl,
+            'is-open': isOpen
+         }">
+      
+      <div class="mobile-nav-links">
+        
+        <!-- Nav Links for Mobile (Using *ngFor for A14 compatibility) -->
+        <a *ngFor="let item of navItems; trackBy: trackByLink" 
+           [href]="item.link" 
+           class="mobile-nav-link" 
+           (click)="toggleMenu()">
+          <!-- Display Arabic text if in RTL mode, otherwise English -->
+          {{ item.label }}
+        </a>
+        
+        <!-- Divider -->
 
+        <!-- Buttons for Mobile -->
+        <a class="mobile-nav-link" (click)="toggleMenu()" routerLink="/register">
+          {{ 'Sign up' | translate}}
+        </a>
 
+        <a class="mobile-nav-link" (click)="toggleMenu()" routerLink="/login">
+          {{ 'Sign In'  | translate}}
+        </a>
+        <a class="lang-btn mobile-nav-link"  (click)="switchLanguage(languageButtonText); toggleMenu()">{{languageButtonText}}</a>
 
-
-
+      </div>
+    </nav>

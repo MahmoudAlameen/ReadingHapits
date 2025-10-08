@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { IInternationalAssessmentTypeCard } from 'src/app/DTOs/international-assessment-type-card.interface';
 
 @Component({
   selector: 'app-international-assessment-card',
@@ -7,14 +9,16 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class InternationalAssessmentCardComponent implements OnInit {
 
-  @Input() exam: any;
+  @Input() exam!: IInternationalAssessmentTypeCard;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
   }
 
   onStartNow(): void {
+
+    this.router.navigate(['/assessments/list'], { queryParams: { selectedAssessmentType: this.exam.title } });
     console.log(`Starting ${this.exam.title} practice...`);
   }
 }

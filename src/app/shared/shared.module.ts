@@ -10,6 +10,9 @@ import { CustomAlertComponent } from './custom-alert/custom-alert.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { ExamCardComponent } from './exam-card/exam-card.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { PdfPreviewComponent } from './pdf-preview/pdf-preview.component'; // <-- Import the module
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 
 @NgModule({
   declarations: [
@@ -20,13 +23,15 @@ import { TranslateModule } from '@ngx-translate/core';
     CustomAlertComponent,
     ProgressBarComponent,
     ExamCardComponent,
+    PdfPreviewComponent,
 
   ],
   imports: [
     CommonModule,
     CoreModule,
     SharedRoutingModule,
-    TranslateModule   
+    TranslateModule,
+    PdfViewerModule
   ],
   exports:[HeaderComponent,FooterComponent, BookCardComponent,ArticleCardComponent, CustomAlertComponent, 
     ProgressBarComponent, ExamCardComponent]

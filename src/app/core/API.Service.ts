@@ -24,6 +24,10 @@ export class APIService
     visitReadingRoom = `${this.base}${this.report}/reading-rooms/visit`;
     addBookTimeRead = `${this.base}${this.report}/books/add-read-time`;
     addArticleTimeRead = `${this.base}${this.report}/articles/add-read-time`;
+
+    // learning subjects 
+    LearningSubjectIds = this.base + "learning-subjects-Ids";
+
     constructor()
     {
         

@@ -1,0 +1,74 @@
+        .question-container {
+            padding: 24px;
+            background-color: var(--color-card-bg); 
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid #f3f4f6;
+        }
+
+        .question-body {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 500; /* font-medium */
+            color: #1f2937; /* Gray-800 */
+            margin-bottom: 24px;
+            padding: 16px;
+            background-color: #f9fafb; /* Slightly lighter background for the prompt box */
+            border-radius: 8px;
+        }
+        
+        /* Custom styles for images within the question/choice HTML content */
+        .question-body img, .choice-text img {
+            max-height: 50px; 
+            display: inline-block;
+            margin-left: 8px;
+            border-radius: 4px;
+        }
+        
+        .choices-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .choice-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 16px;
+            border: 1px solid #e5e7eb; /* Gray-200 */
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.15s ease-in-out;
+            background-color: white; /* Ensure choice items are bright white inside the card */
+        }
+
+        .choice-item:hover:not(.choice-selected) {
+            background-color: #f9fafb; /* Gray-50 */
+        }
+
+        .choice-selected {
+            border-color: var(--color-primary);
+            background-color: #eef2ff; /* Indigo-50 */
+            box-shadow: var(--shadow-md);
+        }
+
+        .choice-radio {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #9ca3af; /* Gray-400 */
+            margin-top: 4px; /* Align with text */
+            margin-right: 12px;
+            flex-shrink: 0;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .radio-selected {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+        
+        .choice-text {
+            font-size: 1rem; /* text-base */
+            color: #374151; /* Gray-700 */
+            width: 100%;
+        }
