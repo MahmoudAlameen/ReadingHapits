@@ -1,0 +1,139 @@
+ .resource-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column; 
+            height: 100%;
+            position: relative; 
+            direction: rtl; /* Ensure RTL layout */
+            text-align: right;
+        }
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .card-image-wrapper {
+            height: 200px; 
+            background-size: cover;
+            background-position: center;
+            background-color: #e0f2f1;
+            position: relative;
+            display: flex;
+            justify-content: flex-end; /* Align badge top-right in RTL */
+            align-items: flex-start;
+            padding: 10px;
+        }
+        .resource-type-badge {
+            background-color: #facc15;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .card-content {
+            padding: 20px;
+            flex-grow: 1; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-title {
+            font-size: 1.3rem; 
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #e5e7eb;
+            padding-bottom: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .resource-meta {
+            margin-bottom: 15px;
+        }
+        .meta-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        .label {
+            font-weight: 500;
+            color: #4b5563;
+        }
+        .value {
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .status-item { padding: 5px 0; border-top: 1px solid #f3f4f6; }
+        .status-value { font-size: 1.1rem; }
+        .status-Draft .status-value { color: #f97316; }
+        .status-InReview .status-value { color: #3b82f6; }
+        .status-Approved .status-value { color: #059669; }
+        .status-Rejected .status-value { color: #ef4444; }
+        .status-Published .status-value { color: #0f766e; }
+        .content-type-Pdf { color: #dc2626; }
+        .content-type-EPUB { color: #f97316; }
+        .content-type-Text { color: #059669; }
+        .content-type-HTML5 { color: #3b82f6; }
+        .card-actions {
+            display: flex;
+            gap: 10px; 
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .card-actions button {
+            flex-grow: 1; 
+            min-width: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .card-actions button svg {
+            margin-left: 8px; /* For RTL spacing */
+            margin-right: 0;
+            height: 1.1rem;
+            width: 1.1rem;
+        }
+        .card-actions button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .view-button { background-color: #3b82f6; color: white; }
+        .view-button:hover:not(:disabled) { background-color: #2563eb; }
+        .edit-button { background-color: #f59e0b; color: white; }
+        .edit-button:hover:not(:disabled) { background-color: #d97706; }
+        .submit-button { background-color: #0d9488; color: white; flex-basis: calc(50% - 5px); min-width: 150px; }
+        .submit-button:hover:not(:disabled) { background-color: #0f766e; }
+        
+        /* NEW STYLES for Approve/Reject buttons */
+        .approve-button { background-color: #10b981; color: white; flex-basis: calc(50% - 5px); min-width: 150px; }
+        .approve-button:hover:not(:disabled) { background-color: #059669; }
+        .reject-button { background-color: #ef4444; color: white; flex-basis: calc(50% - 5px); min-width: 150px; }
+        .reject-button:hover:not(:disabled) { background-color: #dc2626; }
+
+        .action-error {
+            color: #ef4444;
+            background-color: #fee2e2;
+            padding: 8px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            text-align: center;
+            font-weight: 500;
+        }

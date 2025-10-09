@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { IAssessmentCard } from 'src/app/DTOs/assessments.interfaces';
-import { AssessmentStatus } from 'src/app/enums/assessments.enums';
+import { AssessmentStatus, AssessmentType } from 'src/app/enums/assessments.enums';
 
 @Component({
   selector: 'app-assessment-card',
@@ -9,15 +9,25 @@ import { AssessmentStatus } from 'src/app/enums/assessments.enums';
 })
 export class AssessmentCardComponent implements OnInit {
 
- /** Expose the enum to the template for conditional checks */
+  /** Expose enums to the template for easy access */
   readonly AssessmentStatus = AssessmentStatus;
-  
-  /** Input: The assessment data object (Angular 14 @Input) */
+  readonly AssessmentType = AssessmentType;
+
+  /** Input: The assessment data object */
   @Input() assessment!: IAssessmentCard;
 
-  /** Output: Emits the assessment ID when the 'Take' button is clicked (Angular 14 @Output) */
+  /** Output: Emits the assessment ID when the 'Take' button is clicked */
   @Output() takeClicked = new EventEmitter<number>();
 
-  ngOnInit(): void {
+  /** Helper: Convert enum numeric type to its string label (PISA, PIRLS, etc.) */
+  get assessmentTypeLabel(): string {
+    return AssessmentType[this.assessment.type]; // e.g. 1 → 'PISA'
   }
+
+  /** Helper: Generate lowercase CSS-friendly type class */
+  get assessmentTypeClass(): string {
+    return this.assessmentTypeLabel.toLowerCase();
+  }
+
+  ngOnInit(): void {}
 }

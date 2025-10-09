@@ -1,11 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivationEnd } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { finalize } from 'rxjs';
 import { AlertMessage } from 'src/app/classes/AlertMessage';
 import { AssessmentsService } from 'src/app/core/assessments.service';
 import { CustomAlertService } from 'src/app/core/custom-alert.service';
 import { LearningSubjectService } from 'src/app/core/learning-subject.service';
-import { AssessmentType, IAssessmentCard } from 'src/app/DTOs/assessments.interfaces';
+import { IAssessmentCard } from 'src/app/DTOs/assessments.interfaces';
 import { IIdWithName } from 'src/app/DTOs/shared.interfaces';
+import { AssessmentType } from 'src/app/enums/assessments.enums';
 
 @Component({
   selector: 'app-assessments-list',
@@ -13,81 +15,69 @@ import { IIdWithName } from 'src/app/DTOs/shared.interfaces';
   styleUrls: ['./assessments-list.component.scss']
 })
 export class AssessmentsListComponent implements OnInit {
-   // --- INJECTED SERVICES (Using inject() for standalone components, still valid in v14) ---
   private assessmentsService = inject(AssessmentsService);
   private customAlert = inject(CustomAlertService);
   private route = inject(ActivatedRoute);
-  
-  // --- STATE PROPERTIES (Angular 14 Standard - Class Properties) ---
+  private learningSubjectService = inject(LearningSubjectService);
 
-  readonly studentGrade: number = 10;
+  gradeId? : string  = '';
   public assessments: IAssessmentCard[] = [];
-  public isLoading: boolean = true;
-  public searchTerm: string = '';
-  public selectedSubjectId: string  = ''; // Subject ID for filtering
-  public selectedAssessmentType: AssessmentType | null   = null; 
+  public isLoading = true;
+  public searchTerm = '';
+  public selectedSubjectId = '';
+  public selectedAssessmentType: AssessmentType | null = null ;
   public learningSubjectsIds: IIdWithName[] = [];
   public alertMessage: AlertMessage = new AlertMessage();
-  public assessmentTypes: AssessmentType[] = ['PISA', 'PIRLS', 'TIMMS', 'Ordinary'];
 
+  // UI-friendly names (string keys) for the enum (e.g. "PISA", "PIRLS" ...)
+  public assessmentTypeNames: string[] = Object.keys(AssessmentType).filter(k => isNaN(Number(k)));
 
   ngOnInit(): void {
-    // MOCK: Simulating ActivatedRoute Query Param Subscription
-    // Setting initial filter state based on a mock query param (e.g., ?learningSubjectId=2)
-        this.route.queryParamMap.subscribe(params => {
-      const subjectIdparam = params.get('selectedSubject');
-      this.selectedSubjectId = subjectIdparam??  '';
+    // Read query params and initialize filters
+    this.route.queryParamMap.subscribe(params => {
+      const subjectIdParam = params.get('selectedSubject');
+      const assessmentTypeParam = params.get('selectedAssessmentType');
 
-      const selectedAssessmentTypeParam = params.get('selectedAssessmentType');
-      console.log(selectedAssessmentTypeParam);
-   if (selectedAssessmentTypeParam && (this.assessmentTypes as string[]).includes(selectedAssessmentTypeParam)) {
-      this.selectedAssessmentType = selectedAssessmentTypeParam as AssessmentType;
-      console.log(this.selectedAssessmentType);
-    }   });
-    
-    
-    this.getLearningSubjectIds();
-    // Load assessments initially with the query param filter applied
-    this.loadAssessments();
-    //const mockQueryParamSubjectId = '2'; // Simulating navigation from Mathematics card
+      this.selectedSubjectId = subjectIdParam ?? '';
+      this.selectedAssessmentType = this.parseAssessmentTypeParam(assessmentTypeParam);
 
-   /// this.selectedSubjectId = mockQueryParamSubjectId || '';
-
+      // Load learning subjects first, which will trigger loadAssessments() after subjects are loaded
+      this.getLearningSubjectIds();
+    });
   }
 
-  // --- ASYNC DATA LOADING (Now calling service with filters) ---
+  private parseAssessmentTypeParam(value: string | null): AssessmentType | null {
+    if (!value) return null;
 
-  async loadAssessments(): Promise<void> {
-    this.isLoading = true;
-    try {
-      // CRITICAL: Passing search term and subject ID to the service
-      const data = await this.assessmentsService.fetchAssessmentsByGrade(
-        this.studentGrade, 
-        this.searchTerm, 
-        this.selectedSubjectId,
-        this.learningSubjectsIds,
-        this.selectedAssessmentType // Pass subject names for service-side lookup
-      );
-      this.assessments = data;
-    } catch (error) {
-      console.error('Failed to load assessments:', error);
-      this.alertMessage.message = 'Failed to load assessments.';
-      this.alertMessage.isDisplayed = true;
-      this.customAlert.alert.next(this.alertMessage);
-    } finally {
-      this.isLoading = false;
+    // Numeric param (e.g., "1")
+    const n = Number(value);
+    if (!isNaN(n) && (AssessmentType as any)[n]) {
+      return n as AssessmentType;
     }
+
+    // Named param (e.g., "PISA")
+    if ((AssessmentType as any)[value]) {
+      return (AssessmentType as any)[value] as AssessmentType;
+    }
+
+    return null;
+  }
+
+  public getAssessmentTypeName(type: AssessmentType | null): string {
+    if (type === null || type === undefined) return '';
+    return (AssessmentType as any)[type] ?? '';
   }
 
   getLearningSubjectIds() {
-    this.assessmentsService.getLearningSubjectIds().subscribe(
+    console.log("assessments list ")
+    this.learningSubjectService.getLearningSubjectIds().subscribe(
       res => {
         if (res.isValid && res.modelList != null) {
           this.learningSubjectsIds = res.modelList;
-          // Re-load assessments after subjects are available to apply initial filter
-          this.loadAssessments(); 
+          // Now that subjects are available, load assessments with initial filters
+          this.loadAssessments();
         } else {
-          this.alertMessage.message = 'فشل فى جلي بيانات المواد التعليميه';
+          this.alertMessage.message = 'فشل فى جلب بيانات المواد التعليميه';
           this.alertMessage.isDisplayed = true;
           this.customAlert.alert.next(this.alertMessage);
         }
@@ -100,66 +90,111 @@ export class AssessmentsListComponent implements OnInit {
     );
   }
 
-  // --- DERIVED STATE (Angular 14 Standard - Getters) ---
+  async loadAssessments() {
+    this.isLoading = true;
 
-  /** Groups filtered assessments into categories for display. */
-  get assessmentCategories(): { type: AssessmentType, assessments: IAssessmentCard[] }[] {
-    const assessments = this.assessments; // Use the raw fetched data (already filtered by service)
-    const groups = assessments.reduce((acc, assessment) => {
-      const type = assessment.type;
-      if (!acc[type]) {
-        acc[type] = [];
-      }
-      acc[type].push(assessment);
-      return acc;
-    }, {} as Record<AssessmentType, IAssessmentCard[]>);
+      // Pass the numeric enum (or null) to your service. If your backend expects the string name,
+      // convert by using getAssessmentTypeName(this.selectedAssessmentType)
+      const data =  this.assessmentsService.fetchAssessmentsByGrade(
+        this.gradeId,
+        this.searchTerm,
+        this.selectedSubjectId,
+        this.selectedAssessmentType != null ? this.selectedAssessmentType : undefined
+      ).subscribe(
+        res =>
+        {
 
-    const typeOrder: AssessmentType[] = ['PISA', 'PIRLS', 'TIMMS', 'Ordinary'];
+        
+          if(res.isValid && res.modelList != null)
+          {
+            this.assessments = res.modelList;
+          }
+          else
+          {
+            this.alertMessage.message = `${res.errorMessage}`;
+            this.alertMessage.isDisplayed = true;
+            this.customAlert.alert.next(this.alertMessage);
+          }
+          this.isLoading = false;
 
-    return typeOrder
-      .map(type => ({ type, assessments: groups[type] || [] }))
-      .filter(category => category.assessments.length > 0);
+        },
+        err =>
+        {
+            this.alertMessage.message = `${err}`;
+            this.alertMessage.isDisplayed = true;
+            this.customAlert.alert.next(this.alertMessage);
+            this.isLoading = false;
+        }
+      );
   }
 
-  // --- UI EVENT HANDLERS (Update state and trigger API call) ---
+  /** Groups fetched assessments into categories by enum value (numeric). */
+  get assessmentCategories(): { type: AssessmentType, assessments: IAssessmentCard[] }[] {
+    const groups = this.assessments.reduce((acc, assessment) => {
+      // support both numeric and named type in assessment payload
+      let typeValue: AssessmentType | null = null;
+
+      if (typeof (assessment as any).type === 'number') {
+        typeValue = (assessment as any).type as AssessmentType;
+      } else if (typeof (assessment as any).type === 'string') {
+        // could be "PISA" or "1"
+        typeValue = this.parseAssessmentTypeParam((assessment as any).type);
+      }
+
+      if (typeValue == null) return acc;
+
+      const key = typeValue as unknown as number;
+      if (!acc[key]) acc[key] = [];
+      acc[key].push(assessment);
+      return acc;
+    }, {} as Record<number, IAssessmentCard[]>);
+
+    const typeOrder: AssessmentType[] = [
+      AssessmentType.PISA,
+      AssessmentType.PIRLS,
+      AssessmentType.TIMMS,
+      AssessmentType.Ordinary
+    ];
+
+    return typeOrder
+      .map(type => ({ type, assessments: groups[type as unknown as number] || [] }))
+      .filter(category => category.assessments.length > 0);
+  }
 
   updateSearch(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.searchTerm = input.value;
-    // CRITICAL: Trigger new API call with new filter
-    this.loadAssessments(); 
+    this.loadAssessments();
   }
 
   updateSubjectFilter(event: Event): void {
     const select = event.target as HTMLSelectElement;
     this.selectedSubjectId = select.value;
-    // CRITICAL: Trigger new API call with new filter
-    this.loadAssessments(); 
+    this.loadAssessments();
   }
-    updateAssessmentTypeFilter(event: Event): void {
+
+  updateAssessmentTypeFilter(event: Event): void {
     const select = event.target as HTMLSelectElement;
-    this.selectedAssessmentType = select.value as AssessmentType?? null;
-    // CRITICAL: Trigger new API call with new filter
-    this.loadAssessments(); 
+    // value is the enum key string (e.g., "PISA") or empty string
+    this.selectedAssessmentType = this.parseAssessmentTypeParam(select.value);
+    this.loadAssessments();
   }
 
   resetFilters(): void {
     this.searchTerm = '';
     this.selectedSubjectId = '';
-    
-    // Manually reset the input/select controls (for immediate UI consistency)
+    this.selectedAssessmentType = null;
+
     const searchInput = document.querySelector('.search-input') as HTMLInputElement;
     if (searchInput) searchInput.value = '';
-    const selectControl = document.querySelector('.select-input') as HTMLSelectElement;
-    if (selectControl) selectControl.value = '';
 
-    // CRITICAL: Trigger new API call to get all data
+    const selectControls = document.querySelectorAll('.select-input') as NodeListOf<HTMLSelectElement>;
+    selectControls.forEach(s => s.value = '');
+
     this.loadAssessments();
   }
 
   takeAssessment(assessmentId: number): void {
-    console.log(`[ROUTE ACTION]: Navigating to route /run-assessments/${assessmentId}`);
-    // Replacing alert with console log and mock alert service for better practice
     this.alertMessage.message = `Simulating navigation to assessment ID: ${assessmentId}`;
     this.alertMessage.isDisplayed = true;
     this.customAlert.alert.next(this.alertMessage);

@@ -1,14 +1,28 @@
 import { ResourceContentType } from "src/app/enums/resource-content-type";
+import { LearningResourceStatus, LearningResourceType } from "../enums/learning-resources.enums";
+import { AssessmentState } from "./assessments.interfaces";
+import { AssessmentStatus, AssessmentType } from "../enums/assessments.enums";
 
 export interface ILearningSubjectDetails
 {
-    title : string;
-    description : string;
-    coverUrl : string;
-    articles : IArticleCard[];
-    books : IBookCard[];
-    exams : IExamCard[];
+    Id : string;
+    nameAr : string;
+    nameEn : string;
+    descriptionAr? : string;
+    descriptionEn? : string;
+    coverUrl? : string;
+    assignedTeachers: IAssignedTeacher[],
+    articles? : ILearningResourceCard[];
+    books? : ILearningResourceCard[];
+    exams? : ISubjectAssessmentCard[];
 
+}
+
+export interface IAssignedTeacher
+{
+    id: string,
+    fullName: string,
+    avatarUrl: string
 }
 
 export interface IArticleCard
@@ -26,14 +40,28 @@ export interface IBookCard
     resourceContentType : ResourceContentType
 
 }
+export interface ILearningResourceCard
+{
+    Id: string;
+    nameEn: string;
+    nameAr: string;
+    gradeId: string;
+    coverUrl? : string;
+    resourceType: LearningResourceType,
+    contentResourceType : ResourceContentType;
+    status: LearningResourceStatus,
+    fileUrl: string;
+    creatorName: string;
+}
 
-export interface IExamCard
+export interface ISubjectAssessmentCard
 {
     id: string;
-    meta : string;
-    title : string;
+    name : string;
+    type : AssessmentType;
+    durationInMinutes : number;
     topScorer : ExamCardTopScore;
-    buttonText : string;
+    status: AssessmentStatus
 }
 
 export interface ExamCardTopScore

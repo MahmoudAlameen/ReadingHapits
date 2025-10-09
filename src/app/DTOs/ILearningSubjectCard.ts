@@ -1,9 +1,16 @@
 export interface ILearningSubjectCard {
   id: string;
-  title: string;
-  description: string;
-  duration: string;
-  teachers: string[]; // list of teacher image URLs
-  coverImage: string; // course cover image
-  altText: string; // accessibility text for cover image
+  nameEn: string;
+  nameAr : string;
+  descriptionEn?: string;
+  descriptionAr?: string;
+  assignedTeachersAvatars: ITeacherAvatar[]; // list of teacher image URLs
+  coverUrl?: string; // course cover image
+  teachersCount : number
+}
+
+export interface ITeacherAvatar
+{
+  name : string,
+  avatarUrl? : string 
 }

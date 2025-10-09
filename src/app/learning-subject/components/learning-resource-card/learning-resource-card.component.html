@@ -1,0 +1,47 @@
+<div class="resource-card">
+            <div class="card-image-wrapper" [style.background-image]="'url(' + resource.coverUrl + ')'">
+                <span class="resource-type-badge">{{ arabicResourceTypeStatus[resource.resourceType] }}</span>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">{{ displayedResourceName }}</h3>
+                
+                <div class="resource-meta">
+                    <div class="meta-item">
+                        <span class="label">المستوى:</span>
+                        <span class="value">{{ gradeName }}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="label">الموضوع:</span>
+                        <span class="value">{{ subjectName }}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="label">نوع المحتوى:</span>
+                        <span class="value content-type-{{ ContentResourceType[resource.contentResourceType] }}">{{ arabiContentResourceTypeStatus[resource.contentResourceType] }}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="label">المُنشئ:</span>
+                        <span class="value creator-name">{{ resource.creatorName }}</span>
+                    </div>
+                    <div class="meta-item status-item status-{{ LearningResourceSatus[resource.status] }}">
+                        <span class="label">الحالة:</span>
+                        <span class="value status-value">{{ arabicResourceStatus[resource.status] }}</span>
+                    </div>
+                </div>
+                
+                <!-- Display action error passed from parent state -->
+                <div *ngIf="actionError" class="action-error">
+                    {{ actionError }}
+                </div>
+
+                <div class="card-actions">
+                    <button (click)="onViewClick()" class="action-button view-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+                            <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                            <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.972 0 9.188 3.226 10.677 7.697a.75.75 0 0 1 0 .606C21.189 17.024 16.972 20.25 12.001 20.25c-4.972 0-9.188-3.226-10.677-7.697a.75.75 0 0 1 0-.606ZM12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z" clip-rule="evenodd" />
+                        </svg>
+                            عرض
+                    </button>
+
+                </div>
+            </div>
+        </div>

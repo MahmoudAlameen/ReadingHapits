@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AssessmentState, AssessmentType, IAssessmentCard, IAssessmentData, IExamResult, IQuestion, IUserAnswer } from '../DTOs/assessments.interfaces';
-import { BehaviorSubject } from 'rxjs';
-import { AssessmentStatus } from '../enums/assessments.enums';
+import { AssessmentState, IAssessmentCard, IAssessmentData, IExamResult, IQuestion, IUserAnswer } from '../DTOs/assessments.interfaces';
+import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
+import { AssessmentStatus, AssessmentType } from '../enums/assessments.enums';
 import { IIdWithName } from '../DTOs/shared.interfaces';
 import { APIResponseModelList } from '../classes/APIResponse';
+import { HttpClient } from '@angular/common/http';
+import { APIService } from './API.Service';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,14 +13,14 @@ export class AssessmentsService {
 
 /** Mock database of assessment cards. (Renamed from MOCK_ASSESSMENTS) */
  MOCK_ASSESSMENTSCards: IAssessmentCard[] = [
-  { id: 101, name: 'PISA Global Literacy 2024', type: 'PISA', durationMinutes: 120, subject: 'Language Arts', grade: 10, status: AssessmentStatus.Published },
-  { id: 102, name: 'TIMMS Advanced Calculus', type: 'TIMMS', durationMinutes: 90, subject: 'Mathematics', grade: 10, status: AssessmentStatus.ComingSoon },
-  { id: 103, name: 'PIRLS Reading Comprehension', type: 'PIRLS', durationMinutes: 75, subject: 'Language Arts', grade: 10, status: AssessmentStatus.Finished },
-  { id: 104, name: 'Ordinary Biology Midterm', type: 'Ordinary', durationMinutes: 50, subject: 'Science', grade: 10, status: AssessmentStatus.Published },
-  { id: 105, name: 'PISA Scientific Thinking', type: 'PISA', durationMinutes: 100, subject: 'Science', grade: 10, status: AssessmentStatus.Published },
-  { id: 106, name: 'TIMMS Geometry & Data', type: 'TIMMS', durationMinutes: 60, subject: 'Mathematics', grade: 10, status: AssessmentStatus.Published },
-  { id: 107, name: 'Ordinary World History Test', type: 'Ordinary', durationMinutes: 40, subject: 'Social Studies', grade: 10, status: AssessmentStatus.Finished },
-  { id: 901, name: 'PISA Prep Math', type: 'PISA', durationMinutes: 60, subject: 'Mathematics', grade: 9, status: AssessmentStatus.Published },
+  { id: 101, name: 'PISA Global Literacy 2024', type: AssessmentType.PISA, durationMinutes: 120, subject: 'Language Arts', grade: 10, status: AssessmentStatus.Published },
+  { id: 102, name: 'TIMMS Advanced Calculus', type: AssessmentType.TIMMS, durationMinutes: 90, subject: 'Mathematics', grade: 10, status: AssessmentStatus.ComingSoon },
+  { id: 103, name: 'PIRLS Reading Comprehension', type: AssessmentType.PIRLS, durationMinutes: 75, subject: 'Language Arts', grade: 10, status: AssessmentStatus.Finished },
+  { id: 104, name: 'Ordinary Biology Midterm', type: AssessmentType.Ordinary, durationMinutes: 50, subject: 'Science', grade: 10, status: AssessmentStatus.Published },
+  { id: 105, name: 'PISA Scientific Thinking', type: AssessmentType.PISA, durationMinutes: 100, subject: 'Science', grade: 10, status: AssessmentStatus.Published },
+  { id: 106, name: 'TIMMS Geometry & Data', type: AssessmentType.PIRLS, durationMinutes: 60, subject: 'Mathematics', grade: 10, status: AssessmentStatus.Published },
+  { id: 107, name: 'Ordinary World History Test', type: AssessmentType.Ordinary, durationMinutes: 40, subject: 'Social Studies', grade: 10, status: AssessmentStatus.Finished },
+  { id: 901, name: 'PISA Prep Math', type: AssessmentType.PISA, durationMinutes: 60, subject: 'Mathematics', grade: 9, status: AssessmentStatus.Published },
 ];
 
 MOCK_LEARNING_SUBJECTS: IIdWithName[] = [
@@ -29,17 +31,44 @@ MOCK_LEARNING_SUBJECTS: IIdWithName[] = [
     { id: '5', name: 'Other' },
 ];
 
+
+    constructor(private http : HttpClient, private API: APIService) {
+        this.fetchAssessment();
+    }
+
   /** * SIMULATED API CALL: Filters data based on current subject ID and search term.
    * This is the core change to simulate server-side filtering.
    */
-  fetchAssessmentsByGrade(
-    studentGrade: number, 
-    searchTerm: string, 
-    subjectId: string,
-    subjects: IIdWithName[],
-    assessmentType?: AssessmentType | null // Pass the subjects list for lookup
-  ): Promise<IAssessmentCard[]> {
+fetchAssessmentsByGrade(
+  gradeId?: string, 
+  searchTerm?: string, 
+  subjectId?: string,
+  assessmentType?: AssessmentType,
+  pageNumber?: string ,
+  pageSize?: string
+): Observable<APIResponseModelList<IAssessmentCard>> {
+
+  // Build params object dynamically, only including non-null/undefined values
+  const params = Object.entries({
+    gradeId,
+    searchTerm,
+    subjectId,
+    assessmentType: assessmentType !== undefined ? assessmentType.toString() : undefined,
+    pageNumber: pageNumber ?? undefined,
+    pageSize
+  })
+  .filter(([_, value]) => value !== undefined && value !== null && value !== '')
+  .reduce((acc, [key, value]) => ({ ...acc, [key]: value as string }), {} as Record<string, string>);
+
+  return this.http.get<APIResponseModelList<IAssessmentCard>>(
+    `${this.API.assessmentsList}`,
+    { params }
+  ).pipe(
+    catchError(err => throwError(() => err.Messages))
+  );
     
+    
+    /*
     return new Promise(resolve => {
       setTimeout(() => {
         const term = searchTerm.toLowerCase().trim();
@@ -70,6 +99,7 @@ MOCK_LEARNING_SUBJECTS: IIdWithName[] = [
 
       }, 500); // Simulate API latency
     });
+    */
   }
     // Assessment State Management
     public assessmentState = new BehaviorSubject<AssessmentState>('loading');
@@ -138,9 +168,6 @@ MOCK_LEARNING_SUBJECTS: IIdWithName[] = [
   }
     // ----------------------------------------------------------------
 
-    constructor() {
-        this.fetchAssessment();
-    }
 
     /**
      * SIMULATES API CALL to your SQL backend to fetch assessment data.

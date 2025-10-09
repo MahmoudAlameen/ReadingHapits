@@ -9,6 +9,7 @@ import {AsyncPipe} from '@angular/common';
 import { AssessmentResultComponent } from './components/assessment-result/assessment-result.component';
 import { AssessmentsListComponent } from './components/assessments-list/assessments-list.component';
 import { AssessmentCardComponent } from './components/assessment-card/assessment-card.component'
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -18,12 +19,14 @@ import { AssessmentCardComponent } from './components/assessment-card/assessment
     AssessmentQuestionsComponent,
     AssessmentResultComponent,
     AssessmentsListComponent,
-    AssessmentCardComponent
+    AssessmentCardComponent,
+    
   ],
   imports: [
     CommonModule,
     AssessmentsRoutingModule,
-    AsyncPipe
+    AsyncPipe,
+    TranslateModule
   ]
 })
 export class AssessmentsModule { }

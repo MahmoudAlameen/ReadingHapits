@@ -12,9 +12,10 @@ import { APIService } from './API.Service';
 export class LearningSubjectService {
 
   constructor(private http : HttpClient, private API: APIService) { }
-    getLearningSubjectDetaisl(subjectId: string, gradeId: string):Observable<APIResponseModel<ILearningSubjectDetails>>
+    getLearningSubjectDetails(subjectId: string):Observable<APIResponseModel<ILearningSubjectDetails>>
     {
-      return this.http.get<APIResponseModel<ILearningSubjectDetails>>("./assets/json/learning-subject-details.json", {params:{subjectId, gradeId}}).pipe(catchError(
+      return this.http.get<APIResponseModel<ILearningSubjectDetails>>(this.API.learningSubjectDetails + subjectId )
+      .pipe(catchError(
         (err)=>{
           return throwError(()=>err.Messages)
         }
@@ -23,7 +24,14 @@ export class LearningSubjectService {
 
     getLearningSubjectsCards() : Observable<APIResponseModelList<ILearningSubjectCard>>
     {
+      /*
       return this.http.get<APIResponseModelList<ILearningSubjectCard>>("./assets/json/learning-subjects-cards.json").pipe(catchError(
+        (err)=>{
+          return throwError(()=>err.Messages)
+        }
+*/
+
+     return this.http.get<APIResponseModelList<ILearningSubjectCard>>(this.API.learninSubjectsCards).pipe(catchError(
         (err)=>{
           return throwError(()=>err.Messages)
         }
@@ -35,5 +43,11 @@ export class LearningSubjectService {
   {
     return this.http.get<APIResponseModelList<IIdWithName>>(this.API.LearningSubjectIds)
     .pipe(catchError((err)=> throwError(()=> err.message)));
+  }
+  
+  getGradesIdsWIthNames() : Observable<APIResponseModelList<IIdWithName>>
+  {
+    return this.http.get<APIResponseModelList<IIdWithName>>(this.API.gradesIds)
+      .pipe(catchError((err) => throwError(() => err.message)));
   }
 }

@@ -1,4 +1,4 @@
-import { AssessmentStatus } from "../enums/assessments.enums";
+import { AssessmentStatus, AssessmentType } from "../enums/assessments.enums";
 
 export interface IAssessmentMeta {
     id: string;
@@ -46,6 +46,5 @@ export interface IAssessmentCard {
   status: AssessmentStatus; // Now uses the Enum
 }
 
-export type AssessmentType = 'PISA' | 'PIRLS' | 'TIMMS' | 'Ordinary';
 
 export type AssessmentState = 'loading' | 'meta' | 'taking' | 'finished' | 'results' | 'error';

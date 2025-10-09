@@ -3,7 +3,7 @@
   <h1>{{ subjectTitle }}</h1>
   <div class="interactive-student">
     <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Student">
-    Most Interactive: Sara
+    {{'Most Interactive' | translate}}: Sara
     <i class="fas fa-star"></i>
   </div>
   <i class="fas fa-calculator floating-icon" style="top:10px; left:20px; animation-duration: 7s;"></i>
@@ -16,13 +16,11 @@
 <div class="floating-badge" style="top:700px; left:30%;">🎯</div>
 
 <div class="cover">
-  <img src="https://picsum.photos/900/250?random=1" alt="Cover Image">
+  <img [src] = "learningSubject.coverUrl" alt="Cover Image">
 </div>
 
 <div class="teacher-avatars">
-  <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Teacher">
-  <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Teacher">
-  <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Teacher">
+  <img  *ngFor="let teacher of learningSubject.assignedTeachers" [src]="teacher.avatarUrl" alt="Teacher">
 </div>
 
 <div class="description">
@@ -30,19 +28,17 @@
 </div>
 
 <div class="grade-selector">
-  <label for="grade">Select Grade: </label>
-  <select id="grade" (change)="onGradeChange($event)">
-    <option>Grade 7</option>
-    <option selected>Grade 8</option>
-    <option>Grade 9</option>
-    <option>Grade 10</option>
-  </select>
+  <label for="grade">{{'Select Grade' | translate}} </label>
+    <select id="grade" name="grade" [(ngModel)]="selectedGradeId"  #gradeControl="ngModel">
+      <option value="" disabled selected>{{'select grade' }}</option>
+      <option [selected] ="grade.id == selectedGradeId" *ngFor="let grade of grades" [value]="grade.id">{{ grade.name }}</option>
+    </select>
 </div>
 
 <div class="section-container section-books">
-  <h2>📚 Books</h2>
+  <h2>📚 {{'Books' | translate}}</h2>
   <div class="cards">
-    <app-book-card *ngFor="let book of books" [book]="book"></app-book-card>
+    <app-learning-resource-card *ngFor="let book of learningSubject.books" [resource]="book"></app-learning-resource-card>
   </div>
   <app-progress-bar
     [title]="'📖 Books Progress'"
@@ -52,9 +48,9 @@
 </div>
 
 <div class="section-container section-articles">
-  <h2>📝 Articles</h2>
+  <h2>📝 {{'Articles' |translate}}</h2>
   <div class="cards">
-    <app-article-card *ngFor="let article of articles" [article]="article"></app-article-card>
+    <app-learning-resource-card *ngFor="let article of learningSubject.articles" [resource]="article"></app-learning-resource-card>
   </div>
   <app-progress-bar
     [title]="'📄 Articles Progress'"
@@ -64,18 +60,18 @@
 </div>
 
 <div class="section-container section-exams">
-  <h2>🎓 Exams</h2>
+  <h2>🎓 {{'Exams' | translate}}</h2>
   <div class="exam-category">
     <h3>📘 PISA</h3>
-    <app-exam-card [exam]="exams[0]"></app-exam-card>
+    <app-exam-card *ngFor="let exam of pisaExams" [assessment]="exam"></app-exam-card>
   </div>
   <div class="exam-category">
     <h3>📗 TIMSS</h3>
-    <app-exam-card [exam]="exams[1]"></app-exam-card>
+    <app-exam-card *ngFor="let exam of pisaExams" [assessment]="exam"></app-exam-card>
   </div>
   <div class="exam-category">
     <h3>📙 PIRLS</h3>
-    <app-exam-card [exam]="exams[2]"></app-exam-card>
+    <app-exam-card *ngFor="let exam of pisaExams" [assessment]="exam"></app-exam-card>
   </div>
   <app-progress-bar
     [title]="'📝 Exams Progress'"

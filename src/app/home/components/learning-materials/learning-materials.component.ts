@@ -4,6 +4,8 @@ import { LearningSubjectService } from 'src/app/core/learning-subject.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { LangChangeEvent } from '@ngx-translate/core';
+import { CustomAlertService } from 'src/app/core/custom-alert.service';
+import { AlertMessage } from 'src/app/classes/AlertMessage';
 
 @Component({
   selector: 'app-learning-materials',
@@ -12,9 +14,11 @@ import { LangChangeEvent } from '@ngx-translate/core';
 })
 export class LearningMaterialsComponent implements OnInit {
   private langChangeSub!: Subscription;
+  alertMessage : AlertMessage = new AlertMessage();
 
   constructor(private learningSubjectService: LearningSubjectService,
-    private translate: TranslateService) { }
+    private translate: TranslateService,
+  private customAlert : CustomAlertService) { }
 
   ngOnInit(): void {
     this.getLearningSubjectCards();
@@ -25,12 +29,13 @@ export class LearningMaterialsComponent implements OnInit {
     );
   }
 
-  learningMaterials : ILearningSubjectCard[] = [
+  learningMaterials : ILearningSubjectCard[] = []
+  /*[
     {
       id: "1",
-      title: 'English Materials',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipising elit, sed do eiusmod tempor',
-      duration: '3 Month',
+      nameEn: 'English Materials',
+      nameAr : "اللغه الانجليزيه",
+      descriptionEn: 'Lorem ipsum dolor sit amet, consectetur adipising elit, sed do eiusmod tempor',
       teachers: [
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png',
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png',
@@ -41,42 +46,44 @@ export class LearningMaterialsComponent implements OnInit {
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png',
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png'
       ],
-      coverImage: 'https://c.animaapp.com/6nrWQIOk/img/learning-material-cards-card1-cover-section-1@2x.png',
-      altText: 'English learning materials course cover image'
+      coverUrl: 'https://c.animaapp.com/6nrWQIOk/img/learning-material-cards-card1-cover-section-1@2x.png',
     },
     {
       id: "2",
-      title: 'Mathematics',
-      description: 'A course covering fundamental mathematical concepts.',
-      duration: '6 Month',
+      nameEn: 'Mathematics',
+      nameAr : "الرياضيات",
+      descriptionEn: 'A course covering fundamental mathematical concepts.',
+      descriptionAr: 'دوره تغطي المفاهيم الرياضيه الاساسيه',
       teachers: [
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png',
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png',
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png',
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png'
       ],
-      coverImage: 'https://c.animaapp.com/6nrWQIOk/img/learning-material-cards-card1-cover-section-1@2x.png',
-      altText: 'Mathematics course cover image'
+      coverUrl: 'https://c.animaapp.com/6nrWQIOk/img/learning-material-cards-card1-cover-section-1@2x.png',
     },
     {
       id: "3",
-      title: 'History of Art',
-      description: 'Explore art from ancient times to modern day.',
-      duration: '4 Month',
+      nameEn: 'History of Art',
+      nameAr : "تاريخ الفن",
+      descriptionEn: 'Explore art from ancient times to modern day.',
+      descriptionAr: 'استكشف الفن من العصور القديمه الي العصر الحديث',
+      //
       teachers: [
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png',
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png',
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png',
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png'
       ],
-      coverImage: 'https://c.animaapp.com/6nrWQIOk/img/learning-material-cards-card1-cover-section-1@2x.png',
-      altText: 'History of Art course cover image'
+      coverUrl: 'https://c.animaapp.com/6nrWQIOk/img/learning-material-cards-card1-cover-section-1@2x.png',
     },
     {
       id: "4",
-      title: 'Computer Science',
-      description: 'An introduction to programming and algorithms.',
-      duration: '8 Month',
+      nameEn: 'Computer Science',
+      nameAr : "علوم الحاسب",
+      descriptionEn: 'An introduction to programming and algorithms.',
+      descriptionAr: 'مقدمه في البرمجه والخوارزميات',
+      //
       teachers: [
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png',
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png',
@@ -88,25 +95,25 @@ export class LearningMaterialsComponent implements OnInit {
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png',
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png'
       ],
-      coverImage: 'https://c.animaapp.com/6nrWQIOk/img/learning-material-cards-card1-cover-section-1@2x.png',
-      altText: 'Computer Science course cover image'
+      coverUrl: 'https://c.animaapp.com/6nrWQIOk/img/learning-material-cards-card1-cover-section-1@2x.png',
     },
     {
       id: "5",
-      title: 'Physics',
-      description: 'Understanding the laws of the universe.',
-      duration: '7 Month',
+      nameEn: 'Physics',
+      nameAr : "الفيزياء",
+      descriptionEn: 'Understanding the laws of the universe.',
+      descriptionAr: 'فهم قوانين الكون',
       teachers: [
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png',
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png',
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png',
         'https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png'
       ],
-      coverImage: 'https://c.animaapp.com/6nrWQIOk/img/learning-material-cards-card1-cover-section-1@2x.png',
-      altText: 'Physics course cover image'
+      coverUrl: 'https://c.animaapp.com/6nrWQIOk/img/learning-material-cards-card1-cover-section-1@2x.png',
     },
     // ... add more materials
   ];
+  */
 
   showAll = false;
 
@@ -125,10 +132,18 @@ export class LearningMaterialsComponent implements OnInit {
         }
         else
         {
+          this.alertMessage.message = response.errorMessage; 
+          this.alertMessage.isDisplayed = true; 
+          this.customAlert.alert.next(this.alertMessage);
           alert(response.errorMessage);
         }
       },
-      error=>alert(`error during fetching learning subjects from API ${error}`)
+      error=>
+      {
+        this.alertMessage.message = `error during fetching learning subjects from API ${error}`;
+        this.alertMessage.isDisplayed = true;
+        this.customAlert.alert.next(this.alertMessage);
+      }
     );
 
   }

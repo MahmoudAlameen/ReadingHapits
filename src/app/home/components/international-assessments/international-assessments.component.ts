@@ -55,6 +55,9 @@ export class InternationalAssessmentsComponent implements OnInit {
         {
           console.log(response.modelList);
           this.exams = response.modelList;
+          this.exams.forEach(exam=>{
+            exam.iconSrc = `assets/images/international-assessments-cards/${exam.iconSrc}`;
+          })
         }
         else
         {

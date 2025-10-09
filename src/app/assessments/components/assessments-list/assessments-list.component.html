@@ -1,78 +1,55 @@
-    <div class="main-container">
-      <header class="app-header">
-        <h1 class="main-title">
-          International Assessments Center
-        </h1>
-        <p class="subtitle">
-          Displaying assessments available for your current grade (Grade {{ studentGrade }}).
-          <!-- Shows what ID is currently selected/filtered -->
-          <span *ngIf="selectedSubjectId"> (Subject ID: {{ selectedSubjectId }})</span>
-        </p>
-      </header>
+<div class="filter-controls-container">
+  <input
+    type="text"
+    placeholder="Search by assessment name..."
+    [value]="searchTerm"
+    (input)="updateSearch($event)"
+    class="filter-input search-input"
+  />
 
-      <!-- Filter & Search Controls (Flexbox) -->
-      <div class="filter-controls-container">
-        <!-- Search Input -->
-        <input
-          type="text"
-          placeholder="Search by assessment name..."
-          [value]="searchTerm"
-          (input)="updateSearch($event)"
-          class="filter-input search-input"
-        >
-        <!-- Subject Select Dropdown -->
-        <select
-          (change)="updateSubjectFilter($event)"
-          class="filter-input select-input"
-          [value]="selectedSubjectId"
-        >
-          <option value="" disabled selected>Select Subject</option>
-          <option value="">All Subjects</option>
-          <!-- Using learningSubjectsIds property directly -->
-          <option  [selected] = "selectedSubjectId == subject.id"  *ngFor="let subject of learningSubjectsIds" [value]="subject.id">{{ subject.name }}</option>
-        </select>
-        <select
-          (change)="updateAssessmentTypeFilter($event)"
-          class="filter-input select-input"
-          [value]="selectedAssessmentType">
-          <option value="" disabled selected>Select assessment type</option>
-          <option value="">All Assessments Types</option>
-          <!-- Using learningSubjectsIds property directly -->
-          <option  [selected] = "selectedAssessmentType == assessmentTYpe"  *ngFor="let assessmentTYpe of assessmentTypes" [value]="assessmentTYpe">{{ assessmentTYpe }}</option>
-        </select>
-        <!-- Reset Button -->
-        <button (click)="resetFilters()" class="reset-button">
-          Reset Filters
-        </button>
-      </div>
+  <select
+    (change)="updateSubjectFilter($event)"
+    class="filter-input select-input"
+    [value]="selectedSubjectId"
+  >
+    <option value="">{{'All Subjects' | translate}}</option>
+    <option *ngFor="let subject of learningSubjectsIds" [value]="subject.id">
+      {{ subject.name }}
+    </option>
+  </select>
 
-      <!-- Loading / No Results States -->
-      <div *ngIf="isLoading" class="status-state loading-state">
-        <div class="spinner"></div>
-        <p>Loading assessments...</p>
-      </div>
-      <div *ngIf="!isLoading && assessmentCategories.length === 0" class="status-state no-results-state">
-        <p class="no-results-title">No Assessments Found</p>
-        <p>Try adjusting your search term or subject filter.</p>
-      </div>
+  <select
+    (change)="updateAssessmentTypeFilter($event)"
+    class="filter-input select-input"
+  >
+    <option value="">{{'All Assessment Types' |translate}} </option>
+    <option
+      *ngFor="let typeName of assessmentTypeNames"
+      [value]="typeName"
+      [selected]="selectedAssessmentType !== null && getAssessmentTypeName(selectedAssessmentType) === typeName"
+    >
+      {{ typeName }}
+    </option>
+  </select>
 
-      <!-- Assessment Categories & Cards -->
-      <div *ngIf="assessmentCategories.length > 0" class="assessment-sections">
-        <section *ngFor="let category of assessmentCategories" class="assessment-section">
-          <h2 class="category-title">
-            {{ category.type }} Assessments
-            <span class="category-count">({{ category.assessments.length }} available)</span>
-          </h2>
+  <button (click)="resetFilters()" class="reset-button">
+      {{'Reset Filters'| translate}}
+  </button>
+</div>
 
-          <div class="card-grid">
-            <app-assessment-card
-              *ngFor="let assessment of category.assessments"
-              [assessment]="assessment"
-              (takeClicked)="takeAssessment($event)"
-            >
-            </app-assessment-card>
+<!-- when rendering categories, show the string name, not numeric -->
+<section *ngFor="let category of assessmentCategories" class="assessment-section">
+  <h2 class="category-title">
+    {{ getAssessmentTypeName(category.type) }} {{'Assessments' | translate }}
+    <span class="category-count">({{ category.assessments.length }} {{'available'| translate}})</span>
+  </h2>
 
-          </div>
-        </section>
-      </div>
-    </div>
+  <div class="card-grid">
+    <app-assessment-card
+      *ngFor="let assessment of category.assessments"
+      [assessment]="assessment"
+      (takeClicked)="takeAssessment($event)"
+    >
+    </app-assessment-card>
+  </div>
+</section>
