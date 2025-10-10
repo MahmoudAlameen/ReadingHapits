@@ -1,37 +1,146 @@
 
-.container
-{
-    width:100%;
-    height:100%;
+/* ------------------------------------------------ */
+/* ARABIC FONT STACK DEFINITION */
+/* This mixin or variable can be used for any element that needs to support Arabic */
+$font-stack-arabic: 'Arial', 'Tahoma', 'Geeza Pro', 'Segoe UI', 'sans-serif';
+
+/* ------------------------------------------------ */
+
+.container {
+    width: 100%;
     min-height: 490px;
-    color:black;
+    color: #1F2937;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:30px;
-    padding-inline: 30px;
-    margin-top: 50px;
-   // background: linear-gradient(to  left bottom , rgb(13, 59, 51),rgb(74, 98, 100),rgb(177, 189, 186));
-   //background-color: rgb(196, 187, 218) !important;;
+    gap: 2rem;
+    padding: 2rem 1rem;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+
+    /* Apply a default font stack, which will be overridden for Arabic by Angular's direction setting */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    /* Specific font family when Angular sets the text direction to RTL (Arabic) */
+    &[dir='rtl'] {
+        font-family: $font-stack-arabic;
+    }
 }
-.registerForm
-{
-    //background: linear-gradient(to  left bottom , rgb(88, 105, 105),rgb(90, 109, 110),rgb(177, 189, 186));
-    background-color: rgb(151, 192, 243)!important;;
-    align-self: center;
-    width:600px;
+
+/* Form Title Style */
+strong {
+    /* INCREASED FONT SIZE: 1.8rem -> 2rem */
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0369A1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #38BDF8;
+}
+
+.registerForm {
+background: linear-gradient(to bottom, #9ec5f5, #e5f0f8, #c9e1eb);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05), 0 3px 6px rgba(0, 0, 0, 0.1);
+    
+    width: 100%; 
+    max-width: 650px; 
+    
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding:20px
+    padding: 30px;
 }
-.registerForm >div
-{
+
+/* Individual Form Group (Label + Input) */
+.form-group, .form-column {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-inline: auto;
-    width:80%;
-    margin-top: 20px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%; 
+    margin-top: 1.5rem;
+    gap: 0.5rem; /* Slightly more space between label and input */
+}
+
+/* Labels */
+label {
+    font-weight: 600;
+    /* INCREASED FONT SIZE: 0.95rem -> 1.05rem */
+    font-size: 1.5rem; 
+    color: #1F2937;
+    margin-bottom: 0.25rem;
+}
+
+/* Inputs, Selects, and Textareas */
+.form-control {
+    width: 100%;
+    padding: 0.8rem 1rem; /* Slightly more padding */
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    /* INCREASED FONT SIZE: 1rem -> 1.05rem */
+    font-size: 1.05rem; 
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #F9FAFB;
+    color: #1F2937;
+}
+
+.form-control:focus {
+    border-color: #38BDF8;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.4);
+    outline: none;
+    background-color: #FFFFFF;
+}
+
+/* Invalid State */
+.is-invalid {
+    border-color: #EF4444 !important;
+}
+
+/* Error Messages */
+.text-danger {
+    color: #EF4444;
+    /* INCREASED FONT SIZE: 0.85rem -> 0.9rem */
+    font-size: 0.9rem; 
+    margin-top: 0.3rem;
+    font-style: italic;
+}
+
+/* Submit Button */
+.submit {
+    background-color: #0EA5E9;
+    color: white;
+    font-weight: 700;
+    /* INCREASED PADDING AND FONT SIZE */
+    padding: 1rem 1.8rem;
+    font-size: 1.15rem; 
+    
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+.submit:hover:not([disabled]) {
+    background-color: #0369A1;
+}
+
+.submit[disabled] {
+    background-color: #9CA3AF;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Media Queries for Tablet/Mobile */
+@media (max-width: 768px) {
+    strong {
+        font-size: 1.8rem; /* Scale down title slightly on small screens */
+    }
+    .form-control, label, .submit {
+        font-size: 1rem; /* Maintain good size but slightly smaller than desktop */
+    }
+    .registerForm {
+        padding: 20px;
+    }
 }

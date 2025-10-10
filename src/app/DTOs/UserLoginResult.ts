@@ -1,6 +1,6 @@
 export class UserLoginResult
 {
-    userId: string ='';
-    email:string = '';
-    name:string ='';
+    token: string ='';
+    expireDate?:Date ;
+    mustChangePassword:boolean = false;
 }

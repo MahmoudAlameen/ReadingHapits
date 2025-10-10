@@ -11,5 +11,6 @@ export class Student
     governate: string="";
     school: string="";
     password: string="";
-    role:Role=Role.Student
+    role:Role=Role.Student;
+    phoneNumber: string = '';
 }

@@ -63,6 +63,7 @@
     "Age" : "العمر" ,
     "Gender": "النوع",
     "Female" : "أنثى",
+    "Male" : "ذكر",
     "School" : "المدرسة",
     "enter the name of te school manually" : "ادخل اسم المدرسة يدوياً",
     "enter the name of the school" : "ادخل اسم المدرسة",

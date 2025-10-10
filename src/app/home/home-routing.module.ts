@@ -7,11 +7,12 @@ import { MainSectionComponent } from './components/main-section/main-section';
 import { PdfPreviewComponent } from '../shared/pdf-preview/pdf-preview.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { AuthGuard } from '../core/auth-guard.service';
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent,  },
   {path:"login",component:LoginComponent},
    {path:"register",component:RegisterComponent},
-  {path:'placementTest', component: PdfPreviewComponent},
+  {path:'placementTest', component: PdfPreviewComponent, canActivate: [AuthGuard]},
   {path: "about", component: AboutUsComponent}
 ];
 

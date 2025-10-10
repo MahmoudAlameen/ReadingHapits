@@ -3,10 +3,28 @@ import { RouterModule, Routes } from '@angular/router';
 import { AssessmentsComponent } from './assessments.component';
 import { RunAssessmentComponent } from './components/run-assessment/run-assessment.component';
 import { AssessmentsListComponent } from './components/assessments-list/assessments-list.component';
+import { AuthGuard} from '../core/auth-guard.service';
 
-const routes: Routes = [{ path: '', component: AssessmentsComponent },
-  {path: 'run-assessment', component: RunAssessmentComponent},
-  {path: 'list', component: AssessmentsListComponent}
+const routes: Routes = [
+  { 
+    path: '', 
+    component: AssessmentsComponent, // This is now the layout/parent component
+    canActivate: [AuthGuard],
+    children: [ // <-- Define sub-routes here
+      { 
+        path: '', // Full path: /assessments (Renders AssessmentsListComponent by default)
+        component: AssessmentsListComponent, 
+      },
+      { 
+        path: 'run-assessment', // Full path: /assessments/run-assessment
+        component: RunAssessmentComponent, 
+      },
+      { 
+        path: 'list', // Full path: /assessments/list
+        component: AssessmentsListComponent, 
+      }
+    ]
+  }
 ];
 
 @NgModule({

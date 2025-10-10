@@ -4,7 +4,11 @@ import {  SessionStorageKeysService } from 'src/app/core/SessionStorageKeysServi
 import { SessionStorageService } from 'src/app/core/SessionStorageService';
 import { UserService } from 'src/app/core/User.Service';
 import { TranslateService } from '@ngx-translate/core'; 
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { CustomAlertService } from 'src/app/core/custom-alert.service';
+import { AlertMessage } from 'src/app/classes/AlertMessage';
+import { AuthService } from 'src/app/core/auth.service';
+import { IUserClaims } from 'src/app/enums/users.enums';
 
 @Component({
   selector: 'app-header',
@@ -12,11 +16,20 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor(public translate: TranslateService)
+  currentUser$: Observable<IUserClaims | null>;
+  userEmail: string | null = null;
+  constructor(
+    public translate: TranslateService,
+     private userService: UserService,
+     private router: Router,
+     private customAlert: CustomAlertService,
+    private authService: AuthService)
   {
+    this.currentUser$ = this.authService.currentUser$;
 
   }
+
+  alertMessage: AlertMessage = new AlertMessage();
   private translateSub?: Subscription;
 
   languageButtonText : string = "EN";
@@ -40,6 +53,7 @@ export class HeaderComponent implements OnInit {
   ];
 
   ngOnInit() {
+
     this.languageButtonText = this.translate.currentLang === 'ar' ? 'EN' : 'AR';
     // Set up a listener for window resize to close the menu on desktop
     if (typeof window !== 'undefined') {
@@ -93,5 +107,31 @@ export class HeaderComponent implements OnInit {
       this.isOpen = false;
     }
   }
+
+ logout()
+ {
+  
+  this.authService.LogoutUser().subscribe(
+  response=>
+    {
+      if(response.isValid && response.model)
+        {
+          this.router.navigate(['login']); 
+        }
+      else
+      {
+        this.alertMessage.message = response.errorMessage;
+        this.alertMessage.isDisplayed = true;
+        this.customAlert.alert.next(this.alertMessage);
+      }
+    },
+    err=> 
+    {
+        this.alertMessage.message = err;
+        this.alertMessage.isDisplayed = true;
+        this.customAlert.alert.next(this.alertMessage);
+    }
+)}
+
 }
 

@@ -63,6 +63,7 @@
   "Age" : "Age",
   "Gender": "Gender",
   "Female" : "Female",
+  "Male": "Male",
   "School": "School",
   "enter the name of te school manually" : "enter the name of te school manually",
   "enter the name of the school" : "enter the name of the school",

@@ -1,14 +1,30 @@
 <section class="container container-fluid">
-    <form class="loginForm"  #loginForm="ngForm" (ngSubmmit)="loginUser()">
+    <form class="loginForm" #loginForm="ngForm" (ngSubmit)="loginUser()">
         <div class="form-group">
             <label>{{'user name' | translate}} </label>
-            <input type="text"  required [class.is-invalid]="userName.invalid && userName.touched" [(ngModel)]="logedUser.email" name="userName" #userName="ngModel"  class="form-control">
+            <input type="text" 
+                   required 
+                   [class.is-invalid]="userName.invalid && userName.touched" 
+                   [(ngModel)]="logedUser.email" 
+                   name="userName" 
+                   #userName="ngModel" 
+                   class="form-control">
         </div>
         <div class="form-group">
             <label>{{'password' | translate}}</label>
-            <input type="password" required [class.is-invalid]="password.invalid && password.touched" [(ngModel)]="logedUser.password" name="password" #password="ngModel"  class="form-control">
+            <input type="password" 
+                   required 
+                   [class.is-invalid]="password.invalid && password.touched" 
+                   [(ngModel)]="logedUser.password" 
+                   name="password" 
+                   #password="ngModel" 
+                   class="form-control">
         </div>
-         <input class="submit" type="submit"  [disabled]="userName.invalid || password.invalid" type="submit" [value]="'login' | translate">
+        
+        <input class="submit" 
+               type="submit" 
+               [disabled]="userName.invalid || password.invalid" 
+               [value]="'login' | translate">
     </form>
 </section>
 <!---->

@@ -2,9 +2,15 @@ main
 {
    // background-color:#fff !important; ;
     background: linear-gradient(#F0F9FF, #E8F5FF, #BAE6FD);
-    height: 100%;
+   //background: linear-gradient(to bottom, #ccdbf0, #7fbce8, #c3e2f0);
+ 
+   
+   height: 100%;
+    margin: 0;
+    padding: 0;
     display:flex;
     flex-direction: column;
+    min-height: 800px;
 }
 
 html, body {
@@ -24,6 +30,7 @@ body {
 {
     margin-top: 52px;
       flex-grow: 1; /* This is the key. It makes the content container fill all available space. */
+
 
 }
 

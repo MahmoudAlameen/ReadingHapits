@@ -7,6 +7,8 @@
   background: linear-gradient(90deg, #0f172a 0%, #1e3a8a 100%);
   color: #fff;
   gap: 2.5rem;
+  /* Removed position: relative and bottom: 0px as they are no longer needed
+     due to the global sticky footer setup. */
 }
 
 .container {
@@ -39,15 +41,17 @@
 h2, h3 {
   font-family: "Inter-Bold", Helvetica, sans-serif;
   font-weight: 700;
-  font-size: 1.125rem; /* 18px */
+  /* INCREASED: From 1.125rem (18px) to 1.25rem (20px) */
+  font-size: 1.25rem;
 }
 
 p {
   font-family: "Inter-Regular", Helvetica, sans-serif;
   font-weight: 400;
   color: #cbd5e1;
-  font-size: 0.8125rem; /* 13px */
-  line-height: 1.4;
+  /* INCREASED: From 0.8125rem (13px) to 0.9375rem (15px) */
+  font-size: 0.9375rem; 
+  line-height: 1.6; /* Improved line-height for readability */
 }
 
 .list {
@@ -60,7 +64,8 @@ p {
   color: #cbd5e1;
   font-family: "Inter-Regular", Helvetica, sans-serif;
   font-weight: 400;
-  font-size: 0.8125rem; /* 13px */
+  /* INCREASED: From 0.8125rem (13px) to 0.9375rem (15px) */
+  font-size: 0.9375rem; 
   transition: color 0.2s ease;
 }
 
@@ -85,7 +90,8 @@ p {
   border: none;
   background: none;
   width: 100%;
-  font-size: 0.8rem;
+  /* INCREASED: From 0.8rem to 0.9375rem (15px) */
+  font-size: 0.9375rem;
   color: #757575;
 }
 
@@ -98,11 +104,13 @@ p {
   color: #fff;
   border: none;
   border-radius: 6px;
-  padding: 0.625rem 0.9375rem;
+  /* Slightly more padding for a bigger button */
+  padding: 0.75rem 1rem;
   cursor: pointer;
   transition: background-color 0.2s ease;
   font-family: "Inter-Regular", Helvetica, sans-serif;
-  font-size: 0.8125rem;
+  /* INCREASED: From 0.8125rem (13px) to 0.9375rem (15px) */
+  font-size: 0.9375rem;
   font-weight: 400;
 }
 
@@ -128,7 +136,8 @@ p {
 }
 
 .social-icon {
-  font-size: 1.5rem; /* Adjust based on desired icon size */
+  /* INCREASED: From 1.5rem to 1.75rem for bigger icons */
+  font-size: 1.75rem;
   line-height: 1;
 }
 
@@ -139,8 +148,9 @@ p {
   text-align: center;
 }
 
-.p {
-  font-size: 0.75rem;
+.copyright-section .p { /* Target the paragraph specifically in this section */
+  /* INCREASED: From 0.75rem (12px) to 0.875rem (14px) */
+  font-size: 0.875rem;
   color: #94a3b8;
 }
 

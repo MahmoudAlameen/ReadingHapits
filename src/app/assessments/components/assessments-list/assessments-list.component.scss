@@ -1,12 +1,9 @@
 
-      /* -------------------------------------------------------------------
-      // GLOBAL & BASE STYLES (PURE CSS)
-      // ------------------------------------------------------------------- */
-      :host {
-        display: block;
-        font-family: 'Inter', sans-serif;
-      }
-
+.assessments-list
+{
+  display: flex;
+  flex-direction: column;
+}
       .main-container {
         /* NEW LIGHT GRADIENT BACKGROUND */
         background: linear-gradient(#F0F9FF, #E8F5FF, #BAE6FD);

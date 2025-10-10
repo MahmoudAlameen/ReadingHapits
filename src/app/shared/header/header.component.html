@@ -29,16 +29,21 @@
           </a>
 
           <!-- Sign Up Button (Outline) -->
-          <a navi class="signup-btn" routerLink="/register">
+          <a *ngIf="!(currentUser$ | async)" navi class="signup-btn" routerLink="/register">
             {{ 'Sign up' | translate}}
           </a>
 
           <!-- Sign In Button (Solid) -->
-          <a class="signin-btn" routerLink="/login">
+          <a *ngIf="!(currentUser$ | async)" class="signin-btn" routerLink="/login">
             {{ 'Sign In' | translate}}
           </a>
+          
+          <button *ngIf="currentUser$ | async" class="signin-btn"  (click)="logout()">
+            {{ 'Sign Out' | translate}}
+          </button>
+          
           <button class="lang-btn"  (click)="switchLanguage(languageButtonText)">{{languageButtonText}}</button>
-
+          <strong *ngIf="(currentUser$ |async) as user">{{user.email}}</strong>
         </div>
 
         <!-- Mobile Menu Button (Hamburger/X Icon - Hidden on desktop via media query) -->
