@@ -34,7 +34,12 @@ export class ReadingRoomsService {
   }
   getBook(bookId: string , userId: string): Observable<APIResponseModel<Book>>
   {
+    /*
     return this.http.get<APIResponseModel<Book>>(this.API.GetBook, {params:{bookId:bookId , userId : userId}}).pipe(
+      catchError((err)=>
+      throwError(()=>err.message))
+      */
+         return this.http.get<APIResponseModel<Book>>(this.API.GetBook, {params:{bookId:bookId , userId : userId}}).pipe(
       catchError((err)=>
       throwError(()=>err.message))
 

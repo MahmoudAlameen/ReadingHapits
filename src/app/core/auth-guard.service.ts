@@ -11,8 +11,16 @@ export class AuthGuard implements CanActivate {
     private authService : AuthService,
     private router: Router) { }
     canActivate(): boolean {
+      
+    const user = this.authService.getCurrentUserSnapshot();
       console.log("guard accessed .....")
     if (this.authService.isLoggedIn()) {
+
+      if(user?.mustChangePassword)
+      {
+        this.router.navigate(['/change-password']);
+        return false;
+      }
       return true; // Allow access
     } else {
       this.router.navigate(['/login']); // Redirect to login page

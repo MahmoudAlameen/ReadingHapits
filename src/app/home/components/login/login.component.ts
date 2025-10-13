@@ -66,7 +66,8 @@ export class LoginComponent implements OnInit {
       },
       err=>
       {
-                // Backend returns Unauthorized(401) on invalid credentials
+        
+        // Backend returns Unauthorized(401) on invalid credentials
         if ( err && err.status === 401) {
           // The backend message: "Email or Password is invalid" is directly in the error body
           loginError = this.translateService.currentLang == 'ar' ? "كلمه السر او الباسورد غير صحيحه" :  err.error || 'Invalid email or password.';

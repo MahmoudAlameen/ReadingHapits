@@ -97,4 +97,8 @@ export class AuthService {
     return !!this.currentUserSubject.value;
     // Check if token exists and optionally check if it's expired
   }
+  
+  public getCurrentUserSnapshot(): IUserClaims | null {
+    return this.currentUserSubject.value;
+  }
 }
