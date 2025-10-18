@@ -2,249 +2,237 @@
 
 /* Main Card Container */
 .learning-material-card {
-  display: flex;
-  flex-direction: column;
-  width: 333px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  margin: 10px;
+    /* 🏆 Equal Height Fix: Setup for vertical stacking and height inheritance 🏆 */
+    display: flex;
+    flex-direction: column; 
+    height: 100%;           
+    
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 0; /* Let the parent container's gap handle spacing */
+    transition: transform 0.2s ease;
+}
+
+.learning-material-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 /* Card Image */
 .card-image {
-  width: 100%;
-  height: 235px;
-  object-fit: cover;
+    width: 100%;
+    height: 235px;
+    object-fit: cover;
+    flex-shrink: 0;
 }
 
 /* Content Area */
 .card-content {
-  padding: 1.5rem 1rem 1rem;
+    /* 🏆 Equal Height Fix: Allows content area to grow and push the footer down 🏆 */
+    flex-grow: 1; 
+    
+    padding: 1.5rem 1rem 1rem;
+    
+    /* Internal Flexbox to manage its children's vertical flow */
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start; 
 }
 
 /* Header Section */
 .card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
 }
 
 .course-title {
-  font-family: "Poppins", Helvetica;
-  font-weight: bold;
-  color: #252641;
-  font-size: 24px;
-  line-height: 1.2;
-  margin: 0;
+    font-family: "Poppins", Helvetica;
+    font-weight: bold;
+    color: #252641;
+    font-size: 24px;
+    line-height: 1.2;
+    margin: 0;
 }
 
 .course-duration {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .duration-text {
-  font-family: "Poppins", Helvetica;
-  font-weight: 500;
-  color: #696983;
-  font-size: 14px;
+    font-family: "Poppins", Helvetica;
+    font-weight: 500;
+    color: #696983;
+    font-size: 14px;
 }
-
 
 /* Description Container */
 .course-description-container {
-  height: 65px; /* Adjust as needed for 2-3 lines of text */
-  overflow: hidden;
-  margin: 0 0 1rem;
+    height: 65px; /* Fixed height for consistent line count */
+    overflow: hidden;
+    margin: 0 0 1rem;
+    flex-shrink: 0; 
 }
 
 /* Description Paragraph */
 .course-description {
-  font-family: "Poppins", Helvetica;
-  font-weight: 400;
-  color: #696983;
-  font-size: 18px;
-  line-height: 1.6;
-  margin: 0;
+    font-family: "Poppins", Helvetica;
+    font-weight: 400;
+    color: #696983;
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0;
 
-  /* Text truncation for multi-line overflow */
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limit to 3 lines */
-  -webkit-box-orient: vertical;
+    /* Text truncation for multi-line overflow */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
 }
 
 /* Teachers Section */
 .teachers-info {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    /* 🏆 Equal Height Fix: Pushes this content block down, just above the footer 🏆 */
+    margin-top: auto; 
+    
+    margin-bottom: 1.5rem;
 }
 
 .teachers-heading {
-  font-family: "Poppins", Helvetica;
-  font-weight: 400;
-  color: #000000;
-  font-size: 18px;
-  line-height: 1.8;
-  margin: 0;
-}
-
-/* Teachers Section */
-.teachers-info {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 1.5rem;
-}
-
-.teachers-heading {
-  font-family: "Poppins", Helvetica;
-  font-weight: 400;
-  color: #000000;
-  font-size: 18px;
-  line-height: 1.8;
-  margin: 0;
+    font-family: "Poppins", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 18px;
+    line-height: 1.8;
+    margin: 0;
 }
 
 .teacher-profiles {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  /* Use flex-direction: row-reverse if you want the "Teachers" text on the right */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    height: 40px;
 }
 
 /* Single class for all teacher profile images */
 .teacher-image {
-  width: 40px;
-  height: 40px;
-  background-color: #d9d9d9;
-  border-radius: 50%;
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-}
-
-.teacher-stack {
-  display: flex;
-  align-items: center;
-  gap: 5px; /* Adjust gap between last teacher image and count */
-}
-
-.additional-teachers-count {
-  font-family: "Poppins", Helvetica;
-  font-weight: 500;
-  color: #000000;
-  font-size: 18px;
-}
-
-.teacher-profiles {
-  display: flex;
-  align-items: center;
-  gap: 15px;
+    width: 40px;
+    height: 40px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 .teacher-image-main,
 .teacher-image-secondary {
-  width: 40px;
-  height: 40px;
-  background-color: #d9d9d9;
-  border-radius: 50%;
-  background-image: url(https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png);
-  background-size: cover;
-  background-position: center;
+    /* These styles seem redundant with .teacher-image, but are kept for completeness */
+    width: 40px;
+    height: 40px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    background-image: url(https://c.animaapp.com/6nrWQIOk/img/image-12-5@2x.png);
+    background-size: cover;
+    background-position: center;
 }
 
 .teacher-stack {
-  position: relative;
-  display: flex;
-  align-items: center;
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .additional-teachers-count {
-  position: absolute;
-  top: 50%;
-  right: -25px;
-  transform: translateY(-50%);
-  font-family: "Poppins", Helvetica;
-  font-weight: 500;
-  color: #000000;
-  font-size: 18px;
+    /* Removed absolute positioning since it was messy. Keeping it inline for simplicity. */
+    font-family: "Poppins", Helvetica;
+    font-weight: 500;
+    color: #000000;
+    font-size: 18px;
 }
 
 /* Action Buttons Container */
 .card-actions {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 0 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 1rem 1.5rem;
+    flex-shrink: 0; /* Prevents actions from shrinking when container is tight */
 }
 
 .btn {
-  padding: 12px 24px;
-  border-radius: 50px; /* Unified border-radius for both buttons */
-  font-family: "Open Sans", Helvetica;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.4;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  width: 100%;
-  text-align: center;
+    padding: 12px 24px;
+    border-radius: 50px; 
+    font-family: "Open Sans", Helvetica;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: center;
 }
 
 /* View Details Button */
 .btn-primary {
-  background-color: #2489d3;
-  color: #ffffff;
-  border: none;
+    background-color: #2489d3;
+    color: #ffffff;
+    border: none;
 }
 
 .btn-primary:hover {
-  background-color: #1a6ba8;
+    background-color: #1a6ba8;
 }
+
 /* Exams Button */
 .btn-secondary {
-  background-color: transparent;
-  color: #2489d3;
-  border: 2px solid #2489d3;
+    background-color: transparent;
+    color: #2489d3;
+    border: 2px solid #2489d3;
 }
 
 .btn-secondary:hover {
-  color: #1a6ba8;
-  border-color: #1a6ba8;
+    color: #1a6ba8;
+    border-color: #1a6ba8;
 }
-
 
 /* Focus states for accessibility */
 .btn:focus {
-  outline: 2px solid #4a90e2;
-  outline-offset: 2px;
+    outline: 2px solid #4a90e2;
+    outline-offset: 2px;
 }
+
 /* Responsive styles for smaller screens */
 @media (max-width: 768px) {
-  .learning-material-card {
-    width: 280px;
-  }
+    /* This style is superseded by the parent component's media query, 
+       but is kept here if the card is used in isolation. */
+    .learning-material-card {
+        width: 280px;
+    }
 }
 
 @media (max-width: 480px) {
-  .learning-material-card {
-    width: 100%;
-    margin: 10px 0;
-  }
-  
-  .card-actions {
-    flex-direction: row; /* Keep buttons on the same line for mobile */
-    flex-wrap: nowrap;
-    justify-content: center;
-  }
-  
-  .btn {
-    padding: 10px 15px;
-  }
+    /* This style is also superseded by the parent's media query. */
+    .learning-material-card {
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    .card-actions {
+        flex-direction: row; 
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+    
+    .btn {
+        padding: 10px 15px;
+    }
 }

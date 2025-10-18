@@ -101,4 +101,19 @@ export class AuthService {
   public getCurrentUserSnapshot(): IUserClaims | null {
     return this.currentUserSubject.value;
   }
+
+    handleUnauthorized(): void {
+    // 1. Clear any local or session storage (e.g., JWT token, user state)
+    // Example: localStorage.removeItem('authToken');
+    
+    // 2. Clear any active user session in your state management (e.g., NGRX, Signals, Context)
+    // this.userStore.clearUser();
+
+    // 3. Navigate the user to the login page
+  }
+  
+  // Example placeholder function for token retrieval
+  // getAuthToken(): string | null {
+  //   return localStorage.getItem('authToken');
+  // }
 }

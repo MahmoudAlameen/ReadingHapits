@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router'; // Added Router for navigation methods
 import { finalize } from 'rxjs';
 import { AlertMessage } from 'src/app/classes/AlertMessage';
 import { AssessmentsService } from 'src/app/core/assessments.service';
@@ -7,7 +7,7 @@ import { CustomAlertService } from 'src/app/core/custom-alert.service';
 import { LearningSubjectService } from 'src/app/core/learning-subject.service';
 import { IAssessmentCard } from 'src/app/DTOs/assessments.interfaces';
 import { IIdWithName } from 'src/app/DTOs/shared.interfaces';
-import { AssessmentType } from 'src/app/enums/assessments.enums';
+import { AssessmentType, AssessmentStatus } from 'src/app/enums/assessments.enums'; // Assuming AssessmentStatus is needed
 
 @Component({
   selector: 'app-assessments-list',
@@ -18,6 +18,7 @@ export class AssessmentsListComponent implements OnInit {
   private assessmentsService = inject(AssessmentsService);
   private customAlert = inject(CustomAlertService);
   private route = inject(ActivatedRoute);
+  private router = inject(Router); // Inject Router for navigation
   private learningSubjectService = inject(LearningSubjectService);
 
   gradeId? : string  = '';
@@ -28,6 +29,9 @@ export class AssessmentsListComponent implements OnInit {
   public selectedAssessmentType: AssessmentType | null = null ;
   public learningSubjectsIds: IIdWithName[] = [];
   public alertMessage: AlertMessage = new AlertMessage();
+
+  // Property to hold the categorized data (replaces the getter)
+  public categorizedAssessments: { type: AssessmentType, assessments: IAssessmentCard[] }[] = [];
 
   // UI-friendly names (string keys) for the enum (e.g. "PISA", "PIRLS" ...)
   public assessmentTypeNames: string[] = Object.keys(AssessmentType).filter(k => isNaN(Number(k)));
@@ -65,7 +69,32 @@ export class AssessmentsListComponent implements OnInit {
 
   public getAssessmentTypeName(type: AssessmentType | null): string {
     if (type === null || type === undefined) return '';
+    // Maps the numeric enum value back to its string name for display/URL encoding
     return (AssessmentType as any)[type] ?? '';
+  }
+  
+  /** Maps the AssessmentStatus enum value to a human-readable Arabic string. */
+  getAssessmentStatusText(status: AssessmentStatus): string {
+    switch (status) {
+      case AssessmentStatus.New: return 'جديد';
+      case AssessmentStatus.InReview: return 'قيد المراجعة';
+      case AssessmentStatus.Approved: return 'مُعتمد';
+      case AssessmentStatus.Rejected: return 'مرفوض';
+      case AssessmentStatus.Published: return 'مُنشر';
+      default: return 'غير محدد';
+    }
+  }
+
+  /** Returns the CSS class corresponding to the assessment status for badge coloring. */
+  getAssessmentStatusClass(status: AssessmentStatus): string {
+    switch (status) {
+      case AssessmentStatus.New: return 'status-new';
+      case AssessmentStatus.InReview: return 'status-review';
+      case AssessmentStatus.Approved: return 'status-approved';
+      case AssessmentStatus.Rejected: return 'status-rejected';
+      case AssessmentStatus.Published: return 'status-published';
+      default: return 'status-default';
+    }
   }
 
   getLearningSubjectIds() {
@@ -103,11 +132,11 @@ export class AssessmentsListComponent implements OnInit {
       ).subscribe(
         res =>
         {
-
-        
           if(res.isValid && res.modelList != null)
           {
             this.assessments = res.modelList;
+            // 🔑 Function called directly to categorize data after fetch
+            this.updateAssessmentCategories(); 
           }
           else
           {
@@ -128,8 +157,8 @@ export class AssessmentsListComponent implements OnInit {
       );
   }
 
-  /** Groups fetched assessments into categories by enum value (numeric). */
-  get assessmentCategories(): { type: AssessmentType, assessments: IAssessmentCard[] }[] {
+  /** Groups fetched assessments into categories and assigns to public property. */
+  private updateAssessmentCategories(): void {
     const groups = this.assessments.reduce((acc, assessment) => {
       // support both numeric and named type in assessment payload
       let typeValue: AssessmentType | null = null;
@@ -156,7 +185,7 @@ export class AssessmentsListComponent implements OnInit {
       AssessmentType.Ordinary
     ];
 
-    return typeOrder
+    this.categorizedAssessments = typeOrder
       .map(type => ({ type, assessments: groups[type as unknown as number] || [] }))
       .filter(category => category.assessments.length > 0);
   }
@@ -199,4 +228,22 @@ export class AssessmentsListComponent implements OnInit {
     this.alertMessage.isDisplayed = true;
     this.customAlert.alert.next(this.alertMessage);
   }
+  
+  // Placeholder for methods used in template navigation
+  trackByFn(index: number, item: IAssessmentCard): string | number {
+    return item.id;
+  }
+  
+  goToAssessmentBuilder(id?: string): void {
+    if(id) {
+      this.router.navigate(['/platform/assessments/build', id]);
+    } else {
+      this.router.navigate(['/platform/assessments/build']);
+    }
+  }
+
+  viewDetails(id: string): void {
+    this.router.navigate(['/platform/assessments/details', id]);
+  }
 }
+

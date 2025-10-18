@@ -119,5 +119,9 @@
   "All Assessment Types": "كل أنواع التقييمات",
   "Reset Filters": "إعادة تعيين الفلاتر",
   "Assessments" : "التقييمات",
-  "available": "متاح"
+  "available": "متاح",
+  "select grade" : "اختر الصف",
+  "All Grades": "كل الصفوف",
+  "Ordinary": "عادى",
+  "duration in minutes": "الزمن بالدقائق"
 }

@@ -79,10 +79,10 @@ export class BookCardComponent {
   // Method to handle a book being clicked, e.g., to navigate or open a detail view
   onBookClick(): void {
     console.log(`Book "${this.book.title}" was clicked.`);
-    if(this.book.resourceContentType == ResourceContentType.textPages)
+    if(this.book.resourceContentType == ResourceContentType.Text)
       this.router.navigate(["/book",this.book.id])
     else
-      this.router.navigate(["/pdf-preview",this.book.id])
+      this.router.navigate(["/preview-pdf",this.book.id])
 
     // Here you would add navigation or a modal for the book details.
   }

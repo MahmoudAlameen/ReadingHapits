@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AssessmentState, IAssessmentCard, IAssessmentData, IExamResult, IQuestion, IUserAnswer } from '../DTOs/assessments.interfaces';
+import { AssessmentState, IAssessmentCard, IAssessmentData, IAssessmentMeta, IExamResult, IQuestion, IStartAssessmentResponse, IUserAnswer } from '../DTOs/assessments.interfaces';
 import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { AssessmentStatus, AssessmentType } from '../enums/assessments.enums';
 import { IIdWithName } from '../DTOs/shared.interfaces';
-import { APIResponseModelList } from '../classes/APIResponse';
-import { HttpClient } from '@angular/common/http';
+import { APIResponseModel, APIResponseModelList } from '../classes/APIResponse';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { APIService } from './API.Service';
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class AssessmentsService {
 /** Mock database of assessment cards. (Renamed from MOCK_ASSESSMENTS) */
  MOCK_ASSESSMENTSCards: IAssessmentCard[] = [
   { id: 101, name: 'PISA Global Literacy 2024', type: AssessmentType.PISA, durationMinutes: 120, subject: 'Language Arts', grade: 10, status: AssessmentStatus.Published },
-  { id: 102, name: 'TIMMS Advanced Calculus', type: AssessmentType.TIMMS, durationMinutes: 90, subject: 'Mathematics', grade: 10, status: AssessmentStatus.ComingSoon },
+  { id: 102, name: 'TIMMS Advanced Calculus', type: AssessmentType.TIMMS, durationMinutes: 90, subject: 'Mathematics', grade: 10, status: AssessmentStatus.New },
   { id: 103, name: 'PIRLS Reading Comprehension', type: AssessmentType.PIRLS, durationMinutes: 75, subject: 'Language Arts', grade: 10, status: AssessmentStatus.Finished },
   { id: 104, name: 'Ordinary Biology Midterm', type: AssessmentType.Ordinary, durationMinutes: 50, subject: 'Science', grade: 10, status: AssessmentStatus.Published },
   { id: 105, name: 'PISA Scientific Thinking', type: AssessmentType.PISA, durationMinutes: 100, subject: 'Science', grade: 10, status: AssessmentStatus.Published },
@@ -117,7 +117,8 @@ fetchAssessmentsByGrade(
             name: 'Introduction to Angular Concepts',
             durationInMinutes: 15, // 15 minutes duration
             subjectName: 'Front-End Development',
-            isStarted: false 
+            isStarted: false ,
+            remainingTimeInMinutes: 5
         },
         questions: [
             {
@@ -217,7 +218,7 @@ fetchAssessmentsByGrade(
 
     /**
      * Start the assessment.
-     */
+     
     public startAssessment(): void {
         const data = this.assessmentData.getValue();
         if (data) {
@@ -226,6 +227,7 @@ fetchAssessmentsByGrade(
             console.log(`[MOCK SQL API] Marking assessment ${data.meta.id} as started.`);
         }
     }
+        */
 
     /**
      * SIMULATES API CALL to save a single answer to your SQL backend.
@@ -240,6 +242,7 @@ fetchAssessmentsByGrade(
     /**
      * SIMULATES API CALL to submit the final assessment results and then fetch them.
      */
+    /*
     public async finishAssessment(): Promise<void> {
         // Step 1: Submission Confirmation
         this.assessmentState.next('finished');
@@ -251,6 +254,7 @@ fetchAssessmentsByGrade(
         // Step 2: Retrieve Results
         await this.fetchResults();
     }
+        */
     
     /**
      * SIMULATES API CALL to retrieve the final results of the exam.
@@ -299,5 +303,78 @@ fetchAssessmentsByGrade(
         this.examResult$.next(result);
         this.assessmentState.next('results'); // Transition to the results view
         console.log("Exam results received and ready for display.");
+    }
+
+    /**
+     * Calls the run-assessment-meta GET endpoint.
+     */
+    runAssessmentMetaData(assessmentId: string): Observable<APIResponseModel<IAssessmentMeta>> {
+        const params = new HttpParams().set('assessmentId', assessmentId);
+        return this.http.get<APIResponseModel<IAssessmentMeta>>(`${this.API.runAssessmentMeta}${assessmentId}`, { params })
+        .pipe(
+          catchError((err)=>{
+            return throwError(()=>err.message);
+      }))
+  }
+
+    /**
+     * Calls the Start POST endpoint.
+     */
+    startAssessment(assessmentId: string): Observable<APIResponseModel<IStartAssessmentResponse>> {
+        // The endpoint is parameterized: assessments/Start/{assessmentId}
+        return this.http.post<APIResponseModel<IStartAssessmentResponse>>(`${this.API.startAssessment}${assessmentId}`, {})
+         .pipe(
+          catchError((err)=>{
+            return throwError(()=>err.message);
+      }));
+    }
+
+    /**
+     * Calls the questions GET endpoint.
+     */
+    getQuestionsByAssessmentId(assessmentId: string): Observable<APIResponseModelList<IQuestion>> {
+        return this.http.get<APIResponseModelList<IQuestion>>(`${this.API.getAssessmentQuestions}${assessmentId}`)
+         .pipe(
+          catchError((err)=>{
+            return throwError(()=>err.message);
+      }));
+    }
+
+    /**
+     * Placeholder for the Answer Question API call.
+     * Assuming a POST to save the answer, and it returns a validation result.
+     */
+    answerQuestion(assessmentId: string, answer: IUserAnswer): Observable<APIResponseModel<string>> {
+        // Assuming a new API endpoint 'assessments/answer-question'
+        const payload = {
+            assessmentId: assessmentId,
+            questionId: answer.questionId,
+            UserAnswer: answer.selectedChoiceId
+        };
+        return this.http.post<APIResponseModel<any>>(`${this.API.saveAnswer}`, payload)
+        .pipe(
+          catchError((err)=>{
+            return throwError(()=>err.message);
+      }));;
+    }
+
+    /**
+     * Placeholder for the Finish Assessment API call.
+     * Assuming a POST to submit all answers and finish the exam.
+     */
+    finishAssessment(assessmentId: string, answers: Record<string, IUserAnswer>): Observable<APIResponseModel<IExamResult>> {
+        // Here you would typically submit the current answers state
+        const payload = {
+            assessmentId: assessmentId,
+            answers: Object.values(answers).map(a => ({
+                questionId: a.questionId,
+                selectedChoiceId: a.selectedChoiceId
+            }))
+        };
+        // Assuming a new API endpoint 'assessments/Finish'
+        return this.http.post<APIResponseModel<IExamResult>>(`${this.API.finishAssessment}`, payload)
+        .pipe(catchError((err)=>{
+            return throwError(()=>err.message);
+      }));;
     }
 }

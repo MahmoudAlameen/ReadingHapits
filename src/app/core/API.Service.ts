@@ -35,6 +35,15 @@ export class APIService
     examsBySubjectId = this.base + "assessments/subject/";
     gradesIds = this.base + "grades-Ids";
     assessmentsList = this.base + "assessments";
+    getUserGrade = this.base + "users/grade";
+    resourcePages = this.base + "learning-resources/resourcepages/";
+    runAssessmentMeta = this.base + "assessments/run-assessment-meta/";
+    startAssessment = this.base + "assessments/Start/";
+    finishAssessment = this.base + "assessments/finish";
+    submitAnswer = this.base + "assessments/submit-answer/";
+    getAssessmentQuestions = this.base + "assessments/questions/";
+    saveAnswer = this.base + "assessments/save-answer";
+
 
 
     constructor()

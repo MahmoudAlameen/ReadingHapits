@@ -1,5 +1,6 @@
 
 import { Component, OnInit, Input, Output, EventEmitter, Pipe, PipeTransform } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ILearningResourceCard } from 'src/app/DTOs/ILearningSubjectDetails';
 import { LearningResourceStatus, LearningResourceType } from 'src/app/enums/learning-resources.enums';
@@ -38,10 +39,9 @@ export class LearningResourceCardComponent implements OnInit {
         [LearningResourceType.Vedio]: "فيديو",
     };
     arabiContentResourceTypeStatus: Record<ResourceContentType, string> = {
-        [ResourceContentType.textPages]: "نص مكتوب",
-        [ResourceContentType.pdf]: "ملف PDF",
-        [ResourceContentType.ePub]: "ملف EPUB",
-        [ResourceContentType.HTML]: "ملف HTML"
+        [ResourceContentType.Text]: "نص مكتوب",
+        [ResourceContentType.Pdf]: "ملف PDF",
+        [ResourceContentType.EPUB]: "ملف EPUB",
     }
     arabicResourceStatus: Record<LearningResourceStatus, string> = {
         [LearningResourceStatus.Draft]: "مسودة",
@@ -51,7 +51,9 @@ export class LearningResourceCardComponent implements OnInit {
         [LearningResourceStatus.Published]: "تم النشر"
     }
 
-    constructor(private translateService: TranslateService)
+    constructor(
+        private translateService: TranslateService,
+        private router: Router)
     {}
 
     ngOnInit(): void 
@@ -75,8 +77,18 @@ export class LearningResourceCardComponent implements OnInit {
 
     // Action Handlers
     onViewClick(): void {
-        this.viewClicked.emit(this.resource);
-    }
+        console.log(this.resource.id)
+        if(this.resource.contentResourceType == ResourceContentType.Text)
+        {
+            if(this.resource.resourceType == LearningResourceType.Book)
+                this.router.navigate(['learning-subjects/book', this.resource.id]);
+            if(this.resource.resourceType == LearningResourceType.Article)
+                this.router.navigate(['learning-subjects/article', this.resource.id])
+        }
+        else
+            this.router.navigate(['learning-subjects/preview-pdf'], {
+            queryParams:{pdfUrl: this.resource.fileUrl}
+        }) }
 
 
 }

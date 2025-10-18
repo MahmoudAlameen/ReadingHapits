@@ -2,7 +2,7 @@ import { ThisReceiver } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {LearningSubjectService} from '../core/learning-subject.service';
-import { ISubjectAssessmentCard, ILearningSubjectDetails } from '../DTOs/ILearningSubjectDetails';
+import { ISubjectAssessmentCard, ILearningSubjectDetails, ILearningResourceCard } from '../DTOs/ILearningSubjectDetails';
 import { ResourceContentType } from 'src/app/enums/resource-content-type'
 import { LearningResourcesService } from '../core/learning-resources.service';
 import { LearningResourceStatus, LearningResourceType } from '../enums/learning-resources.enums';
@@ -13,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { APIService } from '../core/API.Service';
 import { IIdWithName } from '../DTOs/shared.interfaces';
 import { AssessmentType } from 'src/app/enums/assessments.enums';
+import { APIResponse } from '../classes/APIResponse';
 
 
 @Component({
@@ -33,6 +34,8 @@ export class LearningSubjectComponent implements OnInit {
    pisaExams : ISubjectAssessmentCard[] = [];
    timssExams: ISubjectAssessmentCard[] = [];
    pirlsExams: ISubjectAssessmentCard[] = [];
+   ordinaryExams : ISubjectAssessmentCard[] = [];
+   isLoading: boolean = false;
 
   // Data for the components
   /*
@@ -72,6 +75,7 @@ export class LearningSubjectComponent implements OnInit {
   fetchData(): void {
     // In a real application, you would make HTTP requests here
     // For example: this.http.get('api/books').subscribe(data => this.books = data);
+    this.isLoading = true;
 
     this.learningSubjectService.getLearningSubjectDetails(this.subjectId).subscribe(
       response=>
@@ -101,6 +105,7 @@ export class LearningSubjectComponent implements OnInit {
 
           this.GetLearningResources(this.learningSubject.Id, undefined,  LearningResourceStatus.Published);
           this.getExamsBySubjectId(this.learningSubject.Id);
+
         }
         else
         {
@@ -142,6 +147,7 @@ export class LearningSubjectComponent implements OnInit {
       {
         let gradeId = param.get("gradeId");
         gradeId != null ? this.gradeLevel= gradeId : this.gradeLevel;
+        this.selectedGradeId = gradeId?? '';
         this.getGrades();
 
       }
@@ -156,7 +162,16 @@ export class LearningSubjectComponent implements OnInit {
       {
         if(response.isValid && response.modelList)
         {
-          var resources = response.modelList;
+          var resources  = response.modelList.map(t => ({
+                        ...t,
+                        coverUrl: t.coverUrl != null
+                        ? `${this.API.base}LearningResources/Covers/${t.coverUrl}`
+                        : t.coverUrl,
+                        fileUrl: t.fileUrl != null
+                        ? `${this.API.base}LearningResources/Files/${t.fileUrl}`
+                        : t.coverUrl
+                    } as ILearningResourceCard));
+          
           this.learningSubject.books = resources?.filter(r => r.resourceType == LearningResourceType.Book);
           this.learningSubject.articles = resources?.filter(r => r.resourceType == LearningResourceType.Article);
         }
@@ -180,7 +195,7 @@ export class LearningSubjectComponent implements OnInit {
 
   getExamsBySubjectId(subjectId: string)
   {
-    this.internationalAssessmentService.getExamsBySubjectId(this.subjectId).subscribe(
+    this.internationalAssessmentService.getExamsBySubjectId(this.subjectId, this.selectedGradeId).subscribe(
       response=>
       {
         if(response.isValid && response.modelList)
@@ -189,6 +204,7 @@ export class LearningSubjectComponent implements OnInit {
           this.pisaExams = this.learningSubject.exams?.filter(e => e.type == AssessmentType.PISA)
           this.pirlsExams = this.learningSubject.exams?.filter(e => e.type == AssessmentType.PIRLS)
           this.timssExams = this.learningSubject.exams?.filter(e => e.type == AssessmentType.TIMMS)
+          this.ordinaryExams = this.learningSubject.exams?.filter(e => e.type == AssessmentType.Ordinary)
         }
         else
         {
@@ -196,12 +212,14 @@ export class LearningSubjectComponent implements OnInit {
           this.alertMessage.isDisplayed = true;
           this.customAlert.alert.next(this.alertMessage); 
         }
+        this.isLoading = false;
       },
       error=>
         {
           this.alertMessage.isDisplayed = true;
           this.alertMessage.message = `error during fetching reading rooms fromm API ${error}`;
           this.customAlert.alert.next(this.alertMessage);
+          this.isLoading = false;
         }
     )
     

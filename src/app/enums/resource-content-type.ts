@@ -1,7 +1,6 @@
 export enum ResourceContentType
 {
-    textPages = 1,
-    pdf = 2,
-    ePub = 3,
-    HTML
+  Pdf =1,
+  EPUB =2,
+  Text =3,
 }

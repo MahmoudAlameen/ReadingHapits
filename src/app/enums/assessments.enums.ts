@@ -1,7 +1,10 @@
 export enum AssessmentStatus {
-  Published = 'Published',
-  Finished = 'Finished',
-  ComingSoon = 'Coming Soon'
+  New = 1,
+  InReview = 2,
+  Approved = 3,
+  Rejected = 4,
+  Published = 5,
+  Finished = 6
 }
 
 export enum AssessmentType

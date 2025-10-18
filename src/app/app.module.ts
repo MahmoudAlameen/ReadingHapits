@@ -13,6 +13,7 @@ import { DirDirective } from './customDirectives/dir.directive';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 // Function to tell the JwtModule where to find the token
 export function tokenGetter() {
@@ -52,7 +53,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -49,16 +49,25 @@ export class ArticleComponent implements OnInit {
 
   getArticleContent()
   {
-    this.readingRoomService.getArticle(this.articleId).subscribe(
+    this.readingRoomService.getBook(this.articleId).subscribe(
       response=> 
       {
-        if(response.isValid)
+        if(response.isValid && response.model)
         {
-          this.article= response.model as Article;
+          this.article = new Article();
+          this.article.id  = response.model.id, 
+          this.article.level = response.model.level,
+          this.article.name = response.model.name,
+          this.article.pages = response.model.pages.map(p=>({
+            ...p,
+            articleId : p.bookId
+            
+          })),
+          this.article.roomId = response.model.roomId
           this.articlePages= this.article.pages;
           console.log(this.articlePages[this.displayedPage]);
+       }
           
-        }
         else
         {
           this.alertMessage.message = `${response.errorMessage}`;

@@ -4,6 +4,7 @@ import { AssessmentsComponent } from './assessments.component';
 import { RunAssessmentComponent } from './components/run-assessment/run-assessment.component';
 import { AssessmentsListComponent } from './components/assessments-list/assessments-list.component';
 import { AuthGuard} from '../core/auth-guard.service';
+import { AssessmentResultComponent } from './components/assessment-result/assessment-result.component';
 
 const routes: Routes = [
   { 
@@ -16,12 +17,16 @@ const routes: Routes = [
         component: AssessmentsListComponent, 
       },
       { 
-        path: 'run-assessment', // Full path: /assessments/run-assessment
+        path: 'run-assessment/:id', // Full path: /assessments/run-assessment
         component: RunAssessmentComponent, 
       },
       { 
         path: 'list', // Full path: /assessments/list
         component: AssessmentsListComponent, 
+      },
+      {
+        path: 'view-result/:id',
+        component: AssessmentResultComponent
       }
     ]
   }

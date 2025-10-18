@@ -32,17 +32,22 @@ export class ReadingRoomsService {
       throwError(()=>err.message))
     )
   }
-  getBook(bookId: string , userId: string): Observable<APIResponseModel<Book>>
+  getBook(bookId: string): Observable<APIResponseModel<Book>>
   {
     /*
     return this.http.get<APIResponseModel<Book>>(this.API.GetBook, {params:{bookId:bookId , userId : userId}}).pipe(
       catchError((err)=>
       throwError(()=>err.message))
-      */
+      
          return this.http.get<APIResponseModel<Book>>(this.API.GetBook, {params:{bookId:bookId , userId : userId}}).pipe(
       catchError((err)=>
       throwError(()=>err.message))
 
+    )
+      */
+         return this.http.get<APIResponseModel<Book>>(this.API.resourcePages + bookId).pipe(
+      catchError((err)=>
+      throwError(()=>err.message))
     )
   }
   getArticle(articleId : string): Observable<APIResponseModel<Article>>

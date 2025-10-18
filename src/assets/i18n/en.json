@@ -117,6 +117,10 @@
   "All Assessment Types": "All Assessment Types",
   "Reset Filters": "Reset Filters",
   "Assessments": "Assessments",
-  "available": "available"
+  "available": "available",
+  "select grade" : "select grade",
+  "All Grades": "All Grades",
+  "Ordinary" : "Ordinary",
+  "duration in minutes": "duration in minutes"
   
 }

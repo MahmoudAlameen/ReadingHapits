@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, destroyPlatform } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { debug } from 'console';
 import { APIService } from 'src/app/core/API.Service';
+import { UserService } from 'src/app/core/User.Service';
 import { ILearningSubjectCard } from 'src/app/DTOs/ILearningSubjectCard';
 
 @Component({
@@ -16,14 +18,30 @@ displayedDescription: string = '';
 
 onViewDetails(learningSubjectId: string): void {
 // Implement view details logic
-this.router.navigate(['/learning-subject', learningSubjectId]);
+this.userService.studentGrade.subscribe(g =>
+{
+    var gradeId = this.userService.studentGrade.value?.id;
+
+  this.router.navigate(['/learning-subject', learningSubjectId],
+    {queryParams: {gradeId: gradeId}}
+  );
+}
+
+
+)
 }
 
 onViewExams(): void {
+  var gradeId = this.userService.studentGrade.value?.id;
+
+     this.router.navigate(['/assessments/list'], { queryParams: { selectedSubject: this.material?.id, gradeId: gradeId } });
 // Implement view exams logic
- this.router.navigate(['/assessments/list'], { queryParams: { selectedSubject: this.material?.id } });
 }
-  constructor(private router : Router, private translateService: TranslateService, private API: APIService) { }
+  constructor(
+    private router : Router,
+    private translateService: TranslateService,
+    private API: APIService,
+  private userService: UserService) { }
 
   ngOnInit(): void {
     this.displayedName = this.translateService.currentLang === 'ar'  ? this.material.nameAr : this.material.nameEn;

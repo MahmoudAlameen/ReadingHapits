@@ -13,4 +13,5 @@ export class Student
     password: string="";
     role:Role=Role.Student;
     phoneNumber: string = '';
+    gradeId: string = '';
 }

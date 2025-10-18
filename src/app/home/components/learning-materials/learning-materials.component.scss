@@ -1,81 +1,99 @@
 /* learning-materials.component.scss */
+
+// Global styles (Assuming these are what you intended to keep)
 .learning-materials-container {
-  padding: 20px;
+    padding: 20px;
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .header-title {
-  font-family: "Poppins", Helvetica;
-  font-weight: 500;
-  font-size: 28px;
-  color: #252641;
+    font-family: "Poppins", Helvetica;
+    font-weight: 500;
+    font-size: 28px;
+    color: #252641;
 }
 
 .see-all-link {
-  font-family: "Poppins", Helvetica;
-  font-weight: 400;
-  color: #252641;
-  font-size: 15px;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
+    font-family: "Poppins", Helvetica;
+    font-weight: 400;
+    color: #252641;
+    font-size: 15px;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
+/* 🏆 Equal Height Flexbox Setup (4 cards per row) 🏆 */
 .cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+    display: flex;       /* Enable Flexbox */
+    flex-wrap: wrap;     /* Allow cards to wrap to next line */
+    align-items: stretch; /* Default, but ensures all items stretch to tallest height */
+    gap: 20px;           /* Use modern gap for consistent spacing between cards */
+    justify-content: center;
+    padding: 0;
+    margin: 0; /* Reset margins if using gap */
 }
 
-/* Responsive styles for the parent container */
+app-learning-material-card {
+    /* 4 cards per row: (100% - 3*gap) / 4 */
+    /* Calculation for 4 cards with 20px gap: (100% - 3 * 20px) / 4 = 25% - 15px */
+    width: calc(25% - 15px); 
+    
+    // 👇 CRUCIAL FIX: Make the host element fill the height from Flexbox
+    height: 100%; 
+    
+    // Use display: block for the custom component to ensure it's a proper flex item
+    display: block; 
+}
+
+
+/* Responsive styles */
 @media (min-width: 1200px) {
-  .cards-container {
-    justify-content: flex-start;
-  }
+    .cards-container {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 1024px) {
+    /* 3 cards per row on tablets/laptops */
+    app-learning-material-card {
+        width: calc(33.333% - 13.333px); /* Approx. 33.33% with 20px gap */
+    }
 }
 
 @media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-  .header-title {
-    margin-bottom: 10px;
-  }
+    .header-title {
+        margin-bottom: 10px;
+    }
 
-  .cards-container {
-    flex-direction: column;
-    align-items: center;
-  }
+    /* 2 cards per row on large mobiles */
+    app-learning-material-card {
+        width: calc(50% - 10px); /* Approx. 50% with 20px gap */
+    }
+
+    .cards-container {
+        /* Ensure it remains flexible */
+        flex-direction: row; 
+        justify-content: center;
+    }
 }
 
-/* Inject global styles and font imports */
-/*
-@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
-@import url("https://fonts.googleapis.com/css?family=Poppins:500,400|Open+Sans:700");
-
-* {
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+@media (max-width: 480px) {
+    /* 1 card per row on small mobiles */
+    app-learning-material-card {
+        width: 100%;
+        margin: 10px 0;
+    }
 }
-
-html,
-body {
-  margin: 0px;
-  height: 100%;
-}
-
-button:focus-visible {
-  outline: 2px solid #4a90e2 !important;
-  outline: -webkit-focus-ring-color auto 5px !important;
-}
-  */

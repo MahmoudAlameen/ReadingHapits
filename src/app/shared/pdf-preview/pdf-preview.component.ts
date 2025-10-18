@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
 @Component({
   selector: 'app-pdf-preview',
   templateUrl: './pdf-preview.component.html',
-  styleUrls: ['./pdf-preview.component.scss']
+  styleUrls: ['./pdf-preview.component.scss'],
 })
 export class PdfPreviewComponent implements OnInit {
   // Change the type to Uint8Array to hold the binary data
@@ -12,8 +13,9 @@ export class PdfPreviewComponent implements OnInit {
   page: number = 1;
   totalPages: number = 0;
   isLoaded: boolean = false;
+  loadSuccess: boolean = true;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   afterLoadComplete(pdf: any) {
     this.totalPages = pdf.numPages;
@@ -34,15 +36,18 @@ export class PdfPreviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const url = './assets/pdf/pdf-test.pdf'; // Use a correct URL for your PDF
-
-    this.getPdfFile(url).subscribe(
-      (blob: Blob) => {
-        console.log("blobl" );
-        console.log(blob);
-        const reader = new FileReader();
-
-        reader.onload = (e: any) => {
+    //const url = './assets/pdf/pdf-test.pdf'; // Use a correct URL for your PDF
+    this.route.queryParamMap.subscribe(p =>
+    {
+      var url =  p.get("pdfUrl");
+      if(url != null)
+      {
+        this.getPdfFile(url).subscribe(
+          (blob: Blob) => {
+            console.log("blobl" );
+            console.log(blob);
+            const reader = new FileReader();
+            reader.onload = (e: any) => {
           // 1. Cast the result to ArrayBuffer
           const arrayBuffer = e.target.result as ArrayBuffer;
           
@@ -56,9 +61,17 @@ export class PdfPreviewComponent implements OnInit {
         reader.readAsArrayBuffer(blob);
       },
       (error) => {
+        this.loadSuccess = false;
         console.error('Error fetching PDF:', error);
       }
-    );
+    );}
+    else
+      this.loadSuccess = false;
+
+    }
+    )
+
+    
   }
 
   getPdfFile(url: string): Observable<Blob> {

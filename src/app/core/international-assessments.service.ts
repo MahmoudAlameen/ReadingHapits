@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { APIResponseModel, APIResponseModelList } from '../classes/APIResponse';
 import { IInternationalAssessmentTypeCard } from '../DTOs/international-assessment-type-card.interface';
@@ -36,16 +36,21 @@ getExamsBySubjectId(
   pageNumber?: number,
   pageSize?: number
 ): Observable<APIResponseModelList<ISubjectAssessmentCard>> {
+
+     let httpParams = new HttpParams();
+
+    // Mapping params to HttpParams
+    if (gradeId !== undefined ) {
+      httpParams = httpParams.set('gradeId', gradeId);  
+    }
+    if(pageNumber != undefined && pageSize != undefined)
+    {
+      httpParams = httpParams.set('pageNumber', pageNumber);
+      httpParams = httpParams.set('pageSize', pageSize);
+    }
   return this.http
     .get<APIResponseModelList<ISubjectAssessmentCard>>(
-      `${this.API.examsBySubjectId}${subjectId}`,
-      {
-        params: {
-          gradeId: gradeId ?? '',
-          pageNumber: pageNumber?.toString() ?? '',
-          pageSize: pageSize?.toString() ?? ''
-        }
-      }
+      `${this.API.examsBySubjectId}${subjectId}`, { params: httpParams }
     )
     .pipe(
       catchError((err) => throwError(() => err.Messages))

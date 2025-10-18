@@ -2,7 +2,7 @@
   <!-- Header & Status -->
   <div class="card-header">
     <h3 class="card-title">{{ assessment.name }}</h3>
-    <span [class]="'status-badge status-' + assessment.status.toLowerCase().replace(' ', '-')">
+    <span [class]="'status-badge status-' + AssessmentStatus[assessment.status]">
       {{ assessment.status }}
     </span>
   </div>
@@ -38,10 +38,10 @@
   </button>
 
   <button disabled
-    *ngIf="assessment.status === AssessmentStatus.ComingSoon"
+    *ngIf="assessment.status === AssessmentStatus.New"
     class="take-button coming-soon-btn"
   >
-    {{ AssessmentStatus.ComingSoon }}
+    Coming Soon
   </button>
 
   <div *ngIf="assessment.status === AssessmentStatus.Finished"

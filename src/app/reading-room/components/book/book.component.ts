@@ -58,7 +58,7 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
 
   getBook()
   {
-    this.readingRoomService.getBook(this.bookId, this.userId).subscribe(
+    this.readingRoomService.getBook(this.bookId).subscribe(
       response=>
       {
         if(response.isValid)

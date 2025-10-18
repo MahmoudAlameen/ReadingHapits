@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
         }
         if(response.isValid)
         {
+          this.UserService.setUserGrade();
          this.router.navigate(['']).then(()=> window.location.reload());
           console.log("hey iam there in home page ... ");
         // this.router.navigateByUrl('home').then(()=>window.location.reload())

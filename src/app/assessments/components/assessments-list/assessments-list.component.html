@@ -39,7 +39,7 @@
 </div>
 
 <!-- when rendering categories, show the string name, not numeric -->
-<section *ngFor="let category of assessmentCategories" class="assessment-section">
+<section *ngFor="let category of categorizedAssessments" class="assessment-section">
   <h2 class="category-title">
     {{ getAssessmentTypeName(category.type) }} {{'Assessments' | translate }}
     <span class="category-count">({{ category.assessments.length }} {{'available'| translate}})</span>

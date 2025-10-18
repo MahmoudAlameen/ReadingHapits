@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { LearningSubjectRoutingModule } from './learning-subject-routing.module';
 import { LearningSubjectComponent } from './learning-subject.component';
 import { SharedModule } from '../shared/shared.module';
@@ -18,8 +18,9 @@ import { LearningResourceCardComponent } from './components/learning-resource-ca
     LearningSubjectRoutingModule,
     SharedModule,
     FormsModule,
-    TranslateModule   
-    
+    TranslateModule,
+    NgIf
+
   ],
   exports:[LearningSubjectComponent]
 })

@@ -29,11 +29,16 @@
 
 <div class="grade-selector">
   <label for="grade">{{'Select Grade' | translate}} </label>
-    <select id="grade" name="grade" [(ngModel)]="selectedGradeId"  #gradeControl="ngModel">
-      <option value="" disabled selected>{{'select grade' }}</option>
+    <select id="grade" (ngModelChange)="fetchData()" name="grade" [(ngModel)]="selectedGradeId"  #gradeControl="ngModel">
+      <option value="" disabled selected>{{'select grade'| translate}}</option>
+      <option value="" [(ngModel)]="selectedGradeId" >{{'All Grades'| translate}}</option>
       <option [selected] ="grade.id == selectedGradeId" *ngFor="let grade of grades" [value]="grade.id">{{ grade.name }}</option>
     </select>
 </div>
+<ng-container *ngIf="isLoading; else listcontent">
+          <div class="loading-indicator">جاري تحميل البيانات...</div>
+</ng-container>
+<ng-template #listcontent>
 
 <div class="section-container section-books">
   <h2>📚 {{'Books' | translate}}</h2>
@@ -62,16 +67,20 @@
 <div class="section-container section-exams">
   <h2>🎓 {{'Exams' | translate}}</h2>
   <div class="exam-category">
-    <h3>📘 PISA</h3>
+    <h3>📘 {{'PISA' | translate}}</h3>
     <app-exam-card *ngFor="let exam of pisaExams" [assessment]="exam"></app-exam-card>
   </div>
   <div class="exam-category">
-    <h3>📗 TIMSS</h3>
+    <h3>📗 {{'TIMSS' | translate}}</h3>
     <app-exam-card *ngFor="let exam of pisaExams" [assessment]="exam"></app-exam-card>
   </div>
   <div class="exam-category">
-    <h3>📙 PIRLS</h3>
+    <h3>📙 {{'PIRLS' | translate}}</h3>
     <app-exam-card *ngFor="let exam of pisaExams" [assessment]="exam"></app-exam-card>
+  </div>
+    <div class="exam-category">
+    <h3>📙 {{'Ordinary' | translate}}</h3>
+    <app-exam-card *ngFor="let exam of ordinaryExams" [assessment]="exam"></app-exam-card>
   </div>
   <app-progress-bar
     [title]="'📝 Exams Progress'"
@@ -79,5 +88,7 @@
     [text]="'Completed 1/3 exams'">
   </app-progress-bar>
 </div>
+</ng-template>
+
 
 </section>

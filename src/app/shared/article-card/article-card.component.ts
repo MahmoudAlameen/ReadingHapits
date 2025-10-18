@@ -45,7 +45,7 @@ export class ArticleCardComponent {
   // Method to handle an article being clicked
   onArticleClick(): void {
     console.log(`Article "${this.article.title}" was clicked.`);
-    if(this.article.resourceContentType == ResourceContentType.textPages)
+    if(this.article.resourceContentType == ResourceContentType.Text)
         this.router.navigate(["/article",this.article.id]);
     else
         this.router.navigate(["/pdf-preview",this.article.id]);

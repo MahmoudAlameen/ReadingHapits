@@ -21,28 +21,26 @@
                     </button>
                 </div>
             </header>
-
             <main class="assessment-main">
                 <!-- 1. LOADING STATE (used for initial load AND results calculation) -->
-                <div *ngIf="currentState === 'loading'" class="state-message loading">
+                 <div *ngIf="currentState === 'loading'" class="state-message loading">
                     <div class="loading-pulse">
                         {{ examResult ? 'Calculating Exam Results...' : 'Loading Assessment Data...' }}
                     </div>
                 </div>
-
-                <!-- 2. ERROR STATE (Assessment Blocked/Unavailable) -->
+                
                 <div *ngIf="currentState === 'error'" class="state-message error">
                     <h2 class="error-title">Access Blocked</h2>
-                    <p class="error-text">It appears you have already started or completed this assessment. Re-entry is prevented.</p>
+                    <p class="error-text">{{ errorDetail$ | async }}</p>
                 </div>
 
                 <!-- 3. METADATA STATE -->
-                <app-assessment-meta 
-                    *ngIf="currentState === 'meta' && assessment" 
-                    [meta]="assessment.meta" 
-                    [questionCount]="assessment.questions.length"
-                    (onStart)="startAssessment()"
-                ></app-assessment-meta>
+                 <app-assessment-meta 
+                 *ngIf="currentState === 'meta' && assessment" 
+                 [meta]="assessment.meta" 
+                 [questionCount]="assessment.questions.length"
+                 (onStart)="startAssessment()"
+                 ></app-assessment-meta>
 
                 <!-- 4. TAKING ASSESSMENT STATE - All questions visible -->
                 <div *ngIf="currentState === 'taking' && assessment" class="question-flow">

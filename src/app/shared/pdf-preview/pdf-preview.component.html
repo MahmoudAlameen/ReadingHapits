@@ -1,10 +1,12 @@
 
 <div class="pdf-container">
+  <!--
   <div class="pdf-controls">
     <button (click)="prevPage()" [disabled]="page === 1">Previous</button>
     <span>Page {{page}} / {{totalPages}}</span>
     <button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
   </div>
+  -->
 <div id="outerContainer">
   <div class="pdf-container">
     <pdf-viewer
@@ -12,7 +14,7 @@
       [rotation]="0"
       [original-size]="false"
       [show-all]="true"
-      [fit-to-page]="false"
+      [fit-to-page]="true"
       [zoom]="1"
       [zoom-scale]="'page-width'"
       [stick-to-page]="true"

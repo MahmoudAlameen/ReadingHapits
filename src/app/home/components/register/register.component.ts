@@ -12,6 +12,8 @@ import { UserService } from 'src/app/core/User.Service';
 import { Role } from 'src/app/enums/Role';
 import { HeaderComponent } from 'src/app/shared/header/header.component';
 import { NgForm } from '@angular/forms'; // ADDED for type safety
+import { LearningSubjectService } from 'src/app/core/learning-subject.service';
+import { IIdWithName } from 'src/app/DTOs/shared.interfaces';
 
 @Component({
   selector: 'app-register',
@@ -41,18 +43,21 @@ export class RegisterComponent implements OnInit {
     phoneNumber: "يجب ان يكون رقم الهاتف من 10 الى 15 رقم.", // NEW
     password: ",على الاقل حرف كابيتال و على الاقل حرف صغير و على الاقل رقم واحد يجب ان يحتوى الباسورد على ثمانيه حروف , حروف من اللغه الانجليزيه فقط حرف "
   }
+  grades: IIdWithName[] = [];
 
   // Inject Router if needed for navigation after successful login
   constructor(private registerFormData: RegisterFormDataService,
     private UserService: UserService,
     private customAlert: CustomAlertService,
     private translateService: TranslateService,
-    private router: Router // Added Router for post-registration flow
-    ) { }
+    private router: Router, // Added Router for post-registration flow
+    private learningSubjectService: LearningSubjectService  
+  ) { }
 
   ngOnInit(): void {
     this.getSchools();
     this.getCountries();
+    this.getGrades();
     this.alertMessage.isDisplayed = true;
     this.translationSub = this.translateService
       .stream('errorMessages')
@@ -185,4 +190,23 @@ export class RegisterComponent implements OnInit {
       this.translationSub.unsubscribe();
     }
   }
+
+
+  
+ getGrades() {
+ this.learningSubjectService.getGradesIdsWIthNames().subscribe(
+ res => {
+ if (res.isValid && res.modelList != null) {
+ this.grades = res.modelList;
+ } else {
+ this.alertMessage.message = res.errorMessage;
+ this.alertMessage.isDisplayed = true;
+ this.customAlert.alert.next(this.alertMessage);
+ }
+ },
+ err => {
+ this.alertMessage.message = err;
+ this.alertMessage.isDisplayed = true;
+ this.customAlert.alert.next(this.alertMessage);
+});}
 }

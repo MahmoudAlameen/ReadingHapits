@@ -1,8 +1,8 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, interval, Subscribable, Subscription } from 'rxjs';
-import { AssessmentsService } from 'src/app/core/assessments.service';
+import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject, interval, Subscription, takeWhile } from 'rxjs';
 import { AssessmentState, IAssessmentData, IExamResult, IQuestion, IUserAnswer } from 'src/app/DTOs/assessments.interfaces';
-import { AssessmentMetaComponent } from '../assessment-meta/assessment-meta.component';
+import { AssessmentOrchestratorService } from 'src/app/core/assessment-orchestrator.service';
 // --- Placeholder for required Firebase imports (per instructions) ---
 
 @Component({
@@ -13,18 +13,18 @@ import { AssessmentMetaComponent } from '../assessment-meta/assessment-meta.comp
 export class RunAssessmentComponent implements OnInit, OnDestroy {
     
     // Using inject() for service dependency acquisition.
-    public assessmentService = inject(AssessmentsService); 
+    public assessmentOrchestratorService = inject(AssessmentOrchestratorService); 
 
     public Object = Object; // To use Object.keys in template   
 
     // Properties initialized using the injected service
-    public currentState: AssessmentState = this.assessmentService.assessmentState.getValue();
+    public currentState: AssessmentState = this.assessmentOrchestratorService.assessmentState.getValue();
     
     // Other properties
     public assessment: IAssessmentData | null = null; 
     public answers: Record<string, IUserAnswer> = {};
     public examResult: IExamResult | null = null; // New result property
-    
+    public errorDetail$ = this.assessmentOrchestratorService.errorDetail$; // New: to display API error messages
     // Timer properties
     public timeLeft: number = 0;
     public timeLeft$ = new BehaviorSubject<number>(0);
@@ -33,45 +33,62 @@ export class RunAssessmentComponent implements OnInit, OnDestroy {
     private answerSubscription!: Subscription;
     private resultSubscription!: Subscription; // New subscription for results
 
-    constructor() { }
+    constructor(
+        private route: ActivatedRoute
+    ) { }
 
     ngOnInit(): void {
-        this.stateSubscription = this.assessmentService.assessmentState.subscribe(state => {
-            this.currentState = state;
-            if (state === 'meta') {
-                this.assessment = this.assessmentService.assessmentData.getValue()!;
-                if (this.assessment) {
-                    this.timeLeft = this.assessment.meta.durationInMinutes * 60;
-                    this.timeLeft$.next(this.timeLeft);
-                }
-            }
-        });
+        this.route.paramMap.subscribe(
+          param=>
+            {
+              let assessmentId =param.get("id");
+              if(assessmentId)
+              {
+                this.assessmentOrchestratorService.assessmentId = assessmentId;
+                this.assessmentOrchestratorService.fetchAssessmentMetaData();
+              }
+              
+
+            })  
         
-        this.answerSubscription = this.assessmentService.userAnswers.subscribe(answers => {
+
+ this.stateSubscription = this.assessmentOrchestratorService.assessmentState
+            .subscribe(state => {
+                this.currentState = state;
+                
+                // When entering 'meta' or 'taking', update assessment data
+                const assessmentData = this.assessmentOrchestratorService.assessmentData.getValue();
+                this.assessment = assessmentData;
+                
+                if (assessmentData?.meta) {
+                    // Check if 'taking' state is reached (either by meta auto-start or manual start)
+                    if (state === 'taking') {
+                        // Initialize timer from the remaining time provided by run-meta or start-api
+                        const initialTimeInSeconds = assessmentData.meta.remainingTimeInMinutes * 60;
+                        this.startTimer(initialTimeInSeconds);
+                    } else if (state === 'meta') {
+                        // For the meta state, show the full duration before starting
+                        this.timeLeft = assessmentData.meta.durationInMinutes * 60;
+                        this.timeLeft$.next(this.timeLeft);
+                        
+                        // Crucially, if meta.iStarted is true, the service already transitioned to 'taking'
+                        // so this 'meta' block only runs for a *fresh* start.
+                    }
+                }
+            });
+        
+        this.answerSubscription = this.assessmentOrchestratorService.userAnswers.subscribe(answers => {
             this.answers = answers;
         });
 
-        this.resultSubscription = this.assessmentService.examResult$.subscribe(result => {
+        this.resultSubscription = this.assessmentOrchestratorService.examResult$.subscribe(result => {
             this.examResult = result;
         });
-        
-        // =========================================================================
-        // !!! MANDATORY: FIREBASE AUTHENTICATION BOILERPLATE !!!
-        // =========================================================================
-        /*
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        
-        if (typeof __initial_auth_token !== 'undefined') {
-            signInWithCustomToken(auth, __initial_auth_token).catch(e => console.error("Firebase Auth Error:", e));
-        } else {
-            signInAnonymously(auth).catch(e => console.error("Firebase Anon Auth Error:", e));
-        }
-        console.log("Firebase Auth established for environment access.");
-        // =========================================================================
-        */
+
+        // The service now handles fetching meta data in its constructor.
+        // If the service's constructor is called *after* ngOnInit runs (depending on how the component is loaded), 
+        // a manual call to fetchAssessmentMetaData might be needed here, but relying on the service's constructor 
+        // which uses the route snapshot is the idiomatic way when the assessmentId is available.
     }
 
     // Recommended performance enhancement for *ngFor
@@ -80,42 +97,47 @@ export class RunAssessmentComponent implements OnInit, OnDestroy {
     }
 
     startAssessment(): void {
-        this.assessmentService.startAssessment();
-        this.startTimer();
+        this.assessmentOrchestratorService.startAssessment();
     }
 
-    startTimer(): void {
+    startTimer(initialTimeInSeconds: number): void {
         if (this.timerSubscription) {
             this.timerSubscription.unsubscribe();
         }
 
+        this.timeLeft = initialTimeInSeconds;
+        this.timeLeft$.next(this.timeLeft);
+
+        // Timer starts only when currentState is 'taking'
         this.timerSubscription = interval(1000)
-            .subscribe(() => {
-                this.timeLeft--;
-                this.timeLeft$.next(this.timeLeft);
-                
-                if (this.timeLeft <= 0) {
-                    this.timerSubscription.unsubscribe();
+            .pipe(
+                takeWhile(() => this.timeLeft > 0)
+            )
+            .subscribe({
+                next: () => {
+                    this.timeLeft--;
+                    this.timeLeft$.next(this.timeLeft);
+                },
+                complete: () => {
+                    // This block runs when takeWhile condition is false (timeLeft <= 0)
                     console.log("Time is up! Submitting assessment.");
-                    this.assessmentService.finishAssessment(); 
+                    this.assessmentOrchestratorService.finishAssessment(); 
                 }
             });
     }
 
-    finishAssessment(): void {
-        // Stop the timer immediately upon finishing the exam
+finishAssessment(): void {
         if (this.timerSubscription) {
             this.timerSubscription.unsubscribe();
         }
         // This triggers the service to submit answers and then fetch the results.
-        this.assessmentService.finishAssessment();
-    }
-
-    saveAnswer(answer: IUserAnswer): void {
-        this.assessmentService.saveSingleAnswer(answer);
-    }
+        this.assessmentOrchestratorService.finishAssessment();
+    } 
     
-    /**
+    saveAnswer(answer: IUserAnswer): void {
+        this.assessmentOrchestratorService.saveSingleAnswer(answer);
+    }
+/**
      * Converts total seconds into MM:SS format with zero-padding.
      */
     formatTime(seconds: number): string {
@@ -125,18 +147,10 @@ export class RunAssessmentComponent implements OnInit, OnDestroy {
         return `${pad(minutes)}:${pad(remainingSeconds)}`;
     }
 
-    ngOnDestroy(): void {
-        if (this.timerSubscription) {
-            this.timerSubscription.unsubscribe();
-        }
-        if (this.stateSubscription) {
-            this.stateSubscription.unsubscribe();
-        }
-        if (this.answerSubscription) {
-            this.answerSubscription.unsubscribe();
-        }
-        if (this.resultSubscription) {
-            this.resultSubscription.unsubscribe();
-        }
+ngOnDestroy(): void {
+        this.timerSubscription?.unsubscribe();
+        this.stateSubscription?.unsubscribe();
+        this.answerSubscription?.unsubscribe();
+        this.resultSubscription?.unsubscribe();
     }
 }

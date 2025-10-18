@@ -5,7 +5,8 @@ export interface IAssessmentMeta {
     name: string;
     durationInMinutes: number; // Duration is stored in minutes
     subjectName: string;
-    isStarted: boolean; // Flag to track if the exam has been initiated by the user
+    isStarted: boolean; 
+    remainingTimeInMinutes: number
 }
 
 export interface IChoice {
@@ -45,6 +46,8 @@ export interface IAssessmentCard {
   grade: number;
   status: AssessmentStatus; // Now uses the Enum
 }
-
+export interface IStartAssessmentResponse {
+    remainingTimeInMinutes: number;
+}
 
 export type AssessmentState = 'loading' | 'meta' | 'taking' | 'finished' | 'results' | 'error';

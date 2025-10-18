@@ -42,7 +42,7 @@ export interface IBookCard
 }
 export interface ILearningResourceCard
 {
-    Id: string;
+    id: string;
     nameEn: string;
     nameAr: string;
     gradeId: string;
