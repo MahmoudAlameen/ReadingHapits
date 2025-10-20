@@ -12,7 +12,8 @@ import { APIService } from './API.Service';
 export class AssessmentsService {
 
 /** Mock database of assessment cards. (Renamed from MOCK_ASSESSMENTS) */
- MOCK_ASSESSMENTSCards: IAssessmentCard[] = [
+/*
+MOCK_ASSESSMENTSCards: IAssessmentCard[] = [
   { id: 101, name: 'PISA Global Literacy 2024', type: AssessmentType.PISA, durationMinutes: 120, subject: 'Language Arts', grade: 10, status: AssessmentStatus.Published },
   { id: 102, name: 'TIMMS Advanced Calculus', type: AssessmentType.TIMMS, durationMinutes: 90, subject: 'Mathematics', grade: 10, status: AssessmentStatus.New },
   { id: 103, name: 'PIRLS Reading Comprehension', type: AssessmentType.PIRLS, durationMinutes: 75, subject: 'Language Arts', grade: 10, status: AssessmentStatus.Finished },
@@ -22,6 +23,7 @@ export class AssessmentsService {
   { id: 107, name: 'Ordinary World History Test', type: AssessmentType.Ordinary, durationMinutes: 40, subject: 'Social Studies', grade: 10, status: AssessmentStatus.Finished },
   { id: 901, name: 'PISA Prep Math', type: AssessmentType.PISA, durationMinutes: 60, subject: 'Mathematics', grade: 9, status: AssessmentStatus.Published },
 ];
+*/
 
 MOCK_LEARNING_SUBJECTS: IIdWithName[] = [
     { id: '1', name: 'Language Arts' },
@@ -41,8 +43,8 @@ MOCK_LEARNING_SUBJECTS: IIdWithName[] = [
    */
 fetchAssessmentsByGrade(
   gradeId?: string, 
-  searchTerm?: string, 
-  subjectId?: string,
+  search?: string, 
+  learningSubjectId?: string,
   assessmentType?: AssessmentType,
   pageNumber?: string ,
   pageSize?: string
@@ -51,8 +53,8 @@ fetchAssessmentsByGrade(
   // Build params object dynamically, only including non-null/undefined values
   const params = Object.entries({
     gradeId,
-    searchTerm,
-    subjectId,
+    search,
+    learningSubjectId,
     assessmentType: assessmentType !== undefined ? assessmentType.toString() : undefined,
     pageNumber: pageNumber ?? undefined,
     pageSize
@@ -290,7 +292,8 @@ fetchAssessmentsByGrade(
         const timeTakenSeconds = (assessment.meta.durationInMinutes * 60) - (this.assessmentData.getValue()!.meta.durationInMinutes * 60);
 
         const result: IExamResult = {
-            score: answers.filter(a => a.selectedChoiceId !== null).length, // Total answered count as score
+            score: answers.filter(a => a.selectedChoiceId !== null).length, 
+            assessmentName : "assessment 1",// Total answered count as score
             maxScore,
             percentage,
             grade: (answers.filter(a => a.selectedChoiceId !== null).length > 1) ? 'Pass' : 'Fail', // Simple pass/fail based on answered questions
@@ -377,4 +380,65 @@ fetchAssessmentsByGrade(
             return throwError(()=>err.message);
       }));;
     }
+
+    calculateExamCardLabel(assessmentStatus: AssessmentStatus, isStartedByStudent: boolean , isFinishedByStudent: boolean)
+    {
+      var label:string = "";
+      if(assessmentStatus == AssessmentStatus.New)
+        label = "Coming Soon";
+
+      if(assessmentStatus == AssessmentStatus.Published)
+        label = "Published";
+
+      if(assessmentStatus == AssessmentStatus.Finished)
+        label = "Finiished"
+
+      return label;
+    }
+    calculateExamCardButton(assessmentStatus: AssessmentStatus, isStartedByStudent: boolean, isFinishedByStudent: boolean)
+    {
+      
+      var label:string = "";
+      var redirectionURL = "";
+      var runAssessmentURl = "assessments/run-assessment";
+      var viewResultURL = "assessments/view-result"
+
+      if(assessmentStatus == AssessmentStatus.Published)
+      {
+        if(!isStartedByStudent)
+        {
+          label = "Start Assessment";
+          redirectionURL = runAssessmentURl;
+        }
+          
+
+        else if ( !isFinishedByStudent)
+        {
+          label = "Continue";
+          redirectionURL = runAssessmentURl;
+        }
+        else
+        {
+          label = "View-Result";
+          redirectionURL = viewResultURL;  
+        }
+      }
+      if(assessmentStatus == AssessmentStatus.Finished)
+      {
+        label = "View Result"
+      }
+      return {label : label, redirectionURL: redirectionURL};
+    }
+
+    getAssessmentResult(assessmentId: string): Observable<APIResponseModel<IExamResult>> 
+    {
+      return this.http.post<APIResponseModel<IExamResult>>(`${this.API.getAssessmentResult}${assessmentId}`, {})
+         .pipe(
+           catchError((err)=>{
+            return throwError(()=>err.message)}
+           ))
+         
+    }
+
+
 }

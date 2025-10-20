@@ -1,4 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { AssessmentsService } from 'src/app/core/assessments.service';
 import { IAssessmentCard } from 'src/app/DTOs/assessments.interfaces';
 import { AssessmentStatus, AssessmentType } from 'src/app/enums/assessments.enums';
 
@@ -12,12 +14,22 @@ export class AssessmentCardComponent implements OnInit {
   /** Expose enums to the template for easy access */
   readonly AssessmentStatus = AssessmentStatus;
   readonly AssessmentType = AssessmentType;
+  
+  constructor(
+    private assessmentService: AssessmentsService,
+    private router: Router)
+  {
+
+  }
 
   /** Input: The assessment data object */
   @Input() assessment!: IAssessmentCard;
 
   /** Output: Emits the assessment ID when the 'Take' button is clicked */
   @Output() takeClicked = new EventEmitter<number>();
+  cardLabel: string = '';
+  buttonText: string = '';
+  redirectionURL: string = '';
 
   /** Helper: Convert enum numeric type to its string label (PISA, PIRLS, etc.) */
   get assessmentTypeLabel(): string {
@@ -29,5 +41,21 @@ export class AssessmentCardComponent implements OnInit {
     return this.assessmentTypeLabel.toLowerCase();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void 
+  {
+    this.cardLabel = this.assessmentService.calculateExamCardLabel(this.assessment.status, 
+      this.assessment.isStartedByStudent, this.assessment.isFinishedByStudent);
+     var buttonData = this.assessmentService.calculateExamCardButton(this.assessment.status,
+      this.assessment.isStartedByStudent, this.assessment.isFinishedByStudent)
+
+      this.buttonText = buttonData.label;
+      this.redirectionURL = buttonData.redirectionURL;
+  }
+
+  handleAssessmentCardButtonClick()
+  {
+    this.router.navigate([this.redirectionURL, this.assessment.id])
+
+  }
+  
 }

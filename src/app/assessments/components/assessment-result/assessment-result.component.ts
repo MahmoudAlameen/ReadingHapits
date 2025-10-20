@@ -1,4 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { error } from 'console';
+import { AlertMessage } from 'src/app/classes/AlertMessage';
+import { AssessmentsService } from 'src/app/core/assessments.service';
+import { CustomAlertService } from 'src/app/core/custom-alert.service';
 import { IExamResult } from 'src/app/DTOs/assessments.interfaces';
 
 @Component({
@@ -10,6 +15,16 @@ export class AssessmentResultComponent implements OnInit {
     @Input() result!: IExamResult | null;
     @Input() assessmentName!: string;
     @Input() timeRemainingSeconds: number = 0; // Time remaining when submitted
+    alertMessage: AlertMessage = new AlertMessage();
+
+    constructor(
+      private route: ActivatedRoute,
+      private assessmentService: AssessmentsService,
+      private customAlert: CustomAlertService
+    )
+    {
+
+    }
 
     // Calculate time taken from total duration and time remaining
     get timeTakenSeconds(): number {
@@ -34,6 +49,44 @@ export class AssessmentResultComponent implements OnInit {
         return `${pad(minutes)}m ${pad(seconds)}s`;
     }
   ngOnInit(): void {
+
+    if(this.result == null)
+    {
+        this.route.paramMap.subscribe(
+          param=>
+            {
+              let assessmentId =param.get("id");
+              if(assessmentId)
+              {
+                this.assessmentService.getAssessmentResult(assessmentId)
+                .subscribe(
+                  res => 
+                  {
+                    if(res.isValid && res.model)
+                    {
+                      this.result = res.model
+
+                    }
+                    else
+                    {
+                      this.alertMessage.isDisplayed = true;
+                      this.alertMessage.message = res.errorMessage;
+                      this.customAlert.alert.next(this.alertMessage);
+                    }
+                  },
+                  err =>
+                  {
+                    this.alertMessage.isDisplayed = true;
+                    this.alertMessage.message = err;
+                    this.customAlert.alert.next(this.alertMessage);
+
+                  }
+                );
+              }
+              
+
+            })  
+    }
   }
 
 }

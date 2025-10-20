@@ -43,6 +43,7 @@ export class APIService
     submitAnswer = this.base + "assessments/submit-answer/";
     getAssessmentQuestions = this.base + "assessments/questions/";
     saveAnswer = this.base + "assessments/save-answer";
+    getAssessmentResult = this.base + "assessments/view-result/"
 
 
 

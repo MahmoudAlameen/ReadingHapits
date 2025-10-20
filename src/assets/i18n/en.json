@@ -121,6 +121,10 @@
   "select grade" : "select grade",
   "All Grades": "All Grades",
   "Ordinary" : "Ordinary",
-  "duration in minutes": "duration in minutes"
+  "duration in minutes": "duration in minutes",
+  "View-Result" : "View-Result",
+  "Published" : "Published",
+  "Coming Soon" : "Coming Soon",
+  "Finished" : "Finished"
   
 }

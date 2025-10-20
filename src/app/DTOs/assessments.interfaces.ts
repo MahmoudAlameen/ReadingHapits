@@ -34,6 +34,7 @@ export interface IExamResult {
     score: number;
     maxScore: number;
     percentage: number;
+    assessmentName: string;
     grade: 'Excellent' | 'Pass' | 'Fail';
     timeTakenSeconds: number;
 }
@@ -42,9 +43,15 @@ export interface IAssessmentCard {
   name: string;
   type: AssessmentType;
   durationMinutes: number;
-  subject: string;
-  grade: number;
+  learningSubjectId: string;
+  gradeId: string;
+  gradeName: string;
   status: AssessmentStatus; // Now uses the Enum
+  creator: string;
+  creationDate: Date;
+  subjectName: string;
+  isStartedByStudent: boolean,
+  isFinishedByStudent: boolean
 }
 export interface IStartAssessmentResponse {
     remainingTimeInMinutes: number;

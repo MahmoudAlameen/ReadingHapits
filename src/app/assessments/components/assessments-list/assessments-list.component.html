@@ -19,6 +19,17 @@
     </option>
   </select>
 
+   <select
+    (change)="updateGradeFilter($event)"
+    class="filter-input select-input"
+    [value]="gradeId"
+    >
+    <option value="">{{'All grades' | translate}}</option>
+    <option *ngFor="let grade of gradesIds" [value]="grade.id">
+      {{ grade.name }}
+    </option>
+  </select>
+
   <select
     (change)="updateAssessmentTypeFilter($event)"
     class="filter-input select-input"

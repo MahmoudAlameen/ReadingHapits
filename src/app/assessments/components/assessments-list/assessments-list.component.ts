@@ -28,6 +28,7 @@ export class AssessmentsListComponent implements OnInit {
   public selectedSubjectId = '';
   public selectedAssessmentType: AssessmentType | null = null ;
   public learningSubjectsIds: IIdWithName[] = [];
+  public gradesIds: IIdWithName[] = [];
   public alertMessage: AlertMessage = new AlertMessage();
 
   // Property to hold the categorized data (replaces the getter)
@@ -47,6 +48,7 @@ export class AssessmentsListComponent implements OnInit {
 
       // Load learning subjects first, which will trigger loadAssessments() after subjects are loaded
       this.getLearningSubjectIds();
+      this.getGradesIds();
     });
   }
 
@@ -118,6 +120,26 @@ export class AssessmentsListComponent implements OnInit {
       }
     );
   }
+    getGradesIds() {
+    console.log("assessments list ")
+    this.learningSubjectService.getGradesIdsWIthNames().subscribe(
+      res => {
+        if (res.isValid && res.modelList != null) {
+          this.gradesIds = res.modelList;
+          // Now that subjects are available, load assessments with initial filters
+        } else {
+          this.alertMessage.message = 'فشل فى جلب بيانات المواد التعليميه';
+          this.alertMessage.isDisplayed = true;
+          this.customAlert.alert.next(this.alertMessage);
+        }
+      },
+      err => {
+        this.alertMessage.message = err;
+        this.alertMessage.isDisplayed = true;
+        this.customAlert.alert.next(this.alertMessage);
+      }
+    );
+  }
 
   async loadAssessments() {
     this.isLoading = true;
@@ -134,7 +156,12 @@ export class AssessmentsListComponent implements OnInit {
         {
           if(res.isValid && res.modelList != null)
           {
-            this.assessments = res.modelList;
+            this.assessments = res.modelList.map( a =>(
+              {
+                ...a,
+                subjectName : this.learningSubjectsIds.find(s => s.id == a.learningSubjectId)?.name as string
+              })
+            );
             // 🔑 Function called directly to categorize data after fetch
             this.updateAssessmentCategories(); 
           }
@@ -199,6 +226,11 @@ export class AssessmentsListComponent implements OnInit {
   updateSubjectFilter(event: Event): void {
     const select = event.target as HTMLSelectElement;
     this.selectedSubjectId = select.value;
+    this.loadAssessments();
+  }
+    updateGradeFilter(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    this.gradeId = select.value;
     this.loadAssessments();
   }
 

@@ -61,7 +61,9 @@ export interface ISubjectAssessmentCard
     type : AssessmentType;
     durationInMinutes : number;
     topScorer : ExamCardTopScore;
-    status: AssessmentStatus
+    status: AssessmentStatus,
+    isStartedByStudent: boolean,
+    isFinishedByStudent: boolean
 }
 
 export interface ExamCardTopScore

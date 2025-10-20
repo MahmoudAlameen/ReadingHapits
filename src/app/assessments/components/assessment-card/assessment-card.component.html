@@ -2,51 +2,60 @@
   <!-- Header & Status -->
   <div class="card-header">
     <h3 class="card-title">{{ assessment.name }}</h3>
-    <span [class]="'status-badge status-' + AssessmentStatus[assessment.status]">
-      {{ assessment.status }}
-    </span>
+    <label [class]="'status-badge status-' + AssessmentStatus[assessment.status]" class="cardLabel">{{cardLabel |translate}}</label>
   </div>
 
   <!-- Details -->
   <div class="card-details">
-    <div>
-      <span class="detail-label">Subject:</span>
-      <p class="detail-value">{{ assessment.subject }}</p>
+    <div class = "card-line">
+      <div>
+        <span class="detail-label">Subject:</span>
+        <p class="detail-value">{{ assessment.subjectName }}</p>
+      </div>
+      <div>
+        <span class="detail-label">Grade:</span>
+        <p class="detail-value">{{ assessment.gradeName }}</p>
+      </div>
     </div>
-    <div>
-      <span class="detail-label">Grade:</span>
-      <p class="detail-value">{{ assessment.grade }}</p>
+    <div class = "card-line">
+      <div>
+        <span class="detail-label">Duration:</span>
+        <p class="detail-value">{{ assessment.durationMinutes }} min</p>
+      </div>
+      <div>
+        <span class="detail-label">Type:</span>
+         <p class="detail-value">{{ assessmentTypeLabel }}</p>
+      </div>
     </div>
-    <div>
-      <span class="detail-label">Duration:</span>
-      <p class="detail-value">{{ assessment.durationMinutes }} min</p>
-    </div>
-    <div>
-      <span class="detail-label">Type:</span>
-      <p class="detail-value">{{ assessmentTypeLabel }}</p>
-    </div>
+
+    
+
   </div>
 
   <!-- Actions -->
   <button
     *ngIf="assessment.status === AssessmentStatus.Published"
-    (click)="takeClicked.emit(assessment.id)"
+    (click)="handleAssessmentCardButtonClick()"
     class="take-button published-btn"
     title="Start Assessment ID: {{ assessment.id }}"
   >
-    Take Assessment
+    {{ buttonText | translate}}
   </button>
 
+  <!--
   <button disabled
     *ngIf="assessment.status === AssessmentStatus.New"
     class="take-button coming-soon-btn"
   >
-    Coming Soon
+    {{'Coming Soon' | translate}}
   </button>
-
+  -->
+  
+<!--
   <div *ngIf="assessment.status === AssessmentStatus.Finished"
     class="take-button finished-label"
   >
-    Finished
+    {{'Finished' | translate}}
   </div>
+  -->
 </div>

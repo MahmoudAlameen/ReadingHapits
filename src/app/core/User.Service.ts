@@ -26,7 +26,6 @@ export class UserService
         private sessionStorageKeys : SessionStorageKeysService
     )
     {
-        this.setUserGrade();
     }
 
     AddUser(student:Student):Observable<any>
