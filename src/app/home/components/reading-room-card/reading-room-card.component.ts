@@ -50,7 +50,7 @@ export class ReadingRoomCardComponent implements OnInit {
 
         if(response)
         {
-          this.readingRoomService.visitReadingRoom(userId as string, roomId).subscribe(
+          this.readingRoomService.visitReadingRoom( roomId).subscribe(
             visitRoomResponse=>
             {
               if(visitRoomResponse.isValid)

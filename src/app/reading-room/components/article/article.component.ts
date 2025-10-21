@@ -107,7 +107,7 @@ export class ArticleComponent implements OnInit {
     this.readTimeEnd = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     if(this.readTimeStart == null || this.readTimeEnd == null)
         return;
-    this.readingRoomService.addArticleTimeRead(this.articleId, this.userId as string, this.readTimeStart as string, this.readTimeEnd as string).subscribe(
+    this.readingRoomService.addArticleTimeRead(this.articleId, this.readTimeStart as string, this.readTimeEnd as string).subscribe(
       response=>
       {
         if(response.isValid)

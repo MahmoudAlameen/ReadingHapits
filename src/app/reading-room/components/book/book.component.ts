@@ -289,7 +289,7 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
     this.readTimeEnd = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     if(this.readTimeStart == null || this.readTimeEnd == null)
         return;
-    this.readingRoomService.addBookTimeRead(this.bookId, this.userId, this.readTimeStart as string, this.readTimeEnd as string).subscribe(
+    this.readingRoomService.addBookTimeRead(this.bookId, this.readTimeStart as string, this.readTimeEnd as string).subscribe(
       response=>
       {
         if(response.isValid)

@@ -52,6 +52,8 @@ export interface ILearningResourceCard
     status: LearningResourceStatus,
     fileUrl: string;
     creatorName: string;
+    gradeName: string;
+    subjectName : string | null;
 }
 
 export interface ISubjectAssessmentCard

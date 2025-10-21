@@ -425,7 +425,13 @@ fetchAssessmentsByGrade(
       }
       if(assessmentStatus == AssessmentStatus.Finished)
       {
-        label = "View Result"
+        if(isStartedByStudent)
+        {
+          label = "View Result";
+          redirectionURL = viewResultURL;
+
+        }
+
       }
       return {label : label, redirectionURL: redirectionURL};
     }

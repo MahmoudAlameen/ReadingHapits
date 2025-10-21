@@ -84,14 +84,16 @@
       .card-line
       {
         display: flex;
+        width: 100%;
         flex-direction:  row;
-        flex: 50% 50%;
+        flex:1 1;
         justify-content: flex-start;
         gap: 30px
       }
-      .card-line > div
+      .card-line  div
       {
         display: flex;
+        width: 50%;
         flex-direction: row;
         gap: 10px;
         align-items: center;
