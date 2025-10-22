@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, destroyPlatform } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router,} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { debug } from 'console';
 import { APIService } from 'src/app/core/API.Service';
 import { UserService } from 'src/app/core/User.Service';
 import { ILearningSubjectCard } from 'src/app/DTOs/ILearningSubjectCard';
@@ -44,18 +43,20 @@ onViewExams(): void {
   private userService: UserService) { }
 
   ngOnInit(): void {
-    this.displayedName = this.translateService.currentLang === 'ar'  ? this.material.nameAr : this.material.nameEn;
-    this.displayedDescription = this.translateService.currentLang === 'ar' ? (this.material.descriptionAr || '') : (this.material.descriptionEn || '');
-     this.material.coverUrl = this.material.coverUrl != null ?   this.API.base + "LearningSubjects/" + this.material.coverUrl
-    :  "`assets/images/defaultLearningSubjectCoverImage/Learning_Material-Cards-card1-Cover_Section.png";
-    console.log(this.material.coverUrl);
+    this.displayedName = this.translateService.currentLang === 'ar'  ?
+     this.material.nameAr : this.material.nameEn;
+    this.displayedDescription = this.translateService.currentLang === 'ar' ? 
+    (this.material.descriptionAr || '') : (this.material.descriptionEn || '');
+     this.material.coverUrl = this.material.coverUrl != null ?  
+      this.API.base + "LearningSubjects/" + this.material.coverUrl
+    : "`assets/images/defaultLearningSubjectCoverImage/Learning_Material-Cards-card1-Cover_Section.png";
 
     this.material.assignedTeachersAvatars.forEach(teacher => 
     {
       teacher.avatarUrl = teacher.avatarUrl != null ?
-        this.API.base + "Users" + teacher.avatarUrl : "assets/images/defaultCardTeachers/defaultUserImage/Card1-Teachers-Teacher2.png"
+        this.API.base + "Users" + teacher.avatarUrl : 
+        "assets/images/defaultCardTeachers/defaultUserImage/Card1-Teachers-Teacher2.png"
     }
     )
   }
-
 }

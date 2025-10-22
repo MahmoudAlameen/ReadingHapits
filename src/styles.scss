@@ -15,7 +15,16 @@
             --color-red-dark: #b91c1c;
             --color-yellow-light: #fef3c7;
             --color-yellow-dark: #b45309;
+            --color-dark: #0f1724;
+            --color-gray: #586272;
+            --color-white: #ffffff;
+            --color-blue-500: #3b82f6;
+            --color-blue-600: #2563eb;
+            --color-blue-700: #1a6ba8;
+
         }
+        
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
 
               /* --- Status Color Variables (Kept for functional contrast) --- */
 body
@@ -55,6 +64,18 @@ html[dir="rtl"] .international-assessments-page .intro-section .cards-and-featur
 {
   font-size: clamp(0.9rem, 5vw, 1.4rem);
 }
+
+
+/* questions , choices images */
+ .question-body img, .choice-text img {
+     display: inline-block;
+     margin-left: 8px;
+     border-radius: 4px;
+     max-width: 100% !important; 
+     height: auto !important;
+     box-sizing: border-box !important;
+ }
+        
   
 
 

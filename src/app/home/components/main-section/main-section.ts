@@ -13,8 +13,12 @@ export class MainSectionComponent implements OnInit {
   stats: any[] = [];
   buttons: any[] = [];
   currentLang: string = 'en';
+  mainSectionMediaBaseUrl : string = '';
 
-  constructor(private translate: TranslateService, private router : Router) { }
+  constructor(private translate: TranslateService, private router : Router) 
+  { 
+    this.mainSectionMediaBaseUrl = "assets/images/main-section/"
+  }
 
   ngOnInit(): void {
 
@@ -25,36 +29,7 @@ export class MainSectionComponent implements OnInit {
       console.log("language changed....");
     });
     this.currentLang = this.translate.currentLang || this.translate.getDefaultLang();
-/*
-    this.stats = [
-      {
-        number: '200+',
-        label: this.translate.get('home.main-section.STATS.TRAINERS').subscribe(res=>res),
-        color: '#fe753f'
-      },
-      {
-        number: '5000+',
-        label: 'home.main-section.STATS.STUDENTS',
-        color: '#2489d3'
-      },
-      {
-        number: '1000+',
-        label: this.translate.get('home.main-section.STATS.EXAMS').subscribe((res : string)=>res),
-        color: '#f0c932'
-      }
-    ];
 
-    this.buttons = [
-      {
-        text: this.translate.instant('home.main-section.BUTTONS.MATERIALS'),
-        type: 'primary'
-      },
-      {
-        text: this.translate.instant('home.main-section.BUTTONS.ASSESSMENTS'),
-        type: 'secondary'
-      }
-    ];
-    */
   }
 
   loadTranslations(): void {

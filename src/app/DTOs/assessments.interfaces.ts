@@ -6,7 +6,8 @@ export interface IAssessmentMeta {
     durationInMinutes: number; // Duration is stored in minutes
     subjectName: string;
     isStarted: boolean; 
-    remainingTimeInMinutes: number
+    remainingTimeInMinutes: number,
+    questionsCount: number;
 }
 
 export interface IChoice {

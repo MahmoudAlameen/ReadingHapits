@@ -19,10 +19,10 @@ export class InternationalAssessmentsService {
   private API: APIService
  ) { }
 
-  getInternationalAssessmentsTypes() : Observable<APIResponseModelList<IInternationalAssessmentTypeCard>>
+  getInternationalAssessmentsTypes() : Observable<IInternationalAssessmentTypeCard[]>
       {
         var url = this.translateService.currentLang === 'ar' ? "./assets/json/international-assessments-type-cards-ar.json" : "./assets/json/international-assessments-type-cards.json";
-        return this.http.get<APIResponseModelList<IInternationalAssessmentTypeCard>>(url).pipe(catchError(
+        return this.http.get<IInternationalAssessmentTypeCard[]>(url).pipe(catchError(
           (err)=>{
             return throwError(()=>err.Messages)
           }

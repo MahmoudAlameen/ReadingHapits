@@ -1,9 +1,14 @@
 .section-container {
-  margin: 0;
   font-family: 'Arial', sans-serif;
   background: linear-gradient(to bottom, #F0F9FF, #E8F5FF, #BAE6FD);
   color: #222;
   overflow-x: hidden;
+  padding: 25px;
+  margin: 30px auto;
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  max-width: 1000px;
+  position: relative;
 }
 
 header {
@@ -105,14 +110,7 @@ header h1 {
   border: 1px solid #ccc;
 }
 
-.section-container {
-  padding: 25px;
-  margin: 30px auto;
-  border-radius: 16px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-  max-width: 1000px;
-  position: relative;
-}
+
 .section-container h2 {
   margin-bottom: 20px;
   color: #0f172a;
@@ -150,6 +148,8 @@ header h1 {
   color: #fff;
   animation: floatBadge 5s infinite alternate ease-in-out;
 }
+
+
 @keyframes floatBadge {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-15px); }

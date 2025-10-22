@@ -38,7 +38,6 @@
                  <app-assessment-meta 
                  *ngIf="currentState === 'meta' && assessment" 
                  [meta]="assessment.meta" 
-                 [questionCount]="assessment.questions.length"
                  (onStart)="startAssessment()"
                  ></app-assessment-meta>
 

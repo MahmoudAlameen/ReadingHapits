@@ -10,7 +10,6 @@ export class AssessmentMetaComponent implements OnInit {
 
   constructor() { }
   @Input() meta!: IAssessmentMeta | null;
-  @Input() questionCount: number = 0; // Added input for total question count
   @Output() onStart = new EventEmitter<void>();
   ngOnInit(): void {
     

@@ -1,6 +1,5 @@
         .card-container {
             padding: 1rem; /* p-4 */
-            min-height: 100vh;
             display: flex;
             align-items: flex-start; /* items-start */
             padding-top: 2rem;
@@ -94,10 +93,14 @@
             font-size: 1rem; /* text-base */
             color: #4b5563; /* text-gray-600 */
         }
+        .minutes
+        {
+            margin-inline: 10px;
+        }
 
         .clock-icon {
             color: #4f46e5; /* text-indigo-600 */
-            margin-right: 0.5rem; /* mr-2 */
+            margin-inline: 0.5rem; /* mr-2 */
         }
 
         .meta-label {

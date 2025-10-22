@@ -9,6 +9,7 @@ export class APIService
 {
     //base:string= "https://readinghapitsapi.somee.com/"
     base:string="https://localhost:7107/";
+    mediaBase: string= "https://localhost:7107/";
     AddUser:string=this.base+"users/addUser/";
     UserLogin=this.base+"users/login";
     UserLogout = this.base +"users/logout";
@@ -43,7 +44,8 @@ export class APIService
     submitAnswer = this.base + "assessments/submit-answer/";
     getAssessmentQuestions = this.base + "assessments/questions/";
     saveAnswer = this.base + "assessments/save-answer";
-    getAssessmentResult = this.base + "assessments/view-result/"
+    getAssessmentResult = this.base + "assessments/view-result/";
+    internationalAssessmentsVedio = this.base + "shared/inernationalAssessmentDescriptiveVedio/"
 
 
 

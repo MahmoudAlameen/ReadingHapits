@@ -176,6 +176,7 @@ export class AssessmentOrchestratorService {
             }
 
             this.examResult$.next(result.model);
+            this.userAnswers.next({});
             this.setState('results'); // Transition to showing results
 
         } catch (error) {

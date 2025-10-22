@@ -1,7 +1,4 @@
-{
-  "isValid": true,
-  "errorMessage": null,
-  "modelList": [
+ [
     {
       "title": "TIMSS",
       "description": "دراسة الاتجاهات الدولية في الرياضيات والعلوم — مجموعات أسئلة مع تحليل البيانات.",
@@ -23,5 +20,4 @@
       "iconSrc": "pisa.png",
       "theme": "PISA"
     }
-  ]
-}
+]

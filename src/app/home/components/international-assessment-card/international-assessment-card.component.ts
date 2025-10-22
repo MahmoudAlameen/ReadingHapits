@@ -17,8 +17,6 @@ export class InternationalAssessmentCardComponent implements OnInit {
   }
 
   onStartNow(): void {
-
     this.router.navigate(['/assessments/list'], { queryParams: { selectedAssessmentType: this.exam.title } });
-    console.log(`Starting ${this.exam.title} practice...`);
   }
 }

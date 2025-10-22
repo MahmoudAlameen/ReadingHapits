@@ -124,8 +124,13 @@
   "All Grades": "كل الصفوف",
   "Ordinary": "عادى",
   "duration in minutes": "الزمن بالدقائق",
-  "View-Result" : "عرض نتيجه الاختبار",
+  "View Result" : "عرض نتيجه الاختبار",
   "Published": "تم النشر",
   "Coming Soon": "قريبا",
-  "Finished": "منتهى"
+  "Finished": "منتهى",
+  "Subject": "المادة العلميه",
+  "Duration": "مدة الامتحان",
+  "Minutes": "دقائق",
+  "Total Questions": "عدد الاسئله",
+  "Start Assessment" : "ابدا الاختبار"
 }

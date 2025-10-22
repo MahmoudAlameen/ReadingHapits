@@ -24,13 +24,6 @@ export class LearningSubjectService {
 
     getLearningSubjectsCards() : Observable<APIResponseModelList<ILearningSubjectCard>>
     {
-      /*
-      return this.http.get<APIResponseModelList<ILearningSubjectCard>>("./assets/json/learning-subjects-cards.json").pipe(catchError(
-        (err)=>{
-          return throwError(()=>err.Messages)
-        }
-*/
-
      return this.http.get<APIResponseModelList<ILearningSubjectCard>>(this.API.learninSubjectsCards).pipe(catchError(
         (err)=>{
           return throwError(()=>err.Messages)

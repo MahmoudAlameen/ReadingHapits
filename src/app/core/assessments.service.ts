@@ -120,7 +120,8 @@ fetchAssessmentsByGrade(
             durationInMinutes: 15, // 15 minutes duration
             subjectName: 'Front-End Development',
             isStarted: false ,
-            remainingTimeInMinutes: 5
+            remainingTimeInMinutes: 5,
+            questionsCount : 5
         },
         questions: [
             {
@@ -419,7 +420,7 @@ fetchAssessmentsByGrade(
         }
         else
         {
-          label = "View-Result";
+          label = "View Result";
           redirectionURL = viewResultURL;  
         }
       }

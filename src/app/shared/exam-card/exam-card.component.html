@@ -23,8 +23,8 @@
                         <div class="meta-item">
                             <!-- Clock Icon (Inline SVG) -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="clock-icon"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                            <span class="meta-label">Duration:</span>
-                            <span class="meta-value">{{ assessment.durationInMinutes }} mins</span>
+                            <span class="meta-label">{{'Duration' | translate}}:</span>
+                            <span class="meta-value minutes">{{ assessment.durationInMinutes }}  {{'Minutes'| translate}}</span>
                         </div>
                         <label
                            [class.coming-soon]="cardLabel === 'Coming Soon'"

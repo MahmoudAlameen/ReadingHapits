@@ -4,16 +4,16 @@
             
             <div class="metadata-details">
                 <p class="metadata-row">
-                    <span class="metadata-label">Subject:</span>
+                    <span class="metadata-label">{{'Subject' | translate }}:</span>
                     <span class="metadata-value-primary">{{ meta.subjectName }}</span>
                 </p>
                 <p class="metadata-row">
-                    <span class="metadata-label">Duration:</span>
-                    <span class="metadata-value-danger">{{ meta.durationInMinutes }} Minutes</span>
+                    <span class="metadata-label">{{'Duration' | translate}}:</span>
+                    <span class="metadata-value-danger">{{ meta.durationInMinutes }} {{'Minutes' | translate}}</span>
                 </p>
                 <p class="metadata-row">
-                    <span class="metadata-label">Total Questions:</span>
-                    <span class="metadata-value-primary">{{ questionCount }}</span>
+                    <span class="metadata-label">{{'Total Questions' | translate}} :</span>
+                    <span class="metadata-value-primary">{{ meta.questionsCount }}</span>
                 </p>
             </div>
 
@@ -21,6 +21,6 @@
                 (click)="onStart.emit()"
                 class="start-button"
             >
-                Start Assessment
+                {{'Start Assessment' | translate}}
             </button>
 </div>

@@ -1,7 +1,4 @@
-{
-  "isValid" : true,
-  "errorMessage" : null,
-  "modelList" : 
+
 
 [
   {
@@ -26,4 +23,4 @@
     "theme": "PISA"
   }
 ]
-}
+

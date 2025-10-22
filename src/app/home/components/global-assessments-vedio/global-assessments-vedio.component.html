@@ -8,11 +8,10 @@
     </header>
     <div class="video-wrapper" (click)="playVideo(mainVideo, playButton, videoThumbnail)">
       <video #mainVideo class="video-player" controls preload="none">
-        <source [src]="videoUrMp4" type="video/mp4">
-        <source [src]="videoUrlOgg" type="video/ogg">
+        <source [src]="videoUrLMp4" type="video/mp4">
         {{'Your browser does not support the video tag.' | translate}}
       </video>
-      <img #videoThumbnail [src]="thumbnailUrl" alt="Global Assessment Video" class="video-thumbnail" />
+     <img #videoThumbnail [src]="thumbnailUrl" alt="Global Assessment Video" class="video-thumbnail" />
       <button #playButton class="play-button" aria-label="Play video about global assessments">▶</button>
     </div>
   </article>

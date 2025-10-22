@@ -1,8 +1,5 @@
-/* learning-material-card.component.scss */
 
-/* Main Card Container */
 .learning-material-card {
-    /* 🏆 Equal Height Fix: Setup for vertical stacking and height inheritance 🏆 */
     display: flex;
     flex-direction: column; 
     height: 100%;           
@@ -30,7 +27,6 @@
 
 /* Content Area */
 .card-content {
-    /* 🏆 Equal Height Fix: Allows content area to grow and push the footer down 🏆 */
     flex-grow: 1; 
     
     padding: 1.5rem 1rem 1rem;
@@ -74,7 +70,7 @@
 /* Description Container */
 .course-description-container {
     height: 65px; /* Fixed height for consistent line count */
-    overflow: hidden;
+    overflow: wrap;
     margin: 0 0 1rem;
     flex-shrink: 0; 
 }
@@ -89,9 +85,13 @@
     margin: 0;
 
     /* Text truncation for multi-line overflow */
-    display: -webkit-box;
-    -webkit-line-clamp: 3; 
-    -webkit-box-orient: vertical;
+    /*
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 3;
+-webkit-box-orient: vertical;
+*/
 }
 
 /* Teachers Section */

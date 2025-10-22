@@ -27,28 +27,26 @@
 
 .global-assessments-container .assessments-intro .assessments-header .heading-main {
   font-size: clamp(2rem, 4vw, 4rem);
-  /* Increase size further for testing */
+
   font-weight: 700;
   margin-bottom: 0.5rem;
-  /* You can also add more margin to separate it further */
+ 
   margin-top: 1rem; 
-  line-height: 1.1; /* Tighter line height for large headers */
+  line-height: 1.1; 
 }
 
-/* Corrected font size and color for the description */
 .assessments-header .description {
   font-size: clamp(1rem, 2vw, 1.7rem); 
-  color: #333333; /* Darkened for better contrast */
-  line-height: 1.6; /* Increased for better readability */
+  color: #333333; 
+  line-height: 1.6; 
 }
 
-/* Corrected keyword highlighting */
 .description b {
   background-color: #ffeb3b;
   padding: 2px 5px;
   border-radius: 4px;
   font-weight: 700;
-  color: #1a2b49; /* Darkened text for improved contrast on the highlight */
+  color: #1a2b49; 
 }
 
 .video-wrapper {

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { APIService } from 'src/app/core/API.Service';
 
 @Component({
   selector: 'app-global-assessments-vedio',
@@ -8,16 +9,19 @@ import { Router } from '@angular/router';
 })
 export class GlobalAssessmentsVedioComponent implements OnInit {
 
-  // No longer needed with the updated method signature
-  // @ViewChild('mainVideo') videoElement!: ElementRef<HTMLVideoElement>;
-  // @ViewChild('playButton') playButtonElement!: ElementRef<HTMLButtonElement>;
-  // @ViewChild('videoThumbnail') thumbnailElement!: ElementRef<HTMLImageElement>;
+  videoMp4FileName: string = "GlobalStudentAssessmentInsights.mp4";
+  thumbnailFileName: string = "internationalAssessmentVedioThumbnail.png";
+  thumbnailUrl: string = '';
+  videoUrLMp4 : string = '';
+  vedioPlaying: boolean = false;
 
-  videoUrMp4: string = "https://www.w3schools.com/html/mov_bbb.mp4";
-  videoUrlOgg: string = "https://www.w3schools.com/html/mov_bbb.ogg";
-  thumbnailUrl: string = 'https://c.animaapp.com/RVEF9qVk/img/vedio-section-vedio.png';
+  constructor(
+    private router: Router,
+    private api: APIService) {
 
-  constructor(private router: Router) { }
+      this.videoUrLMp4 = this.api.internationalAssessmentsVedio + this.videoMp4FileName;
+      this.thumbnailUrl = this.api.internationalAssessmentsVedio + this.thumbnailFileName;
+     }
 
   ngOnInit(): void { }
 
@@ -26,12 +30,23 @@ export class GlobalAssessmentsVedioComponent implements OnInit {
     thumbnail.style.display = 'none';
     button.style.display = 'none';
     video.style.display = 'block';
-    video.play();
-
+    if(this.vedioPlaying)
+    {
+      this.vedioPlaying = false;
+       video.pause;
+    }
+     
+    else
+    {
+      video.play();
+      this.vedioPlaying = true;
+    }
+      
     video.addEventListener('ended', () => {
       thumbnail.style.display = 'block';
       button.style.display = 'flex';
       video.style.display = 'none';
+      this.vedioPlaying = false;
     });
   }
 

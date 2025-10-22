@@ -122,9 +122,14 @@
   "All Grades": "All Grades",
   "Ordinary" : "Ordinary",
   "duration in minutes": "duration in minutes",
-  "View-Result" : "View-Result",
+  "View Result" : "View Result",
   "Published" : "Published",
   "Coming Soon" : "Coming Soon",
-  "Finished" : "Finished"
+  "Finished" : "Finished",
+  "Subject": "Subject",
+  "Duration": "Duration",
+  "Minutes": "Minutes",
+  "Total Questions": "Total Questions",
+  "Start Assessment": "Start Assessment"
   
 }
