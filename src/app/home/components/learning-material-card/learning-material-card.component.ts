@@ -45,11 +45,13 @@ onViewExams(): void {
   ngOnInit(): void {
     this.displayedName = this.translateService.currentLang === 'ar'  ?
      this.material.nameAr : this.material.nameEn;
-    this.displayedDescription = this.translateService.currentLang === 'ar' ? 
-    (this.material.descriptionAr || '') : (this.material.descriptionEn || '');
-     this.material.coverUrl = this.material.coverUrl != null ?  
-      this.API.base + "LearningSubjects/" + this.material.coverUrl
-    : "`assets/images/defaultLearningSubjectCoverImage/Learning_Material-Cards-card1-Cover_Section.png";
+this.displayedDescription = this.translateService.currentLang === 'ar'
+  ? this.truncateText(this.material.descriptionAr || '')
+  : this.truncateText(this.material.descriptionEn || '');
+
+this.material.coverUrl = this.material.coverUrl
+  ? this.API.base + "LearningSubjects/" + this.material.coverUrl
+  : "assets/images/defaultLearningSubjectCoverImage/Learning_Material-Cards-card1-Cover_Section.png";
 
     this.material.assignedTeachersAvatars.forEach(teacher => 
     {
@@ -59,4 +61,9 @@ onViewExams(): void {
     }
     )
   }
+
+  private truncateText(text: string, maxLength: number = 75): string {
+  if (!text) return '';
+  return text.length > maxLength ? text.substring(0, maxLength) + ' ...' : text;
+}
 }

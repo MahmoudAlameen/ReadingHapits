@@ -9,7 +9,8 @@ export class APIService
 {
     base:string= "https://www.readinghapitsapi.somee.com/"
     //base:string="https://localhost:7107/";
-    mediaBase: string= "https://localhost:7107/";
+   // mediaBase: string= "https://localhost:7107/";
+    mediaBase: string = "https://www.readinghapitsapi.somee.com/"
     AddUser:string=this.base+"users/addUser/";
     UserLogin=this.base+"users/login";
     UserLogout = this.base +"users/logout";
