@@ -163,11 +163,19 @@ export class AssessmentOrchestratorService {
      * Called when the user clicks finish or the timer hits zero.
      */
     public async finishAssessment(): Promise<void> {
+        debugger;
         this.setState('finished');
         const currentAnswers = this.userAnswers.getValue();
         
+        var answersforCurrentAssessment = Object.fromEntries( Object.entries(currentAnswers).filter(([key, value])=> {
+         var q = this.assessmentData.value?.questions.find( (q)=> q?.id == key )
+         return q !== null && q !== undefined;
+      })) as Record<string, IUserAnswer>;
+    
+
+        
         try {
-            const result = await lastValueFrom(this.apiService.finishAssessment(this.assessmentId, currentAnswers));
+            const result = await lastValueFrom(this.apiService.finishAssessment(this.assessmentId, answersforCurrentAssessment));
             
             if (!result.isValid) {
                 // If finish fails, show the error, but the attempt is over.

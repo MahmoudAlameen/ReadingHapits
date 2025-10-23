@@ -1,0 +1,79 @@
+{
+  "isValid" : true,
+  "errorMessage" : null,
+  "Model" : 
+  {
+  "title": "Mathematics",
+  "description": "Mathematics is the foundation of logical thinking, problem-solving, and analytical skills. Explore numbers, geometry, algebra, and real-world applications. Our resources include interactive books, articles, and practice exams simulating international assessments.",
+  "coverUrl": "https://picsum.photos/900/250?random=1",
+  "articles": [
+    {
+      "id": "1",
+      "title": "Why Algebra Matters",
+      "summary": "Explore the importance of algebra in modern education and how it builds problem-solving skills."
+    },
+    {
+      "id": "2",
+      "title": "Geometry in Architecture",
+      "summary": "See how geometric concepts are applied in the design of iconic buildings worldwide."
+    }
+  ],
+  "books": [
+    {
+      "id": "1",
+      "imageUrl": "https://covers.openlibrary.org/b/id/10523363-L.jpg",
+      "title": "Algebra Essentials"
+    },
+    {
+      "id": "2",
+      "imageUrl": "https://covers.openlibrary.org/b/id/10958332-L.jpg",
+      "title": "Geometry Basics"
+    },
+    {
+      "id": "3",
+      "imageUrl": "https://covers.openlibrary.org/b/id/8228691-L.jpg",
+      "title": "Math in Real Life"
+    }
+  ],
+  "exams": [
+    {
+      "id": "1",
+      "title": "PISA 2022 Simulation",
+      "meta": "Status: Not Started | Duration: 90 min",
+      "topScorer": [
+        {
+          "name": "Ahmed",
+          "score": "95%"
+        }
+      ],
+      "buttonText": "Take Exam"
+    },
+    {
+      "id": "2",
+      "title": "TIMSS 2021 Practice",
+      "meta": "Status: In Progress | Duration: 60 min",
+      "topScorer": [
+        {
+          "name": "Sara",
+          "score": "92%"
+        }
+      ],
+      "buttonText": "Continue Exam"
+    },
+    {
+      "id": "3",
+      "title": "PIRLS 2020 Simulation",
+      "meta": "Status: Not Started | Duration: 45 min",
+      "topScorer": [
+        {
+          "name": "Lina",
+          "score": "97%"
+        }
+      ],
+      "buttonText": "Take Exam"
+    }
+  ]
+}
+
+}
+
