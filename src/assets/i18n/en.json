@@ -130,6 +130,9 @@
   "Duration": "Duration",
   "Minutes": "Minutes",
   "Total Questions": "Total Questions",
-  "Start Assessment": "Start Assessment"
-  
+  "Start Assessment": "Start Assessment",
+  "registering account in progress ...": "registering account in progress ...",
+  "Optional": "Optional",
+  "personal photo" : "personal photo",
+  "select profile photo": "select profile photo"
 }

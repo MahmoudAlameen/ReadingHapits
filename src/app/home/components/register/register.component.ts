@@ -1,19 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 import { AlertMessage } from 'src/app/classes/AlertMessage';
 import { Student } from 'src/app/classes/student';
 import { CustomAlertService } from 'src/app/core/custom-alert.service';
 import { RegisterFormDataService } from 'src/app/core/register-form-data.service';
-import { SessionStorageKeysService } from 'src/app/core/SessionStorageKeysService';
-import { SessionStorageService } from 'src/app/core/SessionStorageService';
 import { UserService } from 'src/app/core/User.Service';
 import { Role } from 'src/app/enums/Role';
-import { HeaderComponent } from 'src/app/shared/header/header.component';
 import { NgForm } from '@angular/forms'; // ADDED for type safety
 import { LearningSubjectService } from 'src/app/core/learning-subject.service';
 import { IIdWithName } from 'src/app/DTOs/shared.interfaces';
+import { ContentService } from 'src/app/core/content.service';
+import { FileType } from 'src/app/enums/Ffile-type.enum';
 
 @Component({
   selector: 'app-register',
@@ -23,6 +22,14 @@ import { IIdWithName } from 'src/app/DTOs/shared.interfaces';
 export class RegisterComponent implements OnInit {
   private translationSub?: Subscription;
 
+  avatarImageFile: File | null = null; // Holds the new file object
+  imagePreviewUrl: string | ArrayBuffer | null = null; // Base64 or full absolute URL for display
+  imageUploadError: string | null = null;
+  
+  private readonly allowedImageTypes = ['image/jpeg', 'image/png'];
+
+  isSubmitting = false;
+  isLoading = false;
   registeredUser: Student = new Student();
   schools: string[] = ["dssd", "dsdsdsd", "sdsdsdsd"];
   countries: string[] = [];
@@ -51,7 +58,8 @@ export class RegisterComponent implements OnInit {
     private customAlert: CustomAlertService,
     private translateService: TranslateService,
     private router: Router, // Added Router for post-registration flow
-    private learningSubjectService: LearningSubjectService  
+    private learningSubjectService: LearningSubjectService ,
+    private contentService: ContentService
   ) { }
 
   ngOnInit(): void {
@@ -133,7 +141,13 @@ export class RegisterComponent implements OnInit {
     }
 
     // Call the original account creation logic
-    this.createAccount();
+    this.isSubmitting = true;
+    if(this.avatarImageFile)
+    {
+      this.handleFileUploadAndSubmission();
+    }
+    else
+          this.createAccount();
   }
 
   // FIX: Removed the 'submit' HTMLInputElement parameter. The button disabling logic
@@ -149,12 +163,14 @@ export class RegisterComponent implements OnInit {
         if (response.isValid === true) {
           this.alertMessage.message = "تم تسجيل الحساب بنجاح";
           this.customAlert.alert.next(this.alertMessage);
+          this.isSubmitting = false;
           
           // Consider navigating to the login page after successful registration
           this.router.navigate(['/login']); 
         } else {
           this.alertMessage.message = response.errorMessage;
           this.customAlert.alert.next(this.alertMessage);
+          this.isSubmitting = false;
         }
       },
       err => {
@@ -172,6 +188,7 @@ export class RegisterComponent implements OnInit {
 
         this.alertMessage.message = errorMessage;
         this.customAlert.alert.next(this.alertMessage);
+        this.isSubmitting = false;
       }
     );
   }
@@ -209,4 +226,70 @@ export class RegisterComponent implements OnInit {
  this.alertMessage.isDisplayed = true;
  this.customAlert.alert.next(this.alertMessage);
 });}
+
+  onFileSelected(event: Event): void {
+    this.avatarImageFile = null;
+    this.imageUploadError = null;
+    
+    const input = event.target as HTMLInputElement;
+    const files = input.files;
+    
+    if (files && files.length > 0) {
+      const file = files[0];
+
+      // Acceptance Criteria: Invalid file type validation
+      if (!this.allowedImageTypes.includes(file.type)) {
+        this.imageUploadError = 'ملف غير صالح. الأنواع المسموحة: jpg, png.';
+        input.value = ''; 
+        return;
+      }
+
+      this.avatarImageFile = file;
+
+      // Create image preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreviewUrl = reader.result;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.imagePreviewUrl = null;
+    }
+  }
+    /**
+   * Triggers the file input click from the custom button.
+   */
+  fireFileInput(fileInput: HTMLInputElement): void {
+    fileInput.click();
+  }
+
+    private handleFileUploadAndSubmission(): void {
+    if (!this.avatarImageFile) return;
+
+    this.contentService.uploadFile([this.avatarImageFile], FileType.UserProfileImage)
+      .pipe()
+      .subscribe({
+        next: (res) => {
+          if (res.isValid && res.modelList && res.modelList.length > 0) {
+            const fileInfo = res.modelList[0];
+            // Update CoverUrl with the new file information returned by the upload service
+            this.registeredUser.avatarUrl = `${fileInfo.fileId}/${fileInfo.fileName}`;
+            
+            // Proceed to submit the Learning Subject data
+            this.createAccount();
+          } else {
+            this.alertMessage.message = res.errorMessage || 'فشل في تحميل الصورة.';
+            this.alertMessage.isDisplayed = true;
+            this.customAlert.alert.next(this.alertMessage);
+            this.isSubmitting = false;
+          }
+        },
+        error: (err) => {
+          this.alertMessage.message = 'خطأ في الاتصال بالخادم أثناء تحميل الصورة.';
+          this.alertMessage.isDisplayed = true;
+          this.customAlert.alert.next(this.alertMessage);
+          this.isSubmitting = false;
+        }
+      });
+  }
 }

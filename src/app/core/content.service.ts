@@ -4,13 +4,20 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { ArticlePage } from '../classes/ArticlePage';
 import { BookPage } from '../classes/BookPage';
 import { Page } from '../classes/Page';
+import { APIResponseModelList } from '../classes/APIResponse';
+import { FileUploadResult } from '../classes/file-upload-result';
+import { APIService } from './API.Service';
+import { FileType } from '../enums/Ffile-type.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContentService {
 
-  constructor(private http:HttpClient) { }
+  constructor(
+    private http:HttpClient,
+    private API : APIService
+  ) { }
 
   getFile(fileName:string,type:string,relation:string):Observable<string>
   {
@@ -82,5 +89,16 @@ export class ContentService {
     {
       result[pages[i].number]=pages[i];
     }
+  }
+
+    uploadFile(files:File[],FileType :FileType):Observable<APIResponseModelList<FileUploadResult>>
+  {
+    let request:FormData=new FormData();
+    for(let file of files)
+       request.append('files',file);
+    return this.http.post<APIResponseModelList<FileUploadResult>>(this.API.uploadFile, request,{params:{FileType:FileType}}).pipe(
+      catchError((err)=>throwError(()=>err.message))
+    )
+
   }
 }

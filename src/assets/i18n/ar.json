@@ -132,5 +132,9 @@
   "Duration": "مدة الامتحان",
   "Minutes": "دقائق",
   "Total Questions": "عدد الاسئله",
-  "Start Assessment" : "ابدا الاختبار"
+  "Start Assessment" : "ابدا الاختبار",
+  "registering account in progress ...": " ... جارى تسجيل الحساب ",
+  "Optional": "اختيارى",
+  "personal photo": "الصورة الشخصيه",
+  "select profile photo": "قم باختيار صورة البروفايل"
 }

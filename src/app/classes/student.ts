@@ -14,4 +14,5 @@ export class Student
     role:Role=Role.Student;
     phoneNumber: string = '';
     gradeId: string = '';
+    avatarUrl? : string = '';
 }
