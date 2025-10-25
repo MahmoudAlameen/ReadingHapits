@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpContext } from "@angular/common/http";
 import { core } from "@angular/compiler";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, Observable, of, tap, throwError } from "rxjs";
@@ -9,6 +9,7 @@ import { SessionStorageService } from "./SessionStorageService";
 import { SessionStorageKeysService } from "./SessionStorageKeysService";
 import { IGrade } from "../DTOs/grade.interfaces";
 import { IUserData } from "../DTOs/user-data.interface";
+import { BYPASS_INTERCEPTOR } from 'src/app/core/interceptors/no-interceptor.context'; // Import the token
 
 @Injectable(
     {
@@ -47,14 +48,18 @@ export class UserService
     }
     getUserGrade(): Observable<APIResponseModel<IGrade>>
     {
-        return this.http.get<APIResponseModel<IGrade>>(this.api.getUserGrade).pipe(
+        return this.http.get<APIResponseModel<IGrade>>(this.api.getUserGrade,
+             {context: new HttpContext().set(BYPASS_INTERCEPTOR, true)}
+        ).pipe(
            catchError((err)=>
            throwError(()=>err.message)))
     }
 
     getUserData(): Observable<APIResponseModel<IUserData>>
     {
-        return this.http.get<APIResponseModel<IUserData>>(this.api.getUserData).pipe(
+        return this.http.get<APIResponseModel<IUserData>>(this.api.getUserData,
+            {context: new HttpContext().set(BYPASS_INTERCEPTOR, true)}
+        ).pipe(
            catchError((err)=>
            throwError(()=>err.message)))
     }

@@ -8,6 +8,7 @@ import {
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { BYPASS_INTERCEPTOR } from './no-interceptor.context';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -17,6 +18,13 @@ export class AuthInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+
+    // 1. Check the context token
+    if (request.context.get(BYPASS_INTERCEPTOR)) {
+      console.log('Bypassing MyInterceptor for this request.');
+      // Pass the original request along without any modification
+      return next.handle(request); 
+    }
     return next.handle(request).pipe(
       // Catch any errors that occur during the request processing
       catchError((error: HttpErrorResponse) => {

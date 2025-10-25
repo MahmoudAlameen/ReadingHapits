@@ -1,4 +1,4 @@
-learning-section {
+.learning-section {
   width: 100%;
   min-height: 100vh;
   background: linear-gradient(
@@ -9,16 +9,17 @@ learning-section {
   );
   padding: 2rem 0;
   overflow: hidden;
+  height: fit-content;
 }
 
 .container {
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 2rem;
-  height: 100%;
   display: flex;
   flex-direction: row;
   align-items: stretch;
+  height: fit-content;
   gap: 2rem;
 }
 
@@ -270,7 +271,7 @@ learning-section {
   width: 150px;
   height: 15px;
   top: 40px;
-  left: 140px;
+  left: 150px;
 }
 
 /* Tablet Styles */
@@ -368,6 +369,13 @@ learning-section {
   .content-wrapper {
     gap: 2rem;
     min-height: auto;
+  }
+  
+  .decoration-rock {
+    width: 200px;
+    height: 200px;
+    top: -50px;
+    left: -70px;
   }
 
   .hero-image-container {

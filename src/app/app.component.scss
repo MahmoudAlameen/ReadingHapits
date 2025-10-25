@@ -12,6 +12,7 @@ main
     flex-direction: column;
     justify-content: flex-start;
     min-height: 800px;
+    width: 100%;
 }
 
 html, body {
@@ -31,6 +32,7 @@ body {
 {
     margin-top: 52px;
     flex-grow: 1; /* This is the key. It makes the content container fill all available space. */
+    width: 100%
 }
 
 @media screen and (max-width:600px)

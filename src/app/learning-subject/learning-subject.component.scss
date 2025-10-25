@@ -155,3 +155,11 @@ header h1 {
   50% { transform: translateY(-15px); }
   100% { transform: translateY(0px); }
 }
+
+@media (max-width: 768px) {
+.section-container
+{
+  margin-top: 50px;
+
+}
+}
