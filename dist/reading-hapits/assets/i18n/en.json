@@ -1,11 +1,9 @@
 {
-  "Learn a New Skill":"Learn a New Skill",
-  "Everyday, Anytime, and Anywhere" : "Everyday, Anytime, and Anywhere",
   "1000+" : "1000+",
   "Courses covering all tech domains": "Courses covering all tech domains for you to learn and explore new opportunities. Learn from Industry Experts and land your Dream Job.",
   "STATS": 
     {
-      "TRAINERS": "Professional\nTrainers",
+      "TRAINERS": "comprehensive\reports",
       "STUDENTS": "Students\nTrained",
       "EXAMS": "Exam taken by\nstudents"
     },
@@ -130,6 +128,12 @@
   "Duration": "Duration",
   "Minutes": "Minutes",
   "Total Questions": "Total Questions",
-  "Start Assessment": "Start Assessment"
-  
+  "Start Assessment": "Start Assessment",
+  "registering account in progress ...": "registering account in progress ...",
+  "Optional": "Optional",
+  "personal photo" : "personal photo",
+  "select profile photo": "select profile photo",
+  "The Smarter-More Enjoyable Learning Journey": "The Smarter  More Enjoyable Learning Journey",
+  "Comprehensive E-Learning Platform": "Comprehensive E-Learning Platform",
+  "MAIN_CONTENT_PARAGRAPH": "Access a world-class educational ecosystem built for success. Our platform provides\nrich, structured learning subjects and resources designed to make your journey smarter,\nmore engaging, and enjoyable, driving high achievement for every user."
 }

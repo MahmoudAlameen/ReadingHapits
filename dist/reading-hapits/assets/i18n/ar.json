@@ -5,7 +5,7 @@
     "Courses covering all tech domains": "دورات تدريبية تغطي جميع مجالات التقنية لتتعلم وتستكشف فرصًا جديدة. تعلم من خبراء الصناعة وحقق حلمك بالوظيفة المثالية..",
     "STATS":
      {
-      "TRAINERS": "مدربون محترفون",
+      "TRAINERS": "تقرير شامل",
       "STUDENTS": "طلاب تم تدريبهم",
       "EXAMS": "امتحانات أجراها الطلاب"
     },
@@ -132,5 +132,12 @@
   "Duration": "مدة الامتحان",
   "Minutes": "دقائق",
   "Total Questions": "عدد الاسئله",
-  "Start Assessment" : "ابدا الاختبار"
+  "Start Assessment" : "ابدا الاختبار",
+  "registering account in progress ...": " ... جارى تسجيل الحساب ",
+  "Optional": "اختيارى",
+  "personal photo": "الصورة الشخصيه",
+  "select profile photo": "قم باختيار صورة البروفايل",
+  "The Smarter-More Enjoyable Learning Journey" : "رحلة التعلم الأذكى والأكثر متعة",
+  "Comprehensive E-Learning Platform": "منصة تعليم إلكتروني شاملة",
+  "MAIN_CONTENT_PARAGRAPH" : "توفر لك منصتنا محتوى تعليمي وموارد معرفية غنية ومُنظمة،\n تم تطويرها لجعل رحلتك التعليمية أكثر ذكا\nءً وتفاعلية ومتعة، ولتحقيق أعلى مستويات الإنجاز لكل مستخدم."
 }
