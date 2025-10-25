@@ -40,7 +40,6 @@ export class AuthService {
     
     // Publish the new user data to all subscribers
     this.currentUserSubject.next(user);
-    console.log(user);
   }
 
     private decodeTokenAndGetUser(): IUserClaims | null {

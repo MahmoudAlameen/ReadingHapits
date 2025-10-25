@@ -52,7 +52,6 @@ quickLinks = [
         label: translations[link.label] || link.label
       }));
 
-      console.log(...this.quickLinks)
       this.legalLinks = this.legalLinks.map(link => ({
         url : link.url,
         label: translations[link.label] || link.label
@@ -75,7 +74,6 @@ quickLinks = [
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const emailInput = form.querySelector('input[name="email"]') as HTMLInputElement;
-    console.log('Subscribed with email:', emailInput.value);
     // Here you would typically call a service to handle the subscription
   }
 

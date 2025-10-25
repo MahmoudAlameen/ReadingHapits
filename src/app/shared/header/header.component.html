@@ -14,7 +14,6 @@
            {{'Future Skills' | translate}}
           </span>
         </div>
-
         <!-- Language Switcher -->
 
 
@@ -44,9 +43,18 @@
           
           <button class="lang-btn"  (click)="switchLanguage(languageButtonText)">{{languageButtonText}}</button>
           <strong *ngIf="(currentUser$ |async) as user">{{user.email}}</strong>
+          <div *ngIf="(userData$ | async) as userData" id="profile-avatar" class="profile-avatar">
+              <img *ngIf="userData.avatarUrl" 
+                [src]="userData.avatarUrl" 
+                alt="User Profile"
+                onerror="this.onerror=null; this.src='https://placehold.co/40x40/94A3B8/ffffff?text=?'"
+                 >
+              <span class = "user-name" *ngIf="!userData.avatarUrl">{{userData.name.at(0)?.toUpperCase()}}</span>
+          </div>
         </div>
 
         <!-- Mobile Menu Button (Hamburger/X Icon - Hidden on desktop via media query) -->
+         <div class="avatar-mobile">
         <button (click)="toggleMenu()" class="menu-button">
           <!-- Hamburger Icon (Menu) (Using *ngIf for A14 compatibility) -->
           <ng-container *ngIf="!isOpen">
@@ -57,8 +65,16 @@
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </ng-container>
         </button>
+        <div class = "profile-avatar" *ngIf="(userData$ | async) as userData" id="profile-avatar">
+          <img *ngIf="userData.avatarUrl" 
+             [src]="userData.avatarUrl" 
+             alt="User Profile"
+              onerror="this.onerror=null; this.src='https://placehold.co/40x40/94A3B8/ffffff?text=?'"
+                >
+          <span class = "user-name" *ngIf="!userData.avatarUrl">{{userData.name.at(0)?.toUpperCase()}}</span>
+        </div>
 
-
+      </div>
       </div>
     </header>
 
@@ -99,6 +115,5 @@
           {{ 'Sign In'  | translate}}
         </a>
         <a class="lang-btn mobile-nav-link"  (click)="switchLanguage(languageButtonText); toggleMenu()">{{languageButtonText}}</a>
-
       </div>
     </nav>

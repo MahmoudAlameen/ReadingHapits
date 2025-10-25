@@ -9,6 +9,7 @@ import { CustomAlertService } from 'src/app/core/custom-alert.service';
 import { AlertMessage } from 'src/app/classes/AlertMessage';
 import { AuthService } from 'src/app/core/auth.service';
 import { IUserClaims } from 'src/app/enums/users.enums';
+import { IUserData } from 'src/app/DTOs/user-data.interface';
 
 @Component({
   selector: 'app-header',
@@ -17,6 +18,7 @@ import { IUserClaims } from 'src/app/enums/users.enums';
 })
 export class HeaderComponent implements OnInit {
   currentUser$: Observable<IUserClaims | null>;
+  userData$ : Observable<IUserData | null>;
   userEmail: string | null = null;
   constructor(
     public translate: TranslateService,
@@ -26,6 +28,7 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService)
   {
     this.currentUser$ = this.authService.currentUser$;
+    this.userData$ = this.userService.UserData$;
 
   }
 
@@ -53,6 +56,7 @@ export class HeaderComponent implements OnInit {
   ];
 
   ngOnInit() {
+    this.userService.setUserData();
 
     this.languageButtonText = this.translate.currentLang === 'ar' ? 'EN' : 'AR';
     // Set up a listener for window resize to close the menu on desktop
@@ -116,6 +120,8 @@ export class HeaderComponent implements OnInit {
     {
       if(response.isValid && response.model)
         {
+          this.userService.userDataSubject.next(null);
+
           this.router.navigate(['login']); 
         }
       else

@@ -1,15 +1,14 @@
-import { HttpBackend, HttpClient } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { core } from "@angular/compiler";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, Observable, of, tap, throwError } from "rxjs";
-import { logedUser } from "src/interfaces/logedUser";
 import { APIResponseModel } from "../classes/APIResponse";
 import { Student } from "../classes/student";
-import { UserLoginResult } from "../DTOs/UserLoginResult";
 import { APIService } from "./API.Service";
 import { SessionStorageService } from "./SessionStorageService";
 import { SessionStorageKeysService } from "./SessionStorageKeysService";
 import { IGrade } from "../DTOs/grade.interfaces";
+import { IUserData } from "../DTOs/user-data.interface";
 
 @Injectable(
     {
@@ -19,6 +18,9 @@ import { IGrade } from "../DTOs/grade.interfaces";
 export class UserService
 {
     public studentGrade: BehaviorSubject<IGrade| null> = new BehaviorSubject<IGrade| null>(null);
+    public userDataSubject: BehaviorSubject<IUserData| null> = new BehaviorSubject<IUserData | null>(null);
+    public UserData$: Observable<IUserData | null>;
+    
     constructor( 
         private http: HttpClient,
         private api: APIService,
@@ -26,6 +28,7 @@ export class UserService
         private sessionStorageKeys : SessionStorageKeysService
     )
     {
+        this.UserData$ = this.userDataSubject.asObservable();
     }
 
     AddUser(student:Student):Observable<any>
@@ -47,6 +50,29 @@ export class UserService
         return this.http.get<APIResponseModel<IGrade>>(this.api.getUserGrade).pipe(
            catchError((err)=>
            throwError(()=>err.message)))
+    }
+
+    getUserData(): Observable<APIResponseModel<IUserData>>
+    {
+        return this.http.get<APIResponseModel<IUserData>>(this.api.getUserData).pipe(
+           catchError((err)=>
+           throwError(()=>err.message)))
+    }
+    
+    public setUserData()
+    {
+        this.getUserData().subscribe(
+            res => 
+            {
+                if(res.isValid && res.model)
+                {
+                    var user = res.model;
+                    user.avatarUrl = user.avatarUrl ? `${this.api.mediaBase}Users/${user.avatarUrl}`: user.avatarUrl;
+                    this.userDataSubject.next(user);
+                    this.UserData$ = this.userDataSubject.asObservable();
+                }
+            }
+        )
     }
 
     public setUserGrade()

@@ -40,6 +40,7 @@ export class APIService
     gradesIds = this.base + "grades-Ids";
     assessmentsList = this.base + "assessments";
     getUserGrade = this.base + "users/grade";
+    getUserData = this.base + "users/user-data"
     resourcePages = this.base + "learning-resources/resourcepages/";
     runAssessmentMeta = this.base + "assessments/run-assessment-meta/";
     startAssessment = this.base + "assessments/Start/";

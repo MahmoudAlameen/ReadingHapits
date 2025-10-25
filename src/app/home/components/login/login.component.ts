@@ -47,21 +47,21 @@ export class LoginComponent implements OnInit {
   
   loginUser()
   {
-    console.log("login starting ...")
     var loginError: string  = '';
     this.authService.LoginUser(this.logedUser).subscribe(
-      response=>
+      async response=>
       {
         if(!response.isValid)
         {
           this.alertMessage.message = response.errorMessage;
+          this.alertMessage.isDisplayed = true;
           this.customAlert.alert.next(this.alertMessage);
         }
         if(response.isValid)
         {
-          this.UserService.setUserGrade();
+          await this.UserService.setUserGrade();
+          await this.UserService.setUserData();
          this.router.navigate(['']).then(()=> window.location.reload());
-          console.log("hey iam there in home page ... ");
         // this.router.navigateByUrl('home').then(()=>window.location.reload())
         }
       },
