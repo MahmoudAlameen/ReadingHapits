@@ -18,12 +18,15 @@
       <h2 class="teachers-heading" id="teachers-heading">{{'Teachers' | translate}}</h2>
       <div class="teacher-profiles">
         <div 
-          *ngFor="let teacher of material?.assignedTeachersAvatars?.slice(0, 3)"
+          *ngFor="let teacher of material?.assignedTeachers?.slice(0, 3)"
           class="teacher-image" 
           [style.background-image]="'url(' + teacher.avatarUrl + ')'"
           role="img" 
           aria-label="Teacher profile image"
-        ></div>
+        >
+        <span class = "teacherImageRepalcement">{{teacher.name.charAt(0).toLocaleUpperCase()}}</span>
+      </div>
+
         
         <div class="teacher-stack" *ngIf="material.teachersCount > 3" > 
           <span class="additional-teachers-count">+{{ material.teachersCount - 3 }}</span>

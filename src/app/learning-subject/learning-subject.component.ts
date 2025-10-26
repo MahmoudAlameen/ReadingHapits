@@ -97,11 +97,13 @@ export class LearningSubjectComponent implements OnInit {
           this.learningSubject.descriptionAr  : (this.learningSubject.descriptionEn || '');
           this.learningSubject.coverUrl = this.API.base + "LearningSubjects/" + this.learningSubject.coverUrl;
 
-          this.learningSubject.assignedTeachers.forEach(teacher => 
-            {
-              teacher.avatarUrl = teacher.avatarUrl != null ?
-                this.API.base + "Users" + teacher.avatarUrl : "assets/images/defaultCardTeachers/defaultUserImage/Card1-Teachers-Teacher2.png"
-            })
+          this.learningSubject.assignedTeachers = this.learningSubject.assignedTeachers.map((t)=>
+          ({
+            ...t,
+            avatarUrl: t.avatarUrl ? this.API.mediaBase + "Users/" + t.avatarUrl : t.avatarUrl
+          }))
+
+          console.log(this.learningSubject.assignedTeachers);
 
           this.GetLearningResources(this.learningSubject.Id, undefined,  LearningResourceStatus.Published);
           this.getExamsBySubjectId(this.learningSubject.Id);
@@ -122,13 +124,11 @@ export class LearningSubjectComponent implements OnInit {
           this.customAlert.alert.next(this.alertMessage); 
         }
     )
-    console.log('etching learning subject data...');
   }
 
   // A method to change the selected grade
   onGradeChange(event: Event): void {
     const selectedGrade = (event.target as HTMLSelectElement).value;
-    console.log(`Grade changed to: ${selectedGrade}`);
     // Add logic here to load content for the selected grade
   }
 

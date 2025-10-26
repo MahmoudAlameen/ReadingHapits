@@ -21,7 +21,7 @@ export interface ILearningSubjectDetails
 export interface IAssignedTeacher
 {
     id: string,
-    fullName: string,
+    name: string,
     avatarUrl: string
 }
 

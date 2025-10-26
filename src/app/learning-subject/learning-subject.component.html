@@ -20,7 +20,12 @@
 </div>
 
 <div class="teacher-avatars">
-  <img  *ngFor="let teacher of learningSubject.assignedTeachers" [src]="teacher.avatarUrl" alt="Teacher">
+  <div class="avatar-Container"  *ngFor="let teacher of learningSubject.assignedTeachers">
+  <img *ngIf ="teacher.avatarUrl"  [src]="teacher.avatarUrl"  class = "teacher-avatar"  alt="Teacher"/>
+ <div *ngIf="!teacher.avatarUrl" class = "teacherImageRepalcement">{{teacher.name.charAt(0).toLocaleUpperCase()}}</div>
+</div>
+   
+
 </div>
 
 <div class="description">

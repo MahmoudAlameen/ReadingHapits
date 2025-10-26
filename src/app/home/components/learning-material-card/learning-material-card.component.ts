@@ -53,10 +53,10 @@ this.material.coverUrl = this.material.coverUrl
   ? this.API.base + "LearningSubjects/" + this.material.coverUrl
   : "assets/images/defaultLearningSubjectCoverImage/Learning_Material-Cards-card1-Cover_Section.png";
 
-    this.material.assignedTeachersAvatars.forEach(teacher => 
+    this.material.assignedTeachers.forEach(teacher => 
     {
-      teacher.avatarUrl = teacher.avatarUrl != null ?
-        this.API.base + "Users" + teacher.avatarUrl : 
+      teacher.avatarUrl = teacher.avatarUrl ?
+       teacher.avatarUrl :
         "assets/images/defaultCardTeachers/defaultUserImage/Card1-Teachers-Teacher2.png"
     }
     )

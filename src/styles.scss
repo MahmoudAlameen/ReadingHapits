@@ -65,6 +65,11 @@ html[dir="rtl"] .international-assessments-page .intro-section .cards-and-featur
   font-size: clamp(0.9rem, 5vw, 1.4rem);
 }
 
+html[dir="rtl"] .teacherImageRepalcement
+{
+  left: 0%;
+  right:35%;
+}
 
 /* questions , choices images */
  .question-body img, .choice-text img {

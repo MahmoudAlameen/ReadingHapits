@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { LangChangeEvent } from '@ngx-translate/core';
 import { CustomAlertService } from 'src/app/core/custom-alert.service';
 import { AlertMessage } from 'src/app/classes/AlertMessage';
+import { APIService } from 'src/app/core/API.Service';
 
 @Component({
   selector: 'app-learning-materials',
@@ -18,7 +19,8 @@ export class LearningMaterialsComponent implements OnInit {
 
   constructor(private learningSubjectService: LearningSubjectService,
     private translate: TranslateService,
-  private customAlert : CustomAlertService) { }
+  private customAlert : CustomAlertService,
+private api: APIService) { }
 
   ngOnInit(): void {
     this.getLearningSubjectCards();
@@ -43,7 +45,15 @@ export class LearningMaterialsComponent implements OnInit {
       {
         if(response.isValid && response.modelList)
         {
-          this.learningMaterials = response.modelList;
+          this.learningMaterials = response.modelList.map((l) => (
+            {
+              ...l,
+              assignedTeachersAvatars : l.assignedTeachers.map((t) => ({
+                ...t,
+                avatarUrl : t.avatarUrl ? `${this.api.mediaBase}Users/${t.avatarUrl}` : t.avatarUrl
+              }))
+            }
+          ));
         }
         else
         {
