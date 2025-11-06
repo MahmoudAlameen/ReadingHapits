@@ -1,5 +1,14 @@
+<section>
+  <h3 class="bookHead">{{translateService.currentLang == "ar" ? learningResource.nameAr : learningResource.nameEn}}</h3>
+  <div *ngIf="!readingStarted" #cover class="cover"  (click)="openBook()">
+    <img [src]="learningResource.coverUrl" *ngIf="learningResource.coverUrl" />
+    <div class="replaceImage" *ngIf="!learningResource.coverUrl"></div>
+  </div>
 
-<div class="pdf-container">
+  <button *ngIf="readingStarted" class="end-reading-button btn" (click)="endRead()"> {{'End Reading'| translate}}</button>
+  <div class="pdf-container">
+
+  
   <!--
   <div class="pdf-controls">
     <button (click)="prevPage()" [disabled]="page === 1">Previous</button>
@@ -7,7 +16,7 @@
     <button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
   </div>
   -->
-<div id="outerContainer">
+<div *ngIf="readingStarted" id="outerContainer">
   <div class="pdf-container">
     <pdf-viewer
       [src]="pdfSrc"
@@ -27,3 +36,4 @@
   </div>
 </div>
 </div>
+</section>

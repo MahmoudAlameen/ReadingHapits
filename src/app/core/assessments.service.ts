@@ -128,28 +128,28 @@ fetchAssessmentsByGrade(
                 id: 'q1',
                 bodyHtml: 'What is the primary language used in Angular templates? (It might contain an image: <img src="logo1.png" width="50">)',
                 choices: [
-                    { id: 'c1a', bodyHtml: 'TypeScript' },
-                    { id: 'c1b', bodyHtml: 'HTML with directives' },
-                    { id: 'c1c', bodyHtml: 'JSX' },
+                    { id: 'c1a', content: 'TypeScript' },
+                    { id: 'c1b', content: 'HTML with directives' },
+                    { id: 'c1c', content: 'JSX' },
                 ]
             },
             {
                 id: 'q2',
                 bodyHtml: 'Which structural directive is used for conditional rendering? (This question is long to test scrolling and contains an image: <img src="logo2.png" width="50">)',
                 choices: [
-                    { id: 'c2a', bodyHtml: '<code>*ngFor</code>' },
-                    { id: 'c2b', bodyHtml: '<code>*ngSwitch</code>' },
-                    { id: 'c2c', bodyHtml: '<code>*ngIf</code>' },
-                    { id: 'c2d', bodyHtml: '<code>*ngBind</code>' },
+                    { id: 'c2a', content: '<code>*ngFor</code>' },
+                    { id: 'c2b', content: '<code>*ngSwitch</code>' },
+                    { id: 'c2c', content: '<code>*ngIf</code>' },
+                    { id: 'c2d', content: '<code>*ngBind</code>' },
                 ]
             },
             {
                 id: 'q3',
                 bodyHtml: 'What is the recommended method for state management using modern Angular features?',
                 choices: [
-                    { id: 'c3a', bodyHtml: 'RxJS Subjects' },
-                    { id: 'c3b', bodyHtml: 'Angular Signals' },
-                    { id: 'c3c', bodyHtml: 'NGRX Store' },
+                    { id: 'c3a', content: 'RxJS Subjects' },
+                    { id: 'c3b', content: 'Angular Signals' },
+                    { id: 'c3c', content: 'NGRX Store' },
                 ]
             }
         ]
@@ -195,7 +195,7 @@ fetchAssessmentsByGrade(
             data.questions.forEach((q: IQuestion) => {
                 q.bodyHtml = this.prefixImageSrc(q.bodyHtml, this.IMAGE_BASE_URL);
                 q.choices.forEach(c => {
-                    c.bodyHtml = this.prefixImageSrc(c.bodyHtml, this.IMAGE_BASE_URL);
+                    c.content = this.prefixImageSrc(c.content, this.IMAGE_BASE_URL);
                 });
             });
             

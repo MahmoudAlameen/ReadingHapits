@@ -60,6 +60,7 @@ this.material.coverUrl = this.material.coverUrl
         "assets/images/defaultCardTeachers/defaultUserImage/Card1-Teachers-Teacher2.png"
     }
     )
+    this.userService.setUserGrade();
   }
 
   private truncateText(text: string, maxLength: number = 75): string {

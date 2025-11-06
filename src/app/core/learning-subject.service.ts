@@ -43,4 +43,9 @@ export class LearningSubjectService {
     return this.http.get<APIResponseModelList<IIdWithName>>(this.API.gradesIds)
       .pipe(catchError((err) => throwError(() => err.message)));
   }
+
+  visitLearningSubject(subjectId: string)
+  {
+        return this.http.post<APIResponseModel<number>>(`${this.API.visitReadingRoom}${subjectId}`, {});
+  }
 }

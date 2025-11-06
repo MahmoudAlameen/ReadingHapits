@@ -21,7 +21,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
     // 1. Check the context token
     if (request.context.get(BYPASS_INTERCEPTOR)) {
-      console.log('Bypassing MyInterceptor for this request.');
       // Pass the original request along without any modification
       return next.handle(request); 
     }
@@ -31,7 +30,7 @@ export class AuthInterceptor implements HttpInterceptor {
         
         // Check if the error is 401 Unauthorized
         if (error.status === 401) {
-          this.router.navigate(['home/login']);
+  this.router.navigate(['home/login'], { replaceUrl: true });
         }
 
         // Always re-throw the error so that the component making the API call 

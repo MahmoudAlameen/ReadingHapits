@@ -77,7 +77,6 @@ export class LearningResourceCardComponent implements OnInit {
 
     // Action Handlers
     onViewClick(): void {
-        console.log(this.resource.id)
         if(this.resource.contentResourceType == ResourceContentType.Text)
         {
             if(this.resource.resourceType == LearningResourceType.Book)
@@ -87,7 +86,9 @@ export class LearningResourceCardComponent implements OnInit {
         }
         else
             this.router.navigate(['learning-subjects/preview-pdf'], {
-            queryParams:{pdfUrl: this.resource.fileUrl}
+            queryParams:{
+                resourceId: this.resource.id
+            }
         }) }
 
 

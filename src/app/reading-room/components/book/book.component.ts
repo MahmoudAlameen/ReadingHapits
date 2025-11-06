@@ -1,9 +1,7 @@
 import { animation } from '@angular/animations';
 import { Time } from '@angular/common';
-import { ReadKeyExpr } from '@angular/compiler';
-import { Component, Input, OnInit, SimpleChange } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Timestamp } from 'rxjs';
 import { AlertMessage } from 'src/app/classes/AlertMessage';
 import { Book } from 'src/app/classes/Book';
 import { BookPage } from 'src/app/classes/BookPage';
@@ -22,7 +20,7 @@ import { pageType } from 'src/app/enums/PagType';
   templateUrl: './book.component.html',
   styleUrls: ['./book.component.scss']
 })
-export class BookComponent implements OnInit {
+export class BookComponent implements OnInit, OnDestroy {
 @Input() bookId!:string;
 userId:string='';
 book:Book=new Book();
@@ -84,7 +82,7 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
       let delemeters = this.book.cover.split(',');
       let fileId= delemeters[0].trim();
       let fileName = delemeters[1].trim();
-      this.book.cover= this.API.base + "Books/Covers/" + fileId + '/'+ fileName
+      this.book.cover= this.API.mediaBase + "Books/Covers/" + fileId + '/'+ fileName
     }
   }
 
@@ -99,7 +97,6 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
       let rightSide=document.querySelector(".right");
       leftSide?.classList.add("leftCover");
       rightSide?.classList.add("rightCover");
-      console.log(this.leftFlipper)
     }
   }
 
@@ -324,7 +321,6 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
       {
         let id=param.get("id");
         this.bookId=id?? '00000000-0000-0000-0000-000000000000';
-        console.log(this.bookId);
         this.getBook();
       } 
     )

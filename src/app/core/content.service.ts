@@ -101,4 +101,15 @@ export class ContentService {
     )
 
   }
+
+    getPdfFile(url: string): Observable<Blob> {
+    return this.http.get(url, { responseType: 'blob' }).pipe(
+      catchError(
+        (err) => {
+          console.error(err);
+          return throwError(() => new Error('Failed to load PDF file.'));
+        }
+      )
+    );
+  }
 }

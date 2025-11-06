@@ -7,10 +7,10 @@ import { Injectable } from '@angular/core';
 )
 export class APIService
 {
-    //base:string= "https://www.readinghapitsapi.somee.com/"
-    base:string="https://localhost:7107/";
-    mediaBase: string= "https://localhost:7107/";
-    //mediaBase: string = "https://www.readinghapitsapi.somee.com/"
+    base:string= "https://www.readinghapitsapi.somee.com/"
+    //base:string="https://localhost:7107/";
+    //mediaBase: string= "https://localhost:7107/";
+    mediaBase: string = "https://www.readinghapitsapi.somee.com/"
     AddUser:string=this.base+"users/addUser/";
     UserLogin=this.base+"users/login";
     UserLogout = this.base +"users/logout";
@@ -24,7 +24,7 @@ export class APIService
 
     /***reports */
     private report:string ="reports"
-    visitReadingRoom = `${this.base}${this.report}/reading-rooms/visit`;
+    visitReadingRoom = `${this.base}${this.report}/reading-rooms/visit/`;
     addBookTimeRead = `${this.base}${this.report}/books/add-read-time`;
     addArticleTimeRead = `${this.base}${this.report}/articles/add-read-time`;
 
@@ -50,6 +50,7 @@ export class APIService
     saveAnswer = this.base + "assessments/save-answer";
     getAssessmentResult = this.base + "assessments/view-result/";
     internationalAssessmentsVedio = this.base + "shared/inernationalAssessmentDescriptiveVedio/"
+    getLearningResource = this.base + "learning-resources/resource/"
 
 
 

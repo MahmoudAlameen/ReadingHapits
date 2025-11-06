@@ -12,7 +12,7 @@ export interface IAssessmentMeta {
 
 export interface IChoice {
     id: string;
-    bodyHtml: string;
+    content: string;
 }
 
 export interface IQuestion {

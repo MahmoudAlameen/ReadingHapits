@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { APIResponse, APIResponseModelList } from '../classes/APIResponse';
+import { APIResponse, APIResponseModel, APIResponseModelList } from '../classes/APIResponse';
 import { APIService } from './API.Service';
 import { ILearningResourceCard } from '../DTOs/ILearningSubjectDetails';
 import { catchError, Observable, throwError } from 'rxjs';
 import { LearningResourceStatus } from '../enums/learning-resources.enums';
 import { ReadingRoomCard } from '../classes/ReadingRoomCard';
+import { ILearningResource } from '../DTOs/learning-resource.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -37,4 +38,11 @@ getLearningResourcesBySubjectId(
       catchError((err) => throwError(() => err.Messages))
     );
 }
+
+    getLearningResource(id: string) : Observable<APIResponseModel<ILearningResource>>
+    {
+      return this.http.get<APIResponseModel<ILearningResource>>(`${this.API.getLearningResource}${id}`)
+        .pipe(catchError((err)=>throwError(()=>err.message)));
+
+    }
 }

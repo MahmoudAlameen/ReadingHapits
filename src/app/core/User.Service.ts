@@ -10,6 +10,7 @@ import { SessionStorageKeysService } from "./SessionStorageKeysService";
 import { IGrade } from "../DTOs/grade.interfaces";
 import { IUserData } from "../DTOs/user-data.interface";
 import { BYPASS_INTERCEPTOR } from 'src/app/core/interceptors/no-interceptor.context'; // Import the token
+import { debug, error } from "console";
 
 @Injectable(
     {
@@ -82,16 +83,18 @@ export class UserService
 
     public setUserGrade()
     {
+        if(this.studentGrade.value)
+            return;
         this.getUserGrade().subscribe(
             res => 
             {
+
                 if(res.isValid && res.model)
                 {
                     this.studentGrade.next(res.model);
                 }
 
             }
-
         )
     }
 }

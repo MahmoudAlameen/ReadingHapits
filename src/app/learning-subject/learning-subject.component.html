@@ -50,11 +50,13 @@
   <div class="cards">
     <app-learning-resource-card *ngFor="let book of learningSubject.books" [resource]="book"></app-learning-resource-card>
   </div>
+  <!--
   <app-progress-bar
     [title]="'📖 Books Progress'"
     [progress]="60"
     [text]="'Completed 2/3 books'">
   </app-progress-bar>
+  -->
 </div>
 
 <div class="section-container section-articles">
@@ -62,11 +64,13 @@
   <div class="cards">
     <app-learning-resource-card *ngFor="let article of learningSubject.articles" [resource]="article"></app-learning-resource-card>
   </div>
+  <!--
   <app-progress-bar
     [title]="'📄 Articles Progress'"
     [progress]="50"
     [text]="'Completed 1/2 articles'">
   </app-progress-bar>
+  -->
 </div>
 
 <div class="section-container section-exams">
@@ -87,11 +91,13 @@
     <h3>📙 {{'Ordinary' | translate}}</h3>
     <app-exam-card *ngFor="let exam of ordinaryExams" [assessment]="exam"></app-exam-card>
   </div>
+  <!--
   <app-progress-bar
     [title]="'📝 Exams Progress'"
     [progress]="33"
     [text]="'Completed 1/3 exams'">
   </app-progress-bar>
+  -->
 </div>
 </ng-template>
 
