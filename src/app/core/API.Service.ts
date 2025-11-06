@@ -21,7 +21,6 @@ export class APIService
     GetArticle=this.base+"articles/getArticle";
     bookPagesNumber = this.base + "books/book/pagesNumber";
 
-
     /***reports */
     private report:string ="reports"
     visitReadingRoom = `${this.base}${this.report}/reading-rooms/visit/`;
@@ -51,8 +50,6 @@ export class APIService
     getAssessmentResult = this.base + "assessments/view-result/";
     internationalAssessmentsVedio = this.base + "shared/inernationalAssessmentDescriptiveVedio/"
     getLearningResource = this.base + "learning-resources/resource/"
-
-
 
     constructor()
     {
