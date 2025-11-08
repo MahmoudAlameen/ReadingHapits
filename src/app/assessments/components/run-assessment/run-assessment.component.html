@@ -43,7 +43,11 @@
 
                 <!-- 4. TAKING ASSESSMENT STATE - All questions visible -->
                 <div *ngIf="currentState === 'taking' && assessment" class="question-flow">
-                    
+                    <div *ngIf="assessment.meta.paragraphBody"
+                        [innerHTML]="sanitizeHtml(assessment.meta.paragraphBody)" 
+                        class="choice-text"
+                    >
+                   </div>
                     <!-- Loop through ALL questions using Angular 14 compatible *ngFor -->
                     <div *ngFor="let question of assessment.questions; let i = index; trackBy: trackById" class="question-wrapper">
                         <div class="question-number-header">

@@ -1,4 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, interval, Subscription, takeWhile } from 'rxjs';
 import { AssessmentState, IAssessmentData, IExamResult, IQuestion, IUserAnswer } from 'src/app/DTOs/assessments.interfaces';
@@ -34,7 +35,8 @@ export class RunAssessmentComponent implements OnInit, OnDestroy {
     private resultSubscription!: Subscription; // New subscription for results
 
     constructor(
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private sanitizer : DomSanitizer
     ) { }
 
     ngOnInit(): void {
@@ -153,4 +155,9 @@ ngOnDestroy(): void {
         this.answerSubscription?.unsubscribe();
         this.resultSubscription?.unsubscribe();
     }
+
+        sanitizeHtml(html: string): SafeHtml {
+            return this.sanitizer.bypassSecurityTrustHtml(html);
+        }
+    
 }

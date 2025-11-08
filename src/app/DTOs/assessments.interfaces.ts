@@ -8,6 +8,8 @@ export interface IAssessmentMeta {
     isStarted: boolean; 
     remainingTimeInMinutes: number,
     questionsCount: number;
+    paragraphBody?: string;
+
 }
 
 export interface IChoice {
