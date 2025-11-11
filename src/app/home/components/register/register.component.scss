@@ -162,6 +162,10 @@ label {
 
 /* Media Queries for Tablet/Mobile */
 @media (max-width: 768px) {
+    .container
+    {
+        margin-top: 2.5rem;
+    }
     strong {
         font-size: 1.8rem; /* Scale down title slightly on small screens */
     }
@@ -229,5 +233,10 @@ label {
     .submitting {
         background-color: #4ade80; /* green-400 */
         cursor: not-allowed;
+    }
+
+    select 
+    {
+        height: 40px;
     }
 

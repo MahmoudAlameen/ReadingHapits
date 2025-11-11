@@ -118,10 +118,12 @@ fetchAssessmentsByGrade(
             id: 'exam-123',
             name: 'Introduction to Angular Concepts',
             durationInMinutes: 15, // 15 minutes duration
-            subjectName: 'Front-End Development',
+            subjectNameEn: 'Front-End Development',
+            subjectNameAr: "تطوير الواجهات الاماميه",
             isStarted: false ,
             remainingTimeInMinutes: 5,
-            questionsCount : 5
+            questionsCount : 5,
+            totalScore: 100
         },
         questions: [
             {

@@ -1,7 +1,7 @@
 <section class="container container-fluid">
     <form class="loginForm" #loginForm="ngForm" (ngSubmit)="loginUser()">
         <div class="form-group">
-            <label>{{'user name' | translate}} </label>
+            <label>{{'Email' | translate}} </label>
             <input type="text" 
                    required 
                    [class.is-invalid]="userName.invalid && userName.touched" 

@@ -72,6 +72,12 @@ export class RegisterComponent implements OnInit {
       .subscribe(messages => {
         this.errorMessages = messages;
       });
+
+      this.translateService.onLangChange.subscribe(e =>
+      {
+        this.getCountries()
+      }
+      )
   }
 
   // FIX: Removed the unused postData() method
@@ -91,7 +97,7 @@ export class RegisterComponent implements OnInit {
   }
   
   getCountries() {
-    this.registerFormData.getCountries().subscribe(
+    this.registerFormData.getCountries(this.translateService.currentLang).subscribe(
       countries => {
         this.countries = countries;
         // FIX: Ensure the default country value triggers the validation logic on load

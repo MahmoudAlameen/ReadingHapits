@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { error } from 'console';
 import { AlertMessage } from 'src/app/classes/AlertMessage';
 import { AssessmentsService } from 'src/app/core/assessments.service';
@@ -16,11 +17,13 @@ export class AssessmentResultComponent implements OnInit {
     @Input() assessmentName!: string;
     @Input() timeRemainingSeconds: number = 0; // Time remaining when submitted
     alertMessage: AlertMessage = new AlertMessage();
+    timetaken: string = '';
 
     constructor(
       private route: ActivatedRoute,
       private assessmentService: AssessmentsService,
-      private customAlert: CustomAlertService
+      private customAlert: CustomAlertService,
+      private translateService: TranslateService
     )
     {
 
@@ -36,7 +39,9 @@ export class AssessmentResultComponent implements OnInit {
     /**
      * Converts total seconds into HH:MM:SS format.
      */
-    formatTime(totalSeconds: number): string {
+    formatTime(totalSeconds: number): void {
+      var mLabel = this.translateService.currentLang == "ar" ?   "دقيقه" : 'm'
+      var sLabel = this.translateService.currentLang == "ar" ? "ثانيه" : "s" 
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = Math.floor(totalSeconds % 60);
@@ -44,12 +49,15 @@ export class AssessmentResultComponent implements OnInit {
         const pad = (n: number) => n < 10 ? '0' + n : n; 
         
         if (hours > 0) {
-            return `${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`;
+            this.timetaken = `${pad(hours)}h ${pad(minutes)} ${mLabel} ${pad(seconds)} ${sLabel}`;
         }
-        return `${pad(minutes)}m ${pad(seconds)}s`;
+        this.timetaken = `${pad(minutes)} ${mLabel} ${pad(seconds)} ${sLabel}`;
     }
   ngOnInit(): void {
-
+    if(this.result)
+    {
+      this.formatTime(this.result.timeTakenSeconds);
+    }
     if(this.result == null)
     {
         this.route.paramMap.subscribe(
@@ -64,8 +72,8 @@ export class AssessmentResultComponent implements OnInit {
                   {
                     if(res.isValid && res.model)
                     {
-                      this.result = res.model
-
+                      this.result = res.model;
+                      this.formatTime(this.result.timeTakenSeconds);
                     }
                     else
                     {
@@ -87,6 +95,14 @@ export class AssessmentResultComponent implements OnInit {
 
             })  
     }
+
+    this.translateService.onLangChange.subscribe(
+      event => 
+      {
+        if(this.result)
+          this.formatTime(this.result.timeTakenSeconds);
+      }
+    )
   }
 
 }

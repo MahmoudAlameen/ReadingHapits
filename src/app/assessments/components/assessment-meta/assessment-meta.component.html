@@ -5,7 +5,7 @@
             <div class="metadata-details">
                 <p class="metadata-row">
                     <span class="metadata-label">{{'Subject' | translate }}:</span>
-                    <span class="metadata-value-primary">{{ meta.subjectName }}</span>
+                    <span class="metadata-value-primary">{{ displayedSubjectName }}</span>
                 </p>
                 <p class="metadata-row">
                     <span class="metadata-label">{{'Duration' | translate}}:</span>
@@ -14,6 +14,10 @@
                 <p class="metadata-row">
                     <span class="metadata-label">{{'Total Questions' | translate}} :</span>
                     <span class="metadata-value-primary">{{ meta.questionsCount }}</span>
+                </p>
+                <p class="metadata-row">
+                    <span class="metadata-label">{{'Total Score' | translate}} :</span>
+                    <span class="metadata-value-primary">{{ meta.totalScore }}</span>
                 </p>
             </div>
 

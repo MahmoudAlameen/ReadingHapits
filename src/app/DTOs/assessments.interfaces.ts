@@ -4,11 +4,13 @@ export interface IAssessmentMeta {
     id: string;
     name: string;
     durationInMinutes: number; // Duration is stored in minutes
-    subjectName: string;
+    subjectNameEn: string;
+    subjectNameAr: string;
     isStarted: boolean; 
     remainingTimeInMinutes: number,
     questionsCount: number;
     paragraphBody?: string;
+    totalScore: number;
 
 }
 

@@ -54,7 +54,7 @@
     "Follow us on Twitter": "تابعنا على تويتر",
     "Connect with us on LinkedIn": "تواصل معنا على لينكدإن",
     "Subscribe to our YouTube channe": "اشترك في قناتنا على يوتيوب",
-    "user name" : "اسم المستخدم",
+    "Email" : "البريد الالكترونى",
     "password" : "كلمة المرور ",
     "login" : "تسجيل الدخول",
     "register new account" : "تسجيل حساب جديد ",
@@ -140,5 +140,13 @@
   "The Smarter-More Enjoyable Learning Journey" : "رحلة التعلم الأذكى والأكثر متعة",
   "Comprehensive E-Learning Platform": "منصة تعليم إلكتروني شاملة",
   "MAIN_CONTENT_PARAGRAPH" : "توفر لك منصتنا محتوى تعليمي وموارد معرفية غنية ومُنظمة،\n تم تطويرها لجعل رحلتك التعليمية أكثر ذكا\nءً وتفاعلية ومتعة، ولتحقيق أعلى مستويات الإنجاز لكل مستخدم.",
-  "End Reading": "انها القراءة"
+  "End Reading": "انها القراءة",
+  "Phone Number": "رقم التليفون",
+  "Total Score": "الدرجه الكليه",
+  "Final Score": "الدرجه النهائيه",
+  "Correct Answers": "الاجابه الصحيحه",
+  "Time Taken": "المدة المستغرقة",
+  "Thank you for completing the": "شكرًا على اكمال",
+  "exam. You may close this window." : "الاختبار. يمكنك إغلاق هذه النافذة.",
+  "Assessment Complete!": "تم انها الاختبار"
 }

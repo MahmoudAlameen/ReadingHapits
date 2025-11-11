@@ -92,13 +92,11 @@ export class HeaderComponent implements OnInit {
    //  this.isRtl = lang === 'ar';
 
  // Handle LTR/RTL
- console.log("switch language hitted")
 
  const htmlTag = document.getElementsByTagName('html')[0] as HTMLHtmlElement;
 
  htmlTag.dir = lang === 'ar' ? 'rtl' : 'ltr';
  this.languageButtonText = lang === 'ar' ? 'EN' : 'AR';
- console.log(this.translate.currentLang)
 
  }
 

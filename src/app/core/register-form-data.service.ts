@@ -19,9 +19,11 @@ export class RegisterFormDataService {
     )
 
   }
-  getCountries():Observable<string[]>
+  getCountries(lang: string):Observable<string[]>
   {
-    return this.http.get<string[]>("./assets/json/countries.json").pipe(
+    var url = lang == 'ar' ? "./assets/json/countries.ar.json" :
+    "./assets/json/countries.en.json";
+    return this.http.get<string[]>(url).pipe(
       catchError(
         (err)=>
         {

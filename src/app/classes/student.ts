@@ -6,7 +6,7 @@ export class Student
     name: string="";
     email: string="";
     gender:Gender= Gender.male;
-    age:number= 0;
+    age:number| null = null;
     country: string="";
     governate: string="";
     school: string="";

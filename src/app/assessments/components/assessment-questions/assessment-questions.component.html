@@ -1,9 +1,9 @@
        <div *ngIf="question" class="question-container">
             <!-- Question Body (Rendered as trusted HTML) -->
-            <div 
-                [innerHTML]="questionBodyHtml" 
-                class="question-body"
-            >
+            <div class="ql-container ql-snow">
+                <div class="ql-editor" [innerHTML]="questionBodyHtml">
+
+                </div>
             </div>
 
             <div class="choices-list">
@@ -18,11 +18,11 @@
                     ></div>
                     
                     <!-- Choice Body (Rendered as trusted HTML) -->
-                <div 
-                        [innerHTML]="sanitizeHtml(choice.content)" 
-                        class="choice-text"
-                    >
-                </div>
+                     <div class="ql-container ql-snow">
+                        <div class="ql-editor" [innerHTML]="sanitizeHtml(choice.content)">
+
+                        </div>
+                    </div>     
                 </div>
             </div>
 </div>

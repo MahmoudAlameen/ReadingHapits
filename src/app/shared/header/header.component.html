@@ -55,6 +55,19 @@
 
         <!-- Mobile Menu Button (Hamburger/X Icon - Hidden on desktop via media query) -->
          <div class="avatar-mobile">
+          <a class="lang-btn"  (click)="switchLanguage(languageButtonText);">{{languageButtonText}}</a>
+
+           <a *ngIf="!(currentUser$ | async)" navi class="mobile-signin-btn" routerLink="/register">
+            {{ 'Sign up' | translate}}
+          </a>
+
+          <!-- Sign In Button (Solid) -->
+          <a *ngIf="!(currentUser$ | async)" class="mobile-signin-btn" routerLink="/login">
+            {{ 'Sign In' | translate}}
+          </a>
+          <button *ngIf="currentUser$ | async" class="mobile-signin-btn"  (click)="logout()">
+            {{ 'Sign Out' | translate}}
+          </button>
         <button (click)="toggleMenu()" class="menu-button">
           <!-- Hamburger Icon (Menu) (Using *ngIf for A14 compatibility) -->
           <ng-container *ngIf="!isOpen">
@@ -65,6 +78,8 @@
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </ng-container>
         </button>
+                  <!-- Sign Up Button (Outline) -->
+
         <div class = "profile-avatar" *ngIf="(userData$ | async) as userData" id="profile-avatar">
           <img *ngIf="userData.avatarUrl" 
              [src]="userData.avatarUrl" 

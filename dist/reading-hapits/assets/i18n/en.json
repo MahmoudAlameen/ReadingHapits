@@ -52,7 +52,7 @@
   "Follow us on Twitter": "Follow us on Twitter",
   "Connect with us on LinkedIn": "Connect with us on LinkedIn",
   "Subscribe to our YouTube channel": "Subscribe to our YouTube channel",
-  "user name" : "user name",
+  "Email" : "Email",
   "password" : "password",
   "login" : "Login",
   "register new account" : "Register New Account",
@@ -136,5 +136,13 @@
   "The Smarter-More Enjoyable Learning Journey": "The Smarter  More Enjoyable Learning Journey",
   "Comprehensive E-Learning Platform": "Comprehensive E-Learning Platform",
   "MAIN_CONTENT_PARAGRAPH": "Access a world-class educational ecosystem built for success. Our platform provides\nrich, structured learning subjects and resources designed to make your journey smarter,\nmore engaging, and enjoyable, driving high achievement for every user.",
-  "End Reading": "End Reading"
+  "End Reading": "End Reading",
+  "Phone Number": "Phone Number",
+  "Total Score": "Total Score",
+  "Final Score": "Final Score",
+  "Correct Answers": "Correct Answers",
+  "Time Taken": "Time Taken",
+  "Thank you for completing the": "Thank you for completing the",
+  "exam. You may close this window.":"exam. You may close this window.",
+  "Assessment Complete!": "Assessment Complete!"
 }

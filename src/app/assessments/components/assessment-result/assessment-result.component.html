@@ -1,5 +1,5 @@
 <div *ngIf="result" class="result-card">
-            <h2 class="result-title">Assessment Complete!</h2>
+            <h2 class="result-title">{{'Assessment Complete!'| translate}}</h2>
             <div class="result-summary">
                 <p class="result-grade" [class.pass]="result.grade !== 'Fail'" [class.fail]="result.grade === 'Fail'">
                     {{ result.grade }}
@@ -7,22 +7,22 @@
                 
                 <div class="score-display">
                     <span class="score-value">{{ result.percentage }}%</span>
-                    <span class="score-label">Final Score</span>
+                    <span class="score-label">{{'Final Score'| translate}}</span>
                 </div>
 
                 <div class="metric-grid">
                     <div class="metric-item">
                         <span class="metric-value">{{ result.score }} / {{ result.maxScore }}</span>
-                        <span class="metric-label">Correct Answers</span>
+                        <span class="metric-label">{{'Correct Answers'| translate}}</span>
                     </div>
                     <div class="metric-item">
-                        <span class="metric-value">{{ formatTime(timeTakenSeconds) }}</span>
-                        <span class="metric-label">Time Taken</span>
+                        <span class="metric-value">{{ this.timetaken }}</span>
+                        <span class="metric-label">{{'Time Taken'| translate}}</span>
                     </div>
                 </div>
                 
                 <p class="final-message">
-                    Thank you for completing the **{{ assessmentName }}** exam. You may close this window.
+                    {{'Thank you for completing the'| translate}} **{{ assessmentName }}** {{'exam. You may close this window.'| translate}}
                 </p>
             </div>
 </div>
