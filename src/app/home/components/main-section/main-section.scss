@@ -210,8 +210,8 @@
 /* Main Hero Image */
 .hero-image {
   position: absolute;
-  width: 170%;
-  height: 500px;
+  width: 100%;
+  height: 100%;
   top: -20%;
   left: 40%;
   transform: translateX(-50%);
@@ -299,23 +299,26 @@
     height: 500px;
   }
 
+  /*
   .background-elements {
     width: 400px;
     height: 400px;
   }
-
+*/
   .circle-bg,
   .mask-overlay {
     width: 390px;
     height: 390px;
   }
 
+  /*
   .hero-image {
    // width: 450px;
    width: 170%;
 
     height: 365px;
   }
+    */
 
   .stats-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -388,13 +391,14 @@
     width: 300px;
     height: 300px;
   }
-
+/*
   .circle-bg,
   .mask-overlay {
     width: 290px;
     height: 290px;
   }
-
+*/
+/*
   .hero-image {
    // width: 320px;
     width: 180%;
@@ -402,6 +406,7 @@
     top: -10%;
 
   }
+    */
 
   .stats-grid {
     grid-template-columns: 1fr;
@@ -459,19 +464,26 @@
     width: 240px;
     height: 240px;
   }
-
+  .text-content
+  {
+    margin-top:60px
+  }
+/*
   .circle-bg,
   .mask-overlay {
     width: 230px;
     height: 230px;
   }
-
+*/
+/*
   .hero-image {
     width: 170%;
-    height: 210px;
+    height: 170px;
     top: -10%;
 
   }
+    */
+    
 }
 
 /* Focus and Accessibility */
