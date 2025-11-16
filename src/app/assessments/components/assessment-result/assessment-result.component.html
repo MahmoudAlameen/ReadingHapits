@@ -6,17 +6,17 @@
                 </p>
                 
                 <div class="score-display">
-                    <span class="score-value">{{ result.percentage }}%</span>
-                    <span class="score-label">{{'Final Score'| translate}}</span>
+                    <span class="score-value">{{ result.percentage | localDigits}}%</span>
+                    <span class="score-label">{{'Percentage'| translate}}</span>
                 </div>
 
                 <div class="metric-grid">
                     <div class="metric-item">
-                        <span class="metric-value">{{ result.score }} / {{ result.maxScore }}</span>
-                        <span class="metric-label">{{'Correct Answers'| translate}}</span>
+                        <span class="metric-value">{{ result.score | localDigits}} / {{ result.maxScore | localDigits }}</span>
+                        <span class="metric-label">{{'Final Score'| translate}}</span>
                     </div>
                     <div class="metric-item">
-                        <span class="metric-value">{{ this.timetaken }}</span>
+                        <span class="metric-value">{{ this.timetaken | localDigits}}</span>
                         <span class="metric-label">{{'Time Taken'| translate}}</span>
                     </div>
                 </div>

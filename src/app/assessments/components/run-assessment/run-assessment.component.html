@@ -4,7 +4,7 @@
                 <div class="header-content">
                     <!-- Display total questions and answered count -->
                     <p class="question-info">
-                        Questions Answered: 
+                        {{'Questions Answered'| translate}}: 
                         <span class="answered-count">{{ Object.keys(answers).length }}</span> / {{ assessment?.questions?.length }}
                     </p>
                     
@@ -17,7 +17,7 @@
                         (click)="finishAssessment()"
                         class="finish-button"
                     >
-                        Finish Exam
+                        {{'Finish Exam'| translate}}
                     </button>
                 </div>
             </header>
@@ -72,8 +72,8 @@
                             (click)="finishAssessment()"
                             class="nav-button finish-submit-button"
                         >
-                            Finish & Submit All 
-                            <span class="ml-2 font-mono">({{ Object.keys(answers).length }} / {{ assessment.questions.length }} answered)</span>
+                            {{'Finish & Submit All Answers'| translate}}
+                            <span class="ml-2 font-mono">({{ Object.keys(answers).length }} / {{ assessment.questions.length }} {{'answered'| translate}})</span>
                         </button>
                     </div>
                 </div>

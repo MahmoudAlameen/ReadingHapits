@@ -12,7 +12,7 @@ import { ExamCardComponent } from './exam-card/exam-card.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { PdfPreviewComponent } from './pdf-preview/pdf-preview.component'; // <-- Import the module
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-
+import { LocalDigitsPipe } from 'src/app/core/customPipes/arabic-digit.pipe';
 
 @NgModule({
   declarations: [
@@ -24,6 +24,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     ProgressBarComponent,
     ExamCardComponent,
     PdfPreviewComponent,
+    LocalDigitsPipe
 
   ],
   imports: [
@@ -33,7 +34,10 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     TranslateModule,
     PdfViewerModule
   ],
-  exports:[HeaderComponent,FooterComponent, BookCardComponent,ArticleCardComponent, CustomAlertComponent, 
-    ProgressBarComponent, ExamCardComponent]
+  exports:[
+     HeaderComponent, FooterComponent,
+     BookCardComponent, ArticleCardComponent,
+     CustomAlertComponent, ProgressBarComponent, 
+     ExamCardComponent, LocalDigitsPipe]
 })
 export class SharedModule { }

@@ -144,9 +144,14 @@
   "Phone Number": "رقم التليفون",
   "Total Score": "الدرجه الكليه",
   "Final Score": "الدرجه النهائيه",
-  "Correct Answers": "الاجابه الصحيحه",
+  "Correct Answers": "الاجابات الصحيحه",
   "Time Taken": "المدة المستغرقة",
   "Thank you for completing the": "شكرًا على اكمال",
   "exam. You may close this window." : "الاختبار. يمكنك إغلاق هذه النافذة.",
-  "Assessment Complete!": "تم انها الاختبار"
+  "Assessment Complete!": "تم انها الاختبار",
+  "Finish Exam": "انهاه الامتحان",
+  "Questions Answered": "الاسئله المجابه",
+  "Percentage": "النسبه المئويه",
+  "Finish & Submit All Answers": "انها ورفع كل الاجابات",
+  "answered": " سؤال تمت الاجابه عليها"
 }
