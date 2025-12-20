@@ -50,7 +50,6 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
   ngOnInit(): void {
     this.setup();
     this.getBook();
-    this.setCover();
   }
   
 
@@ -59,6 +58,7 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
     this.readingRoomService.getBook(this.bookId).subscribe(
       response=>
       {
+        debugger;
         if(response.isValid)
         {
           this.book = response.model as Book;
@@ -79,10 +79,10 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
     
     if(this.book.cover)
     {
-      let delemeters = this.book.cover.split(',');
-      let fileId= delemeters[0].trim();
-      let fileName = delemeters[1].trim();
-      this.book.cover= this.API.mediaBase + "Books/Covers/" + fileId + '/'+ fileName
+      // let delemeters = this.book.cover.split(',');
+     //  let fileId= delemeters[0].trim();
+     //  let fileName = delemeters[1].trim();
+      this.book.cover= this.API.mediaBase + "LearningResources/Covers/" + this.book.cover;
     }
   }
 
