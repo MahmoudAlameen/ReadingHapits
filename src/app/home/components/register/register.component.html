@@ -111,7 +111,7 @@
         
         <div class="form-group">
             <button type="submit"
-            [disabled]="registerForm.form.invalid || countryHasError || schoolHasError || isSubmitting"
+            [disabled]="registerForm.form.invalid || countryHasError || isSubmitting"
             [ngClass]="isSubmitting ? 'submitting' : 'submit'"
             >
            <span *ngIf="!isSubmitting"> {{'Register' | translate}}</span>
@@ -119,7 +119,7 @@
 
             </button>
             <p class="text-danger" style="display:block" 
-               *ngIf="registerForm.form.invalid || countryHasError || schoolHasError">{{errorMessages.all}}</p>
+               *ngIf="registerForm.form.invalid || countryHasError">{{errorMessages.all}}</p>
         </div>
     </form>
 </section>
