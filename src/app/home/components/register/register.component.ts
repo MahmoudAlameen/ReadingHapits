@@ -139,7 +139,7 @@ export class RegisterComponent implements OnInit {
   // FIX: This method is now correctly triggered by (ngSubmit) on the form tag
   registerStudent() {
     // Check if the form is truly valid based on template checks
-    if (this.registerForm.form.invalid || this.countryHasError || this.schoolHasError) {
+    if (this.registerForm.form.invalid || this.countryHasError) {
         // Form is invalid, display alert and do nothing
         this.alertMessage.message = this.errorMessages.all;
         this.customAlert.alert.next(this.alertMessage);
