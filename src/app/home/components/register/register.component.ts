@@ -110,7 +110,7 @@ export class RegisterComponent implements OnInit {
     )
   }
 
-  schoolHasError: boolean = true; // FIX: Should default to true if the default option is selected
+  schoolHasError: boolean = false; // FIX: Should default to true if the default option is selected
   schoolValueManually: boolean = false;
   validateSchool(school: string) {
     if (school === "" || school === "school") { // Updated logic to check for empty string/default value

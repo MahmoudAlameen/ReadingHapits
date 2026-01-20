@@ -228,8 +228,6 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
 
   }
 
-
-
   moveContent(source:Element | null,destination:Element |null)
   {
     if(source!=null && destination !=null)
@@ -247,8 +245,8 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
     cover?.classList.add("rotate90");
     setTimeout(()=>
     {
-      this.rightPage=0;
-      this.leftPage=1;
+      this.rightPage=1;
+      this.leftPage=0;
       setTimeout(()=>
       {
         this.openBookAnimation=false;
