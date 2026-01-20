@@ -245,8 +245,8 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
     cover?.classList.add("rotate90");
     setTimeout(()=>
     {
-      this.rightPage=1;
-      this.leftPage=0;
+      this.rightPage=0;
+      this.leftPage=1;
       setTimeout(()=>
       {
         this.openBookAnimation=false;
