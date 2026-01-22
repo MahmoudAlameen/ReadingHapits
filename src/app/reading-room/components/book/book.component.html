@@ -1,23 +1,23 @@
 <section class="book">
   <h3 class="bookHead">{{book.name}}</h3>
-  <div #cover class="cover" *ngIf="rightPage < 0"  (click)="overlapPage('open',cover)">
+  <div #cover class="cover" *ngIf="currentRightPage < 0"  (click)=" openBook()">
     <img [src]="book.cover" *ngIf="book.cover" />
     <div class="replaceImage" *ngIf="!book.cover"></div>
   </div>
 
-  <div  class="bookContent" *ngIf="rightPage >= 0">
-    <div class="right"  (click)="overlapPage('left',rightFlipper)">
+  <div  class="bookContent" *ngIf="currentRightPage >= 0">
+    <div class="right"  (click)="onRightPageClick(rightFlipper)">
       <div #right class="rightPage"  *ngIf="!openBookAnimation">
-        <p>{{bookPages[rightPage].content}}</p>
-        <footer>{{rightPage+1}}</footer>
+        <p>{{bookPages[currentRightPage].content}}</p>
+        <footer>{{currentRightPage+1}}</footer>
       </div>
       <div #rightFlipper class="rightFlipper"></div>
     </div>
     <div  class="bookSlider"></div>
-    <div class="left"   (click)="overlapPage('right',leftFlipper)">
+    <div class="left"   (click)="onLeftPageClick(leftFlipper)">
       <div #left class="leftPage" *ngIf="!openBookAnimation">
-        <p *ngIf="leftPage <bookPages.length">{{bookPages[leftPage].content}}</p>
-        <footer>{{leftPage+1}}</footer>
+        <p *ngIf="currentLeftPage <bookPages.length">{{bookPages[currentLeftPage].content}}</p>
+        <footer>{{currentLeftPage+1}}</footer>
        </div>
       <div #leftFlipper class="leftFlipper"></div>
     </div>

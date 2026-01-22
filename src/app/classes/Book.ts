@@ -9,4 +9,5 @@ export class Book
     roomId:string='';
     cover:string='';
     pages:BookPage[]=[];
+    isArabicContent: boolean = true;
 }

@@ -1,18 +1,14 @@
-import { animation } from '@angular/animations';
-import { Time } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertMessage } from 'src/app/classes/AlertMessage';
 import { Book } from 'src/app/classes/Book';
 import { BookPage } from 'src/app/classes/BookPage';
 import { APIService } from 'src/app/core/API.Service';
-import { ContentService } from 'src/app/core/content.service';
 import { CustomAlertService } from 'src/app/core/custom-alert.service';
-import { ReadingRoomRepositoryService } from 'src/app/core/reading-room-repository.service';
 import { ReadingRoomsService } from 'src/app/core/reading-rooms.service';
 import { SessionStorageKeysService } from 'src/app/core/SessionStorageKeysService';
 import { SessionStorageService } from 'src/app/core/SessionStorageService';
-import { pageType } from 'src/app/enums/PagType';
+import { ReadingDirection } from 'src/app/enums/ReadingDirection.enum';
 
 @Component({
   
@@ -34,31 +30,57 @@ readTimeStart:string|null=null;
 readTimeEnd:string|null=null;
 alertMessage:AlertMessage= new AlertMessage();
 
-constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRepositoryService,private contentservice:ContentService
-  , private readingRoomService: ReadingRoomsService , private ActiveRoute : ActivatedRoute,
-   private SessioStorage: SessionStorageService, private SessionKeys: SessionStorageKeysService
-   ,private customAlert:CustomAlertService) { }
 
+currentRightPage = -1;
+currentLeftPage = -1;
 
-   ngOnDestroy()
-   {
+get readingDirection(): ReadingDirection {
+  return this.book.isArabicContent
+    ? ReadingDirection.RTL
+    : ReadingDirection.LTR;
+}
+
+get nextPageStep(): number {
+  return 2;
+}
+
+get previousPageStep(): number {
+  return -2;
+}
+get firstRightPage(): number {
+  return this.readingDirection === ReadingDirection.RTL ? 0 : 1;
+}
+
+get firstLeftPage(): number {
+  return this.readingDirection === ReadingDirection.RTL ? 1 : 0;
+}
+get isBookOpen(): boolean {
+  return this.currentRightPage >= 0;
+}
+constructor(
+  private API: APIService,
+  private readingRoomService: ReadingRoomsService,
+  private ActiveRoute : ActivatedRoute,
+  private SessioStorage: SessionStorageService, 
+  private SessionKeys: SessionStorageKeysService,
+  private customAlert:CustomAlertService) { }
+  
+  ngOnDestroy()
+  {
     if(this.readTimeStart== null || this.readTimeEnd == null)
         return;
     this.endRead();    
 
-   }
+  }
   ngOnInit(): void {
     this.setup();
-    this.getBook();
   }
-  
 
   getBook()
   {
     this.readingRoomService.getBook(this.bookId).subscribe(
       response=>
       {
-        debugger;
         if(response.isValid)
         {
           this.book = response.model as Book;
@@ -71,24 +93,18 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
         }
       }
     )
-
   }
 
   setCover()
   {
-    
     if(this.book.cover)
     {
-      // let delemeters = this.book.cover.split(',');
-     //  let fileId= delemeters[0].trim();
-     //  let fileName = delemeters[1].trim();
       this.book.cover= this.API.mediaBase + "LearningResources/Covers/" + this.book.cover;
     }
   }
 
-
-
-  ngAfterViewChecked(): void {
+  ngAfterViewChecked(): void 
+  {
     //Called after every check of the component's view. Applies to components only.
     //Add 'implements AfterViewChecked' to the class.
     if(this.openBookAnimation)
@@ -99,179 +115,150 @@ constructor(private API: APIService ,private readingRoomRepository:ReadingRoomRe
       rightSide?.classList.add("rightCover");
     }
   }
-
-  overlapPage(direction:string, overlaped:HTMLElement)
-  {
-    switch(direction)
-    {
-      case "right":
-        if(this.leftPage>=this.bookPages.length-1)
-        {
-          this.closeBook();
-          //this.overlapAnimation(overlaped,"closeBook");
-         // setTimeout(()=>{this.resetPages();},1000)
-        }
-        else
-        {
-          this.overlapAnimation(overlaped,"right");
-          this.onFlippingStart("right")
-          //  setTimeout(()=>
-          //  {
-          //   this.leftPage+=2;
-          //   this.rightPage+=2
-          //  },1000)
-        }    
-        break;
-      case "left":
-
-        if(this.rightPage<=0)
-        {
-          this.closeBook();
-          //this.overlapAnimation(overlaped,"closeBook")
-         // this.resetPages();
-        }
-        else
-        {
-          this.overlapAnimation(overlaped,"left"); 
-          this.onFlippingStart("left");          
-          // setTimeout(()=>
-          // {
-          //   this.leftPage-=2;
-          //   this.rightPage-=2;
-          // },1000)
-
-        }
-       
-        break;
-      case "open":
-        this.openBook();
-        break;
-    }
-
-
+  
+  onLeftPageClick(flipper: HTMLElement): void {
+   this.moveLeftPageContentToTheRightFlipper();
+  if (this.readingDirection === ReadingDirection.RTL) {
+    this.turnPageForward(flipper);
+  } else {
+    this.turnPageBackward(flipper);
   }
-  overlapAnimation(elem:HTMLElement,direction:string)
-  {
-    console.log(direction);
+}
 
-    switch(direction)
-    {
-      case "right":
-       elem.classList.add("overlapRight");
-       elem.classList.add("inFront");
-       this.KillAnimation(elem,"overlapRight",1500)
-       break;
-      case "left":
-        elem.classList.add("overlapLeft");
-        elem.classList.add("inFront")
-        this.KillAnimation(elem,"overlapLeft",1500)
-        break;
-      case "close":
-        elem.classList.add("closeBook");
-        this.KillAnimation(elem,"closeBook",2000)
-        break;
-      case "open":
-        elem.classList.add("openBook");
-        this.KillAnimation(elem,"openBook",3000)
-        break;
-             
-    }
+onRightPageClick(flipper: HTMLElement): void {
+  this.moveRightPageContentToTheFlipper();
+  if (this.readingDirection === ReadingDirection.RTL) {
+    this.turnPageBackward(flipper);
+  } else {
+    this.turnPageForward(flipper);
+  }
+}
+
+  turnPageForward(flipper: HTMLElement): void {
+  if (this.isAtEnd()) {
+    this.closeBook();
+    return;
   }
 
-  KillAnimation(elem:HTMLElement, animation:string,mellySeconds:number)
-  {
-    setTimeout(()=>
-    {
-      elem.classList.remove(animation);
-      elem.classList.remove("inFront");
-      switch(animation)
-      {
-        case "overlapRight":
-          this.rightPage+=2;
-          break;
-        case "overlapLeft":
-          this.leftPage-=2;
-          break;  
-      }
+  this.animateFlip(flipper, 'forward');
+  this.moveForward();
+}
 
-    },mellySeconds)
-     
-  }
-  resetPages()
-  {
-    this.leftPage=-1;
-    this.rightPage=-1
+turnPageBackward(flipper: HTMLElement): void {
+  if (this.isAtBeginning()) {
+    this.closeBook();
+    return;
   }
 
-  onFlippingStart(direction:string)
-  {
-    let page;
-    let flipper;
-    switch(direction)
-    {
-      case "right":
-        page=document.querySelector(".leftPage");
-        flipper=document.querySelector(".leftFlipper");
-        console.log(page);
-        console.log(flipper);
-        this.moveContent(page,flipper)
-        console.log(this.leftPage)
-        this.leftPage+=2;
-        break;
-      case "left":
-        page=document.querySelector(".rightPage");
-        flipper=document.querySelector(".rightFlipper");
-        this.moveContent(page,flipper);
-        this.rightPage-=2;
-        
-    }
+  this.animateFlip(flipper, 'backward');
+  this.moveBackward();
+}
 
+
+moveForward(): void {
+    this.currentLeftPage += 2;
+    this.currentRightPage += 2;
+}
+
+moveBackward(): void {
+    this.currentLeftPage -= 2;
+    this.currentRightPage -= 2;
+}
+
+isAtEnd(): boolean {
+  const lastPageIndex = this.bookPages.length - 1;
+
+  return (
+    this.currentLeftPage >= lastPageIndex ||
+    this.currentRightPage >= lastPageIndex
+  );
+}
+
+isAtBeginning(): boolean {
+  return this.currentLeftPage <= 0 || this.currentRightPage <= 0;
+}
+
+ resetPages()
+ {
+    this.currentLeftPage = -1;
+    this.currentRightPage = -1
+}
+
+  // moving the content from the page to the flipper 
+  moveRightPageContentToTheFlipper()
+  {
+    let page=document.querySelector(".rightPage");
+    let flipper=document.querySelector(".rightFlipper");
+    this.movePageContent(page,flipper);
+  }
+  moveLeftPageContentToTheRightFlipper()
+  {
+    let page=document.querySelector(".leftPage");
+    let flipper=document.querySelector(".leftFlipper");
+    this.movePageContent(page,flipper);
   }
 
-  moveContent(source:Element | null,destination:Element |null)
+  movePageContent(source:Element | null,destination:Element |null)
   {
     if(source!=null && destination !=null)
     destination.innerHTML=source.innerHTML;
 
   }
-  openBook()
+
+  openBook(): void
   {
-    // before open process
-    this.openBookAnimation=true;
-    let cover=document.querySelector(".cover");
-    let bookSlider=document.querySelector("bookSlider");
-    bookSlider?.classList.remove("hide");
- 
-    cover?.classList.add("rotate90");
-    setTimeout(()=>
-    {
-      this.rightPage=0;
-      this.leftPage=1;
-      setTimeout(()=>
-      {
-        this.openBookAnimation=false;
-      },1500)
-
-    },500)
+    this.openBookAnimation = true;
+    this.openBookAnimate();
+    setTimeout(() => {
+    this.currentRightPage = this.firstRightPage;
+    this.currentLeftPage = this.firstLeftPage;
+    setTimeout(() => {
+      this.openBookAnimation = false;
+    }, 1500);
+    }, 500);
     this.startRead();
-
   }
 
   closeBook()
   {
-    let leftSide=document.querySelector(".left");
-    let rightSide=document.querySelector(".right");
-    let bookSlider=document.querySelector(".bookSlider");
-    let bookContent=document.querySelector(".bookContent");
-    bookSlider?.classList.add("hide");
-    leftSide?.classList.add("rotate90");
-    rightSide?.classList.add("rotateMinus90");
+    this.closeBookAnimate();
     setTimeout(()=>
     {
       this.resetPages();
     },1000)
     this.endRead();
 
+  }
+
+  /// animations :- flipper anmation , open ,close book animation 
+animateFlip(flipper: HTMLElement, direction: 'forward' | 'backward'): void {
+  const cssClass =
+    direction === 'forward'
+      ? this.readingDirection === ReadingDirection.RTL ? 'overlapRight' : 'overlapLeft'
+      : this.readingDirection === ReadingDirection.RTL ? 'overlapLeft' : 'overlapRight';
+
+  flipper.classList.add(cssClass, 'inFront');
+
+  setTimeout(() => {
+    flipper.classList.remove(cssClass, 'inFront');
+  }, 1500);
+}
+  openBookAnimate()
+  {
+    let cover=document.querySelector(".cover");
+    let bookSlider=document.querySelector("bookSlider");
+    bookSlider?.classList.remove("hide");
+    cover?.classList.add("rotate90");
+
+  }
+  closeBookAnimate()
+  {
+    let leftSide=document.querySelector(".left");
+    let rightSide=document.querySelector(".right");
+    let bookSlider=document.querySelector(".bookSlider");
+    bookSlider?.classList.add("hide");
+    leftSide?.classList.add("rotate90");
+    rightSide?.classList.add("rotateMinus90");
   }
   startRead()
   {
