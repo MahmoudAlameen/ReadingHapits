@@ -1,3 +1,4 @@
+import { ContentLanguage } from "../enums/contentLanguage.enum";
 import { Level } from "../enums/level";
 import { BookPage } from "./BookPage";
 
@@ -9,5 +10,5 @@ export class Book
     roomId:string='';
     cover:string='';
     pages:BookPage[]=[];
-    isArabicContent: boolean = true;
+    contentLanguage: ContentLanguage = ContentLanguage.Arabic;
 }

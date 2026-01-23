@@ -8,6 +8,7 @@ import { CustomAlertService } from 'src/app/core/custom-alert.service';
 import { ReadingRoomsService } from 'src/app/core/reading-rooms.service';
 import { SessionStorageKeysService } from 'src/app/core/SessionStorageKeysService';
 import { SessionStorageService } from 'src/app/core/SessionStorageService';
+import { ContentLanguage } from 'src/app/enums/contentLanguage.enum';
 import { ReadingDirection } from 'src/app/enums/ReadingDirection.enum';
 
 @Component({
@@ -35,7 +36,7 @@ currentRightPage = -1;
 currentLeftPage = -1;
 
 get readingDirection(): ReadingDirection {
-  return this.book.isArabicContent
+  return this.book.contentLanguage === ContentLanguage.Arabic
     ? ReadingDirection.RTL
     : ReadingDirection.LTR;
 }
@@ -204,6 +205,7 @@ isAtBeginning(): boolean {
     destination.innerHTML=source.innerHTML;
 
   }
+  
 
   openBook(): void
   {
