@@ -56,7 +56,7 @@ this.material.coverUrl = this.material.coverUrl
     this.material.assignedTeachers.forEach(teacher => 
     {
       teacher.avatarUrl = teacher.avatarUrl ?
-       teacher.avatarUrl :
+       this.API.base + "Users/" + teacher.avatarUrl :
         "assets/images/defaultCardTeachers/defaultUserImage/Card1-Teachers-Teacher2.png"
     }
     )
