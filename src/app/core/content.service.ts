@@ -112,4 +112,8 @@ export class ContentService {
       )
     );
   }
+  
+  getEncodedFileURL(url: string): string {
+    return `url("${encodeURI(url)}")`;
+}
 }

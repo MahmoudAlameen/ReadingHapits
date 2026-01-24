@@ -1,6 +1,8 @@
 <div class="resource-card">
-            <div class="card-image-wrapper" [style.background-image]="'url(' + resource.coverUrl + ')'">
-                <span class="resource-type-badge">{{ arabicResourceTypeStatus[resource.resourceType] }}</span>
+            <div class="card-image-wrapper" 
+             [ngStyle]="{ 'background-image': contentService.getEncodedFileURL(resource.coverUrl?? '') }">
+                <span class="resource-type-badge">
+                    {{ arabicResourceTypeStatus[resource.resourceType] }}</span>
             </div>
             <div class="card-content">
                 <h3 class="card-title">{{ displayedResourceName }}</h3>

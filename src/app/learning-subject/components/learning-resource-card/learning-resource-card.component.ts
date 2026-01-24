@@ -2,6 +2,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, Pipe, PipeTransform } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { ContentService } from 'src/app/core/content.service';
 import { ILearningResourceCard } from 'src/app/DTOs/ILearningSubjectDetails';
 import { LearningResourceStatus, LearningResourceType } from 'src/app/enums/learning-resources.enums';
 import { ResourceContentType } from 'src/app/enums/resource-content-type';
@@ -53,14 +54,16 @@ export class LearningResourceCardComponent implements OnInit {
 
     constructor(
         private translateService: TranslateService,
-        private router: Router)
+        private router: Router,
+        public contentService: ContentService)
     {}
 
     ngOnInit(): void 
     {
         this.displayedResourceName =  this.translateService.currentLang === 'ar' ? this.resource.nameAr : this.resource.nameEn;
+        this.resource.fileUrl = encodeURI(this.resource.fileUrl || ''); 
+    }       
 
-    }
 
     canSubmitForReview(): boolean {
         return this.canManageResource && this.resource.status === LearningResourceStatus.Draft;
