@@ -8,4 +8,11 @@ import { AlertMessage } from '../classes/AlertMessage';
 export class CustomAlertService {
   alert:BehaviorSubject<AlertMessage> = new BehaviorSubject(new AlertMessage());
   constructor() { }
+
+    showError(message: string) {
+    this.alert.next({
+      message,
+      isDisplayed: true
+    });
+  }
 }

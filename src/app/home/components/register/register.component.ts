@@ -181,19 +181,6 @@ export class RegisterComponent implements OnInit {
       },
       err => {
         let errorMessage: string;
-
-        if (err.status === 400) {
-          console.log(err.error.errors);
-          // FIX: Accessing error messages from the backend
-          errorMessage = err.error.message || err.error.errors || this.errorMessages.all;
-        } else {
-          errorMessage = this.translateService.currentLang === "ar" ? 
-                         `حدث خطا اثنا الوصول للسيرفر` : 
-                         `Error occurred during accessing the server.`;
-        }
-
-        this.alertMessage.message = errorMessage;
-        this.customAlert.alert.next(this.alertMessage);
         this.isSubmitting = false;
       }
     );
