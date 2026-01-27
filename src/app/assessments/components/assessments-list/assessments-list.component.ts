@@ -1,5 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'; // Added Router for navigation methods
+import { TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { AlertMessage } from 'src/app/classes/AlertMessage';
 import { AssessmentsService } from 'src/app/core/assessments.service';
@@ -19,7 +20,9 @@ export class AssessmentsListComponent implements OnInit {
   private customAlert = inject(CustomAlertService);
   private route = inject(ActivatedRoute);
   private router = inject(Router); // Inject Router for navigation
+  private translateService = inject(TranslateService);
   private learningSubjectService = inject(LearningSubjectService);
+  private cdr: any = inject<any>(ChangeDetectorRef);
 
   gradeId? : string  = '';
   public assessments: IAssessmentCard[] = [];
@@ -159,11 +162,26 @@ export class AssessmentsListComponent implements OnInit {
             this.assessments = res.modelList.map( a =>(
               {
                 ...a,
-                subjectName : this.learningSubjectsIds.find(s => s.id == a.learningSubjectId)?.name as string
+                subjectName : this.learningSubjectsIds.find(s => s.id == a.learningSubjectId)?.name as string,
+                gradeName: a.gradeId != null ? a.gradeName: this.translateService.currentLang === "ar" ? "كل الصفوف" : "all grades" 
+              
               })
             );
             // 🔑 Function called directly to categorize data after fetch
             this.updateAssessmentCategories(); 
+this.translateService.onLangChange.subscribe(() => {
+  this.assessments[0].gradeName = "any thing "
+  debugger;
+  this.assessments.forEach(a => {
+    a.gradeName =     a.gradeId != null ? a.gradeName :
+      (this.translateService.currentLang === 'ar'
+       ? 'كل الصفوف'
+      : 'All Grades')
+  });
+
+  this.cdr.detectChanges(); // 👈 MUST be here
+});
+
           }
           else
           {

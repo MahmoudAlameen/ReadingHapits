@@ -47,7 +47,7 @@ export interface IAssessmentCard {
   id: number;
   name: string;
   type: AssessmentType;
-  durationMinutes: number;
+  durationInMinutes: number;
   learningSubjectId: string;
   gradeId: string;
   gradeName: string;
