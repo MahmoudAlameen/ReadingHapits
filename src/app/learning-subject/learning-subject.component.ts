@@ -102,7 +102,7 @@ export class LearningSubjectComponent implements OnInit, OnDestroy {
             avatarUrl: t.avatarUrl ? this.API.mediaBase + 'Users/' + t.avatarUrl : t.avatarUrl
           }));
 
-          this.GetLearningResources(this.learningSubject.Id, undefined, LearningResourceStatus.Published);
+          this.GetLearningResources(this.learningSubject.Id);
           this.getExamsBySubjectId(this.learningSubject.Id);
         } else {
           this.alertMessage.message = response.errorMessage;
@@ -139,9 +139,10 @@ export class LearningSubjectComponent implements OnInit, OnDestroy {
     this.subscriptions.push(querySub);
   }
 
-  GetLearningResources(subjectId: string, gradeId?: string, status?: LearningResourceStatus): void {
+  GetLearningResources(subjectId: string, gradeId? : string): void {
+    debugger;
     const sub = this.learningResourceService
-      .getLearningResourcesBySubjectId(this.subjectId, gradeId, status)
+      .getLearningResourcesBySubjectId(this.subjectId, gradeId)
       .subscribe({
         next: response => {
           if (response.isValid && response.modelList) {

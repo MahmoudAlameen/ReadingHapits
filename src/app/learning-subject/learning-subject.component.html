@@ -34,7 +34,7 @@
 
 <div class="grade-selector">
   <label for="grade">{{'Select Grade' | translate}} </label>
-    <select id="grade" (ngModelChange)="fetchData()" name="grade" [(ngModel)]="selectedGradeId"  #gradeControl="ngModel">
+    <select id="grade" (ngModelChange)="GetLearningResources(subjectId, $event)" name="grade" [(ngModel)]="selectedGradeId"  #gradeControl="ngModel">
       <option value="" disabled selected>{{'select grade'| translate}}</option>
       <option value="" [(ngModel)]="selectedGradeId" >{{'All Grades'| translate}}</option>
       <option [selected] ="grade.id == selectedGradeId" *ngFor="let grade of grades" [value]="grade.id">{{ grade.name }}</option>
