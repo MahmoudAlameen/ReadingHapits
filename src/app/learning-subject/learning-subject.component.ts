@@ -102,7 +102,7 @@ export class LearningSubjectComponent implements OnInit, OnDestroy {
             avatarUrl: t.avatarUrl ? this.API.mediaBase + 'Users/' + t.avatarUrl : t.avatarUrl
           }));
 
-          this.GetLearningResources(this.learningSubject.Id);
+          this.GetLearningResources(this.learningSubject.Id, this.selectedGradeId);
           this.getExamsBySubjectId(this.learningSubject.Id);
         } else {
           this.alertMessage.message = response.errorMessage;
