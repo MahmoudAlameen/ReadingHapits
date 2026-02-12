@@ -39,7 +39,7 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
     MainSectionComponent,
     RegisterComponent,
     AboutUsComponent,
-  ],
+    ],
   imports: [
     CommonModule,
     HomeRoutingModule,
@@ -48,7 +48,8 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
     FormsModule,
     TranslateModule   
   ],
-  exports:[AdvertiseComponent,ReadingRoomCardComponent,ReadingRoomsComponent,HomeComponent],
+  exports:[AdvertiseComponent,ReadingRoomCardComponent,ReadingRoomsComponent,
+    HomeComponent, GlobalAssessmentsVedioComponent, InternationalAssessmentsComponent],
   providers:[]
 })
 export class HomeModule { }

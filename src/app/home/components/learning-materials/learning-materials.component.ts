@@ -74,6 +74,6 @@ private api: APIService) { }
   }
 
   onSeeAll(): void {
-    this.showAll = true;
+    this.showAll = !this.showAll;
   }
 }

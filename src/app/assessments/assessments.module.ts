@@ -11,6 +11,7 @@ import { AssessmentsListComponent } from './components/assessments-list/assessme
 import { AssessmentCardComponent } from './components/assessment-card/assessment-card.component'
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
+import { HomeModule } from "../home/home.module";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SharedModule } from '../shared/shared.module';
     AssessmentsRoutingModule,
     AsyncPipe,
     TranslateModule,
-    SharedModule
-  ]
+    SharedModule,
+    HomeModule
+]
 })
 export class AssessmentsModule { }

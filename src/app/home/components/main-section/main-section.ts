@@ -59,14 +59,15 @@ export class MainSectionComponent implements OnInit {
 
   navigateToLearningMaterials()
   {
-    const element = document.getElementById('learning-subjects');
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+    this.router.navigate(['learning-materials']);
+    //const element = document.getElementById('learning-subjects');
+ // if (element) {
+   // element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+ // }
 }
   navigateToAssessments()
   {
     console.log("navigate to assessments called")
-    this.router.navigate(['/assessments/list']);
+    this.router.navigate(['/assessments']);
   }
 }

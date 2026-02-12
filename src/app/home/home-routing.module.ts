@@ -8,12 +8,15 @@ import { PdfPreviewComponent } from '../shared/pdf-preview/pdf-preview.component
 import { RegisterComponent } from './components/register/register.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { AuthGuard } from '../core/auth-guard.service';
+import { LearningMaterialsComponent } from './components/learning-materials/learning-materials.component';
 const routes: Routes = [
   { path: '', component: HomeComponent,  },
   {path:"login",component:LoginComponent},
-   {path:"register",component:RegisterComponent},
+  {path:"register",component:RegisterComponent},
   {path:'placementTest', component: PdfPreviewComponent, canActivate: [AuthGuard]},
-  {path: "about", component: AboutUsComponent}
+  {path: "about", component: AboutUsComponent},
+  {path: "learning-materials", component: LearningMaterialsComponent}
+
 ];
 
 @NgModule({
