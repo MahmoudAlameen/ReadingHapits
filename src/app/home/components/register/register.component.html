@@ -9,11 +9,23 @@
             <p class="text-danger" *ngIf="name.invalid && name.touched">{{errorMessages.name}}</p>
         </div>
         <div class="form-group">
-            <label> {{'Email' | translate}} </label>
-            <input type="email" name="email" required email pattern="[a-z0-9A-Z]+@[a-z]+\.[a-z]{2,3}"
-                   [class.is-invalid]="email.invalid && email.touched" #email="ngModel" 
-                   [(ngModel)]="registeredUser.email" class="form-control"/>
-            <p class="text-danger" *ngIf="email.invalid && email.touched"> {{errorMessages.email}}</p>
+            <label>{{ 'Email' | translate }}</label>
+            <input
+            type="email"
+            name="email"
+            required
+            email
+            [(ngModel)]="registeredUser.email"
+            #email="ngModel"
+            class="form-control"
+            [class.is-invalid]="email.invalid && email.touched"
+            />
+            <p class="text-danger" *ngIf="email.errors?.['required'] && email.touched">
+                Email is required
+            </p>
+            <p class="text-danger" *ngIf="email.errors?.['email'] && email.touched">
+                Please enter a valid email address
+            </p>
         </div>
         
         <div class="form-group">
