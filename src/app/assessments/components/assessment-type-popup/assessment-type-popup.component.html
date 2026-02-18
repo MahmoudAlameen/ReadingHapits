@@ -1,0 +1,22 @@
+<div class="modal-overlay" (click)="closePopup()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="closePopup()">&times;</button>
+    
+    <header class="modal-header">
+      <h2>{{ data?.name }}</h2>
+      <p class="description">{{ data?.description }}</p>
+    </header>
+
+    <div class="materials-grid">
+      <div 
+        class="material-card" 
+        *ngFor="let material of data?.materials" 
+        (click)="navigateToAssessment(material.name)">
+        <div class="image-wrapper">
+          <img [src]="material.coverUrl" [alt]="material.name">
+        </div>
+        <h3>{{ material.name }}</h3>
+      </div>
+    </div>
+  </div>
+</div>

@@ -80,7 +80,7 @@
   "nav": {
     "home": "Home",
     "learning materials": "Learning Materials",
-    "assessments": "Assessments",
+    "assessments": "International Assessments",
     "about": "About Us"
   },
   "Sign up": "Sign up",
@@ -149,5 +149,6 @@
   "Questions Answered": "Questions Answered",
   "Percentage": "Percentage",
   "Finish & Submit All Answers": "Finish & Submit All Answers",
-  "answered": "answered"
+  "answered": "answered",
+  "Logout": "Logout"
 }

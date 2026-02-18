@@ -63,3 +63,17 @@ export interface IStartAssessmentResponse {
 }
 
 export type AssessmentState = 'loading' | 'meta' | 'taking' | 'finished' | 'results' | 'error';
+
+export interface IAssessmentTypeDetails
+{
+    type: AssessmentType;
+    description: string;
+    name:string;
+    materials: IAssessmentTypeMaterial[];   
+}
+
+export interface IAssessmentTypeMaterial
+{
+    name: string;
+    coverUrl: string;
+}

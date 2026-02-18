@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
         {
           await this.UserService.setUserGrade();
           await this.UserService.setUserData();
-         this.router.navigate(['']).then(()=> window.location.reload());
+         this.router.navigate(['']);
         // this.router.navigateByUrl('home').then(()=>window.location.reload())
         }
       },

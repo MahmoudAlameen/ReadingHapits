@@ -22,7 +22,7 @@
           
           <!-- Nav Link (Using *ngFor for A14 compatibility) -->
           <a *ngFor="let item of navItems; trackBy: trackByLink"
-             [href]="item.link" 
+             [routerLink]="item.link" 
              class="nav-link">
             {{ item.label }}
           </a>
