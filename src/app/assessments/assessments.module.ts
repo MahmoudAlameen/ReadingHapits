@@ -12,7 +12,7 @@ import { AssessmentCardComponent } from './components/assessment-card/assessment
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { HomeModule } from "../home/home.module";
-import { AssessmentTypePopupComponent } from './components/assessment-type-popup/assessment-type-popup.component';
+import { AssessmentTypePopupComponent } from '../shared/assessment-type-popup/assessment-type-popup.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,6 @@ import { AssessmentTypePopupComponent } from './components/assessment-type-popup
     AssessmentResultComponent,
     AssessmentsListComponent,
     AssessmentCardComponent,
-    AssessmentTypePopupComponent,
     
   ],
   imports: [
@@ -32,7 +31,8 @@ import { AssessmentTypePopupComponent } from './components/assessment-type-popup
     AsyncPipe,
     TranslateModule,
     SharedModule,
-    HomeModule
-]
+    HomeModule,
+],
+exports:[AssessmentTypePopupComponent]
 })
 export class AssessmentsModule { }

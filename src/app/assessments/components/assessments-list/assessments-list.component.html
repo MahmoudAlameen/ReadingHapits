@@ -8,28 +8,44 @@
     class="filter-input search-input"
   />
 
-  <select
+  <select *ngIf="!IsInternationalAssessmentMode"
     (change)="updateSubjectFilter($event)"
     class="filter-input select-input"
     [value]="selectedSubjectId"
   >
     <option value="">{{'All Subjects' | translate}}</option>
-    <option *ngFor="let subject of learningSubjectsIds" [value]="subject.id">
+    <option 
+    *ngFor="let subject of learningSubjectsIds" [value]="subject.id"
+    [selected]="subject.id === selectedSubjectId">
       {{ subject.name }}
     </option>
   </select>
 
-   <select
+   <select *ngIf="!IsInternationalAssessmentMode"
     (change)="updateGradeFilter($event)"
     class="filter-input select-input"
     [value]="gradeId"
     >
     <option value="">{{'All grades' | translate}}</option>
-    <option *ngFor="let grade of gradesIds" [value]="grade.id">
-      {{ grade.name }}
+    <option 
+    *ngFor="let grade of gradesIds" [value]="grade.id">
+    {{ grade.name }}
     </option>
   </select>
 
+    <select *ngIf="IsInternationalAssessmentMode"
+    (change)="updateAssessmentSubjectTypeFilter($event)"
+    class="filter-input select-input"
+  >
+    <option value="">{{'All Subject Types' |translate}} </option>
+    <option
+      *ngFor="let typeName of assessmentTypeSubjectsNames"
+      [value]="typeName"
+      [selected]="selectedAssessmentSubjectType !== null && getAssessmentSubjectTypeName(selectedAssessmentSubjectType) === typeName"
+    >
+      {{ typeName }}
+    </option>
+  </select>
   <select
     (change)="updateAssessmentTypeFilter($event)"
     class="filter-input select-input"

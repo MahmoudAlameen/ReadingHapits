@@ -13,7 +13,7 @@
       <section class="exam-cards-container" role="region" aria-label="International Exam Options">
         <app-international-assessment-card 
           *ngFor="let exam of exams" 
-          [exam]="exam">
+          [exam]="exam" (startNow)="OpenAssessment($event)">
         </app-international-assessment-card>
       </section>
 
@@ -43,3 +43,8 @@
     </div>
   </div>
 </main>
+<app-assessment-type-popup *ngIf="isPopupVisible && selectedAssessment"
+[AssessmentData]="selectedAssessment"
+(close)="ClosePopup()">
+</app-assessment-type-popup>
+

@@ -16,7 +16,8 @@ import { IAssessmentTypeDetails } from 'src/app/DTOs/assessments.interfaces';
 export class InternationalAssessmentsComponent implements OnInit {
   exams!:IInternationalAssessmentTypeCard[];
   langChangeSub!: Subscription;
-
+  isPopupVisible = false;
+  selectedAssessment: IInternationalAssessmentTypeCard| null = null;
   constructor(private InternationalAssessmentsService : InternationalAssessmentsService,
     private translate: TranslateService )
    {
@@ -50,41 +51,18 @@ export class InternationalAssessmentsComponent implements OnInit {
         );
 
   }
-
-  private assessmentsData: Record<string, IAssessmentTypeDetails> = {
-    TIMSS: {
-      name: 'TIMSS',
-      type: AssessmentType.TIMMS,
-      description: 'Trends in International Mathematics and Science Study.',
-      materials: [
-        { name: 'Math', coverUrl: 'assets/math-cover.jpg' },
-        { name: 'Science', coverUrl: 'assets/science-cover.jpg' }
-      ]
-    },
-    PIRLS: {
-      name: 'PIRLS',
-      type: AssessmentType.PIRLS,
-      description: 'Progress in International Reading Literacy Study.',
-      materials: [
-        { name: 'Arabic', coverUrl: 'assets/arabic-cover.jpg' },
-        { name: 'English', coverUrl: 'assets/english-cover.jpg' }
-      ]
-    },
-    PISA: {
-      name: 'PISA',
-      type: AssessmentType.PISA,
-      description: 'Programme for International Student Assessment.',
-      materials: [
-        { name: 'Arabic', coverUrl: 'assets/arabic-cover.jpg' },
-        { name: 'English', coverUrl: 'assets/english-cover.jpg' },
-        { name: 'Science', coverUrl: 'assets/science-cover.jpg' },
-        { name: 'Math', coverUrl: 'assets/math-cover.jpg' }
-      ]
-    }
-  };
-
-  openAssessment(type: string) {
-   // this.selectedAssessment = this.assessmentsData[type];
-   // this.isPopupVisible = true;
+  
+  ClosePopup() {
+    this.isPopupVisible = false;
+    this.selectedAssessment = null;
   }
+
+  OpenAssessment(assessment: IInternationalAssessmentTypeCard) {
+  {
+    this.isPopupVisible = true;
+    this.selectedAssessment = assessment;
+  }
+}
+
+
 } 

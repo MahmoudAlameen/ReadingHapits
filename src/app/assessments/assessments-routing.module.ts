@@ -17,11 +17,6 @@ const routes: Routes = [
         path: '', // Full path: /assessments (Renders AssessmentsListComponent by default)
         component: AssessmentsComponent, 
       },
-      
-      { 
-        path: 'run-assessment/:id', // Full path: /assessments/run-assessment
-        component: RunAssessmentComponent, 
-      },
       {
         path: 'view-result/:id',
         component: AssessmentResultComponent
@@ -31,6 +26,14 @@ const routes: Routes = [
   {
     path:"list",
     component: AssessmentsListComponent
+  },
+  { 
+    path: 'run-assessment/:id', // Full path: /assessments/run-assessment
+    component: RunAssessmentComponent, 
+  },
+  {
+    path: 'view-result/:id',
+    component: AssessmentResultComponent
   }
 ];
 

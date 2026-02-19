@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AssessmentState, IAssessmentCard, IAssessmentData, IAssessmentMeta, IExamResult, IQuestion, IStartAssessmentResponse, IUserAnswer } from '../DTOs/assessments.interfaces';
 import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
-import { AssessmentStatus, AssessmentType } from '../enums/assessments.enums';
+import { AssessmentStatus, AssessmentType, InternationalAssessmentSubject } from '../enums/assessments.enums';
 import { IIdWithName } from '../DTOs/shared.interfaces';
 import { APIResponseModel, APIResponseModelList } from '../classes/APIResponse';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -46,6 +46,7 @@ fetchAssessmentsByGrade(
   search?: string, 
   learningSubjectId?: string,
   assessmentType?: AssessmentType,
+  assessmentTypeSubject?: InternationalAssessmentSubject,
   pageNumber?: string ,
   pageSize?: string
 ): Observable<APIResponseModelList<IAssessmentCard>> {
@@ -56,6 +57,7 @@ fetchAssessmentsByGrade(
     search,
     learningSubjectId,
     assessmentType: assessmentType !== undefined ? assessmentType.toString() : undefined,
+    assessmentTypeSubject: assessmentTypeSubject !== undefined ? assessmentTypeSubject.toString() : undefined,
     pageNumber: pageNumber ?? undefined,
     pageSize
   })

@@ -1,14 +1,16 @@
 // assessment-popup.component.ts
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IAssessmentTypeDetails } from 'src/app/DTOs/assessments.interfaces';
+import { Subject } from 'rxjs';
+import { IInternationalAssessmentTypeCard } from 'src/app/DTOs/international-assessment-type-card.interface';
+import { AssessmentType, InternationalAssessmentSubject } from 'src/app/enums/assessments.enums';
 @Component({
   selector: 'app-assessment-type-popup',
   templateUrl: './assessment-type-popup.component.html',
   styleUrls: ['./assessment-type-popup.component.scss']
 })
 export class AssessmentTypePopupComponent implements OnInit {
-@Input() data: IAssessmentTypeDetails | null = null;
+@Input() AssessmentData!: IInternationalAssessmentTypeCard;
   @Output() close = new EventEmitter<void>();
 
   constructor(private router: Router) {}
@@ -20,13 +22,13 @@ export class AssessmentTypePopupComponent implements OnInit {
     
   }
 
-  navigateToAssessment(material: string) {
-    if (this.data) {
+  navigateToAssessment(assessmentType: AssessmentType, subjectType:InternationalAssessmentSubject ) {
+    if (this.AssessmentData) {
       // Redirecting and passing assessment type and material as query params
-      this.router.navigate(['/assessments'], {
+      this.router.navigate(['assessments/list'], {
         queryParams: { 
-          type: this.data.type, 
-          subject: material 
+          selectedAssessmentType: assessmentType, 
+          selectedAssessmentSubjectType: subjectType
         }
       });
       this.closePopup();

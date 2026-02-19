@@ -14,3 +14,35 @@ export enum AssessmentType
     TIMMS = 3,
     Ordinary = 4
 }
+
+export enum InternationalAssessmentSubject
+{
+  Math = 1,
+  Science = 2,
+  Arabic = 3,
+  English = 4
+}
+
+export const AssessmentTypeSubjectsMap: Record<
+  AssessmentType,
+  InternationalAssessmentSubject[]
+> = {
+  [AssessmentType.PISA]: [
+    InternationalAssessmentSubject.Arabic,
+    InternationalAssessmentSubject.English,
+    InternationalAssessmentSubject.Science,
+    InternationalAssessmentSubject.Math
+  ],
+
+  [AssessmentType.PIRLS]: [
+    InternationalAssessmentSubject.Arabic,
+    InternationalAssessmentSubject.English
+  ],
+
+  [AssessmentType.TIMMS]: [
+    InternationalAssessmentSubject.Math,
+    InternationalAssessmentSubject.Science
+  ],
+
+  [AssessmentType.Ordinary]: []
+};

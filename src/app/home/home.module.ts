@@ -21,6 +21,7 @@ import { MainSectionComponent } from './components/main-section/main-section';
 import { TranslateModule } from '@ngx-translate/core';
 import { RegisterComponent } from './components/register/register.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { AssessmentsModule } from '../assessments/assessments.module';
 
 @NgModule({
   declarations: [
@@ -46,8 +47,8 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
     CoreModule,
     SharedModule,
     FormsModule,
-    TranslateModule   
-  ],
+    TranslateModule,
+],
   exports:[AdvertiseComponent,ReadingRoomCardComponent,ReadingRoomsComponent,
     HomeComponent, GlobalAssessmentsVedioComponent, InternationalAssessmentsComponent],
   providers:[]

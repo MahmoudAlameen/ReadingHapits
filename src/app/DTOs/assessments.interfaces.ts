@@ -1,4 +1,5 @@
 import { AssessmentStatus, AssessmentType } from "../enums/assessments.enums";
+import { IAssessmentTypeMaterial } from "./international-assessment-type-card.interface";
 
 export interface IAssessmentMeta {
     id: string;
@@ -72,8 +73,3 @@ export interface IAssessmentTypeDetails
     materials: IAssessmentTypeMaterial[];   
 }
 
-export interface IAssessmentTypeMaterial
-{
-    name: string;
-    coverUrl: string;
-}

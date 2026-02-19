@@ -1,21 +1,21 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit, OnDestroy  } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'; // Added Router for navigation methods
 import { TranslateService } from '@ngx-translate/core';
-import { finalize } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 import { AlertMessage } from 'src/app/classes/AlertMessage';
 import { AssessmentsService } from 'src/app/core/assessments.service';
 import { CustomAlertService } from 'src/app/core/custom-alert.service';
 import { LearningSubjectService } from 'src/app/core/learning-subject.service';
 import { IAssessmentCard } from 'src/app/DTOs/assessments.interfaces';
 import { IIdWithName } from 'src/app/DTOs/shared.interfaces';
-import { AssessmentType, AssessmentStatus } from 'src/app/enums/assessments.enums'; // Assuming AssessmentStatus is needed
+import { AssessmentType, AssessmentStatus, InternationalAssessmentSubject, AssessmentTypeSubjectsMap } from 'src/app/enums/assessments.enums'; // Assuming AssessmentStatus is needed
 
 @Component({
   selector: 'app-assessments-list',
   templateUrl: './assessments-list.component.html',
   styleUrls: ['./assessments-list.component.scss']
 })
-export class AssessmentsListComponent implements OnInit {
+export class AssessmentsListComponent implements OnInit, OnDestroy  {
   private assessmentsService = inject(AssessmentsService);
   private customAlert = inject(CustomAlertService);
   private route = inject(ActivatedRoute);
@@ -30,6 +30,8 @@ export class AssessmentsListComponent implements OnInit {
   public searchTerm = '';
   public selectedSubjectId = '';
   public selectedAssessmentType: AssessmentType | null = null ;
+  public selectedAssessmentSubjectType: InternationalAssessmentSubject | null = null ;
+
   public learningSubjectsIds: IIdWithName[] = [];
   public gradesIds: IIdWithName[] = [];
   public alertMessage: AlertMessage = new AlertMessage();
@@ -39,21 +41,64 @@ export class AssessmentsListComponent implements OnInit {
 
   // UI-friendly names (string keys) for the enum (e.g. "PISA", "PIRLS" ...)
   public assessmentTypeNames: string[] = Object.keys(AssessmentType).filter(k => isNaN(Number(k)));
-
-  ngOnInit(): void {
+  public assessmentTypeSubjectsNames: string[] = Object.keys(InternationalAssessmentSubject).filter(k => isNaN(Number(k)));
+ public IsInternationalAssessmentMode: boolean = false; // This can be set based on route or other logic to determine if we're in international assessment mode
+   private langSub!: Subscription;
+ 
+ ngOnInit(): void {
     // Read query params and initialize filters
     this.route.queryParamMap.subscribe(params => {
       const subjectIdParam = params.get('selectedSubject');
       const assessmentTypeParam = params.get('selectedAssessmentType');
+      const assessmentSubjectTypeParam = params.get('selectedAssessmentSubjectType');
 
       this.selectedSubjectId = subjectIdParam ?? '';
       this.selectedAssessmentType = this.parseAssessmentTypeParam(assessmentTypeParam);
+      this.UpdateInternationalAssessmentMode();
+      this.selectedAssessmentSubjectType = this.parseAssessmentSubjectTypeParam(assessmentSubjectTypeParam);
 
       // Load learning subjects first, which will trigger loadAssessments() after subjects are loaded
       this.getLearningSubjectIds();
       this.getGradesIds();
     });
+    
+    this.loadAssessmentSubjectTypeNames();
+
+    // 🔥 auto refresh when language changes
+    this.langSub = this.translateService.onLangChange.subscribe(() => {
+      this.loadAssessmentSubjectTypeNames();
+    });
   }
+
+  ngOnDestroy() {
+    this.langSub?.unsubscribe();
+  }
+
+    private loadAssessmentSubjectTypeNames() {
+  let subjects: InternationalAssessmentSubject[];
+
+  // ✔ if no type selected OR Ordinary → show all subjects
+  if (
+    this.selectedAssessmentType === null ||
+    this.selectedAssessmentType === AssessmentType.Ordinary
+  ) {
+    subjects = Object.keys(InternationalAssessmentSubject)
+      .filter(k => isNaN(Number(k)))
+      .map(k => InternationalAssessmentSubject[k as keyof typeof InternationalAssessmentSubject]);
+  }
+  // ✔ otherwise → load subjects for selected assessment
+  else {
+    subjects = AssessmentTypeSubjectsMap[this.selectedAssessmentType] ?? [];
+  }
+
+  // ✔ translate names
+  this.assessmentTypeSubjectsNames = subjects.map(subject =>
+    this.translateService.instant(
+      `ASSESSMENT_SUBJECT.${InternationalAssessmentSubject[subject]}`
+    )
+  );
+  }
+
 
   private parseAssessmentTypeParam(value: string | null): AssessmentType | null {
     if (!value) return null;
@@ -72,10 +117,34 @@ export class AssessmentsListComponent implements OnInit {
     return null;
   }
 
+    private parseAssessmentSubjectTypeParam(value: string | null): InternationalAssessmentSubject | null {
+    if (!value) return null;
+
+    // Numeric param (e.g., "1")
+    const n = Number(value);
+    if (!isNaN(n) && (InternationalAssessmentSubject as any)[n]) {
+      return n as InternationalAssessmentSubject;
+    }
+
+    // Named param (e.g., "PISA")
+    if ((InternationalAssessmentSubject as any)[value]) {
+      return (InternationalAssessmentSubject as any)[value] as InternationalAssessmentSubject;
+    }
+
+    return null;
+  }
+
   public getAssessmentTypeName(type: AssessmentType | null): string {
     if (type === null || type === undefined) return '';
     // Maps the numeric enum value back to its string name for display/URL encoding
     return (AssessmentType as any)[type] ?? '';
+  }
+
+  
+  public getAssessmentSubjectTypeName(type: InternationalAssessmentSubject | null): string {
+    if (type === null || type === undefined) return '';
+    // Maps the numeric enum value back to its string name for display/URL encoding
+    return (InternationalAssessmentSubject as any)[type] ?? '';
   }
   
   /** Maps the AssessmentStatus enum value to a human-readable Arabic string. */
@@ -153,7 +222,9 @@ export class AssessmentsListComponent implements OnInit {
         this.gradeId,
         this.searchTerm,
         this.selectedSubjectId,
-        this.selectedAssessmentType != null ? this.selectedAssessmentType : undefined
+        this.selectedAssessmentType != null ? this.selectedAssessmentType : undefined,
+        this.selectedAssessmentSubjectType != null ? this.selectedAssessmentSubjectType : undefined
+
       ).subscribe(
         res =>
         {
@@ -169,18 +240,16 @@ export class AssessmentsListComponent implements OnInit {
             );
             // 🔑 Function called directly to categorize data after fetch
             this.updateAssessmentCategories(); 
-this.translateService.onLangChange.subscribe(() => {
-  this.assessments[0].gradeName = "any thing "
-  debugger;
-  this.assessments.forEach(a => {
-    a.gradeName =     a.gradeId != null ? a.gradeName :
-      (this.translateService.currentLang === 'ar'
-       ? 'كل الصفوف'
-      : 'All Grades')
-  });
-
-  this.cdr.detectChanges(); // 👈 MUST be here
-});
+            this.translateService.onLangChange.subscribe(() => {
+              this.assessments[0].gradeName = "any thing "
+              this.assessments.forEach(a => {
+                a.gradeName =     a.gradeId != null ? a.gradeName :
+                (this.translateService.currentLang === 'ar'
+                  ? 'كل الصفوف'
+                  : 'All Grades')
+                });
+                this.cdr.detectChanges(); 
+              }); 
 
           }
           else
@@ -256,6 +325,23 @@ this.translateService.onLangChange.subscribe(() => {
     const select = event.target as HTMLSelectElement;
     // value is the enum key string (e.g., "PISA") or empty string
     this.selectedAssessmentType = this.parseAssessmentTypeParam(select.value);
+      this.loadAssessmentSubjectTypeNames();
+      this.selectedAssessmentSubjectType = null; // Reset subject filter when assessment type changes
+    this.UpdateInternationalAssessmentMode();
+    this.loadAssessments();
+  }
+  
+  UpdateInternationalAssessmentMode() {
+    if(this.selectedAssessmentType === AssessmentType.Ordinary || this.selectedAssessmentType === null)
+      this.IsInternationalAssessmentMode = false;
+    else
+      this.IsInternationalAssessmentMode = true;
+  }
+
+  updateAssessmentSubjectTypeFilter(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    // value is the enum key string (e.g., "PISA") or empty string
+    this.selectedAssessmentSubjectType = this.parseAssessmentSubjectTypeParam(select.value);
     this.loadAssessments();
   }
 
@@ -263,6 +349,7 @@ this.translateService.onLangChange.subscribe(() => {
     this.searchTerm = '';
     this.selectedSubjectId = '';
     this.selectedAssessmentType = null;
+    this.selectedAssessmentSubjectType = null;
 
     const searchInput = document.querySelector('.search-input') as HTMLInputElement;
     if (searchInput) searchInput.value = '';

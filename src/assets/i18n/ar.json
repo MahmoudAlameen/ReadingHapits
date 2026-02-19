@@ -154,5 +154,11 @@
   "Percentage": "النسبه المئويه",
   "Finish & Submit All Answers": "انها ورفع كل الاجابات",
   "answered": " سؤال تمت الاجابه عليها",
-  "Logout": "تسجيل الخروج"
+  "Logout": "تسجيل الخروج",
+    "ASSESSMENT_SUBJECT": {
+    "Math": "رياضيات",
+    "Science": "علوم",
+    "Arabic": "اللغة العربية",
+    "English": "اللغة الإنجليزية"
+  }
 }

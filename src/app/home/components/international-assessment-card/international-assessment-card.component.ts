@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { IInternationalAssessmentTypeCard } from 'src/app/DTOs/international-assessment-type-card.interface';
 
@@ -10,13 +10,23 @@ import { IInternationalAssessmentTypeCard } from 'src/app/DTOs/international-ass
 export class InternationalAssessmentCardComponent implements OnInit {
 
   @Input() exam!: IInternationalAssessmentTypeCard;
+  @Output() startNow  = new EventEmitter<IInternationalAssessmentTypeCard>();
+
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+        this.exam.subjects = this.exam.subjects.map(subject=>{ 
+      subject.coverUrl = `assets/images/InternationalAssessmentSubjectCards/${subject.coverUrl}`;
+      return subject;
+    });
   }
 
   onStartNow(): void {
-    this.router.navigate(['/assessments/list'], { queryParams: { selectedAssessmentType: this.exam.title } });
+    this.openAssessment()
+   // this.router.navigate(['/assessments/list'], { queryParams: { selectedAssessmentType: this.exam.title } });
+  }
+    openAssessment() {
+    this.startNow.emit(this.exam);
   }
 }
