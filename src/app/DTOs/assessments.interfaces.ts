@@ -56,6 +56,7 @@ export interface IAssessmentCard {
   creator: string;
   creationDate: Date;
   subjectName: string;
+  subjectNameEn: string;
   isStartedByStudent: boolean,
   isFinishedByStudent: boolean
 }

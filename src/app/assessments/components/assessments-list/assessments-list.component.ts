@@ -233,7 +233,6 @@ export class AssessmentsListComponent implements OnInit, OnDestroy  {
             this.assessments = res.modelList.map( a =>(
               {
                 ...a,
-                subjectName : this.learningSubjectsIds.find(s => s.id == a.learningSubjectId)?.name as string,
                 gradeName: a.gradeId != null ? a.gradeName: this.translateService.currentLang === "ar" ? "كل الصفوف" : "all grades" 
               
               })

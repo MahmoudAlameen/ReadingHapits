@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { AssessmentsService } from 'src/app/core/assessments.service';
 import { IAssessmentCard } from 'src/app/DTOs/assessments.interfaces';
 import { AssessmentStatus, AssessmentType } from 'src/app/enums/assessments.enums';
@@ -17,7 +18,8 @@ export class AssessmentCardComponent implements OnInit {
   
   constructor(
     private assessmentService: AssessmentsService,
-    private router: Router)
+    private router: Router,
+   private translateService: TranslateService)
   {
 
   }
@@ -40,6 +42,10 @@ export class AssessmentCardComponent implements OnInit {
   get assessmentTypeClass(): string {
     return this.assessmentTypeLabel.toLowerCase();
   }
+  displayedSubjectName: string = '';
+  getDisplayedSubjectName(): string {
+   return  this.translateService.currentLang == "ar" ? this.assessment.subjectName : this.assessment.subjectNameEn
+  }
 
   ngOnInit(): void 
   {
@@ -50,6 +56,11 @@ export class AssessmentCardComponent implements OnInit {
 
       this.buttonText = buttonData.label;
       this.redirectionURL = buttonData.redirectionURL;
+
+      this.displayedSubjectName = this.getDisplayedSubjectName();
+      this.translateService.onLangChange.subscribe(() => {
+       this.displayedSubjectName =  this.getDisplayedSubjectName();
+        });
   }
 
   handleAssessmentCardButtonClick()
