@@ -83,7 +83,7 @@
     "nav": {
     "home": "الرئيسية",
     "learning materials": "المواد التعليميه",
-    "assessments": "الاختبارات",
+    "assessments": "الاختبارات الدوليه",
     "about": "من نحن"
   },
   "Sign up": "إنشاء حساب",
@@ -153,5 +153,12 @@
   "Questions Answered": "الاسئله المجابه",
   "Percentage": "النسبه المئويه",
   "Finish & Submit All Answers": "انها ورفع كل الاجابات",
-  "answered": " سؤال تمت الاجابه عليها"
+  "answered": " سؤال تمت الاجابه عليها",
+  "Logout": "تسجيل الخروج",
+    "ASSESSMENT_SUBJECT": {
+    "Math": "رياضيات",
+    "Science": "علوم",
+    "Arabic": "اللغة العربية",
+    "English": "اللغة الإنجليزية"
+  }
 }

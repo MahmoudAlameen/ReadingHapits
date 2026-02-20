@@ -1,26 +1,42 @@
-
-
 [
   {
-    "title": "TIMMS",
+    "title": "TIMSS",
     "description": "Trends in International Mathematics & Science Study — item sets with data interpretation.",
     "tags": ["Grade 4 / 8", "Math", "Science"],
     "iconSrc": "timss.png",
-    "theme": "timss"
+    "theme": "timss",
+    "type": 3,
+    "subjects": [
+      { "id": 1, "name": "Mathematics", "coverUrl": "math.png" },
+      { "id": 2, "name": "Science", "coverUrl": "science.png" }
+    ]
   },
   {
     "title": "PIRLS",
     "description": "Progress in International Reading Literacy Study — passages with comprehension and analysis items.",
     "tags": ["Grade 4", "Reading", "Comprehension"],
     "iconSrc": "pirls.png",
-    "theme": "PIRLS"
+    "theme": "PIRLS",
+    "type": 2,
+    "subjects": [
+      { "id": 3, "name": "Arabic", "coverUrl": "arabic.png" },
+      { "id": 4, "name": "English", "coverUrl": "english.png" }
+    ]
   },
   {
     "title": "PISA",
     "description": "Reading, Mathematics, and Science literacy for 15-year-olds — scenario-based tasks & applied problems.",
     "tags": ["Age 15", "Reading", "Math", "Science"],
     "iconSrc": "pisa.png",
-    "theme": "PISA"
+    "theme": "PISA",
+    "type": 1,
+    "subjects": [
+      { "id": 1, "name": "Mathematics", "coverUrl": "math.png" },
+      { "id": 2, "name": "Science", "coverUrl": "science.png" },
+      { "id": 3, "name": "Arabic", "coverUrl": "arabic.png" },
+      { "id": 4, "name": "English", "coverUrl": "english.png" }
+    ]
   }
 ]
+
 
