@@ -12,14 +12,9 @@ const routes: Routes = [
     component: AssessmentsComponent, // This is now the layout/parent component
     canActivate: [AuthGuard],
     children: [ // <-- Define sub-routes here
-      
       { 
         path: '', // Full path: /assessments (Renders AssessmentsListComponent by default)
         component: AssessmentsComponent, 
-      },
-      {
-        path: 'view-result/:id',
-        component: AssessmentResultComponent
       }
     ]
   },
