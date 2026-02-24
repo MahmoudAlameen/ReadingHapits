@@ -11,7 +11,7 @@ export enum AssessmentType
 {
     PISA = 1,
     PIRLS = 2,
-    TIMMS = 3,
+    TIMSS = 3,
     Ordinary = 4
 }
 
@@ -39,7 +39,7 @@ export const AssessmentTypeSubjectsMap: Record<
     InternationalAssessmentSubject.English
   ],
 
-  [AssessmentType.TIMMS]: [
+  [AssessmentType.TIMSS]: [
     InternationalAssessmentSubject.Math,
     InternationalAssessmentSubject.Science
   ],

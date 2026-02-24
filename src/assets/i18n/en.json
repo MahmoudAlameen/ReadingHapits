@@ -79,7 +79,7 @@
   },
   "nav": {
     "home": "Home",
-    "learning materials": "Learning Materials",
+    "Excercises": "Excercises",
     "assessments": "International Assessments",
     "about": "About Us"
   },
@@ -105,8 +105,7 @@
   "CALL_TO_ACTION": "Ready to start your friendly learning journey? Register today and explore a world of seamless education."
   },
   "Teachers" : "Teachers",
-  "View Details" : "View Details",
-  "Exams": "Exams",
+  "Start Learning" : "Start Learning",
   "Articles": "Articles",
   "Most Interactive": "Most Interactive",
   "Select Grade": "Select Grade",

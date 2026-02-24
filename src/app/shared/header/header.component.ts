@@ -43,14 +43,14 @@ export class HeaderComponent implements OnInit {
   
     readonly navConfig = [
     { key: 'home', link: 'home' },
-    { key: 'learning materials', link: 'learning-materials' },
+    { key: 'Excercises', link: 'learning-materials' },
     { key: 'assessments', link: 'assessments' },
     { key: 'about', link: 'about' },
   ];
   // Navigation items data with Arabic translations
   navItems = [
     { label: 'Home', link: 'home'},
-    { label: 'learning materials', link: 'learning-materials' },
+    { label: 'Excercises', link: 'learning-materials' },
     { label: 'assessments', link: 'assessments' },
     { label: 'About Us', link: 'about' },
   ];

@@ -294,7 +294,7 @@ export class AssessmentsListComponent implements OnInit, OnDestroy  {
     const typeOrder: AssessmentType[] = [
       AssessmentType.PISA,
       AssessmentType.PIRLS,
-      AssessmentType.TIMMS,
+      AssessmentType.TIMSS,
       AssessmentType.Ordinary
     ];
 

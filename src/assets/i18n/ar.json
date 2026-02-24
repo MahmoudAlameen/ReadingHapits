@@ -11,7 +11,7 @@
     },
     "BUTTONS":
      {
-      "MATERIALS": "مواد تعليمية",
+      "MATERIALS": "التدريبات",
       "ASSESSMENTS": "اختبارات دولية"
     },
     "Master Global Assessments with Confidence": "احترف التقييمات العالمية واجتزها بثقة",
@@ -82,7 +82,7 @@
     },
     "nav": {
     "home": "الرئيسية",
-    "learning materials": "المواد التعليميه",
+    "Excercises": "التدريبات",
     "assessments": "الاختبارات الدوليه",
     "about": "من نحن"
   },
@@ -109,8 +109,7 @@
 
   },
   "Teachers" : "المعلمين",
-  "View Details" : "عرض التفاصيل",
-  "Exams": "Exams",
+  "Start Learning" : "ابدأ التعلم",
   "Articles": "مقالات",
   "Most Interactive": "الأكثر تفاعلاً",
   "Select Grade": "اختر الصف",

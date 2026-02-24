@@ -15,11 +15,11 @@ export class AssessmentsService {
 /*
 MOCK_ASSESSMENTSCards: IAssessmentCard[] = [
   { id: 101, name: 'PISA Global Literacy 2024', type: AssessmentType.PISA, durationMinutes: 120, subject: 'Language Arts', grade: 10, status: AssessmentStatus.Published },
-  { id: 102, name: 'TIMMS Advanced Calculus', type: AssessmentType.TIMMS, durationMinutes: 90, subject: 'Mathematics', grade: 10, status: AssessmentStatus.New },
+  { id: 102, name: 'TIMSS Advanced Calculus', type: AssessmentType.TIMSS, durationMinutes: 90, subject: 'Mathematics', grade: 10, status: AssessmentStatus.New },
   { id: 103, name: 'PIRLS Reading Comprehension', type: AssessmentType.PIRLS, durationMinutes: 75, subject: 'Language Arts', grade: 10, status: AssessmentStatus.Finished },
   { id: 104, name: 'Ordinary Biology Midterm', type: AssessmentType.Ordinary, durationMinutes: 50, subject: 'Science', grade: 10, status: AssessmentStatus.Published },
   { id: 105, name: 'PISA Scientific Thinking', type: AssessmentType.PISA, durationMinutes: 100, subject: 'Science', grade: 10, status: AssessmentStatus.Published },
-  { id: 106, name: 'TIMMS Geometry & Data', type: AssessmentType.PIRLS, durationMinutes: 60, subject: 'Mathematics', grade: 10, status: AssessmentStatus.Published },
+  { id: 106, name: 'TIMSS Geometry & Data', type: AssessmentType.PIRLS, durationMinutes: 60, subject: 'Mathematics', grade: 10, status: AssessmentStatus.Published },
   { id: 107, name: 'Ordinary World History Test', type: AssessmentType.Ordinary, durationMinutes: 40, subject: 'Social Studies', grade: 10, status: AssessmentStatus.Finished },
   { id: 901, name: 'PISA Prep Math', type: AssessmentType.PISA, durationMinutes: 60, subject: 'Mathematics', grade: 9, status: AssessmentStatus.Published },
 ];
