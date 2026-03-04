@@ -1,9 +1,11 @@
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, map, firstValueFrom, lastValueFrom } from 'rxjs';
+import { BehaviorSubject, map, firstValueFrom, lastValueFrom, Observable } from 'rxjs';
 import { AssessmentState, IAssessmentData, IAssessmentMeta, IExamResult, IQuestion, IUserAnswer } from '../DTOs/assessments.interfaces';
 import { ActivatedRoute } from '@angular/router'; // To get the assessment ID from the URL
 import { AssessmentsService } from './assessments.service';
 import { debug } from 'console';
+import { APIResponseModel } from '../classes/APIResponse';
+import { CustomAlertService } from './custom-alert.service';
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +13,7 @@ import { debug } from 'console';
 export class AssessmentOrchestratorService {
     private apiService = inject(AssessmentsService);
     private route = inject(ActivatedRoute); // Used to get assessmentId from URL
+    private customAlert = inject(CustomAlertService); // For showing error messages to the user 
 
     public assessmentState = new BehaviorSubject<AssessmentState>('loading');
     public assessmentData = new BehaviorSubject<IAssessmentData | null>(null);
@@ -55,6 +58,13 @@ export class AssessmentOrchestratorService {
                 meta: meta,
                 questions: currentData?.questions || [] // Keep questions if already loaded, though usually null here
             });
+
+            // check if student is blocked 
+            if(meta.isBlocked)
+            {
+                this.setState('Blocked');
+                return;
+            }
             
             // Check if user has already started: if so, auto-start the timer and fetch questions
             if (meta.isStarted) {
@@ -191,6 +201,25 @@ export class AssessmentOrchestratorService {
             console.error('API Error in finishAssessment:', error);
             this.setState('error', 'Failed to submit the assessment due to a network or server issue.');
         }
+    }
+
+     blockStudentAssessment(): void {
+        // This method can be called from the component if the student is blocked.
+        // It simply transitions to the 'Blocked' state, which the component can react to by showing a message and hiding the assessment UI.
+        
+        this.setState('Blocked');
+        debugger;
+        this.apiService.deactivateAssessmentStudent(this.assessmentId).subscribe(
+            result => 
+            {
+                this.setState('Blocked');
+                 if(!result.isValid)
+                 {
+                    this.customAlert.showError(result.errorMessage || 'Failed to block the assessment attempt. Please contact support.');
+                 }
+            }
+        );
+
     }
     
     // ... other methods (like mapping DTOs)

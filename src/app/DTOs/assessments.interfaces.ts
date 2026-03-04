@@ -12,6 +12,7 @@ export interface IAssessmentMeta {
     questionsCount: number;
     paragraphBody?: string;
     totalScore: number;
+    isBlocked: boolean;
 
 }
 
@@ -64,7 +65,7 @@ export interface IStartAssessmentResponse {
     remainingTimeInMinutes: number;
 }
 
-export type AssessmentState = 'loading' | 'meta' | 'taking' | 'finished' | 'results' | 'error';
+export type AssessmentState = 'loading' | 'meta' | 'taking' | 'finished' | 'results' | 'error'| "Blocked";
 
 export interface IAssessmentTypeDetails
 {

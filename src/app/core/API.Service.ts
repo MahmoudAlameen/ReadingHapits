@@ -50,6 +50,7 @@ export class APIService
     getAssessmentResult = this.base + "assessments/view-result/";
     internationalAssessmentsVedio = this.base + "shared/inernationalAssessmentDescriptiveVedio/"
     getLearningResource = this.base + "learning-resources/resource/"
+    blockAssessmentStudent = this.base + "assessments/block-student/";
 
     constructor()
     {

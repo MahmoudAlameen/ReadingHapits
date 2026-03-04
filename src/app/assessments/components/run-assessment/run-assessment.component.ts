@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, interval, Subscription, takeWhile } from 'rxjs';
@@ -159,5 +159,28 @@ ngOnDestroy(): void {
         sanitizeHtml(html: string): SafeHtml {
             return this.sanitizer.bypassSecurityTrustHtml(html);
         }
+
+
+
+        // guard student from opening new tab or navigating away
+        // 1. Detects when the tab is switched or browser is minimized
+  @HostListener('document:visibilitychange', [])
+  onVisibilityChange() {
+    if (document.hidden && this.currentState === 'taking') {
+      this.blockExam('Tab switched or browser minimized');
+    }
+  }
+
+  // 2. Detects when the user clicks outside the browser or opens a new window
+  @HostListener('window:blur', [])
+  onWindowBlur() {
+    if(this.currentState === 'taking')
+        this.blockExam('Window lost focus (potential new window opened)');
+  }
+
+  blockExam(reason: string) {
+     this.assessmentOrchestratorService.blockStudentAssessment();
+     alert(`You have been blocked from the assessment due to: ${reason}. Please contact support for assistance.`);
+  }
     
 }

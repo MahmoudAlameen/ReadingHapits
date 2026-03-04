@@ -125,7 +125,8 @@ fetchAssessmentsByGrade(
             isStarted: false ,
             remainingTimeInMinutes: 5,
             questionsCount : 5,
-            totalScore: 100
+            totalScore: 100,
+            isBlocked: false
         },
         questions: [
             {
@@ -450,6 +451,12 @@ fetchAssessmentsByGrade(
            ))
          
     }
+
+      deactivateAssessmentStudent(assessmentId: string): Observable<APIResponseModel<boolean>> {
+    // Returns a boolean success/fail
+    return this.http.post<APIResponseModel<boolean>>(`${this.API.blockAssessmentStudent}${assessmentId}`, {})
+      .pipe(catchError((err) => throwError(() => err.message)));
+  }
 
 
 }

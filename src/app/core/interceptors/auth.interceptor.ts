@@ -51,10 +51,13 @@ intercept(
         this.router.navigate(['authentication']);
         return throwError(() => error);
       }
+      if (error.status === 404) {
+        this.customAlert.showError('Not Found: The requested resource does not exist.');
+        return throwError(() => error);
+      }
 
       //  Validation errors (ProblemDetails)
       if (error.status === 400 && error.error?.errors) {
-debugger;
         const validationErrors = error.error.errors;
 
         // Flatten all messages

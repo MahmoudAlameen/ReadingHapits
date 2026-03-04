@@ -33,6 +33,10 @@
                     <h2 class="error-title">Access Blocked</h2>
                     <p class="error-text">{{ errorDetail$ | async }}</p>
                 </div>
+                <div *ngIf="currentState === 'Blocked'" class="state-message error">
+                    <h2 class="error-title">{{'Assessment Blocked'| translate}} </h2>
+                    <p class="error-text">{{ 'AssessmentBlockedDescriptionMessage' | translate }}</p>
+                </div>
 
                 <!-- 3. METADATA STATE -->
                  <app-assessment-meta 
