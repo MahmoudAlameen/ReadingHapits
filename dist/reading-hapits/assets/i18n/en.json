@@ -79,7 +79,7 @@
   },
   "nav": {
     "home": "Home",
-    "learning materials": "Learning Materials",
+    "Excercises": "Excercises",
     "assessments": "International Assessments",
     "about": "About Us"
   },
@@ -105,8 +105,7 @@
   "CALL_TO_ACTION": "Ready to start your friendly learning journey? Register today and explore a world of seamless education."
   },
   "Teachers" : "Teachers",
-  "View Details" : "View Details",
-  "Exams": "Exams",
+  "Start Learning" : "Start Learning",
   "Articles": "Articles",
   "Most Interactive": "Most Interactive",
   "Select Grade": "Select Grade",
@@ -156,6 +155,8 @@
     "Science": "Science",
     "Arabic": "Arabic",
     "English": "English"
-  }
+  },
+  "Assessment Blocked": "Assessment Blocked",
+  "AssessmentBlockedDescriptionMessage": "Your exam session has been automatically blocked because the browser window lost focus or a new tab/window was opened. To maintain academic integrity, navigating away from the exam page is not permitted. Please contact your system administrator to request a manual reset of your attempt."
 
 }
