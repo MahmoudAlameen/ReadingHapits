@@ -1,144 +1,141 @@
+.assessment-card {
+  background-color: #FFFFFF;
+  color: #1f2937;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  transition: transform 0.3s;
+  
+  /* Layout: Vertical stack that fills the grid row height */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%; 
+}
 
-      /* Base Card Style (UNIFIED COLOR) */
-      .assessment-card {
-        flex: 1 1 100%; 
-        background-color: #FFFFFF; /* White background for all cards */
-        color: #1f2937; /* Dark card text */
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-        border: 1px solid #e5e7eb; /* Light border */
-        transition: transform 0.3s, box-shadow 0.3s;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        min-width: 0; 
-      }
+.assessment-card:hover {
+  transform: translateY(-4px);
+}
 
-      .assessment-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-      }
+.card-header {
+  display: flex;
+  flex-direction: row;      
+  justify-content: space-between; 
+  align-items: flex-start; /* Align badge to the top of the wrapping text */
+  gap: 12px;                
+  width: 100%;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f3f4f6;
 
-      /* Responsive Flexbox Sizing for Card (Maintained) */
-      @media (min-width: 640px) {
-        .assessment-card { flex: 0 0 calc(50% - 12px); }
-      }
-      @media (min-width: 1024px) {
-        .assessment-card { flex: 0 0 calc(33.333% - 16px); }
-      }
-      @media (min-width: 1280px) {
-        .assessment-card { flex: 0 0 calc(25% - 18px); }
-      }
+  /* --- WRAP LOCK --- */
+  /* Min-height ensures 1-line titles align with 2-line titles */
+  flex-shrink: 0;
+}
 
-      /* Card Inner Content */
-      .card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 12px;
-        padding-bottom: 12px;
-        border-bottom: 1px solid #f3f4f6; /* Very light border */
-      }
+.card-title {
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;                
+  flex: 1;                  
+  font-size: 1.5rem; 
+  line-height: 1.2;
 
-      .card-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        line-height: 1.4;
-        margin: 0;
-        margin-right: 10px;
-        color: #111827; /* Dark title */
-      }
+  /* --- MULTI-LINE WRAP LOGIC --- */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Change to 3 if you have very long names */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal; /* Allows the text to break into lines */
+}
 
-      .status-badge {
-        font-size: 1.2rem;
-        font-weight: 600;
-        padding: 4px 12px;
-        border-radius: 9999px;
-        white-space: nowrap;
-      }
+.status-badge {
+  font-size: 1.2rem; 
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
 
-      /* Status Colors (Adjusted to be lighter backgrounds with dark text) */
-      .status-Published { background-color: var(--color-green-light); color: var(--color-green-dark); }
-      .status-Finished { background-color: var(--color-red-light); color: var(--color-red-dark); }
-      .status-New { background-color: var(--color-yellow-light); color: var(--color-yellow-dark); }
+/* Status Colors */
+.status-Published { background-color: var(--color-green-light); color: var(--color-green-dark); }
+.status-Finished { background-color: var(--color-red-light); color: var(--color-red-dark); }
+.status-New { background-color: var(--color-yellow-light); color: var(--color-yellow-dark); }
 
-      /* Details (Pure Flexbox 2x2 layout) */
-      .card-details {
-        display: flex;
-        flex-direction: column;
-        gap: 8px 16px; 
-        font-size: 1.2rem;
-        margin-bottom: 20px;
-      }
-     
-      /*
-      .card-details > div {
-        //flex: 0 0 calc(50% - 8px);
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        gap: 10px;
-      }
-        */
-      .card-line
-      {
-        display: flex;
-        width: 100%;
-        flex-direction:  row;
-        flex:1 1;
-        justify-content: flex-start;
-        gap: 30px
-      }
-      .card-line  div
-      {
-        display: flex;
-        width: 50%;
-        flex-direction: row;
-        gap: 10px;
-        align-items: center;
-      }
+.card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; 
+  margin-bottom: 24px;
+  
+  /* Pushes the button to the bottom regardless of 1 or 2 lines of title */
+  flex-grow: 1; 
+  justify-content: center;
+}
 
-      .detail-label {
-        color: #09255e; /* Medium gray for labels */
-        font-weight: bold;
-      }
-      .detail-value {
-        font-weight: 500;
-        margin-top: 2px;
-        margin-bottom: 0;
-        color: #1f2937; /* Darker value text */
-      }
+.card-line {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 20px;
+}
 
-      /* Take Button */
-      .take-button {
-        margin-top: auto; 
-        width: 100%;
-        padding: 10px 16px;
-        border-radius: 8px;
-        color: white;
-        font-weight: 600;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.2s, box-shadow 0.2s;
-        text-align: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      }
+.card-line > div {
+  display: flex;
+  width: 50%;
+  flex-direction: row; 
+  align-items: center; 
+  gap: 8px; 
+}
 
-      .published-btn {
-        background-color: var(--color-green-dark); /* Dark green */
-      }
-      .published-btn:hover {
-        background-color: #047857; /* Slightly darker hover */
-      }
-      .coming-soon-btn {
-        background-color: #d1d5db; /* Light gray */
-        color: #6b7280;
-        cursor: not-allowed;
-        box-shadow: none;
-      }
-      .finished-label {
-        background-color: var(--color-red-dark);
-        opacity: 0.9;
-        color: white;
-      }
+.detail-label {
+  font-weight: 700;
+  color: #09255e;
+  font-size: 1.25rem; 
+  margin: 0; 
+  white-space: nowrap;
+}
+
+.detail-value {
+  font-weight: 600;
+  color: #374151;
+  font-size: 1.2rem; 
+  margin: 0; 
+}
+
+.take-button {
+  margin-top: auto; 
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+  font-size: 1.15rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.published-btn { 
+  background-color: var(--color-green-dark); 
+}
+.published-btn:hover { 
+  background-color: #047857; 
+  box-shadow: 0 4px 10px rgba(4, 120, 87, 0.2);
+}
+
+.coming-soon-btn { 
+  background-color: #d1d5db; 
+  color: #6b7280; 
+  cursor: not-allowed; 
+}
+
+.finished-label { 
+  background-color: var(--color-red-dark); 
+  opacity: 0.9; 
+  color: white; 
+}

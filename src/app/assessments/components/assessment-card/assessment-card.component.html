@@ -1,36 +1,36 @@
 <div [class]="'assessment-card type-' + assessmentTypeClass">
   <!-- Header & Status -->
-  <div class="card-header">
-    <h3 class="card-title">{{ assessment.name }}</h3>
-    <label [class]="'status-badge status-' + AssessmentStatus[assessment.status]" class="cardLabel">{{cardLabel |translate}}</label>
-  </div>
+<div class="card-header">
+  <h3 class="card-title">{{ assessment.name }}</h3>
+  <label [class]="'status-badge status-' + AssessmentStatus[assessment.status]" class="cardLabel">
+    {{ cardLabel | translate }}
+  </label>
+</div>
 
   <!-- Details -->
-  <div class="card-details">
-    <div class = "card-line">
-      <div>
-        <span class="detail-label">Subject:</span>
-        <p class="detail-value">{{ displayedSubjectName }}</p>
-      </div>
-      <div>
-        <span class="detail-label">Grade:</span>
-        <p class="detail-value">{{ assessment.gradeName }}</p>
-      </div>
+<div class="card-details">
+  <div class="card-line">
+    <div>
+      <span class="detail-label">{{ 'Subject' | translate }}:</span>
+      <span class="detail-value">{{ displayedSubjectName }}</span>
     </div>
-    <div class = "card-line">
-      <div>
-        <span class="detail-label">Duration:</span>
-        <p class="detail-value">{{ assessment.durationInMinutes }} min</p>
-      </div>
-      <div>
-        <span class="detail-label">Type:</span>
-         <p class="detail-value">{{ assessmentTypeLabel }}</p>
-      </div>
+    <div>
+      <span class="detail-label">{{ 'Grade' | translate }}:</span>
+      <span class="detail-value">{{ assessment.gradeName }}</span>
     </div>
-
-    
-
   </div>
+
+  <div class="card-line">
+    <div>
+      <span class="detail-label">{{ 'Duration' | translate }}:</span>
+      <span class="detail-value">{{ assessment.durationInMinutes }} min</span>
+    </div>
+    <div>
+      <span class="detail-label">{{ 'Type' | translate }}:</span>
+      <span class="detail-value">{{ assessmentTypeLabel }}</span>
+    </div>
+  </div>
+</div>
 
   <!-- Actions -->
   <button

@@ -44,7 +44,13 @@ export class AssessmentsListComponent implements OnInit, OnDestroy  {
   public assessmentTypeSubjectsNames: string[] = Object.keys(InternationalAssessmentSubject).filter(k => isNaN(Number(k)));
  public IsInternationalAssessmentMode: boolean = false; // This can be set based on route or other logic to determine if we're in international assessment mode
    private langSub!: Subscription;
- 
+ // Add to AssessmentsListComponent class:
+public isMobileFilterOpen: boolean = false;
+
+toggleMobileFilters() {
+  this.isMobileFilterOpen = !this.isMobileFilterOpen;
+}
+
  ngOnInit(): void {
     // Read query params and initialize filters
     this.route.queryParamMap.subscribe(params => {
@@ -68,6 +74,17 @@ export class AssessmentsListComponent implements OnInit, OnDestroy  {
     this.langSub = this.translateService.onLangChange.subscribe(() => {
       this.loadAssessmentSubjectTypeNames();
     });
+
+    // Handle translation updates globally once
+  this.langSub = this.translateService.onLangChange.subscribe(() => {
+    this.assessments.forEach(a => {
+      if (a.gradeId == null) {
+        a.gradeName = this.translateService.currentLang === 'ar' ? 'كل الصفوف' : 'All Grades';
+      }
+    });
+    this.updateAssessmentCategories(); // Re-trigger categorization to refresh view
+    this.cdr.detectChanges();
+  });
   }
 
   ngOnDestroy() {
@@ -133,11 +150,24 @@ export class AssessmentsListComponent implements OnInit, OnDestroy  {
 
     return null;
   }
+  public getFilterAssessmentTypeName(type: AssessmentType | null): string {
+    if (type === null || type === undefined) return '';
+    // Maps the numeric enum value back to its string name for display/URL encoding
+    return (AssessmentType as any)[type] ?? '';
+  }
 
   public getAssessmentTypeName(type: AssessmentType | null): string {
     if (type === null || type === undefined) return '';
     // Maps the numeric enum value back to its string name for display/URL encoding
-    return (AssessmentType as any)[type] ?? '';
+
+    if (this.translateService.currentLang === 'ar' && type === AssessmentType.Ordinary) {
+      return 'التقييمات';
+    }
+    if(this.translateService.currentLang === 'ar'){
+      return `تقييمات ${(AssessmentType as any)[type] ?? ''}`;
+      //return this.translateService.currentLang === 'ar' ? 'عادي' : 'Ordinary';
+  }
+    return type === AssessmentType.Ordinary ? 'Assessments' : `${(AssessmentType as any)[type] ?? ''} Assessments`;
   }
 
   
@@ -213,63 +243,53 @@ export class AssessmentsListComponent implements OnInit, OnDestroy  {
     );
   }
 
-  async loadAssessments() {
-    this.isLoading = true;
+async loadAssessments() {
+  this.isLoading = true;
 
-      // Pass the numeric enum (or null) to your service. If your backend expects the string name,
-      // convert by using getAssessmentTypeName(this.selectedAssessmentType)
-      const data =  this.assessmentsService.fetchAssessmentsByGrade(
-        this.gradeId,
-        this.searchTerm,
-        this.selectedSubjectId,
-        this.selectedAssessmentType != null ? this.selectedAssessmentType : undefined,
-        this.selectedAssessmentSubjectType != null ? this.selectedAssessmentSubjectType : undefined
-
-      ).subscribe(
-        res =>
-        {
-          if(res.isValid && res.modelList != null)
-          {
-            this.assessments = res.modelList.map( a =>(
-              {
-                ...a,
-                gradeName: a.gradeId != null ? a.gradeName: this.translateService.currentLang === "ar" ? "كل الصفوف" : "all grades" 
-              
-              })
-            );
-            // 🔑 Function called directly to categorize data after fetch
-            this.updateAssessmentCategories(); 
-            this.translateService.onLangChange.subscribe(() => {
-              this.assessments[0].gradeName = "any thing "
-              this.assessments.forEach(a => {
-                a.gradeName =     a.gradeId != null ? a.gradeName :
-                (this.translateService.currentLang === 'ar'
-                  ? 'كل الصفوف'
-                  : 'All Grades')
-                });
-                this.cdr.detectChanges(); 
-              }); 
-
-          }
-          else
-          {
-            this.alertMessage.message = `${res.errorMessage}`;
-            this.alertMessage.isDisplayed = true;
-            this.customAlert.alert.next(this.alertMessage);
-          }
-          this.isLoading = false;
-
-        },
-        err =>
-        {
-            this.alertMessage.message = `${err}`;
-            this.alertMessage.isDisplayed = true;
-            this.customAlert.alert.next(this.alertMessage);
-            this.isLoading = false;
-        }
-      );
+  // Ensure the sidebar closes on mobile when a filter is applied
+  if (window.innerWidth <= 768) {
+    this.isMobileFilterOpen = false;
   }
 
+  this.assessmentsService.fetchAssessmentsByGrade(
+    this.gradeId,
+    this.searchTerm,
+    this.selectedSubjectId,
+    this.selectedAssessmentType ?? undefined,
+    this.selectedAssessmentSubjectType ?? undefined
+  ).pipe(
+    finalize(() => {
+      this.isLoading = false;
+      this.cdr.detectChanges();
+    })
+  ).subscribe({
+    next: (res) => {
+      if (res.isValid && res.modelList != null) {
+        this.assessments = res.modelList.map(a => ({
+          ...a,
+          gradeName: a.gradeId != null ? a.gradeName : 
+            (this.translateService.currentLang === "ar" ? "كل الصفوف" : "All Grades")
+        }));
+        this.updateAssessmentCategories();
+      } else {
+        this.handleError(res.errorMessage);
+      }
+    },
+    error: (err) => this.handleError(err)
+  });
+}
+
+private handleError(msg: string) {
+  this.alertMessage.message = msg;
+  this.alertMessage.isDisplayed = true;
+  this.customAlert.alert.next(this.alertMessage);
+}
+
+private showErrorMessage(msg: string) {
+  this.alertMessage.message = msg;
+  this.alertMessage.isDisplayed = true;
+  this.customAlert.alert.next(this.alertMessage);
+}
   /** Groups fetched assessments into categories and assigns to public property. */
   private updateAssessmentCategories(): void {
     const groups = this.assessments.reduce((acc, assessment) => {
@@ -349,6 +369,7 @@ export class AssessmentsListComponent implements OnInit, OnDestroy  {
     this.selectedSubjectId = '';
     this.selectedAssessmentType = null;
     this.selectedAssessmentSubjectType = null;
+    this.gradeId = '';
 
     const searchInput = document.querySelector('.search-input') as HTMLInputElement;
     if (searchInput) searchInput.value = '';

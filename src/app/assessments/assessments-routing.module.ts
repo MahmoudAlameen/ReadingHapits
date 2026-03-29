@@ -20,7 +20,8 @@ const routes: Routes = [
   },
   {
     path:"list",
-    component: AssessmentsListComponent
+    component: AssessmentsListComponent,
+    canActivate: [AuthGuard]
   },
   { 
     path: 'run-assessment/:id', // Full path: /assessments/run-assessment

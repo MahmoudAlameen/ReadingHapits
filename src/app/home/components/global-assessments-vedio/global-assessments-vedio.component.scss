@@ -1,3 +1,4 @@
+/* --- DESKTOP STYLES (ORIGINAL) --- */
 .global-assessments-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -15,38 +16,31 @@
   align-items: center;
 }
 
-.assessments-header  {
+.assessments-header {
   text-align: center;
-}
-
-.assessments-header > * , .assessments-footer >
-{
-  font-weight: bold;
-  font-size: medium;
+  margin-top: 1rem;
 }
 
 .global-assessments-container .assessments-intro .assessments-header .heading-main {
   font-size: clamp(2rem, 4vw, 4rem);
-
   font-weight: 700;
   margin-bottom: 0.5rem;
- 
-  margin-top: 1rem; 
-  line-height: 1.1; 
+  margin-top: 1rem;
+  line-height: 1.1;
 }
 
 .assessments-header .description {
-  font-size: clamp(1rem, 2vw, 1.7rem); 
-  color: #333333; 
-  line-height: 1.6; 
+  font-size: clamp(1rem, 2vw, 1.7rem);
+  color: #333333;
+  line-height: 1.6;
 }
 
-.description b {
+.description b, .footer-description b {
   background-color: #ffeb3b;
   padding: 2px 5px;
   border-radius: 4px;
   font-weight: 700;
-  color: #1a2b49; 
+  color: #1a2b49;
 }
 
 .video-wrapper {
@@ -60,8 +54,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.video-player,
-.video-thumbnail {
+.video-player, .video-thumbnail {
   position: absolute;
   top: 0;
   left: 0;
@@ -86,13 +79,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: all 0.2s ease;
   cursor: pointer;
-}
-
-.play-button:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-  transform: translate(-50%, -50%) scale(1.1);
 }
 
 .assessments-footer {
@@ -100,51 +88,51 @@
   padding: 1rem 0;
 }
 
-.global-assessments-container .assessments-intro .assessments-footer .heading-footer {
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-/* Corrected font size and highlighting for the footer */
 .global-assessments-container .assessments-intro .assessments-footer .footer-description {
   font-size: clamp(1.5rem, 2vw, 2rem);
-  color: #333333; /* Darkened for better contrast */
+  color: #333333;
   max-width: 800px;
   margin: 0 auto 1.5rem;
   line-height: 1.6;
 }
 
-.global-assessments-container .assessments-intro .assessments-footer  .footer-description b {
-  background-color: #ffeb3b;
-  padding: 2px 5px;
-  border-radius: 4px;
-  font-weight: 700;
-  color: #1a2b49;
-}
-
-.assessments-footer .cta-button {
+.cta-button {
   background-color: #1a2b49;
   color: #fff;
   border: none;
   border-radius: 8px;
   padding: 12px 24px;
   font-size: 1.5rem;
-  font-weight: 400;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: all 0.2s ease;
 }
 
-.cta-button:hover {
-  background-color: #243654;
-  transform: translateY(-2px);
-}
+.video-player { display: none; }
 
-.cta-button:active {
-  transform: translateY(0);
-}
+/* --- MOBILE SURGICAL FIXES --- */
+@media (max-width: 767px) {
+  .global-assessments-container {
+    /* Reveal header from under navigation bar */
+    padding-top: 6rem !important; 
+  }
 
-/* Base styles for hiding elements on load */
-.video-player {
-  display: none;
+  .assessments-header .description {
+    display: none !important; /* Hide paragraph above video per request */
+  }
+
+  .global-assessments-container .assessments-intro .assessments-header .heading-main {
+    font-size: 1.8rem !important; /* Professional mobile size */
+    margin-top: 0;
+  }
+
+  .global-assessments-container .assessments-intro .assessments-footer .footer-description {
+    font-size: 1.1rem !important; /* Scale down giant footer text */
+    padding: 0 10px;
+  }
+
+  .cta-button {
+    width: 100%;
+    max-width: 280px;
+    font-size: 1.2rem;
+  }
 }
