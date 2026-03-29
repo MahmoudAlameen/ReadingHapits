@@ -157,6 +157,7 @@
     "English": "English"
   },
   "Assessment Blocked": "Assessment Blocked",
-  "AssessmentBlockedDescriptionMessage": "Your exam session has been automatically blocked because the browser window lost focus or a new tab/window was opened. To maintain academic integrity, navigating away from the exam page is not permitted. Please contact your system administrator to request a manual reset of your attempt."
+  "AssessmentBlockedDescriptionMessage": "Your exam session has been automatically blocked because the browser window lost focus or a new tab/window was opened. To maintain academic integrity, navigating away from the exam page is not permitted. Please contact your system administrator to request a manual reset of your attempt.",
+  "No assessments found matching your filters.":"No assessments found matching your filters."
 
 }
