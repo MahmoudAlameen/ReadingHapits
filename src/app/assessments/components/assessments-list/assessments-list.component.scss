@@ -23,6 +23,8 @@
   height: sticky;
   top: 100px; /* Distance from top when scrolling */
   align-self: flex-start;
+  position: relative;
+  z-index: 10;
 
   .sidebar-header h3 {
     margin: 0 0 20px 0;
@@ -98,7 +100,7 @@ app-assessment-card {
     display: block;
     position: sticky;
     top: 80px; /* ADJUST THIS: Should be height of your Nav Bar */
-    z-index: 1001;
+    z-index: 10;
     margin-bottom: 20px;
   }
   .main-layout-wrapper
@@ -123,7 +125,7 @@ app-assessment-card {
     left: -100%;
     width: 280px;
     height: 100vh;
-    z-index: 2000;
+    z-index: 10;
     transition: 0.3s ease-in-out;
     border-radius: 0;
 
@@ -145,7 +147,7 @@ app-assessment-card {
     width: 100vw;
     height: 100vh;
     background: rgba(0,0,0,0.5);
-    z-index: 1999;
+    z-index: 10;
   }
 
   app-assessment-card { flex: 1 1 100%; }
