@@ -28,7 +28,8 @@ export class AssessmentTypePopupComponent implements OnInit {
       this.router.navigate(['assessments/list'], {
         queryParams: { 
           selectedAssessmentType: assessmentType, 
-          selectedAssessmentSubjectType: subjectType
+          selectedAssessmentSubjectType: subjectType,
+
         }
       });
       this.closePopup();

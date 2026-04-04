@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { APIService } from 'src/app/core/API.Service';
 import { UserService } from 'src/app/core/User.Service';
 import { ILearningSubjectCard } from 'src/app/DTOs/ILearningSubjectCard';
+import { AssessmentType } from 'src/app/enums/assessments.enums';
 
 @Component({
   selector: 'app-learning-material-card',
@@ -33,7 +34,14 @@ this.userService.studentGrade.subscribe(g =>
 onViewExams(): void {
   var gradeId = this.userService.studentGrade.value?.id;
 
-     this.router.navigate(['/assessments/list'], { queryParams: { selectedSubject: this.material?.id, gradeId: gradeId } });
+     this.router.navigate(['/assessments/list'], 
+      { queryParams: 
+        { 
+          selectedSubject: this.material?.id,
+          gradeId: gradeId,
+          selectedAssessmentType: AssessmentType.Ordinary, 
+
+        } });
 // Implement view exams logic
 }
   constructor(
