@@ -20,22 +20,19 @@ export class AuthInterceptor implements HttpInterceptor {
     private customAlert : CustomAlertService
 
   ) {}
-
 intercept(
   request: HttpRequest<unknown>,
   next: HttpHandler
 ): Observable<HttpEvent<unknown>> {
+
   return next.handle(request).pipe(
 
     tap((event: HttpEvent<any>) => {
-
       if (event instanceof HttpResponse) {
-
         const body = event.body as any;
 
-        // Handle generic backend validation failure
+        // ✅ Case 1: Business validation inside 200 response
         if (body?.isValid === false) {
-
           const message =
             body.errorMessage || 'حدث خطأ أثناء تنفيذ العملية';
           this.customAlert.showError(message);
@@ -43,39 +40,79 @@ intercept(
       }
     }),
 
-    // Keep catchError ONLY for real HTTP errors
-// Handle HTTP errors (400, 401, 403, 500...)
     catchError((error: HttpErrorResponse) => {
-      // 🔐 Unauthorized
+
+      // 🔐 401 Unauthorized
       if (error.status === 401) {
         this.router.navigate(['authentication']);
         return throwError(() => error);
       }
+
+      // 🚫 404 Not Found
       if (error.status === 404) {
-        this.customAlert.showError('Not Found: The requested resource does not exist.');
+        this.customAlert.showError(
+          'Not Found: The requested resource does not exist.'
+        );
         return throwError(() => error);
       }
 
-      //  Validation errors (ProblemDetails)
-      if (error.status === 400 && error.error?.errors) {
-        const validationErrors = error.error.errors;
+      // ⚠️ 400 Bad Request
+      if (error.status === 400) {
 
-        // Flatten all messages
-        const messages: string[] = [];
+        // ✅ Case 2: Your custom business validation response
+        if (error.error?.isValid === false) {
+          const message =
+            error.error.errorMessage || 'Validation failed';
+          this.customAlert.showError(message);
+          return throwError(() => error);
+        }
 
-        Object.keys(validationErrors).forEach(field => {
-          validationErrors[field].forEach((msg: string) => {
-            messages.push(msg);
+        // ✅ Case 3: ASP.NET ProblemDetails (ModelState)
+        if (error.error?.errors) {
+          const validationErrors = error.error.errors;
+
+          const messages: string[] = [];
+
+          Object.keys(validationErrors).forEach(field => {
+            validationErrors[field].forEach((msg: string) => {
+              messages.push(msg);
+            });
           });
-        });
-        this.customAlert.showError(messages.join('\n'));
-        //alert(messages);
+
+          this.customAlert.showError(messages.join('\n'));
+          return throwError(() => error);
+        }
+
+        // ✅ Fallback for 400
+        this.customAlert.showError(
+          error.error?.title ||
+          error.error?.message ||
+          'Bad request'
+        );
+
         return throwError(() => error);
       }
 
-      // 🔥 Other backend errors
-      if (error.error?.title)
+      // 🔥 500 Internal Server Error
+      if (error.status === 500) {
+        this.customAlert.showError(
+          error.error?.title ||
+          error.error?.message ||
+          'Internal Server Error, please try again later.'
+        );
+        return throwError(() => error);
+      }
+
+      // ⚠️ Other backend errors (like 403, 502, etc.)
+      if (error.error?.title) {
         this.customAlert.showError(error.error.title);
+        return throwError(() => error);
+      }
+
+      // 🧨 Final fallback
+      this.customAlert.showError(
+        error.message || 'Unexpected error occurred'
+      );
 
       return throwError(() => error);
     })
