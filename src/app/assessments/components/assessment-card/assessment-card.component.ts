@@ -23,6 +23,26 @@ export class AssessmentCardComponent implements OnInit {
   {
 
   }
+  public getAssessmentTypeName(type: AssessmentType | null): string {
+    if (type === null || type === undefined) return '';
+    // Maps the numeric enum value back to its string name for display/URL encoding
+
+    if(this.translateService.currentLang === 'ar' && type === AssessmentType.Ordinary)
+      return 'تقييم عادي';
+
+      return `${(AssessmentType as any)[type] ?? ''}`;
+
+/*
+    if (this.translateService.currentLang === 'ar' && type === AssessmentType.Ordinary) {
+      return 'تقييم عادى';
+    }
+    if(this.translateService.currentLang === 'ar'){
+      return `تقييمات ${(AssessmentType as any)[type] ?? ''}`;
+      //return this.translateService.currentLang === 'ar' ? 'عادي' : 'Ordinary';
+  }
+    return type === AssessmentType.Ordinary ? 'Assessments' : `${(AssessmentType as any)[type] ?? ''} Assessments`;
+    */
+  }
 
   /** Input: The assessment data object */
   @Input() assessment!: IAssessmentCard;

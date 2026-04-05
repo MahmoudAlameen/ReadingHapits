@@ -60,7 +60,7 @@
           </select>
         </div>
 
-        <div class="filter-group" *ngIf="IsInternationalAssessmentMode">
+        <div class="filter-group" *ngIf=" !IsComeFromTRainingPage && IsInternationalAssessmentMode">
           <label>{{ 'Subject Type' | translate }}</label>
           <select 
           (change)="updateAssessmentSubjectTypeFilter($event)"
@@ -76,7 +76,7 @@
           </select>
         </div>
 
-        <div class="filter-group">
+        <div class="filter-group" *ngIf="!IsComeFromTRainingPage">
           <label>{{ 'Category' | translate }}</label>
           <select 
           (change)="updateAssessmentTypeFilter($event)" 

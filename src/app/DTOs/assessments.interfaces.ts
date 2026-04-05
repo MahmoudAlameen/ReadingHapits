@@ -59,7 +59,8 @@ export interface IAssessmentCard {
   subjectName: string;
   subjectNameEn: string;
   isStartedByStudent: boolean,
-  isFinishedByStudent: boolean
+  isFinishedByStudent: boolean,
+  questionsCount: number
 }
 export interface IStartAssessmentResponse {
     remainingTimeInMinutes: number;

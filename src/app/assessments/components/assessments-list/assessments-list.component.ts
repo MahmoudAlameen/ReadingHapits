@@ -40,11 +40,16 @@ export class AssessmentsListComponent implements OnInit, OnDestroy  {
   public categorizedAssessments: { type: AssessmentType, assessments: IAssessmentCard[] }[] = [];
 
   // UI-friendly names (string keys) for the enum (e.g. "PISA", "PIRLS" ...)
-  public assessmentTypeNames: string[] = Object.keys(AssessmentType).filter(k => isNaN(Number(k)));
-  public assessmentTypeSubjectsNames: string[] = Object.keys(InternationalAssessmentSubject).filter(k => isNaN(Number(k)));
+public assessmentTypeNames: string[] = Object.keys(AssessmentType)
+    .filter(key => 
+        isNaN(Number(key)) && // 1. Get only the names (PISA, PIRLS, etc.)
+        key !== AssessmentType[AssessmentType.Ordinary] // 2. Dynamically exclude 'Ordinary'
+    );
+ public assessmentTypeSubjectsNames: string[] = Object.keys(InternationalAssessmentSubject).filter(k => isNaN(Number(k)));
  public IsInternationalAssessmentMode: boolean = false; // This can be set based on route or other logic to determine if we're in international assessment mode
-   private langSub!: Subscription;
- // Add to AssessmentsListComponent class:
+  public IsComeFromTRainingPage: boolean = false;
+     private langSub!: Subscription;
+
 public isMobileFilterOpen: boolean = false;
 
 toggleMobileFilters() {
@@ -60,6 +65,9 @@ toggleMobileFilters() {
 
       this.selectedSubjectId = subjectIdParam ?? '';
       this.selectedAssessmentType = this.parseAssessmentTypeParam(assessmentTypeParam);
+
+      if(this.selectedAssessmentType == AssessmentType.Ordinary)
+        this.IsComeFromTRainingPage = true;
       this.UpdateInternationalAssessmentMode();
       this.selectedAssessmentSubjectType = this.parseAssessmentSubjectTypeParam(assessmentSubjectTypeParam);
 
@@ -161,7 +169,11 @@ toggleMobileFilters() {
     // Maps the numeric enum value back to its string name for display/URL encoding
 
     if (this.translateService.currentLang === 'ar' && type === AssessmentType.Ordinary) {
-      return 'التقييمات';
+      return 'التدريبات';
+    }
+
+        if (this.translateService.currentLang === 'en' && type === AssessmentType.Ordinary) {
+      return 'Training Assessments';
     }
     if(this.translateService.currentLang === 'ar'){
       return `تقييمات ${(AssessmentType as any)[type] ?? ''}`;
@@ -365,9 +377,13 @@ private showErrorMessage(msg: string) {
   }
 
   resetFilters(): void {
+
+    if(this.IsComeFromTRainingPage)
+      this.selectedAssessmentType = AssessmentType.Ordinary;
+    else
+      this.selectedAssessmentType = null;
     this.searchTerm = '';
     this.selectedSubjectId = '';
-    this.selectedAssessmentType = null;
     this.selectedAssessmentSubjectType = null;
     this.gradeId = '';
 

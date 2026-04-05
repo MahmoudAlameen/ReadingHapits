@@ -9,6 +9,16 @@
 
   <!-- Details -->
 <div class="card-details">
+    <div class="card-line">
+    <div>
+      <span class="detail-label">{{ 'Prepared By' | translate }}:</span>
+      <span class="detail-value">{{ assessment.creator }}</span>
+    </div>
+    <div>
+      <span class="detail-label">{{ 'Questions Count' | translate }}:</span>
+      <span class="detail-value">{{ assessment.questionsCount }}</span>
+    </div>
+  </div>
   <div class="card-line">
     <div>
       <span class="detail-label">{{ 'Subject' | translate }}:</span>
@@ -23,11 +33,11 @@
   <div class="card-line">
     <div>
       <span class="detail-label">{{ 'Duration' | translate }}:</span>
-      <span class="detail-value">{{ assessment.durationInMinutes }} min</span>
+      <span class="detail-value">{{ assessment.durationInMinutes }} {{ 'Minutes' | translate }}</span>
     </div>
     <div>
-      <span class="detail-label">{{ 'Type' | translate }}:</span>
-      <span class="detail-value">{{ assessmentTypeLabel }}</span>
+      <span class="detail-label">{{ 'Assessment Type' | translate }}:</span>
+      <span class="detail-value">{{ getAssessmentTypeName(assessment.type) }}</span>
     </div>
   </div>
 </div>
