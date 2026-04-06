@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AssessmentState, IAssessmentCard, IAssessmentData, IAssessmentMeta, IExamResult, IQuestion, IStartAssessmentResponse, IUserAnswer } from '../DTOs/assessments.interfaces';
-import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, throwError, of } from 'rxjs';
 import { AssessmentStatus, AssessmentType, InternationalAssessmentSubject } from '../enums/assessments.enums';
 import { IIdWithName } from '../DTOs/shared.interfaces';
 import { APIResponseModel, APIResponseModelList } from '../classes/APIResponse';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { APIService } from './API.Service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -47,6 +48,8 @@ fetchAssessmentsByGrade(
   learningSubjectId?: string,
   assessmentType?: AssessmentType,
   assessmentTypeSubject?: InternationalAssessmentSubject,
+  semester?: string,
+  academicYear?: string,
   pageNumber?: string ,
   pageSize?: string
 ): Observable<APIResponseModelList<IAssessmentCard>> {
@@ -58,6 +61,8 @@ fetchAssessmentsByGrade(
     learningSubjectId,
     assessmentType: assessmentType !== undefined ? assessmentType.toString() : undefined,
     assessmentTypeSubject: assessmentTypeSubject !== undefined ? assessmentTypeSubject.toString() : undefined,
+    semester: semester ?? undefined,
+    academicYear: academicYear ?? undefined,
     pageNumber: pageNumber ?? undefined,
     pageSize
   })
@@ -457,6 +462,19 @@ fetchAssessmentsByGrade(
     return this.http.post<APIResponseModel<boolean>>(`${this.API.blockAssessmentStudent}${assessmentId}`, {})
       .pipe(catchError((err) => throwError(() => err.message)));
   }
+
+  // learning-subject.service.ts
+getActiveSemester(): Observable<{currentSemester: number, currentYear: string}>
+{
+  const dummyData = {
+    currentSemester: 3, 
+    currentYear: '2025 - 2024'
+  };
+
+  // 'of' wraps the object in an Observable, simulating a successful HTTP call
+  return of(dummyData);
+  return this.http.get<{currentSemester: number, currentYear: string}>('Settings/ActiveSemester');
+}
 
 
 }

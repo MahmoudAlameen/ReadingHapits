@@ -140,7 +140,6 @@ export class LearningSubjectComponent implements OnInit, OnDestroy {
   }
 
   GetLearningResources(subjectId: string, gradeId? : string): void {
-    debugger;
     const sub = this.learningResourceService
       .getLearningResourcesBySubjectId(this.subjectId, gradeId)
       .subscribe({

@@ -13,6 +13,7 @@ import { LearningSubjectService } from 'src/app/core/learning-subject.service';
 import { IIdWithName } from 'src/app/DTOs/shared.interfaces';
 import { ContentService } from 'src/app/core/content.service';
 import { FileType } from 'src/app/enums/Ffile-type.enum';
+import { debug } from 'console';
 
 @Component({
   selector: 'app-register',

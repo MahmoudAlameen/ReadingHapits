@@ -173,7 +173,7 @@ export class AssessmentOrchestratorService {
      * Called when the user clicks finish or the timer hits zero.
      */
     public async finishAssessment(): Promise<void> {
-        debugger;
+
         this.setState('finished');
         const currentAnswers = this.userAnswers.getValue();
         

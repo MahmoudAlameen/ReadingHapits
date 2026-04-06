@@ -31,7 +31,8 @@ export class AssessmentsListComponent implements OnInit, OnDestroy  {
   public selectedSubjectId = '';
   public selectedAssessmentType: AssessmentType | null = null ;
   public selectedAssessmentSubjectType: InternationalAssessmentSubject | null = null ;
-
+  public semester : string| null = null;
+  public academicYear : string| null = null;
   public learningSubjectsIds: IIdWithName[] = [];
   public gradesIds: IIdWithName[] = [];
   public alertMessage: AlertMessage = new AlertMessage();
@@ -62,7 +63,10 @@ toggleMobileFilters() {
       const subjectIdParam = params.get('selectedSubject');
       const assessmentTypeParam = params.get('selectedAssessmentType');
       const assessmentSubjectTypeParam = params.get('selectedAssessmentSubjectType');
-
+      const semester = params.get('semester');
+      const academicYear = params.get('academicYear');
+      this.semester = semester ?? null;
+      this.academicYear = academicYear ?? null;
       this.selectedSubjectId = subjectIdParam ?? '';
       this.selectedAssessmentType = this.parseAssessmentTypeParam(assessmentTypeParam);
 
@@ -268,7 +272,9 @@ async loadAssessments() {
     this.searchTerm,
     this.selectedSubjectId,
     this.selectedAssessmentType ?? undefined,
-    this.selectedAssessmentSubjectType ?? undefined
+    this.selectedAssessmentSubjectType ?? undefined,
+    this.semester ?? undefined,
+    this.academicYear ?? undefined
   ).pipe(
     finalize(() => {
       this.isLoading = false;

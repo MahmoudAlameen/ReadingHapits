@@ -172,7 +172,6 @@ export class PdfPreviewComponent implements OnInit, OnDestroy {
     if(this.readTimeStart == null || this.readTimeEnd == null)
         return;
 
-      debugger;
 
    if (this.learningResource.resourceType === LearningResourceType.Book) {
   this.readingRoomService.addBookTimeRead(

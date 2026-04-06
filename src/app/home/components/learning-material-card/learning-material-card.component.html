@@ -1,48 +1,81 @@
 <article class="learning-material-card" role="article" aria-labelledby="course-title">
-  <img 
-    class="card-image"
-    [src]="material?.coverUrl" 
-    alt="" 
-  />
-  
+  <img class="card-image" [src]="material?.coverUrl" alt="Course Cover" />
+
   <div class="card-content">
     <header class="card-header">
       <h1 class="course-title" id="course-title">{{ displayedName }}</h1>
     </header>
-    
+
     <div class="course-description-container">
       <p class="course-description">{{ displayedDescription }}</p>
     </div>
-    
+
     <section class="teachers-info" aria-labelledby="teachers-heading">
       <h2 class="teachers-heading" id="teachers-heading">{{'Teachers' | translate}}</h2>
       <div class="teacher-profiles">
-        <div 
-          *ngFor="let teacher of material?.assignedTeachers?.slice(0, 3)"
-          class="teacher-image" 
-          [style.background-image]="'url(' + teacher.avatarUrl + ')'"
-          role="img" 
-          aria-label="Teacher profile image"
-        >
-        <span class = "teacherImageRepalcement">{{teacher.name.charAt(0).toLocaleUpperCase()}}</span>
-      </div>
+        <div *ngFor="let teacher of material?.assignedTeachers?.slice(0, 3)" 
+             class="teacher-image"
+             [style.background-image]="'url(' + teacher.avatarUrl + ')'" 
+             role="img" 
+             aria-label="Teacher profile image">
+          <span class="teacherImageRepalcement">{{teacher.name.charAt(0).toLocaleUpperCase()}}</span>
+        </div>
 
-        
-        <div class="teacher-stack" *ngIf="material.teachersCount > 3" > 
+        <div class="teacher-stack" *ngIf="material.teachersCount > 3">
           <span class="additional-teachers-count">+{{ material.teachersCount - 3 }}</span>
         </div>
       </div>
     </section>
   </div>
-  
+
   <div class="card-actions">
-    <button class="btn btn-primary" type="button" aria-label="View course details" (click)="onViewExams()">
-       {{'Start Learning' | translate}}
+    <button class="btn btn-primary" type="button" (click)="openLearningPopup()">
+      {{'Start Learning' | translate}}
     </button>
-    <!--
-    <button class="btn btn-secondary" type="button" aria-label="View exams" (click)="onViewExams()">
-      {{'Assessments' | translate}}
-    </button>
-    -->
   </div>
 </article>
+
+<div class="modal-overlay" *ngIf="showSelectionPopup" (click)="closePopup()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <header class="modal-header">
+      <h3>{{ 'Select Period' | translate }}</h3>
+      <button class="close-btn" (click)="closePopup()">&times;</button>
+    </header>
+
+    <div class="modal-body">
+<div class="form-group">
+  <label>{{ 'Semester' | translate }}</label>
+  <select [(ngModel)]="selection.semester" 
+          class="custom-select"
+          [ngClass]="{'active-selection': selection.semester === activeSemesterId}">
+    <option *ngFor="let sem of semesters" 
+            [value]="sem.id" 
+            [disabled]="sem.id !== activeSemesterId">
+      {{ sem.nameKey | translate }}
+    </option>
+  </select>
+</div>
+      <div class="form-group">
+        <label for="grade">{{'Select Grade' | translate}} </label>
+        <select id="grade" class="custom-select"  name="grade" [(ngModel)]="selectedGradeId"  #gradeControl="ngModel">
+          <option value="" [(ngModel)]="selectedGradeId" >{{'All Grades'| translate}}</option>
+          <option [selected] ="grade.id == selectedGradeId" *ngFor="let grade of grades" [value]="grade.id">{{ grade.name }}</option>
+        </select>
+</div>
+      <div class="form-group">
+        <label>العام الدراسى</label>
+        <select [(ngModel)]="selection.academicYear" class="custom-select">
+          <option *ngFor="let year of academicYears" [value]="year">
+            {{ year }}
+          </option>
+        </select>
+  <small class="helper-text">* يمكنك اختيار العام الدراسي المطلوب</small>
+</div>
+    </div>
+
+    <footer class="modal-footer">
+      <button class="btn btn-secondary" (click)="closePopup()">{{ 'Cancel' | translate }}</button>
+      <button class="btn btn-primary" (click)="confirmAndNavigate()">{{ 'Continue' | translate }}</button>
+    </footer>
+  </div>
+</div>

@@ -163,6 +163,11 @@
   "Assessment Type": "Assessment Type",
   "Prepared By": "Prepared By",
   "Questions Count": "Questions Count",
-  "Minutes": "Minutes"
+  "Minutes": "Minutes",
+ "SEMESTERS": {
+    "FIRST": "First Semester",
+    "SECOND": "Second Semester",
+    "THIRD": "Third Semester"
+  }
 
 }
