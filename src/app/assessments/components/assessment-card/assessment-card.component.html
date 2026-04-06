@@ -1,71 +1,68 @@
-<div [class]="'assessment-card type-' + assessmentTypeClass">
-  <!-- Header & Status -->
-<div class="card-header">
-  <h3 class="card-title">{{ assessment.name }}</h3>
-  <label [class]="'status-badge status-' + AssessmentStatus[assessment.status]" class="cardLabel">
-    {{ cardLabel | translate }}
-  </label>
-</div>
-
-  <!-- Details -->
-<div class="card-details">
-    <div class="card-line">
-    <div>
-      <span class="detail-label">{{ 'Prepared By' | translate }}:</span>
-      <span class="detail-value">{{ assessment.creator }}</span>
-    </div>
-    <div>
-      <span class="detail-label">{{ 'Questions Count' | translate }}:</span>
-      <span class="detail-value">{{ assessment.questionsCount }}</span>
-    </div>
-  </div>
-  <div class="card-line">
-    <div>
-      <span class="detail-label">{{ 'Subject' | translate }}:</span>
-      <span class="detail-value">{{ displayedSubjectName }}</span>
-    </div>
-    <div>
-      <span class="detail-label">{{ 'Grade' | translate }}:</span>
-      <span class="detail-value">{{ assessment.gradeName }}</span>
-    </div>
-  </div>
-
-  <div class="card-line">
-    <div>
-      <span class="detail-label">{{ 'Duration' | translate }}:</span>
-      <span class="detail-value">{{ assessment.durationInMinutes }} {{ 'Minutes' | translate }}</span>
-    </div>
-    <div>
-      <span class="detail-label">{{ 'Assessment Type' | translate }}:</span>
-      <span class="detail-value">{{ getAssessmentTypeName(assessment.type) }}</span>
-    </div>
-  </div>
-</div>
-
-  <!-- Actions -->
-  <button
-    *ngIf="assessment.status === AssessmentStatus.Published"
-    (click)="handleAssessmentCardButtonClick()"
-    class="take-button published-btn"
-    title="Start Assessment ID: {{ assessment.id }}"
-  >
-    {{ buttonText | translate}}
-  </button>
-
-  <!--
-  <button disabled
-    *ngIf="assessment.status === AssessmentStatus.New"
-    class="take-button coming-soon-btn"
-  >
-    {{'Coming Soon' | translate}}
-  </button>
-  -->
+<article class="assessment-modern-card" [class]="'type-' + assessmentTypeClass" [dir]="'rtl'">
   
-<!--
-  <div *ngIf="assessment.status === AssessmentStatus.Finished"
-    class="take-button finished-label"
-  >
-    {{'Finished' | translate}}
+  <div class="card-top">
+    <span class="category-pill">{{ getAssessmentTypeName(assessment.type) }}</span>
+    <span class="status-tag" [ngClass]="'status-' + AssessmentStatus[assessment.status]">
+      {{ cardLabel | translate }}
+    </span>
   </div>
-  -->
-</div>
+
+  <div class="card-main">
+    <h3 class="exam-title">{{ assessment.name }}</h3>
+    
+    <div class="info-grid">
+      <div class="info-box">
+        <div class="icon-circle"><i class="fas fa-book-open"></i></div>
+        <div class="info-content">
+          <label>{{ 'Subject' | translate }}</label>
+          <p>{{ displayedSubjectName }}</p>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <div class="icon-circle"><i class="fas fa-layer-group"></i></div>
+        <div class="info-content">
+          <label>{{ 'Grade' | translate }}</label>
+          <p>{{ assessment.gradeName }}</p>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <div class="icon-circle"><i class="fas fa-stopwatch"></i></div>
+        <div class="info-content">
+          <label>{{ 'Duration' | translate }}</label>
+          <p>{{ assessment.durationInMinutes }} {{ 'Minutes' | translate }}</p>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <div class="icon-circle"><i class="fas fa-clipboard-list"></i></div>
+        <div class="info-content">
+          <label>{{ 'Questions' | translate }}</label>
+          <p>{{ assessment.questionsCount }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="card-bottom">
+    <div class="author">
+      <div class="author-avatar">{{ assessment.creator?.charAt(0) || 'U' }}</div>
+      <div class="author-details">
+        <small>{{ 'Prepared By' | translate }}</small>
+        <span>{{ assessment.creator }}</span>
+      </div>
+    </div>
+
+    <div class="action-wrapper">
+        <button
+          *ngIf="assessment.status === AssessmentStatus.Published"
+          (click)="handleAssessmentCardButtonClick()"
+          class="btn-start"
+        >
+          {{ buttonText | translate }}
+          <span class="arrow-icon">←</span>
+        </button>
+    </div>
+  </footer>
+</article>
