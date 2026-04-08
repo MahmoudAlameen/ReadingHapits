@@ -15,7 +15,7 @@ const routes: Routes = [
   {path:"register",component:RegisterComponent},
   {path:'placementTest', component: PdfPreviewComponent, canActivate: [AuthGuard]},
   {path: "about", component: AboutUsComponent},
-  {path: "learning-materials", component: LearningMaterialsComponent}
+  {path: "learning-materials", component: LearningMaterialsComponent, canActivate: [AuthGuard]},
 
 ];
 
