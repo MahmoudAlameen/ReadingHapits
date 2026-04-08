@@ -1,73 +1,61 @@
-import { Component, OnInit } from '@angular/core';
-import { NgModule } from '@angular/core';
-import { CommonModule, NgClass } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { interval, Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-main-section',
   templateUrl: './Main-Section.html',
   styleUrls: ['./Main-Section.scss'],
 })
-export class MainSectionComponent implements OnInit {
-
+export class MainSectionComponent implements OnInit, OnDestroy {
   stats: any[] = [];
-  buttons: any[] = [];
   currentLang: string = 'en';
-  mainSectionMediaBaseUrl : string = '';
+  mainSectionMediaBaseUrl: string = 'assets/images/main-section/';
 
-  constructor(private translate: TranslateService, private router : Router) 
-  { 
-    this.mainSectionMediaBaseUrl = "assets/images/main-section/"
-  }
+  heroImages: string[] = [
+    'WhatsApp Image 2026-04-03 at 22.05.07.jpeg',
+    'WhatsApp Image 2026-04-07 at 09.49.39.jpeg' 
+  ];
+  currentImageIndex: number = 0;
+  private slideSubscription?: Subscription;
+
+  constructor(private translate: TranslateService, private router: Router) {}
 
   ngOnInit(): void {
-
+    this.currentLang = this.translate.currentLang || this.translate.getDefaultLang();
     this.loadTranslations();
+    this.startHeroSlider();
+
     this.translate.onLangChange.subscribe(() => {
       this.loadTranslations();
       this.currentLang = this.translate.currentLang;
-      console.log("language changed....");
     });
-    this.currentLang = this.translate.currentLang || this.translate.getDefaultLang();
+  }
 
+  startHeroSlider(): void {
+    this.slideSubscription = interval(5000).subscribe(() => {
+      this.currentImageIndex = (this.currentImageIndex + 1) % this.heroImages.length;
+    });
   }
 
   loadTranslations(): void {
-    // Define translation keys
-    const keys = {
-      trainers: 'STATS.TRAINERS',
-      students: 'STATS.STUDENTS',
-      exams: 'STATS.EXAMS',
-      materials: 'BUTTONS.MATERIALS',
-      assessments: 'BUTTONS.ASSESSMENTS'
-    };
-
-    // Use translate.get() → returns an observable
-    this.translate.stream(Object.values(keys)).subscribe(translations => {
+    const keys = { trainers: 'STATS.TRAINERS', students: 'STATS.STUDENTS', exams: 'STATS.EXAMS' };
+    this.translate.stream(Object.values(keys)).subscribe(t => {
       this.stats = [
-        { number: '200+', label: translations[keys.trainers], color: '#fe753f' },
-        { number: '5000+', label: translations[keys.students], color: '#2489d3' },
-        { number: '1000+', label: translations[keys.exams], color: '#f0c932' }
-      ];
-
-      this.buttons = [
-        { text: translations[keys.materials], type: 'primary' },
-        { text: translations[keys.assessments], type: 'secondary' }
+        { number: '200+', label: t[keys.trainers], color: '#fe753f' },
+        { number: '5000+', label: t[keys.students], color: '#2489d3' },
+        { number: '1000+', label: t[keys.exams], color: '#f0c932' }
       ];
     });
   }
 
-  navigateToLearningMaterials()
-  {
-    this.router.navigate(['learning-materials']);
-    //const element = document.getElementById('learning-subjects');
- // if (element) {
-   // element.scrollIntoView({ behavior: 'smooth', block: 'start' });
- // }
-}
-  navigateToAssessments()
-  {
-    console.log("navigate to assessments called")
-    this.router.navigate(['/assessments']);
+  navigateToLearningMaterials() { this.router.navigate(['learning-materials']); }
+  navigateToAssessments() { this.router.navigate(['/assessments']); }
+
+  ngOnDestroy(): void {
+    if (this.slideSubscription) {
+      this.slideSubscription.unsubscribe();
+    }
   }
 }

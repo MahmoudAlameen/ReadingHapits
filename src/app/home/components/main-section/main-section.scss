@@ -1,4 +1,4 @@
-/* --- ORIGINAL DESKTOP STYLES (UNTOUCHED) --- */
+/* --- Desktop Styles --- */
 .learning-section {
   width: 100%;
   min-height: 100vh;
@@ -14,7 +14,7 @@
 }
 
 .container {
-  max-width: 1440px;
+   max-width: 1440px;
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
@@ -42,7 +42,7 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  z-index: 2;
+  z-index: 5;
 }
 
 .main-title {
@@ -50,8 +50,7 @@
   font-weight: 700;
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   line-height: 1.4;
-  color: #000000;
-  margin: 0;
+  color: #000;
   position: relative;
 }
 
@@ -83,13 +82,13 @@
 .btn {
   padding: 1rem 2rem;
   border-radius: 50px;
-  font-family: "Open Sans", sans-serif;
+    font-family: "Open Sans", sans-serif;
   font-weight: 700;
   font-size: 1.25rem;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 200px;
+    min-width: 200px;
 }
 
 .btn-primary {
@@ -102,6 +101,7 @@
   transform: translateY(-2px);
 }
 
+.btn-primary { background-color: #2489d3; color: #ffffff; }
 .btn-secondary {
   background-color: transparent;
   color: #2489d3;
@@ -151,7 +151,7 @@
 
 .hero-image-container {
   position: relative;
-  width: 100%;
+    width: 100%;
   max-width: 600px;
   height: 600px;
 }
@@ -163,7 +163,8 @@
   transform: translate(-50%, -50%);
   width: 480px;
   height: 480px;
-  margin-top: 50px;
+  margin: 0 auto;
+   margin-top: 50px;
 }
 
 .circle-bg {
@@ -186,6 +187,7 @@
   object-fit: cover;
 }
 
+
 .hero-image {
   position: absolute;
   width: 100%;
@@ -195,8 +197,13 @@
   transform: translateX(-50%);
   object-fit: cover;
   z-index: 2;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 
+.hero-image.active { opacity: 1; }
+
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem; }
 .decoration {
   position: absolute;
   z-index: 1;
@@ -251,24 +258,28 @@
   top: 40px;
   left: 150px;
 }
+.stat-number { font-size: 2.5rem; font-weight: 700; }
 
-/* --- REFINED RESPONSIVE OVERRIDES --- */
+/* --- RESPONSIVE FIXES --- */
+/* --- RESPONSIVE FIXES --- */
+/* --- MOBILE & TABLET FIXES --- */
 
 @media (max-width: 1024px) {
   .container {
     flex-direction: column;
-    gap: 3rem;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
+    height: auto;
+    gap: 0;
   }
 
   .content-wrapper {
     grid-template-columns: 1fr;
-    gap: 2rem;
+        gap: 2rem;
     text-align: center;
     min-height: auto;
   }
 
-  .text-content {
+    .text-content {
     order: 2; /* Text after image on smaller screens */
   }
 
@@ -278,7 +289,7 @@
   }
 
   .hero-image-container {
-    max-width: 450px;
+    max-width: 450px; 
     height: 450px;
     margin: 0 auto;
   }
@@ -288,8 +299,18 @@
     height: 380px;
     margin-top: 20px;
   }
+  /*
+  .background-elements {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform: none;
+    margin-top: 0;
+  }
+*/
 
-  .circle-bg,
+.circle-bg,
   .mask-overlay {
     width: 370px;
     height: 370px;
@@ -334,15 +355,18 @@
     height: 380px;
   }
 
+  /*
+
   .hero-image-container {
     max-width: 320px;
     height: 320px;
   }
 
   .background-elements {
-    width: 280px;
-    height: 280px;
+    width: 480px;
+    height: 80px;
   }
+    */
 
   .circle-bg,
   .mask-overlay {
@@ -350,11 +374,15 @@
     height: 270px;
   }
 
-  .hero-image {
-    width: 150%;
+    .hero-image {
     top: -10%;
+    width:400px !important;
+    height: 400px !important;
   }
 
+  .text-content {
+    margin-top: 20px;
+  }
   .action-buttons {
     flex-direction: column;
     align-items: center;
@@ -370,8 +398,7 @@
   .decoration-yellow,
   .decoration-ellipse-1,
   .decoration-ellipse-2,
-  .vector-decoration,
-  .description {
+  .vector-decoration{
     display: none;
   }
 
@@ -379,14 +406,17 @@
     width: 180px;
     left: -30px;
   }
-
-  .decoration-cup {
-    width: 100px;
-    right: -20px;
+    .circle-bg,
+  .mask-overlay {
+    width: 170px;
+    height: 170px;
+  }
+  .main-title {
+    font-size: 2.2rem;
+    line-height: 1.2;
   }
 
   .stats-grid {
-    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
   }
 }
@@ -400,6 +430,10 @@
     height: 300px;
   }
 
+  .text-content
+  {
+    margin-top: 50px;
+  }
   .hero-image-container {
     max-width: 250px;
     height: 250px;
@@ -422,6 +456,11 @@
 
   .stat-label {
     font-size: 0.8rem;
+  }
+      .hero-image {
+    top: -10%;
+    width:350px !important;
+    height: 350px !important;
   }
 }
 

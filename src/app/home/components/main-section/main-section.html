@@ -1,111 +1,51 @@
 <section class="learning-section" *ngIf="currentLang">
   <div class="container">
-    <!-- Content Section -->
     <div class="content-wrapper">
+      
       <div class="text-content">
-        <h1 class="main-title">{{'The Smarter-More Enjoyable Learning Journey' | translate}}     
-           <!-- Vector Decoration -->
-        <img 
-          class="vector-decoration" 
-          [src]="mainSectionMediaBaseUrl + 'main-section-vector-6-1.svg'" 
-          alt="" 
-          aria-hidden="true">
-          <br>{{'Comprehensive E-Learning Platform' | translate}}.</h1>
-          <p>
-            {{'MAIN_CONTENT_PARAGRAPH' | translate}}
-          </p>
-        
-       <!-- <p class="description">
-          <span class="highlight">{{'1000+' | translate}}</span>
-          <span class="regular-text">
-            {{'Courses covering all tech domains' | translate}}
-          </span>
-        </p>
--->
-        <!-- Action Buttons -->
+        <h1 class="main-title">
+          {{'The Smarter-More Enjoyable Learning Journey' | translate}}     
+          <img class="vector-decoration" [src]="mainSectionMediaBaseUrl + 'main-section-vector-6-1.svg'" alt="" aria-hidden="true">
+          <br>{{'Comprehensive E-Learning Platform' | translate}}.
+        </h1>
+        <p>{{'MAIN_CONTENT_PARAGRAPH' | translate}}</p>
+
         <div class="action-buttons">
-          <button
-            (click)="navigateToLearningMaterials()" 
-            class="btn btn-primary">
+          <button (click)="navigateToLearningMaterials()" class="btn btn-primary">
             {{ 'BUTTONS.MATERIALS' | translate }}
           </button>
-          <button 
-          (click)="navigateToAssessments()" 
-
-            class="btn btn-secondary">
+          <button (click)="navigateToAssessments()" class="btn btn-secondary">
             {{ 'BUTTONS.ASSESSMENTS' | translate }}
           </button>
         </div>
 
-        <!-- Statistics -->
         <div class="stats-grid">
-          <div 
-            *ngFor="let stat of stats" 
-            class="stat-item">
-            <div class="stat-number" [style.color]="stat.color">{{ stat.number}}</div>
+          <div *ngFor="let stat of stats" class="stat-item">
+            <div class="stat-number" [style.color]="stat.color">{{ stat.number }}</div>
             <div class="stat-label" [innerHTML]="stat.label"></div>
           </div>
         </div>
       </div>
 
-      <!-- Hero Image Section -->
       <div class="hero-image-wrapper">
         <div class="hero-image-container">
-          <!-- Background Elements -->
           <div class="background-elements">
-            <!--
-            <div class="circle-border"></div>
-            <div class="circle-bg"></div>
-            -->
             <img 
+              *ngFor="let img of heroImages; let i = index"
               class="mask-overlay hero-image" 
-              [src]="mainSectionMediaBaseUrl + 'WhatsApp Image 2026-04-03 at 22.05.07.jpeg'" 
+              [src]="mainSectionMediaBaseUrl + img" 
+              [class.active]="i === currentImageIndex"
               alt=""
               aria-hidden="true">
-             <!-- 
-            <img 
-              class="mask-overlay hero-image" 
-              
-            [src]="mainSectionMediaBaseUrl + 'WhatsApp Image 2025-11-09 at 11.10.44.jpeg'" 
-
-              alt=""
-              aria-hidden="true">
-              -->
           </div>
 
-          <img 
-            class="decoration decoration-rock" 
-            [src]="mainSectionMediaBaseUrl + 'main-section-rock-1@2x.png'"
-            alt="" 
-            aria-hidden="true">
-          <img 
-            class="decoration decoration-cup" 
-            [src]="mainSectionMediaBaseUrl + 'main-section-cup-1@2x.png'" 
-            alt="" 
-            aria-hidden="true">
-          
-          <img 
-            class="decoration decoration-purple" 
-            [src]="mainSectionMediaBaseUrl + 'main-section-purple-ellipse-1@2x.png'" 
-            alt="" 
-            aria-hidden="true">
-          <img 
-            class="decoration decoration-yellow" 
-            [src]="mainSectionMediaBaseUrl + 'main-section-yello-ellipse-1@2x.png'" 
-            alt="" 
-            aria-hidden="true">
-          <img 
-            class="decoration decoration-ellipse-1" 
-            [src]="mainSectionMediaBaseUrl + 'main-section-ellipse-10-1.svg'" 
-            alt="" 
-            aria-hidden="true">
-          <img 
-            class="decoration decoration-ellipse-2" 
-            [src]="mainSectionMediaBaseUrl + 'main-section-ellipse-11-1.svg'" 
-            alt="" 
-            aria-hidden="true">
+          <img class="decoration decoration-purple" [src]="mainSectionMediaBaseUrl + 'main-section-purple-ellipse-1@2x.png'" aria-hidden="true">
+          <img class="decoration decoration-yellow" [src]="mainSectionMediaBaseUrl + 'main-section-yello-ellipse-1@2x.png'" aria-hidden="true">
+          <img class="decoration decoration-ellipse-1" [src]="mainSectionMediaBaseUrl + 'main-section-ellipse-10-1.svg'" aria-hidden="true">
+          <img class="decoration decoration-ellipse-2" [src]="mainSectionMediaBaseUrl + 'main-section-ellipse-11-1.svg'" aria-hidden="true">
         </div>
       </div>
+
     </div>
   </div>
 </section>
