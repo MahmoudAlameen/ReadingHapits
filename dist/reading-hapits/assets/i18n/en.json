@@ -169,6 +169,11 @@
     "FIRST": "First Semester",
     "SECOND": "Second Semester",
     "THIRD": "Third Semester"
+  },
+    "MAIN": {
+    "SLOGAN_1": "The Smarter-More Enjoyable Learning Journey",
+    "SLOGAN_2": "Learn Faster, Smarter, Better",
+    "SUB_TITLE": "Comprehensive E-Learning Platform"
   }
 
 }
