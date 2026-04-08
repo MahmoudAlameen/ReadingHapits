@@ -20,7 +20,8 @@
             <label>{{'Phone Number' | translate}}</label>
             <input type="tel" name="phoneNumber" required pattern="[0-9]{10,15}"
                    [class.is-invalid]="phoneNumber.invalid && phoneNumber.touched" #phoneNumber="ngModel"
-                   [(ngModel)]="registeredUser.phoneNumber" class="form-control"/>
+                   [(ngModel)]="registeredUser.phoneNumber" class="form-control"
+                   placeholder="+971 50 123 4567"/>
             <p class="text-danger" *ngIf="phoneNumber.invalid && phoneNumber.touched">
                 {{errorMessages.phoneNumber}}
             </p>
