@@ -65,6 +65,9 @@ toggleMobileFilters() {
       const assessmentSubjectTypeParam = params.get('selectedAssessmentSubjectType');
       const semester = params.get('semester');
       const academicYear = params.get('academicYear');
+      const gradeId = params.get("gradeId");
+      
+      this.gradeId = gradeId ?? '';
       this.semester = semester ?? null;
       this.academicYear = academicYear ?? null;
       this.selectedSubjectId = subjectIdParam ?? '';

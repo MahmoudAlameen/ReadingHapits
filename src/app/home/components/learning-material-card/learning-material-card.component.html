@@ -58,7 +58,7 @@
       <div class="form-group">
         <label for="grade">{{'Select Grade' | translate}} </label>
         <select id="grade" class="custom-select"  name="grade" [(ngModel)]="selectedGradeId"  #gradeControl="ngModel">
-          <option value="" [(ngModel)]="selectedGradeId" >{{'All Grades'| translate}}</option>
+          <option value="" >{{'All Grades'| translate}}</option>
           <option [selected] ="grade.id == selectedGradeId" *ngFor="let grade of grades" [value]="grade.id">{{ grade.name }}</option>
         </select>
 </div>

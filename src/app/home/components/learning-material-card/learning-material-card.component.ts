@@ -83,7 +83,7 @@ onViewExams(): void {
   this.router.navigate(['/assessments/list'], {
     queryParams: {
       selectedSubject: this.material?.id,
-      gradeId: gradeId,
+      gradeId: this.selectedGradeId,
       selectedAssessmentType: AssessmentType.Ordinary,
       semester: this.selection.semester,
       academicYear: selectedYearOnly // This will now send "2025"
@@ -156,7 +156,7 @@ const selectedYearOnly = this.selection.academicYear.split(' - ')[0];
   this.router.navigate(['/assessments/list'], {
     queryParams: {
       selectedSubject: this.material?.id,
-      gradeId: gradeId,
+      gradeId: this.selectedGradeId,
       selectedAssessmentType: AssessmentType.Ordinary,
       semester: this.selection.semester,
       academicYear: selectedYearOnly // This will now send "2025"
