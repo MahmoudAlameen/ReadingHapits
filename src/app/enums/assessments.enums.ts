@@ -12,7 +12,7 @@ export enum AssessmentType
     PISA = 1,
     PIRLS = 2,
     TIMSS = 3,
-    Ordinary = 4
+    ItqanTraining = 4
 }
 
 export enum InternationalAssessmentSubject
@@ -44,5 +44,5 @@ export const AssessmentTypeSubjectsMap: Record<
     InternationalAssessmentSubject.Science
   ],
 
-  [AssessmentType.Ordinary]: []
+  [AssessmentType.ItqanTraining]: []
 };

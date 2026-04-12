@@ -27,8 +27,11 @@ export class AssessmentCardComponent implements OnInit {
     if (type === null || type === undefined) return '';
     // Maps the numeric enum value back to its string name for display/URL encoding
 
-    if(this.translateService.currentLang === 'ar' && type === AssessmentType.Ordinary)
-      return 'تقييم عادي';
+    if(this.translateService.currentLang === 'ar' && type === AssessmentType.ItqanTraining)
+      return 'تدريب إتقان';
+
+    if(this.translateService.currentLang != 'ar' && type === AssessmentType.ItqanTraining)
+      return 'Itqan Training';
 
       return `${(AssessmentType as any)[type] ?? ''}`;
 

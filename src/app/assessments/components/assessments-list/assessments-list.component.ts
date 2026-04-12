@@ -44,7 +44,7 @@ export class AssessmentsListComponent implements OnInit, OnDestroy  {
 public assessmentTypeNames: string[] = Object.keys(AssessmentType)
     .filter(key => 
         isNaN(Number(key)) && // 1. Get only the names (PISA, PIRLS, etc.)
-        key !== AssessmentType[AssessmentType.Ordinary] // 2. Dynamically exclude 'Ordinary'
+        key !== AssessmentType[AssessmentType.ItqanTraining] // 2. Dynamically exclude 'ItqanTraining'
     );
  public assessmentTypeSubjectsNames: string[] = Object.keys(InternationalAssessmentSubject).filter(k => isNaN(Number(k)));
  public IsInternationalAssessmentMode: boolean = false; // This can be set based on route or other logic to determine if we're in international assessment mode
@@ -73,7 +73,7 @@ toggleMobileFilters() {
       this.selectedSubjectId = subjectIdParam ?? '';
       this.selectedAssessmentType = this.parseAssessmentTypeParam(assessmentTypeParam);
 
-      if(this.selectedAssessmentType == AssessmentType.Ordinary)
+      if(this.selectedAssessmentType == AssessmentType.ItqanTraining)
         this.IsComeFromTRainingPage = true;
       this.UpdateInternationalAssessmentMode();
       this.selectedAssessmentSubjectType = this.parseAssessmentSubjectTypeParam(assessmentSubjectTypeParam);
@@ -112,7 +112,7 @@ toggleMobileFilters() {
   // ✔ if no type selected OR Ordinary → show all subjects
   if (
     this.selectedAssessmentType === null ||
-    this.selectedAssessmentType === AssessmentType.Ordinary
+    this.selectedAssessmentType === AssessmentType.ItqanTraining
   ) {
     subjects = Object.keys(InternationalAssessmentSubject)
       .filter(k => isNaN(Number(k)))
@@ -175,18 +175,18 @@ toggleMobileFilters() {
     if (type === null || type === undefined) return '';
     // Maps the numeric enum value back to its string name for display/URL encoding
 
-    if (this.translateService.currentLang === 'ar' && type === AssessmentType.Ordinary) {
-      return 'التدريبات';
+    if (this.translateService.currentLang === 'ar' && type === AssessmentType.ItqanTraining) {
+      return 'تدريبات إتقان';
     }
 
-        if (this.translateService.currentLang === 'en' && type === AssessmentType.Ordinary) {
-      return 'Training Assessments';
+        if (this.translateService.currentLang === 'en' && type === AssessmentType.ItqanTraining) {
+      return 'Itqan Assessments';
     }
     if(this.translateService.currentLang === 'ar'){
       return `تقييمات ${(AssessmentType as any)[type] ?? ''}`;
       //return this.translateService.currentLang === 'ar' ? 'عادي' : 'Ordinary';
   }
-    return type === AssessmentType.Ordinary ? 'Assessments' : `${(AssessmentType as any)[type] ?? ''} Assessments`;
+    return type === AssessmentType.ItqanTraining ? 'Itqan Assessments' : `${(AssessmentType as any)[type] ?? ''} Assessments`;
   }
 
   
@@ -336,7 +336,7 @@ private showErrorMessage(msg: string) {
       AssessmentType.PISA,
       AssessmentType.PIRLS,
       AssessmentType.TIMSS,
-      AssessmentType.Ordinary
+      AssessmentType.ItqanTraining
     ];
 
     this.categorizedAssessments = typeOrder
@@ -372,7 +372,7 @@ private showErrorMessage(msg: string) {
   }
   
   UpdateInternationalAssessmentMode() {
-    if(this.selectedAssessmentType === AssessmentType.Ordinary || this.selectedAssessmentType === null)
+    if(this.selectedAssessmentType === AssessmentType.ItqanTraining || this.selectedAssessmentType === null)
       this.IsInternationalAssessmentMode = false;
     else
       this.IsInternationalAssessmentMode = true;
@@ -388,7 +388,7 @@ private showErrorMessage(msg: string) {
   resetFilters(): void {
 
     if(this.IsComeFromTRainingPage)
-      this.selectedAssessmentType = AssessmentType.Ordinary;
+      this.selectedAssessmentType = AssessmentType.ItqanTraining;
     else
       this.selectedAssessmentType = null;
     this.searchTerm = '';

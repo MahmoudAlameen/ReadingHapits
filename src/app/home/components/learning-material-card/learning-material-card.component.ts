@@ -84,7 +84,7 @@ onViewExams(): void {
     queryParams: {
       selectedSubject: this.material?.id,
       gradeId: this.selectedGradeId,
-      selectedAssessmentType: AssessmentType.Ordinary,
+      selectedAssessmentType: AssessmentType.ItqanTraining,
       semester: this.selection.semester,
       academicYear: selectedYearOnly // This will now send "2025"
     }
@@ -157,7 +157,7 @@ const selectedYearOnly = this.selection.academicYear.split(' - ')[0];
     queryParams: {
       selectedSubject: this.material?.id,
       gradeId: this.selectedGradeId,
-      selectedAssessmentType: AssessmentType.Ordinary,
+      selectedAssessmentType: AssessmentType.ItqanTraining,
       semester: this.selection.semester,
       academicYear: selectedYearOnly // This will now send "2025"
     }

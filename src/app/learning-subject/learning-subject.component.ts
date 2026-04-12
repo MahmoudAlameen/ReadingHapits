@@ -185,7 +185,7 @@ export class LearningSubjectComponent implements OnInit, OnDestroy {
             this.pisaExams = response.modelList.filter(e => e.type === AssessmentType.PISA);
             this.pirlsExams = response.modelList.filter(e => e.type === AssessmentType.PIRLS);
             this.timssExams = response.modelList.filter(e => e.type === AssessmentType.TIMSS);
-            this.ordinaryExams = response.modelList.filter(e => e.type === AssessmentType.Ordinary);
+            this.ordinaryExams = response.modelList.filter(e => e.type === AssessmentType.ItqanTraining);
           } else {
             this.alertMessage.message = response.errorMessage;
             this.alertMessage.isDisplayed = true;
