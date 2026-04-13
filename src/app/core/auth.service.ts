@@ -9,6 +9,7 @@ import { APIResponseModel } from '../classes/APIResponse';
 import { UserLoginResult } from '../DTOs/UserLoginResult';
 import { APIService } from './API.Service';
 import { HttpClient } from '@angular/common/http';
+import { Role } from '../enums/Role';
 @Injectable({
   providedIn: 'root'
 })
@@ -41,25 +42,40 @@ export class AuthService {
     // Publish the new user data to all subscribers
     this.currentUserSubject.next(user);
   }
+private decodeTokenAndGetUser(): IUserClaims | null {
+  const token = sessionStorage.getItem(this.sessionStorageKeys.jwt_token);
 
-    private decodeTokenAndGetUser(): IUserClaims | null {
-    const token = sessionStorage.getItem(this.sessionStorageKeys.jwt_token);
+  if (token && !this.helper.isTokenExpired(token)) {
+    const decodedToken = this.helper.decodeToken(token);
 
-    if (token && !this.helper.isTokenExpired(token)) {
-      // Decode the payload object
-      const decodedToken = this.helper.decodeToken(token);
-
-      // Map the claims to your UserClaims interface
-      return {
-        userId: decodedToken.sub || decodedToken.userId, // use 'sub' or your custom 'userId' claim
-        email: decodedToken.email || decodedToken.emailaddress, // use 'email' or your custom 'email' claim
-        username: decodedToken.name || decodedToken.username, // use 'name' or your custom 'username' claim
-        exp: decodedToken.exp
-      } as IUserClaims;
+    // 1. Normalize roles (string | string[] → string[])
+    const rolesRaw = decodedToken.roles;
+    let roles: string[] = [];
+    if (Array.isArray(rolesRaw)) {
+      roles = rolesRaw;
+    } else if (rolesRaw) {
+      roles = [rolesRaw];
     }
-    
-    return null;
+
+    // 2. Safely convert string "True"/"False" to boolean
+    // We convert to string, lowercase it, and compare to 'true'
+    const activatedRaw = decodedToken.isAccountActivatedAsMember;
+    const isActivated = String(activatedRaw).toLowerCase() === 'true';
+
+    return {
+      userId: decodedToken.sub || decodedToken.userId,
+      email: decodedToken.email || decodedToken.emailaddress,
+      username: decodedToken.name || decodedToken.username,
+      roles: roles,
+      exp: decodedToken.exp,
+      mustChangePassword: String(decodedToken.mustChangePassword).toLowerCase() === 'true',
+      isAccountActivatedAsMember: isActivated,
+    } as IUserClaims;
   }
+
+  return null;
+}
+
   LoginUser(loginUser:logedUser):Observable<APIResponseModel<UserLoginResult>>
   {
       return this.http.post<APIResponseModel<UserLoginResult>>(this.api.UserLogin,loginUser).pipe(
@@ -110,7 +126,24 @@ export class AuthService {
 
     // 3. Navigate the user to the login page
   }
-  
+
+    public IsUserIsTeacher(): boolean
+  {
+    return this.getCurrentUserSnapshot()?.roles?.includes(Role[Role.Teacher]) || false;
+  }
+  public IsuserIsSchoolPrincipal(): boolean
+  {
+        return this.getCurrentUserSnapshot()?.roles?.includes(Role[Role.SchoolPrincipal]) || false;
+  }
+
+  public IsUserIsTeacherOrSchoolPrincipal(): boolean
+  {
+    return this.IsUserIsTeacher() || this.IsuserIsSchoolPrincipal();
+  }
+  public IsuserIsStudent(): boolean
+  {
+    return this.getCurrentUserSnapshot()?.roles?.includes(Role[Role.Student]) || false;
+  }
   // Example placeholder function for token retrieval
   // getAuthToken(): string | null {
   //   return localStorage.getItem('authToken');

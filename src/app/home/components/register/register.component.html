@@ -2,7 +2,7 @@
     <strong>{{'register new account'| translate}}</strong>
     <form class="registerForm" name="registerForm" #registerForm="ngForm" (ngSubmit)="registerStudent()">
         <div class="form-column">
-            <label>{{'student name' | translate}}</label>
+            <label>{{'User Name' | translate}}</label>
             <input type="text" name="name" validName required minlength="3" maxlength="50"
                    [class.is-invalid]="name.invalid && name.touched" #name="ngModel" 
                    [(ngModel)]="registeredUser.name" class="form-control"/>
@@ -28,13 +28,6 @@
         </div>
         
         <div class="form-group">
-            <label>{{'Age' | translate}}</label>
-            <input type="number" name="age" required min="5" max="100"
-                   [class.is-invalid]="age.invalid && age.touched" #age="ngModel" 
-                   [(ngModel)]="registeredUser.age" class="form-control"/>
-            <p class="text-danger" *ngIf="age.invalid && age.touched">{{errorMessages.age}}</p>
-        </div>
-        <div class="form-group">
             <label>{{'Gender' | translate}}</label>
             <select name="gender" [(ngModel)]="registeredUser.gender" required #gender="ngModel"
                     [class.is-invalid]="gender.invalid && gender.touched" class="form-control">
@@ -43,12 +36,34 @@
                 <option [ngValue]="1">{{'Female' | translate}}</option>
             </select>
         </div>
+
         <div class="form-group">
+            <label>{{'Role' | translate}}</label>
+            <select class="form-control" id="grade" name="role" required
+             [(ngModel)]="registeredUser.role" #role="ngModel"
+            [class.is-invalid] ="role.invalid && role.touched" >
+                <option [selected] ="role.id == registeredUser.role" *ngFor="let role of getRoles()" [ngValue]="role.id">{{ role.name }}</option>
+            </select>
+            <p class="text-danger" *ngIf="role.invalid && role.touched">
+                {{errorMessages.role}}
+            </p>
+        </div>
+
+
+        <div *ngIf="registeredUser.role === Role.Student" class="form-group">
             <label for="grade">{{'Select Grade' | translate}} </label>
             <select class="form-control" id="grade" name="grade" required [(ngModel)]="registeredUser.gradeId" #grade="ngModel"
             [class.is-invalid] ="grade.invalid && grade.touched" >
                 <option [selected] ="grade.id == registeredUser.gradeId" *ngFor="let grade of grades" [value]="grade.id">{{ grade.name }}</option>
             </select>
+        </div>
+
+        <div *ngIf="registeredUser.role === Role.Student" class="form-group">
+            <label>{{'Age' | translate}}</label>
+            <input type="number" name="age" required min="5" max="100"
+                   [class.is-invalid]="age.invalid && age.touched" #age="ngModel" 
+                   [(ngModel)]="registeredUser.age" class="form-control"/>
+            <p class="text-danger" *ngIf="age.invalid && age.touched">{{errorMessages.age}}</p>
         </div>
         <div class="form-group">
             <label>{{'School'| translate}}</label>

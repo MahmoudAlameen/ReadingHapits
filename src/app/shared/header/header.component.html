@@ -36,7 +36,12 @@
           <a *ngIf="!(currentUser$ | async)" class="signin-btn" routerLink="/login">
             {{ 'Sign In' | translate}}
           </a>
-          
+          <a *ngIf="canAccessDashboard$ | async" 
+            class="signup-btn" 
+            (click)="navigateToDashboard()"
+            style="cursor: pointer;">
+            {{ 'Members' | translate }}
+          </a>
           <button *ngIf="currentUser$ | async" class="signin-btn"  (click)="logout()">
             {{ 'Sign Out' | translate}}
           </button>
@@ -68,6 +73,12 @@
           <button *ngIf="currentUser$ | async" class="mobile-signin-btn"  (click)="logout()">
             {{ 'Sign Out' | translate}}
           </button>
+          <a *ngIf="canAccessDashboard$ | async" 
+             class="mobile-nav-link" 
+             (click)="navigateToDashboard(); toggleMenu()">
+            {{ 'Members' | translate }}
+           </a>
+          
         <button (click)="toggleMenu()" class="menu-button">
           <!-- Hamburger Icon (Menu) (Using *ngIf for A14 compatibility) -->
           <ng-container *ngIf="!isOpen">

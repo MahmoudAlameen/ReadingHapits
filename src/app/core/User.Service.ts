@@ -3,7 +3,7 @@ import { core } from "@angular/compiler";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, Observable, of, tap, throwError } from "rxjs";
 import { APIResponseModel } from "../classes/APIResponse";
-import { Student } from "../classes/student";
+import { User } from "../classes/student";
 import { APIService } from "./API.Service";
 import { SessionStorageService } from "./SessionStorageService";
 import { SessionStorageKeysService } from "./SessionStorageKeysService";
@@ -33,7 +33,7 @@ export class UserService
         this.UserData$ = this.userDataSubject.asObservable();
     }
 
-    AddUser(student:Student):Observable<any>
+    AddUser(student:User):Observable<any>
     {
 
         return this.http.post<any>(this.api.AddUser,student).pipe(

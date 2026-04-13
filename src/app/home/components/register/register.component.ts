@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { finalize, Subscription } from 'rxjs';
 import { AlertMessage } from 'src/app/classes/AlertMessage';
-import { Student } from 'src/app/classes/student';
+import { User } from 'src/app/classes/student';
 import { CustomAlertService } from 'src/app/core/custom-alert.service';
 import { RegisterFormDataService } from 'src/app/core/register-form-data.service';
 import { UserService } from 'src/app/core/User.Service';
@@ -14,6 +14,7 @@ import { IIdWithName } from 'src/app/DTOs/shared.interfaces';
 import { ContentService } from 'src/app/core/content.service';
 import { FileType } from 'src/app/enums/Ffile-type.enum';
 import { debug } from 'console';
+import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -26,12 +27,12 @@ export class RegisterComponent implements OnInit {
   avatarImageFile: File | null = null; // Holds the new file object
   imagePreviewUrl: string | ArrayBuffer | null = null; // Base64 or full absolute URL for display
   imageUploadError: string | null = null;
-  
+  public Role = Role;
   private readonly allowedImageTypes = ['image/jpeg', 'image/png'];
-
+ 
   isSubmitting = false;
   isLoading = false;
-  registeredUser: Student = new Student();
+  registeredUser: User = new User();
   schools: string[] = ["dssd", "dsdsdsd", "sdsdsdsd"];
   countries: string[] = [];
   alertMessage: AlertMessage = new AlertMessage();
@@ -43,6 +44,7 @@ export class RegisterComponent implements OnInit {
   errorMessages =
   {
     all: "ادخل كل البيانات المطلوبه بشكل صحيح ثم اضغط على تسجيل الدخول",
+    role: "يجب اختيار نوع المستخدم",
     name: "يجب ان يكون الاسم من 3 الى 50 حرف ",
     email: "الايميل غير صحيح",
     age: "يجب ان يكون العمر من 5 الى 100",
@@ -53,6 +55,21 @@ export class RegisterComponent implements OnInit {
   }
   grades: IIdWithName[] = [];
 
+
+  //roles translated 
+ RoleLabelsEn: Record<Role, string> = {
+  [Role.Admin]: 'Admin',
+  [Role.Student]: 'Student',
+  [Role.Teacher]: 'Teacher',
+  [Role.SchoolPrincipal]: 'School Principal'
+};
+
+ RoleLabelsAr: Record<Role, string> = {
+  [Role.Admin]: 'ادمن',
+  [Role.Student]: 'طالب',
+  [Role.Teacher]: 'مدرس',
+  [Role.SchoolPrincipal]: 'مدير مدرسة'
+};
   // Inject Router if needed for navigation after successful login
   constructor(private registerFormData: RegisterFormDataService,
     private UserService: UserService,
@@ -60,7 +77,8 @@ export class RegisterComponent implements OnInit {
     private translateService: TranslateService,
     private router: Router, // Added Router for post-registration flow
     private learningSubjectService: LearningSubjectService ,
-    private contentService: ContentService
+    private contentService: ContentService,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -162,9 +180,7 @@ export class RegisterComponent implements OnInit {
   createAccount() {
     // 1. Disable form submission (using form.disabled property to prevent double-click)
     // The [disabled] attribute on the button in the template is good enough for most cases.
-    
-    this.registeredUser.role = Role.Student;
-    
+    debugger;    
     this.UserService.AddUser(this.registeredUser).subscribe(
       response => {
         if (response.isValid === true) {
@@ -189,8 +205,8 @@ export class RegisterComponent implements OnInit {
   
   clearRegisteForm() {
     // FIX: Using the form's reset method is better than reassigning the model
-    this.registerForm.resetForm(new Student()); 
-    this.registeredUser = new Student();
+    this.registerForm.resetForm(new User()); 
+    this.registeredUser = new User();
     this.schoolHasError = true;
     this.countryHasError = true;
     this.schoolValueManually = false;
@@ -286,4 +302,19 @@ export class RegisterComponent implements OnInit {
         }
       });
   }
+
+getRoles(): { id: Role; name: string }[] {
+  const labels = this.translateService.currentLang === 'ar' ? this.RoleLabelsAr :this. RoleLabelsEn;
+
+  const roles = [
+    Role.Student,
+    Role.Teacher,
+    Role.SchoolPrincipal
+  ]; // ✅ explicitly exclude Admin
+
+  return roles.map(role => ({
+    id: role,
+    name: labels[role]
+  }));
+}
 }

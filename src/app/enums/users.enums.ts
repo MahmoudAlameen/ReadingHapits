@@ -3,6 +3,8 @@ export interface IUserClaims {
   email: string;
   username: string;
   exp: number; // Expiration time
-    mustChangePassword: boolean;
+  mustChangePassword: boolean;
+  roles: string[]; // Array of user roles
+  isAccountActivatedAsMember: boolean
   // Add other claims you included on the backend
 }
