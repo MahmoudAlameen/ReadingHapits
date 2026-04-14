@@ -7,12 +7,21 @@ import { Injectable } from '@angular/core';
 )
 export class APIService
 {
-    base:string= "https://futureskillswebsiteapi-buhtbee0g0ezaefd.canadacentral-01.azurewebsites.net/"    //"https://www.readinghapitsapi.somee.com/"
-    mediaBase: string = "https://futureskillswebsiteapi-buhtbee0g0ezaefd.canadacentral-01.azurewebsites.net/" //"https://www.readinghapitsapi.somee.com/"
-    dashboardUrl: string = "https://future-skills-academy-dashboard.netlify.app/";
-    //base:string="https://localhost:7107/";
-   // mediaBase: string= "https://localhost:7107/";
-    //dashboardUrl: string = "http://localhost:4500/"
+    // production
+    //base:string=  "https://futureskillswebsiteapi-buhtbee0g0ezaefd.canadacentral-01.azurewebsites.net/" 
+    //mediaBase: string = "https://futureskillswebsiteapi-buhtbee0g0ezaefd.canadacentral-01.azurewebsites.net/" //"https://www.readinghapitsapi.somee.com/"
+    // dashboardUrl: string = "https://future-skills-academy-dashboard.netlify.app/";
+    
+    // test
+    //base: string = "https://www.readinghapitsapi.somee.com/"
+    //mediaBase: string = "https://www.readinghapitsapi.somee.com/"
+    //dashboardUrl: string = "https://future-skills-academy-dashboard.netlify.app/"
+
+    // local
+    base:string="https://localhost:7107/";
+    mediaBase: string= "https://localhost:7107/";
+    dashboardUrl: string = "http://localhost:4500/"
+
     AddUser:string=this.base+"users/addUser/";
     UserLogin=this.base+"users/login";
     UserLogout = this.base +"users/logout";

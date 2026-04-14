@@ -62,14 +62,18 @@
           <option [selected] ="grade.id == selectedGradeId" *ngFor="let grade of grades" [value]="grade.id">{{ grade.name }}</option>
         </select>
 </div>
-      <div class="form-group">
-        <label>العام الدراسى</label>
-        <select [(ngModel)]="selection.academicYear" class="custom-select">
-          <option *ngFor="let year of academicYears" [value]="year">
-            {{ year }}
-          </option>
-        </select>
-  <small class="helper-text">* يمكنك اختيار العام الدراسي المطلوب</small>
+<div class="form-group">
+  <label>العام الدراسى</label>
+
+  <select [(ngModel)]="selection.academicYear" class="custom-select">
+    <option *ngFor="let year of academicYears" [value]="year">
+      {{ year }}
+    </option>
+  </select>
+
+  <small class="helper-text">
+    * {{ ' You can choose the desired academic year' | translate }}
+  </small>
 </div>
     </div>
 

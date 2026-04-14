@@ -18,130 +18,145 @@ import { AssessmentType } from 'src/app/enums/assessments.enums';
   styleUrls: ['./learning-material-card.component.scss']
 })
 export class LearningMaterialCardComponent implements OnInit {
-@Input() material!: ILearningSubjectCard ; // Input property to receive material data
-displayedName: string = '';
-displayedDescription: string = '';
 
+  @Input() material!: ILearningSubjectCard;
 
-// semester popup properties
-showSelectionPopup = false;
-  
-  // Selection Model
-selection = {
+  displayedName: string = '';
+  displayedDescription: string = '';
+
+  showSelectionPopup = false;
+
+  // ✅ Selection model
+  selection = {
     semester: 3,
-    academicYear: '2025 - 2024'
+    academicYear: '' // will be set in ngOnInit
   };
-  // Mock data for dropdowns (Ideally these come from a service/constant)
-// Define your semesters using translation keys
-semesters = [
-  { id: 1, nameKey: 'SEMESTERS.FIRST' },
-  { id: 2, nameKey: 'SEMESTERS.SECOND' },
-  { id: 3, nameKey: 'SEMESTERS.THIRD' }
-];
 
-// If you prefer to keep the function approach for a specific reason:
-get translatedSemesters() {
-  return this.semesters.map(s => ({
-    id: s.id,
-    name: this.translateService.instant(s.nameKey)
-  }));
-}
-  academicYears = [
-  '2026 - 2025',
-  '2025 - 2024',
-  '2024 - 2023', 
-  '2023 - 2022',
-  '2022 - 2021',
-  '2021 - 2020',
-  '2020 - 2019',
-  '2019 - 2018'
-];
-activeSemesterId: number | null = null; // To track which one to enable
-selectedGradeId: string = '';
+  activeSemesterId: number | null = null;
+  selectedGradeId: string = '';
+
   grades!: IIdWithName[];
   alertMessage: AlertMessage = new AlertMessage();
   private subscriptions: Subscription[] = [];
 
-onViewDetails(learningSubjectId: string): void {
-// Implement view details logic
-this.userService.studentGrade.subscribe(g =>
-{
-    var gradeId = this.userService.studentGrade.value?.id;
+  // ✅ Correct academic years format
+  academicYears =[
+    '2018 - 2019',
+    '2019 - 2020',
+    '2020 - 2021',
+    '2021 - 2022',
+    '2022 - 2023',
+    '2023 - 2024',
+    '2024 - 2025',
+    '2025 - 2026',
+    '2026 - 2027',
+    '2027 - 2028',
+    '2028 - 2029',
+    '2029 - 2030',
+    '2030 - 2031',
+    '2031 - 2032',
+    '2032 - 2033',
+    '2033 - 2034',
+    '2034 - 2035',
+    '2035 - 2036',
+];
 
-  this.router.navigate(['/learning-subject', learningSubjectId],
-    {queryParams: {gradeId: gradeId}}
-  );
-}
+  semesters = [
+    { id: 1, nameKey: 'SEMESTERS.FIRST' },
+    { id: 2, nameKey: 'SEMESTERS.SECOND' },
+    { id: 3, nameKey: 'SEMESTERS.THIRD' }
+  ];
 
-
-)
-}
-
-onViewExams(): void {
-  var gradeId = this.userService.studentGrade.value?.id;
-  const selectedYearOnly = this.selection.academicYear.split(' - ')[0];
-  this.router.navigate(['/assessments/list'], {
-    queryParams: {
-      selectedSubject: this.material?.id,
-      gradeId: this.selectedGradeId,
-      selectedAssessmentType: AssessmentType.ItqanTraining,
-      semester: this.selection.semester,
-      academicYear: selectedYearOnly // This will now send "2025"
-    }
-  });
-// Implement view exams logic
-}
   constructor(
-    private router : Router,
+    private router: Router,
     private translateService: TranslateService,
     private API: APIService,
     private userService: UserService,
-    private assessmentsService: AssessmentsService,
+    public assessmentsService: AssessmentsService,
     private learningSubjectService: LearningSubjectService,
     private customAlert: CustomAlertService,
-    
-) { }
+  ) {}
 
   ngOnInit(): void {
-    this.displayedName = this.translateService.currentLang === 'ar'  ?
-     this.material.nameAr : this.material.nameEn;
-this.displayedDescription = this.translateService.currentLang === 'ar'
-  ? this.truncateText(this.material.descriptionAr || '')
-  : this.truncateText(this.material.descriptionEn || '');
 
-this.material.coverUrl = this.material.coverUrl
-  ? this.API.base + "LearningSubjects/" + this.material.coverUrl
-  : "assets/images/defaultLearningSubjectCoverImage/Learning_Material-Cards-card1-Cover_Section.png";
+    // 🔹 UI text
+    this.displayedName = this.translateService.currentLang === 'ar'
+      ? this.material.nameAr
+      : this.material.nameEn;
 
-    this.material.assignedTeachers.forEach(teacher => 
-    {
-      teacher.avatarUrl = teacher.avatarUrl ?
-       this.API.base + "Users/" + teacher.avatarUrl :
-        "assets/images/defaultCardTeachers/defaultUserImage/Card1-Teachers-Teacher2.png"
-    }
-    )
+    this.displayedDescription = this.translateService.currentLang === 'ar'
+      ? this.truncateText(this.material.descriptionAr || '')
+      : this.truncateText(this.material.descriptionEn || '');
+
+    // 🔹 Images
+    this.material.coverUrl = this.material.coverUrl
+      ? this.API.base + "LearningSubjects/" + this.material.coverUrl
+      : "assets/images/defaultLearningSubjectCoverImage/Learning_Material-Cards-card1-Cover_Section.png";
+
+    this.material.assignedTeachers.forEach(teacher => {
+      teacher.avatarUrl = teacher.avatarUrl
+        ? this.API.base + "Users/" + teacher.avatarUrl
+        : "assets/images/defaultCardTeachers/defaultUserImage/Card1-Teachers-Teacher2.png";
+    });
+
+    // 🔹 Default academic year
+    const currentAcademicYear = this.assessmentsService.getCurrentAcademicYear();
+    this.selection.academicYear = currentAcademicYear;
+
+    // 🔹 Load semester from backend
+    this.assessmentsService.getActiveSemester().subscribe(data => {
+
+      this.selection.semester = data.currentSemester;
+      this.activeSemesterId = data.currentSemester;
+
+      // ✅ Prefer backend if valid
+      if (this.academicYears.includes(data.currentYear)) {
+        this.selection.academicYear = data.currentYear;
+      }
+    });
+
     this.userService.setUserGrade();
     this.getGrades();
-    // semester popup logic
-    // Fetch active semester from backend
-this.assessmentsService.getActiveSemester().subscribe(data => {
-    // 1. Set the initial selection values
-    this.selection.semester = data.currentSemester;
-    this.selection.academicYear = data.currentYear;
-    
-    // 2. Store the ID of the semester that should remain enabled
-    this.activeSemesterId = data.currentSemester;
-  });
+  }
+
+  // 🔹 Navigation
+  onViewExams(): void {
+    const year = this.extractYear(this.selection.academicYear);
+    if (!year) return;
+
+    this.router.navigate(['/assessments/list'], {
+      queryParams: {
+        selectedSubject: this.material?.id,
+        gradeId: this.selectedGradeId,
+        selectedAssessmentType: AssessmentType.ItqanTraining,
+        semester: this.selection.semester,
+        academicYear: year
+      }
+    });
+  }
+
+  confirmAndNavigate(): void {
+    this.onViewExams();
+    this.closePopup();
+  }
+
+  // 🔹 Helpers
+  extractYear(academicYear: string): number | null {
+    if (!academicYear) return null;
+
+    const parts = academicYear.split(' - ');
+    if (parts.length !== 2) return null;
+
+    const year = Number(parts[0]);
+    return isNaN(year) ? null : year;
   }
 
   private truncateText(text: string, maxLength: number = 75): string {
-  if (!text) return '';
-  return text.length > maxLength ? text.substring(0, maxLength) + ' ...' : text;
-}
+    return text.length > maxLength ? text.substring(0, maxLength) + ' ...' : text;
+  }
 
-
-// semester popup methods
-openLearningPopup(): void {
+  // 🔹 Popup
+  openLearningPopup(): void {
     this.showSelectionPopup = true;
   }
 
@@ -149,24 +164,8 @@ openLearningPopup(): void {
     this.showSelectionPopup = false;
   }
 
-  confirmAndNavigate(): void {
-    const gradeId = this.userService.studentGrade.value?.id;
-const selectedYearOnly = this.selection.academicYear.split(' - ')[0];
-
-  this.router.navigate(['/assessments/list'], {
-    queryParams: {
-      selectedSubject: this.material?.id,
-      gradeId: this.selectedGradeId,
-      selectedAssessmentType: AssessmentType.ItqanTraining,
-      semester: this.selection.semester,
-      academicYear: selectedYearOnly // This will now send "2025"
-    }
-  });
-    
-    this.closePopup();
-  }
-
-    getGrades(): void {
+  // 🔹 Grades
+  getGrades(): void {
     const sub = this.learningSubjectService.getGradesIdsWIthNames().subscribe({
       next: res => {
         if (res.isValid && res.modelList) {
@@ -179,6 +178,7 @@ const selectedYearOnly = this.selection.academicYear.split(' - ')[0];
         }
       }
     });
+
     this.subscriptions.push(sub);
   }
 }

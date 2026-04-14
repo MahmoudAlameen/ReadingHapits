@@ -468,12 +468,16 @@ getActiveSemester(): Observable<{currentSemester: number, currentYear: string}>
 {
   const dummyData = {
     currentSemester: 3, 
-    currentYear: '2025 - 2024'
+    currentYear: this.getCurrentAcademicYear()
   };
 
   // 'of' wraps the object in an Observable, simulating a successful HTTP call
   return of(dummyData);
   return this.http.get<{currentSemester: number, currentYear: string}>('Settings/ActiveSemester');
+}
+  getCurrentAcademicYear(): string {
+  const currentYear = new Date().getUTCFullYear();
+  return `${currentYear} - ${currentYear + 1}`;
 }
 
 

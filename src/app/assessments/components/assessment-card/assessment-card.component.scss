@@ -141,7 +141,36 @@
 .btn-start {
     height: 56px; /* Strictly fixed height */
     min-width: 160px;
-    background: linear-gradient(135deg, #0078d4 0%, #005bb5 100%);
+    background: linear-gradient(135deg, #315c83 0%, #005bb5 100%);
+    color: white;
+    border: none;
+    padding: 0 32px;
+    border-radius: 18px;
+    font-weight: 800;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s;
+    white-space: nowrap;
+
+    &:hover {
+        transform: scale(1.03);
+        box-shadow: 0 10px 25px rgba(0, 120, 212, 0.35);
+    }
+
+    .arrow-icon {
+        font-size: 22px;
+    }
+}
+
+.btn-soon {
+    height: 56px; /* Strictly fixed height */
+    min-width: 160px;
+    visibility:hidden;
+    background: linear-gradient(135deg, #d4a600 0%, #005bb5 100%);
     color: white;
     border: none;
     padding: 0 32px;
