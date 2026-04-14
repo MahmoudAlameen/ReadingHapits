@@ -7,8 +7,8 @@ import { Injectable } from '@angular/core';
 )
 export class APIService
 {
-    base:string= "https://www.readinghapitsapi.somee.com/"
-    mediaBase: string = "https://www.readinghapitsapi.somee.com/"
+    base:string= "https://futureskillswebsiteapi-buhtbee0g0ezaefd.canadacentral-01.azurewebsites.net/"    //"https://www.readinghapitsapi.somee.com/"
+    mediaBase: string = "https://futureskillswebsiteapi-buhtbee0g0ezaefd.canadacentral-01.azurewebsites.net/" //"https://www.readinghapitsapi.somee.com/"
     dashboardUrl: string = "https://future-skills-academy-dashboard.netlify.app/";
     //base:string="https://localhost:7107/";
    // mediaBase: string= "https://localhost:7107/";

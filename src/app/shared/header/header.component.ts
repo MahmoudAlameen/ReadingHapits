@@ -41,7 +41,6 @@ export class HeaderComponent implements OnInit {
     // Logic to check if user has required roles
 this.canAccessDashboard$ = this.currentUser$.pipe(
   map(user => {
-    debugger;
     if (!user || !user.roles) return false;
 
     // 1. If the user is an Admin, they always have access
