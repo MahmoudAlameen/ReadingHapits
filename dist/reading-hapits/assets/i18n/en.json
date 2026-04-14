@@ -79,7 +79,7 @@
   },
   "nav": {
     "home": "Home",
-    "Excercises": "Excercises",
+    "Excercises": "Itqan Training",
     "assessments": "International Assessments",
     "about": "About Us"
   },
@@ -176,6 +176,8 @@
     "SUB_TITLE": "Comprehensive E-Learning Platform"
   },
   "Members": "Members",
-  "Role": "Role"
+  "Role": "Role",
+  " You can choose the desired academic year" :" You can choose the desired academic year",
+  "Questions Count": "Questions Count"
 
 }
