@@ -55,7 +55,7 @@
           *ngFor="let grade of gradesIds"
           [selected]="grade.id === gradeId"
            [value]="grade.id">
-           {{ grade.name }}
+           {{ grade.name | translate }}
           </option>
           </select>
         </div>

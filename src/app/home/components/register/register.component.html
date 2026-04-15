@@ -54,7 +54,7 @@
             <label for="grade">{{'Select Grade' | translate}} </label>
             <select class="form-control" id="grade" name="grade" required [(ngModel)]="registeredUser.gradeId" #grade="ngModel"
             [class.is-invalid] ="grade.invalid && grade.touched" >
-                <option [selected] ="grade.id == registeredUser.gradeId" *ngFor="let grade of grades" [value]="grade.id">{{ grade.name }}</option>
+                <option [selected] ="grade.id == registeredUser.gradeId" *ngFor="let grade of grades" [value]="grade.id">{{ grade.name | translate}}</option>
             </select>
         </div>
 
