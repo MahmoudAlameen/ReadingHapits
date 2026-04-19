@@ -119,6 +119,7 @@ this.canAccessDashboard$ = this.currentUser$.pipe(
 
   switchLanguage(langText: string) {
   const lang = langText === 'AR' ? 'ar' : 'en';
+    this.sessionStorageService.setItem(this.sessionStorageKeys.userLanguage, lang);
  this.translate.use(lang);
    //  this.isRtl = lang === 'ar';
 
@@ -128,6 +129,7 @@ this.canAccessDashboard$ = this.currentUser$.pipe(
 
  htmlTag.dir = lang === 'ar' ? 'rtl' : 'ltr';
  this.languageButtonText = lang === 'ar' ? 'EN' : 'AR';
+
 
  }
 

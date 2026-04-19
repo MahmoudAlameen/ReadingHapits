@@ -9,11 +9,13 @@ export class SessionStorageKeysService
     userName:string;
     name:string;
     jwt_token: string;
+    userLanguage: string = 'userLanguage';
     constructor()
     {
         this.userId="userId";
         this.userName="userName";
         this.name = "name";
         this.jwt_token = 'jwt_token';
+        this.userLanguage  = 'userLanguage'; 
     }
 }

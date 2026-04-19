@@ -3,6 +3,8 @@ import { NavigationStart, Router } from '@angular/router';
 import { Book } from './classes/Book';
 import { TranslateService } from '@ngx-translate/core';
 import { OnInit } from '@angular/core';
+import { SessionStorageKeysService } from './core/SessionStorageKeysService';
+import { SessionStorageService } from './core/SessionStorageService';
 
 
 @Component({
@@ -15,16 +17,19 @@ export class AppComponent implements OnInit {
   book:number=1
   width:string="200px"
   height:string="200px"
-  constructor(private translate: TranslateService)
+  constructor(
+    private translate: TranslateService,
+  private SessionStorageService: SessionStorageService,
+  private sessionStorageKeys: SessionStorageKeysService
+   )
   {
-
-
     // Auto-detect browser language (optional)
     translate.addLangs(['en', 'ar']);
     translate.setDefaultLang('en');
-
     const browserLang = translate.getBrowserLang();
-    translate.use(browserLang?.match(/en|ar/) ? browserLang : 'ar');
+    const lang = browserLang?.match(/en|ar/) ? browserLang : 'ar';
+    translate.use(lang);
+    SessionStorageService.setItem(sessionStorageKeys.userLanguage, lang);
 
   }
 

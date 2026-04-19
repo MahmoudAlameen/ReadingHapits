@@ -18,9 +18,9 @@ export class APIService
     //dashboardUrl: string = "https://future-skills-academy-dashboard.netlify.app/"
 
     // local
-   // base:string="https://localhost:7107/";
-   // mediaBase: string= "https://localhost:7107/";
-   // dashboardUrl: string = "http://localhost:4500/"
+    //base:string="https://localhost:7107/";
+    //mediaBase: string= "https://localhost:7107/";
+    //dashboardUrl: string = "http://localhost:4500/"
 
     AddUser:string=this.base+"users/addUser/";
     UserLogin=this.base+"users/login";

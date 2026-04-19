@@ -94,7 +94,8 @@ export class RegisterComponent implements OnInit {
 
       this.translateService.onLangChange.subscribe(e =>
       {
-        this.getCountries()
+        this.getCountries();
+        this.getGrades();
       }
       )
   }

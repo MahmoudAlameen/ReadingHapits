@@ -87,12 +87,15 @@ toggleMobileFilters() {
 
     // 🔥 auto refresh when language changes
     this.langSub = this.translateService.onLangChange.subscribe(() => {
+      this.getGradesIds();
       this.loadAssessmentSubjectTypeNames();
     });
 
     // Handle translation updates globally once
   this.langSub = this.translateService.onLangChange.subscribe(() => {
+
     this.assessments.forEach(a => {
+
       if (a.gradeId == null) {
         a.gradeName = this.translateService.currentLang === 'ar' ? 'كل الصفوف' : 'All Grades';
       }
