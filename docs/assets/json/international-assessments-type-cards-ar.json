@@ -1,0 +1,40 @@
+[
+  {
+    "title": "TIMSS",
+    "description": "دراسة الاتجاهات الدولية في الرياضيات والعلوم — مجموعات أسئلة مع تحليل البيانات.",
+    "tags": ["الصف الرابع / الثامن", "رياضيات", "علوم"],
+    "iconSrc": "timss.png",
+    "theme": "timss",
+    "type": 3,
+    "subjects": [
+      { "id": 1, "name": "الرياضيات", "coverUrl": "math.png" },
+      { "id": 2, "name": "العلوم", "coverUrl": "science.png" }
+    ]
+  },
+  {
+    "title": "PIRLS",
+    "description": "دراسة التقدم في مهارات القراءة الدولية — فقرات مع أسئلة للفهم والتحليل.",
+    "tags": ["الصف الرابع", "قراءة", "فهم"],
+    "iconSrc": "pirls.png",
+    "theme": "PIRLS",
+    "type": 2,
+    "subjects": [
+      { "id": 3, "name": "اللغة العربية", "coverUrl": "arabic.png" },
+      { "id": 4, "name": "اللغة الإنجليزية", "coverUrl": "english.png" }
+    ]
+  },
+  {
+    "title": "PISA",
+    "description": "القراءة والرياضيات والعلوم للطلاب بعمر 15 عامًا — مهام وسيناريوهات قائمة على التطبيق.",
+    "tags": ["العمر 15", "قراءة", "رياضيات", "علوم"],
+    "iconSrc": "pisa.png",
+    "theme": "PISA",
+    "type": 1,
+    "subjects": [
+      { "id": 1, "name": "الرياضيات", "coverUrl": "math.png" },
+      { "id": 2, "name": "العلوم", "coverUrl": "science.png" },
+      { "id": 3, "name": "اللغة العربية", "coverUrl": "arabic.png" },
+      { "id": 4, "name": "اللغة الإنجليزية", "coverUrl": "english.png" }
+    ]
+  }
+]
