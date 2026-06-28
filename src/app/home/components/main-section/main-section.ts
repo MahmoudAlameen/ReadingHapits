@@ -5,8 +5,8 @@ import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-main-section',
-  templateUrl: './Main-Section.html',
-  styleUrls: ['./Main-Section.scss'],
+  templateUrl: './main-Section.html',
+  styleUrls: ['./main-Section.scss'],
 })
 export class MainSectionComponent implements OnInit, OnDestroy {
   stats: any[] = [];
