@@ -3,12 +3,10 @@ name: Angular CI
 on:
   push:
     branches:
-      - main
-      - develop
+      -international-assessments
   pull_request:
     branches:
-      - main
-      - develop
+      - international-assessments
   workflow_dispatch:
 
 permissions:
